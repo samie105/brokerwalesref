@@ -5,10 +5,10 @@ import Image from "next/image";
 export default function Transparency() {
   const colors = useColors();
   return (
-    <div className="mt-12 privacy items-center gap-8 px-10 grid md:grid-cols-3">
+    <div className="mt-12 privacy items-center gap-8 px-2 md:px-10 grid md:grid-cols-3">
       <div className="flex h-full">
         <div
-          className="count text-[7rem] font-black text-blue-100 font-sans mr-6"
+          className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"
           style={{
             color: colors.defaultblue + "25",
           }}
@@ -32,7 +32,7 @@ export default function Transparency() {
         <div>
           {" "}
           <div
-            className="icon rounded-xl p-1 h-10 w-10 flex items-center justify-center"
+            className="icon rounded-xl hidden p-1 h-10 w-10 md:flex items-center justify-center"
             style={{
               background: colors.defaultblue + "10",
               color: colors.defaultblue,

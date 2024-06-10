@@ -26,7 +26,7 @@ export default function Navbar() {
   const colors = useColors();
   return (
     <div
-      className="nav_cont z-50 fixed top-0 w-full md:py-4 py-6 px-10 flex items-center text-sm justify-between"
+      className={`nav_cont z-50 fixed top-0 w-full md:py-3 py-3 px-10 flex items-center text-sm justify-between `}
       style={{ background: colors.defaultblue }}
     >
       <div className="logo text-white font-bold">
@@ -38,7 +38,7 @@ export default function Navbar() {
           className="w-16 h-6"
         />
       </div>
-      <div className="menu  hidden md:flex text-sm items-center">
+      <div className="menu  hidden md:flex text-xs items-center">
         <AnimatePresence>
           {nav.map((nav) => (
             <motion.div
@@ -140,9 +140,12 @@ export default function Navbar() {
             </div>
             <div className="cta absolute bottom-4 text-sm left-0 w-full px-5 text-center">
               <p className=" line h-0.5 w-[20%] bg-white/30 rounded-full mx-auto mb-4"></p>
-              <div className=" px-5 py-3 rounded-xl  font-semibold bg-white/10 text-white cursor-pointer hover:opacity-90 transition-all">
+              <Link
+                href={"/auth/login"}
+                className=" px-5 py-3 rounded-xl  font-semibold bg-white/10 text-white cursor-pointer hover:opacity-90 transition-all"
+              >
                 Sign-in
-              </div>
+              </Link>
               <div
                 className="mt-2 px-5 py-3 rounded-xl font-semibold text-white cursor-pointer hover:opacity-90 transition-all"
                 style={{ background: colors.darkdefualtblue }}

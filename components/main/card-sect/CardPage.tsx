@@ -30,7 +30,7 @@ export default function CardPage() {
           <div className="large-text text-2xl mt-3 font-bold text-neutral-700">
             Explore Credit Card Options
           </div>
-          <div className="small-text text-sm mt-1 font-medium text-neutral-500 text-balance">
+          <div className="small-text text-sm mt-1 font-medium text-neutral-500 md:text-balance">
             Discover the best credit card options at <b>Wilson Bank</b>,
             tailored to maximize your purchasing power and financial
             flexibility. Benefit from our expert advice and exclusive rewards as

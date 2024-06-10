@@ -13,6 +13,7 @@ export const StickyScroll = ({
     title: string;
     description: string;
     content?: React.ReactNode | any;
+    svg?: any;
   }[];
   contentClassName?: string;
 }) => {
@@ -42,9 +43,9 @@ export const StickyScroll = ({
   });
 
   const backgroundColors = [
-    "var(--slate-900)",
-    "var(--black)",
-    "var(--neutral-900)",
+    "var(--blue-50/40)",
+    "var(--blue-100/40)",
+    "var(--blue-50/40)",
   ];
   const linearGradients = [
     "linear-gradient(to bottom right, var(--cyan-500), var(--emerald-500))",
@@ -56,41 +57,33 @@ export const StickyScroll = ({
     linearGradients[0]
   );
 
-  // useEffect(() => {
-  //   setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
-  // }, [activeCard]);
+  useEffect(() => {
+    setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
+  }, [activeCard]);
   const colors = useColors();
   return (
     <motion.div
-      className="h-[22rem] overflow-y-auto flex justify-between relative px-20 /space-x-10 rounded-md py-5 /px-5"
+      animate={{
+        backgroundColor: backgroundColors[activeCard % backgroundColors.length],
+      }}
+      className="h-[22rem] overflow-y-auto flex justify-between relative px-32 /space-x-10 rounded-md py-5 /px-5"
       ref={ref}
     >
       <div className="div relative flex items-start /px-4">
         <div className="max-w-2xl">
           {content.map((item, index) => (
             <div key={item.title + index} className="my-40">
-              <div className="flex item-center gap-x-2">
+              <div className="flex item-center gap-x-2 my-3 ">
                 <div
-                  className="icon rounded-xl my-3 p-1 h-10 w-10 flex items-center justify-center"
+                  className="icon rounded-xl p-1 h-10 w-10 flex items-center justify-center"
                   style={{
-                    background: colors.defaultblue + "10",
+                    background: colors.defaultblue + "09",
                     color: colors.defaultblue,
                   }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M13.2 2.24a.75.75 0 0 0 .04 1.06l2.1 1.95H6.75a.75.75 0 0 0 0 1.5h8.59l-2.1 1.95a.75.75 0 1 0 1.02 1.1l3.5-3.25a.75.75 0 0 0 0-1.1l-3.5-3.25a.75.75 0 0 0-1.06.04Zm-6.4 8a.75.75 0 0 0-1.06-.04l-3.5 3.25a.75.75 0 0 0 0 1.1l3.5 3.25a.75.75 0 1 0 1.02-1.1l-2.1-1.95h8.59a.75.75 0 0 0 0-1.5H4.66l2.1-1.95a.75.75 0 0 0 .04-1.06Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  {item.svg}
                 </div>
-                <div className="icon rounded-xl p-1 h-10 w-auto bg-green-100 text-green-700  flex items-center justify-center">
+                <div className="icon rounded-xl text-sm py-1 px-3  font-semibold h-10 w-auto bg-blue-100/30 text-blue-800 flex items-center justify-center">
                   High Value
                 </div>
               </div>

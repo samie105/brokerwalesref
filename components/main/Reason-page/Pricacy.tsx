@@ -5,11 +5,11 @@ import Image from "next/image";
 export default function Privacy() {
   const colors = useColors();
   return (
-    <div className="mt-12 privacy items-center gap-8 px-10 grid md:grid-cols-3">
-      <div className="text-cont flex /items-center h-full">
+    <div className="mt-12 privacy items-end md:items-center gap-8 px-2 md:px-10 grid md:grid-cols-3">
+      <div className="text-cont flex /items-center h-full order-last">
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div> */}
         <div
-          className="count text-[7rem] font-black text-blue-100 font-sans mr-6"
+          className="count text-[7rem] font-black hidden md:block text-blue-100 font-sans md:mr-6 mr-3"
           style={{
             color: colors.defaultblue + "25",
           }}
@@ -19,7 +19,7 @@ export default function Privacy() {
         <div>
           {" "}
           <div
-            className="icon rounded-xl p-1 h-10 w-10 flex items-center justify-center"
+            className="icon rounded-xl px-2 md:p-1 h-10 w-10 hidden md:flex items-center justify-center"
             style={{
               background: colors.defaultblue + "10",
               color: colors.defaultblue,
@@ -41,7 +41,7 @@ export default function Privacy() {
           <div className="name font-bold mt-2 text-lg text-neutral-600">
             Private and Secured
           </div>
-          <div className="desc mt-2 /font-medium text-xs text-neutral-500 font-semibold /p-2 rounded-sm /text-balance">
+          <div className="desc mt-2  /font-medium text-xs text-neutral-500 font-semibold /p-2 rounded-sm /text-balance">
             At Wilson Investment Bank & Co, your privacy and securities are our
             top priorities. With state-of-the-art encryption technology,
             multi-factor authentication, and continuous monitoring, we ensure
@@ -51,7 +51,7 @@ export default function Privacy() {
         </div>
       </div>
       <LottieLoaderPrivacy />
-      <div className="image">
+      <div className="image order-first">
         <Image
           src={"/assets/privacywcu.png"}
           alt=""

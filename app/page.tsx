@@ -7,10 +7,11 @@ import Testimonials from "@/components/main/testimonials/Testimonials";
 import SupportContact from "@/components/main/support-contact/Support";
 import CardPage from "@/components/main/card-sect/CardPage";
 import ReasonPage from "@/components/main/Reason-page/ReasonPage";
+import Footer from "@/components/main/Footer/Footer";
 
 export default function page() {
   return (
-    <div>
+    <div className=" ">
       <Hero />
       <Discover />
       <Wcu />
@@ -19,6 +20,7 @@ export default function page() {
       <CardPage />
       <Testimonials />
       <SupportContact />
+      <Footer />
     </div>
   );
 }

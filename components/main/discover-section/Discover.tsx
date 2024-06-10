@@ -161,7 +161,7 @@ export default function Discover() {
             Discover our tailored banking <br className="hidden md:block" />{" "}
             solutions and services
           </div>
-          <div className="subtext text-base text-balance mt-2 md:text-center lg:text-left font-semibold text-neutral-600">
+          <div className="subtext text-base md:text-balance mt-2 md:text-center lg:text-left font-semibold text-neutral-600">
             Explore our suite of banking services designed for your convenience
             and peace of mind. Start discovering today
           </div>
