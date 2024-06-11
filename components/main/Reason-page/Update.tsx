@@ -5,11 +5,11 @@ import LottieLoaderUpdate from "./LottieLoaderUpdate";
 export default function Update() {
   const colors = useColors();
   return (
-    <div className="mt-12 privacy items-center gap-8 px-10 grid md:grid-cols-3">
-      <div className="text-cont flex /items-center h-full">
+    <div className="mt-12 privacy items-center gap-8 px-2 md:px-10 grid md:grid-cols-3">
+      <div className="text-contorder-last flex /items-center h-full">
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div> */}
         <div
-          className="count text-[7rem] font-black text-blue-100 font-sans mr-6"
+          className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"
           style={{
             color: colors.defaultblue + "25",
           }}
@@ -19,7 +19,7 @@ export default function Update() {
         <div>
           {" "}
           <div
-            className="icon rounded-xl p-1 h-10 w-10 flex items-center justify-center"
+            className="icon rounded-xl p-1 h-10 w-10 hidden md:flex items-center justify-center"
             style={{
               background: colors.defaultblue + "10",
               color: colors.defaultblue,
@@ -38,10 +38,10 @@ export default function Update() {
               />
             </svg>
           </div>
-          <div className="name font-bold mt-2 pr-2 text-lg text-neutral-600">
+          <div className="name font-bold mt-2 /pr-2 text-lg text-neutral-600">
             Improvement & Innovations
           </div>
-          <div className="desc mt-2 /font-medium text-xs text-neutral-500 font-semibold p-2 rounded-sm /text-balance">
+          <div className="desc mt-2 /font-medium text-xs text-neutral-500 font-semibold /p-2 rounded-sm /text-balance">
             At Wilson Investment Bank & Co, we are committed to innovation and
             continuous improvement. Our cutting-edge technology and digital
             solutions are constantly evolving to meet the changing needs of our
@@ -53,7 +53,7 @@ export default function Update() {
         </div>
       </div>
       <LottieLoaderUpdate />
-      <div className="image">
+      <div className="image order-first md:order-none">
         <Image
           src={"/assets/updatewcu.png"}
           alt=""

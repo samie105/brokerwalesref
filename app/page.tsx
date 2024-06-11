@@ -8,6 +8,7 @@ import SupportContact from "@/components/main/support-contact/Support";
 import CardPage from "@/components/main/card-sect/CardPage";
 import ReasonPage from "@/components/main/Reason-page/ReasonPage";
 import Footer from "@/components/main/Footer/Footer";
+import Category from "@/components/main/bank_cat/Category";
 
 export default function page() {
   return (
@@ -16,6 +17,7 @@ export default function page() {
       <Discover />
       <Wcu />
       <Savings />
+      <Category />
       <ReasonPage />
       <CardPage />
       <Testimonials />

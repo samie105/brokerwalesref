@@ -6,7 +6,7 @@ export default function Privacy() {
   const colors = useColors();
   return (
     <div className="mt-12 privacy items-end md:items-center gap-8 px-2 md:px-10 grid md:grid-cols-3">
-      <div className="text-cont flex /items-center h-full order-last">
+      <div className="text-cont flex /items-center h-full order-last md:order-none">
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div> */}
         <div
           className="count text-[7rem] font-black hidden md:block text-blue-100 font-sans md:mr-6 mr-3"
@@ -51,7 +51,7 @@ export default function Privacy() {
         </div>
       </div>
       <LottieLoaderPrivacy />
-      <div className="image order-first">
+      <div className="image order-first md:order-none">
         <Image
           src={"/assets/privacywcu.png"}
           alt=""

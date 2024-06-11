@@ -6,8 +6,18 @@ import LottieloaderSupport from "./LottieloaderSupport";
 export default function Support() {
   const colors = useColors();
   return (
-    <div className="mt-12 privacy items-center gap-8 px-10 grid md:grid-cols-3">
-      <LottieloaderSupport />
+    <div className="mt-12 privacy items-center lg:gap-8 md:gap-5   px-2 md:px-10 grid md:grid-cols-3">
+      <div className="flex h-full">
+        <div
+          className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"
+          style={{
+            color: colors.defaultblue + "25",
+          }}
+        >
+          4
+        </div>{" "}
+        <LottieloaderSupport />
+      </div>
       <div className="image">
         <Image
           src={"/assets/supportwcu.png"}
@@ -19,11 +29,10 @@ export default function Support() {
       </div>{" "}
       <div className="text-cont flex /items-center h-full">
         {" "}
-        <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div>{" "}
         <div>
           {" "}
           <div
-            className="icon rounded-xl p-1 h-10 w-10 flex items-center justify-center"
+            className="icon hidden rounded-xl p-1 h-10 w-10 md:flex items-center justify-center"
             style={{
               background: colors.defaultblue + "10",
               color: colors.defaultblue,
@@ -42,10 +51,10 @@ export default function Support() {
               />
             </svg>
           </div>
-          <div className="name font-bold mt-2 text-lg pr-2 text-neutral-600">
+          <div className="name font-bold mt-2 text-lg /pr-2 text-neutral-600">
             Responsive Support
           </div>
-          <div className="desc mt-2 /font-medium text-xs text-neutral-500  font-semibold p-2 rounded-sm /text-balance">
+          <div className="desc mt-2 /font-medium text-xs text-neutral-500  font-semibold /p-2 rounded-sm /text-balance">
             At Wilson Investment Bank & Co, we prioritize customer satisfaction
             above all else. Our dedicated team is here to listen to your
             feedback, address your concerns, and provide personalized support
