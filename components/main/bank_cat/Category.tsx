@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function Category() {
   return (
     <section className="w-full py-6">
-      <div className="container px-4 md:px-6">
+      <div className="container px-4 md:px-20">
         <div className="space-y-8">
           {/* <div className="text-center">
             <h2 className="text-2xl font-bold tracking-tighter ">
@@ -23,64 +23,66 @@ export default function Category() {
             </p>
           </div> */}
           <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-lg /border /border-gray-200 bg-white p-6 shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
+            <div className="rounded-lg overflow-hidden /border /border-gray-200 bg-white /p-6 shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
               <div className="space-y-4">
                 {" "}
-                <div className="inline-block rounded-lg bg-blue-50  text-blue-500 font-medium px-3 py-1 text-sm dark:bg-gray-800">
-                  <BriefcaseIcon className="w-4 h-4 mr-2 inline-block " />
-                  Small Businesses
-                </div>
                 <Image
                   src={"/assets/smallbusinesses.png"}
                   width={400}
                   height={250}
                   alt="Small Business"
-                  className="rounded-lg object-cover h-48 overflow-hidden w-full"
-                />
-                <h3 className="text- font-bold">Tailored for Your Growth</h3>
-                <p className="text-gray-500 text-sm font-medium dark:text-gray-400">
+                  className="rounded-lg/ object-cover h-60 overflow-hidden w-full"
+                />{" "}
+                <div className="inline-block rounded-lg bg-blue-50 mx-6 text-blue-500 font-medium px-3 py-1 text-xs dark:bg-gray-800">
+                  <BriefcaseIcon className="w-4 h-4 mr-2 inline-block " />
+                  Small Businesses
+                </div>
+                <h3 className="text- font-bold px-6">
+                  Tailored for Your Growth
+                </h3>
+                <p className="text-gray-500 text-sm font-medium dark:text-gray-400 px-6 pb-4">
                   Our specialized banking services are designed to support small
                   businesses like yours, helping you manage your finances and
                   achieve your goals.
                 </p>
               </div>
             </div>
-            <div className="rounded-lg /border /border-gray-200 bg-white p-6 shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
+            <div className="rounded-lg overflow-hidden /border /border-gray-200 bg-white /p-6 shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
               <div className="space-y-4">
-                <div className="inline-block rounded-lg font-medium text-green-500 bg-green-50 px-3 py-1 text-sm dark:bg-gray-800">
-                  <BuildingIcon className="w-4 h-4 mr-2 inline-block text-sm" />
-                  Large Enterprises
-                </div>{" "}
                 <Image
                   src={"/assets/bigbusinesses.png"}
                   width={400}
                   height={300}
                   alt="Large Enterprise"
-                  className="rounded-lg object-cover w-full h-48 overflow-hidden"
-                />
-                <h3 className="text- font-bold">Powering Your Growth</h3>
-                <p className="text-gray-500 text-sm font-medium dark:text-gray-400">
+                  className="rou/nded-lg object-cover w-full h-60 overflow-hidden"
+                />{" "}
+                <div className="inline-block rounded-lg font-medium mx-6 text-green-500 bg-green-50 px-3 py-1 text-xs dark:bg-gray-800">
+                  <BuildingIcon className="w-4 h-4 mr-2 inline-block text-sm" />
+                  Large Enterprises
+                </div>{" "}
+                <h3 className="text- font-bold px-6">Powering Your Growth</h3>
+                <p className="text-gray-500 text-sm font-medium dark:text-gray-400 px-6 pb-4">
                   Our comprehensive banking solutions are tailored to meet the
                   complex needs of large enterprises, helping you manage your
                   finances and drive your business forward.
                 </p>
               </div>
             </div>
-            <div className="rounded-lg /border /border-gray-200 bg-white p-6 shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
+            <div className="rounded-lg overflow-hidden /border /border-gray-200 bg-white shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
               <div className="space-y-4">
-                <div className="inline-block rounded-lg font-medium bg-red-50 text-red-500 px-3 py-1 text-sm dark:bg-gray-800">
+                <Image
+                  src={"/assets/sstartups.png"}
+                  width={1000}
+                  height={1000}
+                  alt="Startup"
+                  className=" object-cover w-full h-60 overflow-hidden"
+                />{" "}
+                <div className="inline-block rounded-full mx-6 font-medium bg-red-50 text-red-500 px-3 py-1 text-xs dark:bg-gray-800">
                   <RocketIcon className="w-4 h-4 mr-2 inline-block text-sm" />
                   Startups
                 </div>{" "}
-                <Image
-                  src={"/assets/sstartups.png"}
-                  width={400}
-                  height={300}
-                  alt="Startup"
-                  className="rounded-lg object-cover w-full h-48 overflow-hidden"
-                />
-                <h3 className="text font-bold">Fueling Your Innovation</h3>
-                <p className="text-gray-500 text-sm font-medium dark:text-gray-400">
+                <h3 className="text font-bold px-6">Fueling Your Innovation</h3>
+                <p className="text-gray-500 text-sm font-medium dark:text-gray-400 px-6 pb-4">
                   Our specialized banking services are designed to support
                   startups like yours, providing the financial tools and
                   expertise you need to turn your ideas into reality.

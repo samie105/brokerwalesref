@@ -2,11 +2,12 @@ import { useColors } from "@/context/colorContext";
 import React from "react";
 import LottieloaderTransperency from "./LottieloaderTransparency";
 import Image from "next/image";
+import Link from "next/link";
 export default function Transparency() {
   const colors = useColors();
   return (
-    <div className="mt-12 privacy items-center gap-8 px-2 md:px-10 grid md:grid-cols-3">
-      <div className="flex h-full">
+    <div className="mt-8 privacy items-center gap-x-8 shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md mx-20 /px-2 /md:px-10 grid md:grid-cols-2">
+      {/* <div className="flex h-full">
         <div
           className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"
           style={{
@@ -14,25 +15,16 @@ export default function Transparency() {
           }}
         >
           2
-        </div>{" "}
-        <LottieloaderTransperency />
-      </div>
-      <div className="image">
-        <Image
-          src={"/assets/transparencywcu.png"}
-          alt=""
-          width={1000}
-          height={1000}
-          className="w-full h-full rounded-xl"
-        />
-      </div>{" "}
-      <div className="text-cont flex /items-center h-full">
+        </div>
+    
+      </div> */}
+      <div className="text-cont py-20 px-16 flex /items-center h-full">
         {" "}
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div>{" "} */}
         <div>
           {" "}
           <div
-            className="icon rounded-xl hidden p-1 h-10 w-10 md:flex items-center justify-center"
+            className="icon gap-x-2  p-2 inline-flex rounded-lg py-2 px-2 text-sm font-semibold items-center "
             style={{
               background: colors.defaultblue + "10",
               color: colors.defaultblue,
@@ -51,20 +43,55 @@ export default function Transparency() {
                 clipRule="evenodd"
               />
             </svg>
+            <p>Transparency</p>
           </div>
           <div className="name font-bold mt-2 text-lg /pr-2 text-neutral-600">
-            Transparency
+            Transparency & Trust
           </div>
-          <div className="desc mt-2 /font-medium text-xs text-neutral-500  font-semibold /p-2 rounded-sm /text-balance">
+          <div className="desc mt-2 font-medium text-sm text-neutral-500  /font-semibold /p-2 rounded-sm text-balance">
             At Wilson Investment Bank & Co, transparency is paramount. We
             provide clear and concise information about our fees, terms. and
             policies, ensuring you have full visibility into your banking
             experience. Additionally, our dedicated team of professionals is
             committed to providing honest and reliable assistance whenever you
-            need it.
+            need it. Count on Wilson Investment bank & Co for transparent
+            banking services that empower you to make informed financial
+            decisions with confidence.
+          </div>
+          <div className="flex">
+            {" "}
+            <Link
+              href="#"
+              style={{ background: colors.defaultblue }}
+              className="flex h-12 items-center justify-center gap-x-2 mt-8 rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+            >
+              <p>{"Let's Sign"}</p>{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="size-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
-      </div>
+      </div>{" "}
+      <div className="image h-full bg-blue-700/5">
+        {/* <Image
+          src={"/assets/transparencywcu.png"}
+          alt=""
+          width={1000}
+          height={1000}
+          className="w-full h-full /rounded-xl"
+        /> */}{" "}
+        <LottieloaderTransperency />
+      </div>{" "}
     </div>
   );
 }

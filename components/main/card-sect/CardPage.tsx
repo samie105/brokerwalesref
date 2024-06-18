@@ -1,14 +1,25 @@
 "use client";
 import { useColors } from "@/context/colorContext";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ImageJuggler from "./ImageJuggler";
+import Image from "next/image";
 
 export default function CardPage() {
   const colors = useColors();
+
   return (
     <div>
-      <div className="px-10 md:px-20 h-full w-full savings_cont grid md:grid-cols-2 grid-cols-1 mt-16 mb-16 md:items-center">
-        <div className="text-cont ">
+      <div className="px-10 md:px-20 h-full w-full savings_cont grid md:grid-cols-2 grid-cols-1 mt-16 mb-16 md:items-center bg-neutral-400/10 py-10 overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-full bg-fixed z-10 bg-repeat opacity-35">
+          <Image
+            src="/assets/cardbg.svg"
+            alt=""
+            width={1000}
+            height={1000}
+            className="h-full/ w-full opacity-5  parallax-image  /object-cover"
+          />
+        </div>
+        <div className="text-cont z-20">
           <div className="flex items-center gap-x-3">
             <div className="register bg-green-700/10 text-xs text-green-500 p-2 rounded-full font-bold flex items-center gap-2 cursor-pointer hover:bg-[#]">
               <svg

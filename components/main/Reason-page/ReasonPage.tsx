@@ -135,7 +135,7 @@ export default function ReasonPage() {
   ];
   const colors = useColors();
   return (
-    <div className="mt-14 /md:px-20 px-7 snap-start">
+    <div className="mt-14 /md:px-20 px-7 snap-start /bg-gray-100 py-8">
       <div className="text-cont md:text-center">
         {" "}
         <div className="flex text-xs mb-2 gap-3 md:justify-center ">

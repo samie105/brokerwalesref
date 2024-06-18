@@ -2,24 +2,35 @@ import { useColors } from "@/context/colorContext";
 import React from "react";
 import LottieLoaderPrivacy from "./LottieLoaderPrivacy";
 import Image from "next/image";
+import Link from "next/link";
 export default function Privacy() {
   const colors = useColors();
   return (
-    <div className="mt-12 privacy items-end md:items-center gap-8 px-2 md:px-10 grid md:grid-cols-3">
-      <div className="text-cont flex /items-center h-full order-last md:order-none">
+    <div className="mt-8 privacy items-end md:items-center /bg-white gap-8 /px- shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md mx-20 /md:px-10 grid s/hadow-md md:grid-cols-2">
+      <div className="image bg-blue-700/5 h-full order-first md:order-none">
+        {/* <Image
+          src={"/assets/privacywcu.png"}
+          alt=""
+          width={1000}
+          height={1000}
+          className="w-full h-full /rounded-xl"
+        /> */}
+        <LottieLoaderPrivacy />
+      </div>{" "}
+      <div className="text-cont py-20 px-12 flex /items-center h-full order-last md:order-none">
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div> */}
-        <div
+        {/* <div
           className="count text-[7rem] font-black hidden md:block text-blue-100 font-sans md:mr-6 mr-3"
           style={{
             color: colors.defaultblue + "25",
           }}
         >
           1
-        </div>
+        </div> */}
         <div>
           {" "}
           <div
-            className="icon rounded-xl px-2 md:p-1 h-10 w-10 hidden md:flex items-center justify-center"
+            className="icon inline-flex rounded-lg py-2 px-2 text-sm font-semibold bg-green-500/10 text-green-600  items-center gap-x-2 /justify-center"
             style={{
               background: colors.defaultblue + "10",
               color: colors.defaultblue,
@@ -37,28 +48,42 @@ export default function Privacy() {
                 clipRule="evenodd"
               />
             </svg>
+            <p>Privacy</p>
           </div>
           <div className="name font-bold mt-2 text-lg text-neutral-600">
             Private and Secured
           </div>
-          <div className="desc mt-2  /font-medium text-xs text-neutral-500 font-semibold /p-2 rounded-sm /text-balance">
+          <div className="desc mt-2  font-medium pr-6 md:text-balance text-sm text-neutral-500 /font-semibold /p-2 rounded-sm /text-balance">
             At Wilson Investment Bank & Co, your privacy and securities are our
             top priorities. With state-of-the-art encryption technology,
             multi-factor authentication, and continuous monitoring, we ensure
             that your sensitive information and transactions are safeguarded at
-            every step.
+            every step. Rest assured, your financial data remains private and
+            protected, allowing you to bank with confidence and peace of mind.
+          </div>
+          <div className="flex">
+            {" "}
+            <Link
+              href="#"
+              style={{ background: colors.defaultblue }}
+              className="flex h-12 items-center justify-center gap-x-2 mt-8 rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+            >
+              <p>{"Stay Secured"}</p>{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="size-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
-      </div>
-      <LottieLoaderPrivacy />
-      <div className="image order-first md:order-none">
-        <Image
-          src={"/assets/privacywcu.png"}
-          alt=""
-          width={1000}
-          height={1000}
-          className="w-full h-full rounded-xl"
-        />
       </div>
     </div>
   );

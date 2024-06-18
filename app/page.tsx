@@ -9,17 +9,19 @@ import CardPage from "@/components/main/card-sect/CardPage";
 import ReasonPage from "@/components/main/Reason-page/ReasonPage";
 import Footer from "@/components/main/Footer/Footer";
 import Category from "@/components/main/bank_cat/Category";
+import Flight from "@/components/main/Flight/Flight";
 
 export default function page() {
   return (
     <div className=" ">
       <Hero />
       <Discover />
+      <CardPage />
+      <Category />
+      <Flight />
       <Wcu />
       <Savings />
-      <Category />
       <ReasonPage />
-      <CardPage />
       <Testimonials />
       <SupportContact />
       <Footer />
