@@ -20,7 +20,7 @@ export default function Navbar() {
 
   const handleScroll = () => {
     // Show button when the user scrolls beyond 100 pixels
-    if (window.pageYOffset > 150) {
+    if (window.pageYOffset > 80) {
       setShowButton(true);
     } else {
       setShowButton(false);
@@ -44,7 +44,7 @@ export default function Navbar() {
       className={`nav_cont transition-all z-50  ${
         showButton
           ? "border-b bg-[#ffffffb2] backdrop-filter backdrop-blur-md "
-          : "bg-gray-100 border-0"
+          : "bg-transparent border-0"
       }  fixed top-0 w-full md:py-3 py-5 px-10 flex items-center text-sm justify-between `}
       // style={{ background: colors.defaultblue }}
     >

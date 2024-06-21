@@ -7,9 +7,11 @@ import CountUp from "react-countup";
 
 import { Inter } from "next/font/google";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeam";
+import { FlipWords } from "@/components/ui/flip-words";
 const inter = Inter({
   subsets: ["latin"],
 });
+const words = ["Financial", "Secured", "Wealth", "Wilson-Bank"];
 export default function Hero() {
   type bankData = {
     id: number;
@@ -100,32 +102,33 @@ export default function Hero() {
   ];
   const colors = useColors();
   return (
-    <div className="cont h-screen b/g-gray-100 /bg-grid-blue-800/5 overflow-hidden">
-      <BackgroundBeams />
+    <div className="cont h-screen b/g-gray-100 w-full overflow-hidden">
+      {/* <BackgroundBeams /> */}
       <div className="imageCont  relative w-full h-full">
-        <div className="w-full h-full absolute top-0 left-0">
+        <div className="w-full h-full absolute top0">
           <Image
             alt=""
             src={heroImg}
-            className=" h-full full object-cover"
+            className=" h-full w-full object-cover"
             width={1000}
             height={1000}
           />
         </div>
         <div className="itemsCont absolute z-10 top-0 left-0 w-full h-full">
-          <div className="inner-cont grid grid-cols-1 /h-[80%] w-[90%] mx-auto lg:w-full lg:mx-0 text-center lg:text-left lg:grid-cols-2 lg:h-[100%] h-[55%] md:h-[60%] px-1 md:px-16 items-end lg:items-center">
+          <div className="inner-cont grid grid-cols-1 /h-[80%] w-[90%] mx-auto lg:w-full lg:mx-0 /text-center lg:text-left lg:grid-cols-2 lg:h-[100%] h-[55%] md:h-[60%] px-1 md:px-16 items-end lg:items-center">
             <div className="textcont lg:pl-4 lg:pr-7">
-              <div className="large-text font-bold text-3xl sm:text-3xl md:text-4xl text-balance text-blue-800">
+              <div className="large-text font-bold text-2xl sm:text-3xl md:text-4xl text-balance text-black/80">
                 Start your
-                <br className="md:hidden" /> Financial Journey with exceptional
-                service
+                <br className="hidden" />{" "}
+                <FlipWords words={words} className="text-blue-800" />{" "}
+                <br className="" /> Journey with exceptional service
               </div>
-              <div className="sub-text text-sm text-neutral-400  font-semibold md:mt-5 mt-3  md:text-balance ">
+              <div className="sub-text /text-sm text-neutral-600 md:text-base text-sm pr-20 md:pr-0 font-medium md:mt-5 mt-3  text-balance ">
                 Experience a new era of everyday banking, offering seamless and
                 personalized solutions meticulously designed to meet all your
                 financial needs and aspirations.
               </div>
-              <div className="cta flex items-center lg:justify-start justify-center  mt-6 text-sm gap-2 md:gap-4">
+              <div className="cta flex  items-center lg:justify-start   mt-8 text-sm gap-2 md:gap-4">
                 <div
                   className="register px-6 py-4 rounded-xl font-bold text-white flex items-center gap-3 cursor-pointer hover:bg-[#]"
                   style={{ background: colors.defaultblue }}
@@ -170,19 +173,25 @@ export default function Hero() {
             <div className="inner_cont2 mt-8 md:mt-0 hidden md:px-16 px-5 lg:grid lg:grid-cols-2  gap-3  items-center justify-center w-full">
               {bData.map((data) => (
                 <div
-                  className="rounded-xl md:p-4 p-2  bg-[#ffffff15] md:w-44 lg:w-full flex flex-col justify-center"
+                  className="rounded-xl md:p-4 p-2  bg-[#ffffffc1] backdrop-filter backdrop-blur-md md:w-44 lg:w-full flex flex-col justify-center"
                   key={data.id}
                 >
-                  <div className="icon-cont bg-white/10 p-2 h-11 mx-auto flex items-center justify-center w-11 rounded-full text-white">
+                  <div
+                    className="icon-cont bg-white/10 p-2 h-11 mx-auto flex items-center justify-center w-11 rounded-full text-white"
+                    style={{
+                      color: colors.defaultblue,
+                      background: colors.defaultblue + "10",
+                    }}
+                  >
                     {data.icon}
                   </div>
-                  <div className="number-cont text-center  text-white mt-3 font-bold ext-sm md:text-base">
+                  <div className="number-cont text-center  text-black/90 mt-3 font-bold ext-sm md:text-base">
                     <p className={inter.className}>
                       <CountUp end={data.number} duration={5} />
                       {data.plus}
                     </p>
                   </div>
-                  <div className="text-cont mt-1 md:mt-0 px-2 md:px-0 /text-balance text-sm text-center font-semibold  text-neutral-400">
+                  <div className="text-cont mt-1 md:mt-0 px-2 md:px-0 /text-balance text-sm text-center font-semibold  text-black/60">
                     {data.name}
                   </div>
                 </div>
@@ -192,19 +201,25 @@ export default function Hero() {
           <div className="inner_cont2 md:h-[30%] mt-16 md:mt-0 lg:hidden md:px-16 px-5 grid grid-cols-2 md:flex gap-3  items-center justify-center w-full">
             {bData.map((data) => (
               <div
-                className="rounded-xl md:p-4 p-2  bg-[#ffffff15] md:w-44 flex flex-col justify-center"
+                className="rounded-xl md:p-4 p-2  bg-[#ffffffc1] backdrop-filter backdrop-blur-md md:w-44 flex flex-col justify-center"
                 key={data.id}
               >
-                <div className="icon-cont bg-white/10 p-2 h-11 mx-auto flex items-center justify-center w-11 rounded-full text-white">
+                <div
+                  style={{
+                    color: colors.defaultblue,
+                    background: colors.defaultblue + "10",
+                  }}
+                  className="icon-cont bg-white/10 p-2 h-11 mx-auto flex items-center justify-center w-11 rounded-full text-white"
+                >
                   {data.icon}
                 </div>
-                <div className="number-cont text-center  text-white mt-3 font-bold text-sm md:text-base">
+                <div className="number-cont text-center  text-black/90 mt-3 font-bold text-sm md:text-base">
                   <p className={inter.className}>
                     <CountUp end={data.number} duration={5} />
                     {data.plus}
                   </p>
                 </div>
-                <div className="text-cont mt-1 md:mt-0 px-2 md:px-0 /text-balance text-xs text-center font-semibold  text-neutral-400">
+                <div className="text-cont mt-1 md:mt-0 px-2 md:px-0 /text-balance text-xs text-center font-semibold text-black/60 /text-neutral-400">
                   {data.name}
                 </div>
               </div>
