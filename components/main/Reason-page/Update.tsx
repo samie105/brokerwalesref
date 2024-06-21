@@ -6,8 +6,8 @@ import Link from "next/link";
 export default function Update() {
   const colors = useColors();
   return (
-    <div className="mt-8 privacy items-center s/hadow-md shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md mx-20 /md:px-10 grid md:grid-cols-2">
-      <div className="text-cont order-last flex py-20 px-12 /items-center h-full">
+    <div className="mt-8 privacy items-center s/hadow-md shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /md:px-10 grid md:grid-cols-2">
+      <div className="text-cont order-last flex md:py-20 md:px-12 py-6 px-5 /items-center h-full">
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div> */}
         {/* <div
           className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"
@@ -43,7 +43,7 @@ export default function Update() {
           <div className="name font-bold mt-2 /pr-2 text-lg text-neutral-600">
             Improvement & Innovations
           </div>
-          <div className="desc mt-2 /font-medium text-sm text-neutral-500 font-medium /p-2 rounded-sm pr-5 text-balance">
+          <div className="desc mt-4 md:mt-2 /font-medium text-sm text-neutral-500 font-medium /p-2 rounded-sm pr-5 text-balance">
             At Wilson Investment Bank & Co, we are committed to innovation and
             continuous improvement. Our cutting-edge technology and digital
             solutions are constantly evolving to meet the changing needs of our

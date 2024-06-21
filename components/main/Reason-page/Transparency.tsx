@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Transparency() {
   const colors = useColors();
   return (
-    <div className="mt-8 privacy items-center gap-x-8 shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md mx-20 /px-2 /md:px-10 grid md:grid-cols-2">
+    <div className="mt-8 privacy items-center gap-x-8 shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /px-2 /md:px-10 grid md:grid-cols-2">
       {/* <div className="flex h-full">
         <div
           className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"
@@ -18,7 +18,7 @@ export default function Transparency() {
         </div>
     
       </div> */}
-      <div className="text-cont py-20 px-16 flex /items-center h-full">
+      <div className="text-cont order-last md:order-none md:py-20 md:px-16 py-6 px-5 flex /items-center h-full">
         {" "}
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div>{" "} */}
         <div>
@@ -48,7 +48,7 @@ export default function Transparency() {
           <div className="name font-bold mt-2 text-lg /pr-2 text-neutral-600">
             Transparency & Trust
           </div>
-          <div className="desc mt-2 font-medium text-sm text-neutral-500  /font-semibold /p-2 rounded-sm text-balance">
+          <div className="desc mt-4 md:mt-2 font-medium text-sm text-neutral-500  /font-semibold /p-2 rounded-sm text-balance">
             At Wilson Investment Bank & Co, transparency is paramount. We
             provide clear and concise information about our fees, terms. and
             policies, ensuring you have full visibility into your banking
@@ -82,7 +82,7 @@ export default function Transparency() {
           </div>
         </div>
       </div>{" "}
-      <div className="image h-full bg-blue-700/5">
+      <div className="image order-first md:order-none h-full bg-blue-700/5">
         {/* <Image
           src={"/assets/transparencywcu.png"}
           alt=""

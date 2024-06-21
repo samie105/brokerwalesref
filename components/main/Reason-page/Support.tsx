@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Support() {
   const colors = useColors();
   return (
-    <div className="mt-8 privacy items-center gap-8 shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md mx-20 /px-2 /md:px-10 grid md:grid-cols-2">
+    <div className="mt-8 privacy items-center gap-8 shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /px-2 /md:px-10 grid md:grid-cols-2">
       {/* <div className="flex h-full bg-blue-700/10">
         <div
           className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"
@@ -19,7 +19,7 @@ export default function Support() {
         </div>{" "}
         <LottieloaderSupport />
       </div> */}
-      <div className="text-cont py-20 px-12 flex /items-center h-full">
+      <div className="text-cont order-last md:order-none md:py-20 md:px-12 py-6 px-5 flex /items-center h-full">
         {" "}
         <div>
           {" "}
@@ -47,7 +47,7 @@ export default function Support() {
           <div className="name font-bold mt-2 text-lg /pr-2 text-neutral-600">
             Responsive Support
           </div>
-          <div className="desc mt-2 font-medium text-sm text-neutral-500  /font-semibold /p-2 rounded-sm /text-balance">
+          <div className="desc mt-4 md:mt-2 font-medium text-sm text-neutral-500  /font-semibold /p-2 rounded-sm /text-balance">
             At Wilson Investment Bank & Co, we prioritize customer satisfaction
             above all else. Our dedicated team is here to listen to your
             feedback, address your concerns, and provide personalized support
@@ -81,7 +81,7 @@ export default function Support() {
           </div>
         </div>
       </div>{" "}
-      <div className="image h-full bg-blue-700/10">
+      <div className="image h-full bg-blue-700/10 order-first md:order-none">
         {/* <Image
           src={"/assets/supportwcu.png"}
           alt=""

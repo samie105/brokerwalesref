@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import heroImg from "@/public/assets/hero-wilson.png";
+import heroImg from "@/public/assets/bankImage.jpg";
 import { useColors } from "@/context/colorContext";
 import CountUp from "react-countup";
 
 import { Inter } from "next/font/google";
+import { BackgroundBeams } from "@/components/ui/BackgroundBeam";
 const inter = Inter({
   subsets: ["latin"],
 });
@@ -99,24 +100,27 @@ export default function Hero() {
   ];
   const colors = useColors();
   return (
-    <div className="cont h-screen overflow-hidden">
-      <div className="imageCont relative h-full">
-        <Image
-          alt=""
-          src={heroImg}
-          className="w-full h-full"
-          width={1000}
-          height={1000}
-        />
+    <div className="cont h-screen b/g-gray-100 /bg-grid-blue-800/5 overflow-hidden">
+      <BackgroundBeams />
+      <div className="imageCont  relative w-full h-full">
+        <div className="w-full h-full absolute top-0 left-0">
+          <Image
+            alt=""
+            src={heroImg}
+            className=" h-full full object-cover"
+            width={1000}
+            height={1000}
+          />
+        </div>
         <div className="itemsCont absolute z-10 top-0 left-0 w-full h-full">
           <div className="inner-cont grid grid-cols-1 /h-[80%] w-[90%] mx-auto lg:w-full lg:mx-0 text-center lg:text-left lg:grid-cols-2 lg:h-[100%] h-[55%] md:h-[60%] px-1 md:px-16 items-end lg:items-center">
             <div className="textcont lg:pl-4 lg:pr-7">
-              <div className="large-text font-bold text-3xl sm:text-3xl md:text-4xl text-balance text-white">
+              <div className="large-text font-bold text-3xl sm:text-3xl md:text-4xl text-balance text-blue-800">
                 Start your
                 <br className="md:hidden" /> Financial Journey with exceptional
                 service
               </div>
-              <div className="sub-text text-sm text-neutral-300  font-semibold md:mt-5 mt-3  md:text-balance ">
+              <div className="sub-text text-sm text-neutral-400  font-semibold md:mt-5 mt-3  md:text-balance ">
                 Experience a new era of everyday banking, offering seamless and
                 personalized solutions meticulously designed to meet all your
                 financial needs and aspirations.
@@ -140,7 +144,13 @@ export default function Hero() {
                     />
                   </svg>
                 </div>
-                <div className="login px-6 py-4 rounded-xl  font-bold text-[#fff] bg-[#ffffff17] md:flex items-center gap-3 cursor-pointer hover:bg-[#ffffff20] transition-all">
+                <div
+                  style={{
+                    color: colors.defaultblue,
+                    background: colors.defaultblue + "10",
+                  }}
+                  className="login px-6 py-4 rounded-xl  font-bold md:flex items-center gap-3 cursor-pointer hover:bg-[#ffffff20] transition-all"
+                >
                   <p>Sign-in</p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

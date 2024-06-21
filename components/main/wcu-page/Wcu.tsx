@@ -3,6 +3,8 @@ import { useColors } from "@/context/colorContext";
 import React from "react";
 import LottieLoader from "./LottieLoader";
 import CountUp from "react-countup";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Wcu() {
   type wcuType = {
@@ -196,44 +198,56 @@ export default function Wcu() {
   ];
   const colors = useColors();
   return (
-    <div className="wcu_cont mt-14 md:px-20 px-10">
-      <div className="text-lottie-cont md:text-center">
-        <div className="text-cont">
+    <div className="wcu_cont mt-14 md:px-20 px-10 relative">
+      <div className="absolute top-0 left-0 /pacity-10 w-full -z-10 h-full">
+        <Image
+          src="/assets/gridlines.svg"
+          alt=""
+          width={1000}
+          height={1000}
+          className="h-full/  w-52 h-52 opacity-15  parallax-image  /object-cover"
+        />
+      </div>
+      {/* <div className="absolute top-0 right-10 /pacity-10 w-full -z-10 h-full">
+        <Image
+          src="/assets/gridlines.svg"
+          alt=""
+          width={1000}
+          height={1000}
+          className="h-full/  w-80 h-80 opacity-15  parallax-image  /object-cover"
+        />
+      </div> */}
+      <div className="flex flex-col md:flex-row item-center md:justify-between relative  w-full md:gap-10 gap-5 pb-8 /px-14">
+        <div className="text-4xl font-semibold z-20 text-neutral-700 ">
+          Why <span style={{ color: colors.defaultblue + "96" }}>Choose</span>{" "}
+          <br /> us
+        </div>
+        <div className="text-wrap font-medium md:text-base /text-center md:px-5 text-sm text-neutral-500">
+          Wilson Bank Priotized security and other <br /> essential factor to
+          give users the feel of safety and trust <br /> with our ever-active
+          support system to tend to all your needs.
+        </div>{" "}
+        <div className="md:flex hidden">
           {" "}
-          <div className="flex text-xs mb-2 gap-3 md:justify-center ">
-            {" "}
-            <div
-              className="register p-2 rounded-full font-bold flex items-center gap-2 cursor-pointer hover:bg-[#]"
-              style={{
-                background: colors.defaultblue + "10",
-                color: colors.defaultblue,
-              }}
+          <Link
+            href="#"
+            style={{ background: colors.defaultblue }}
+            className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+          >
+            <p>{"Create an account"}</p>{" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="size-5"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                className="w-4 h-4"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M2 2.75A.75.75 0 0 1 2.75 2h9.5a.75.75 0 0 1 0 1.5h-9.5A.75.75 0 0 1 2 2.75ZM2 6.25a.75.75 0 0 1 .75-.75h5.5a.75.75 0 0 1 0 1.5h-5.5A.75.75 0 0 1 2 6.25Zm0 3.5A.75.75 0 0 1 2.75 9h3.5a.75.75 0 0 1 0 1.5h-3.5A.75.75 0 0 1 2 9.75ZM9.22 9.53a.75.75 0 0 1 0-1.06l2.25-2.25a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1-1.06 1.06l-.97-.97v5.69a.75.75 0 0 1-1.5 0V8.56l-.97.97a.75.75 0 0 1-1.06 0Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-
-              <p>Features</p>
-            </div>
-          </div>
-          <div className="large-text text-2xl font-bold text-neutral-800">
-            Best Features provided by us.
-          </div>
-          <div className="smaller-text text-neutral-600 text-sm font-medium mt-2 text-balance">
-            From savings to checking accounts to mortgages and lots more.{" "}
-            <br className="hidden md:block" />
-            We offer a vast range of financial products to meet your individual
-            needs.
-          </div>
+              <path
+                fillRule="evenodd"
+                d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </Link>
         </div>
       </div>
       <div className="grid-data-cont grid grid-cols-1 lg:grid-cols-12 items-center">
@@ -243,7 +257,7 @@ export default function Wcu() {
             <LottieLoader />
             {wcu.map((data) => (
               <div key={data.number} className="my-6">
-                <div className="number text-neutral-800 font-bold">
+                <div className="number text-neutral-800 text-xl font-sans font-bold">
                   <CountUp
                     end={data.number}
                     duration={5}
@@ -251,7 +265,7 @@ export default function Wcu() {
                   />
                   {data.plus}
                 </div>
-                <div className="desc text-[10px] text-neutral-600 text-wrap">
+                <div className="desc text-[12px] text-neutral-600 text-wrap">
                   {data.description}
                 </div>
               </div>

@@ -8,6 +8,7 @@ import Support from "./Support";
 import Line from "./Line";
 import Image from "next/image";
 import { StickyScroll } from "@/components/ui/sticky-scoll";
+import Link from "next/link";
 
 export default function ReasonPage() {
   const content = [
@@ -135,18 +136,43 @@ export default function ReasonPage() {
   ];
   const colors = useColors();
   return (
-    <div className="mt-14 /md:px-20 px-7 snap-start /bg-gray-100 py-8">
-      <div className="text-cont md:text-center">
-        {" "}
-        <div className="flex text-xs mb-2 gap-3 md:justify-center ">
+    <div className="mt-14  bg-/grid-black/5 /md:px-20 md:px-7 snap-start /bg-gray-100 py-8 relative">
+      <div className="absolute top-0 left-0 /pacity-10 w-full -z-10 h-full">
+        <Image
+          src="/assets/gridlines.svg"
+          alt=""
+          width={1000}
+          height={1000}
+          className="h-full/  size-52  opacity-25  parallax-image  /object-cover"
+        />
+      </div>
+      {/* <div className="absolute top-0 right-10 /pacity-10 w-full -z-10 h-full">
+        <Image
+          src="/assets/gridlines.svg"
+          alt=""
+          width={1000}
+          height={1000}
+          className="h-full/  w-80 h-80 opacity-15  parallax-image  /object-cover"
+        />
+      </div> */}
+      <div className="flex  flex-col md:flex-row item-center md:justify-between relative  w-full md:gap-10 gap-5 pb-8 px-10">
+        <div className="text-4xl font-semibold z-20 text-neutral-700 ">
+          Why <span style={{ color: colors.defaultblue + "96" }}>Choose</span>{" "}
+          <br /> us
+        </div>
+        <div className="text-wrap font-medium md:text-base /text-center md:px-5 text-sm text-neutral-500">
+          Wilson Bank Priotized security and other <br /> essential factor to
+          give users the feel of safety and trust <br /> with our ever-active
+          support system to tend to all your needs.
+        </div>{" "}
+        <div className="md:flex hidden">
           {" "}
-          <div
-            className="register p-2 rounded-full font-bold flex items-center gap-2 cursor-pointer hover:bg-[#]"
-            style={{
-              background: colors.defaultblue + "10",
-              color: colors.defaultblue,
-            }}
+          <Link
+            href="#"
+            style={{ background: colors.defaultblue }}
+            className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
           >
+            <p>{"Create an account"}</p>{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -155,32 +181,22 @@ export default function ReasonPage() {
             >
               <path
                 fillRule="evenodd"
-                d="M16.403 12.652a3 3 0 0 0 0-5.304 3 3 0 0 0-3.75-3.751 3 3 0 0 0-5.305 0 3 3 0 0 0-3.751 3.75 3 3 0 0 0 0 5.305 3 3 0 0 0 3.75 3.751 3 3 0 0 0 5.305 0 3 3 0 0 0 3.751-3.75Zm-2.546-4.46a.75.75 0 0 0-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
                 clipRule="evenodd"
               />
             </svg>
-
-            <p>Why Trust Us</p>
-          </div>
-        </div>
-        <div className="large-text text-2xl font-bold text-neutral-800">
-          Why Choose Wilson Bank?
-        </div>
-        <div className="smaller-text text-neutral-600 md:px-32 text-sm font-medium mt-2 md:text-balance /px-5">
-          At Wilson Bank, we prioritize the security and reliability of your
-          financial endeavors. Our extensive portfolio, encompassing everything
-          from savings and checking accounts to sophisticated mortgage
-          solutions, is crafted to cater to your specific financial
-          requirements. <br className="hidden md:block" />
+          </Link>
         </div>
       </div>
-      <Privacy />
-      <Line />
-      <Transparency />
-      <Line />
-      <Update />
-      <Line />
-      <Support />
+      <div className="px-5 md:px-0">
+        <Privacy />
+        <Line />
+        <Transparency />
+        <Line />
+        <Update />
+        <Line />
+        <Support />
+      </div>
       {/* <div className="pt-10">
         <StickyScroll content={content} />
       </div> */}

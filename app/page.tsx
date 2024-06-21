@@ -10,6 +10,7 @@ import ReasonPage from "@/components/main/Reason-page/ReasonPage";
 import Footer from "@/components/main/Footer/Footer";
 import Category from "@/components/main/bank_cat/Category";
 import Flight from "@/components/main/Flight/Flight";
+import BTT from "@/components/main/BackToTop";
 
 export default function page() {
   return (
@@ -25,6 +26,7 @@ export default function page() {
       <Testimonials />
       <SupportContact />
       <Footer />
+      <BTT />
     </div>
   );
 }

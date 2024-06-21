@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Privacy() {
   const colors = useColors();
   return (
-    <div className="mt-8 privacy items-end md:items-center /bg-white gap-8 /px- shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md mx-20 /md:px-10 grid s/hadow-md md:grid-cols-2">
+    <div className="mt-8 z-30 privacy items-end md:items-center /bg-white gap-8 /px- shadow-lg shadow-gray-200 rounded-lg overflow-hidden /mx-5 /shadow-md md:mx-20 /md:px-10 grid grid-cols-1 s/hadow-md md:grid-cols-2">
       <div className="image bg-blue-700/5 h-full order-first md:order-none">
         {/* <Image
           src={"/assets/privacywcu.png"}
@@ -17,7 +17,7 @@ export default function Privacy() {
         /> */}
         <LottieLoaderPrivacy />
       </div>{" "}
-      <div className="text-cont py-20 px-12 flex /items-center h-full order-last md:order-none">
+      <div className="text-cont md:py-20 py-6 px-8 md:px-12 flex /items-center h-full order-last md:order-none">
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div> */}
         {/* <div
           className="count text-[7rem] font-black hidden md:block text-blue-100 font-sans md:mr-6 mr-3"
@@ -53,7 +53,7 @@ export default function Privacy() {
           <div className="name font-bold mt-2 text-lg text-neutral-600">
             Private and Secured
           </div>
-          <div className="desc mt-2  font-medium pr-6 md:text-balance text-sm text-neutral-500 /font-semibold /p-2 rounded-sm /text-balance">
+          <div className="desc mt-4 md:mt-2 font-medium md:pr-6 md:text-balance text-sm text-neutral-500 /font-semibold /p-2 rounded-sm /text-balance">
             At Wilson Investment Bank & Co, your privacy and securities are our
             top priorities. With state-of-the-art encryption technology,
             multi-factor authentication, and continuous monitoring, we ensure

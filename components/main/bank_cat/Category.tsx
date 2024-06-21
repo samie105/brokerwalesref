@@ -1,29 +1,68 @@
-/* eslint-disable react/no-unescaped-entities */
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/cGGo0SUXo4U
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+"use client";
+import { useColors } from "@/context/colorContext";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Category() {
+  const colors = useColors();
   return (
-    <section className="w-full py-6">
-      <div className="container px-4 md:px-20">
+    <section className="w-full py-6 relative px-5 md:px-0">
+      {" "}
+      <div className="absolute top-0 left-0 /pacity-10 w-full -z-10 h-full">
+        <Image
+          src="/assets/gridlines.svg"
+          alt=""
+          width={1000}
+          height={1000}
+          className="h-full/  w-80 h-80 opacity-15  parallax-image  /object-cover"
+        />
+      </div>
+      <div className="absolute top-0 right-10 /pacity-10 w-full -z-10 h-full">
+        <Image
+          src="/assets/gridlines.svg"
+          alt=""
+          width={1000}
+          height={1000}
+          className="h-full/  w-80 h-80 opacity-15  parallax-image  /object-cover"
+        />
+      </div>
+      <div className="container px-4 md:px-20 z-0">
         <div className="space-y-8">
-          {/* <div className="text-center">
-            <h2 className="text-2xl font-bold tracking-tighter ">
-              Tailored Solutions for Businesses of All Sizes
-            </h2>
-            <p className="mx-auto max-w-[700px] mt-2 text-balance text-sm text-gray-500  dark:text-gray-400">
-              Whether you're a small startup or a large enterprise, our banking
-              services are designed to meet your unique needs and help your
-              business thrive.
-            </p>
-          </div> */}
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-lg overflow-hidden /border /border-gray-200 bg-white /p-6 shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
+          <div className="flex flex-col md:flex-row item-center md:justify-between relative  w-full md:gap-10 gap-5 pb-8 /px-14">
+            <div className="text-4xl font-semibold z-20 text-neutral-700 ">
+              <span style={{ color: colors.defaultblue + "96" }}>Built</span>{" "}
+              for <br /> Businesses
+            </div>
+            <div className="text-wrap font-medium md:text-base /text-center md:px-5 text-sm text-neutral-500">
+              Wilson Bank is designed with the diverse <br /> needs of
+              businesses in mind, from burgeoning <br /> startups to established
+              enterprises.
+            </div>{" "}
+            <div className="md:flex hidden">
+              {" "}
+              <Link
+                href="#"
+                style={{ background: colors.defaultblue }}
+                className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              >
+                <p>{"Create an account"}</p>{" "}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="size-5"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
+            </div>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3 pb-10 z-30">
+            <div className="rounded-md overflow-hidden /border /border-gray-200 bg-white /p-6 shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
               <div className="space-y-4">
                 {" "}
                 <Image
@@ -31,9 +70,9 @@ export default function Category() {
                   width={400}
                   height={250}
                   alt="Small Business"
-                  className="rounded-lg/ object-cover h-60 overflow-hidden w-full"
+                  className="rounded-md/ object-cover h-60 overflow-hidden w-full"
                 />{" "}
-                <div className="inline-block rounded-lg bg-blue-50 mx-6 text-blue-500 font-medium px-3 py-1 text-xs dark:bg-gray-800">
+                <div className="inline-block rounded-md bg-blue-50 mx-6 text-blue-500 font-medium px-3 py-2 text-xs dark:bg-gray-800">
                   <BriefcaseIcon className="w-4 h-4 mr-2 inline-block " />
                   Small Businesses
                 </div>
@@ -45,6 +84,31 @@ export default function Category() {
                   businesses like yours, helping you manage your finances and
                   achieve your goals.
                 </p>
+                <div className="flex px-6 pb-6">
+                  {" "}
+                  <Link
+                    href="#"
+                    style={{
+                      background: colors.defaultblue + "10",
+                      color: colors.defaultblue,
+                    }}
+                    className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                  >
+                    <p>{"Open an account"}</p>{" "}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </div>
             <div className="rounded-lg overflow-hidden /border /border-gray-200 bg-white /p-6 shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
@@ -56,7 +120,7 @@ export default function Category() {
                   alt="Large Enterprise"
                   className="rou/nded-lg object-cover w-full h-60 overflow-hidden"
                 />{" "}
-                <div className="inline-block rounded-lg font-medium mx-6 text-green-500 bg-green-50 px-3 py-1 text-xs dark:bg-gray-800">
+                <div className="inline-block rounded-md font-medium mx-6 text-green-500 bg-green-50 px-3 py-2 text-xs dark:bg-gray-800">
                   <BuildingIcon className="w-4 h-4 mr-2 inline-block text-sm" />
                   Large Enterprises
                 </div>{" "}
@@ -66,6 +130,31 @@ export default function Category() {
                   complex needs of large enterprises, helping you manage your
                   finances and drive your business forward.
                 </p>
+                <div className="flex px-6 pb-6">
+                  {" "}
+                  <Link
+                    href="#"
+                    style={{
+                      background: colors.defaultblue + "10",
+                      color: colors.defaultblue,
+                    }}
+                    className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                  >
+                    <p>{"Open an account"}</p>{" "}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </div>
             <div className="rounded-lg overflow-hidden /border /border-gray-200 bg-white shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
@@ -77,7 +166,7 @@ export default function Category() {
                   alt="Startup"
                   className=" object-cover w-full h-60 overflow-hidden"
                 />{" "}
-                <div className="inline-block rounded-full mx-6 font-medium bg-red-50 text-red-500 px-3 py-1 text-xs dark:bg-gray-800">
+                <div className="inline-block rounded-md mx-6 font-medium bg-red-50 text-red-500 px-3 py-2 text-xs dark:bg-gray-800">
                   <RocketIcon className="w-4 h-4 mr-2 inline-block text-sm" />
                   Startups
                 </div>{" "}
@@ -87,6 +176,31 @@ export default function Category() {
                   startups like yours, providing the financial tools and
                   expertise you need to turn your ideas into reality.
                 </p>
+                <div className="flex px-6 pb-6">
+                  {" "}
+                  <Link
+                    href="#"
+                    style={{
+                      background: colors.defaultblue + "10",
+                      color: colors.defaultblue,
+                    }}
+                    className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                  >
+                    <p>{"Open an account"}</p>{" "}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

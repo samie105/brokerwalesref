@@ -10,7 +10,10 @@ export default function LottieLoader() {
   });
   return (
     <div className=" hidden lg:block">
-      <Lottie animationData={animationData} className="w-[60%] h-[10rem]" />
+      <Lottie
+        animationData={animationData}
+        className="w-[60%] h-[10rem] invisible"
+      />
     </div>
   );
 }

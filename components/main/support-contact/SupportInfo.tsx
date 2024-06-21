@@ -11,7 +11,7 @@ import React from "react";
 export default function SupportInfo() {
   const colors = useColors();
   return (
-    <div className="text-cont mt-4 /shadow-md p-5 rounded-xl /border">
+    <div className="text-cont md:mt-4 /shadow-md p-5 rounded-xl /border">
       <div className="socila">
         <div className="intText mt-3 font-semibold">Follow our socials</div>
         <div className="socials my-2 text-lg flex items-center gap-x-5">

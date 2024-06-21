@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useColors } from "@/context/colorContext";
 import { randomUUID } from "crypto";
 import { usePathname } from "next/navigation";
-import hero from "@/public/assets/hero-logo.png";
+import hero from "@/public/assets/hero-logo-blue.png";
 import {
   Sheet,
   SheetContent,
@@ -16,6 +16,21 @@ import Image from "next/image";
 
 export default function Navbar() {
   const MotionLink = motion(Link);
+  const [showButton, setShowButton] = useState(false);
+
+  const handleScroll = () => {
+    // Show button when the user scrolls beyond 100 pixels
+    if (window.pageYOffset > 150) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   type navItems = { id: number; name: string; path: string }[];
   const pathname = usePathname();
@@ -26,16 +41,21 @@ export default function Navbar() {
   const colors = useColors();
   return (
     <div
-      className={`nav_cont z-50 fixed top-0 w-full md:py-3 py-3 px-10 flex items-center text-sm justify-between `}
-      style={{ background: colors.defaultblue }}
+      className={`nav_cont transition-all z-50  ${
+        showButton
+          ? "border-b bg-[#ffffffb2] backdrop-filter backdrop-blur-md "
+          : "bg-gray-100 border-0"
+      }  fixed top-0 w-full md:py-3 py-5 px-10 flex items-center text-sm justify-between `}
+      // style={{ background: colors.defaultblue }}
     >
-      <div className="logo text-white font-bold">
+      <div className="logo font-bold">
         <Image
           src={hero}
           alt=""
           width={1000}
           height={1000}
-          className="w-16 h-6"
+          className="w-16 h-6 opacity-80"
+          style={{ color: colors.defaultblue }}
         />
       </div>
       <div className="menu  hidden md:flex text-xs items-center">
@@ -43,10 +63,15 @@ export default function Navbar() {
           {nav.map((nav) => (
             <motion.div
               key={nav.path}
+              style={
+                nav.path === pathname
+                  ? { color: colors.defaultblue }
+                  : { color: colors.defaultblue + "94" }
+              }
               className={`${
                 nav.path === pathname
                   ? `font-bold text-[#fff]   rounded-xl`
-                  : "text-white/80 font-medium  hover:opacity-100"
+                  : "text-white/80 font-bold  hover:opacity-100"
               } cursor-pointer /overflow-hidden px-5 py-2 relative transition`}
             >
               <MotionLink href={nav.path}>
@@ -54,6 +79,7 @@ export default function Navbar() {
                 {nav.path === pathname ? (
                   <motion.div
                     transition={{ type: "spring" }}
+                    style={{ backgroundColor: colors.defaultblue + "10" }}
                     layoutId="underline"
                     className="absolute mover bg-[#ffffff26] rounded-full top-0 left-0 w-full h-full z-10"
                   ></motion.div>
@@ -64,7 +90,10 @@ export default function Navbar() {
         </AnimatePresence>
       </div>
       <div className="cta hidden md:flex  items-center gap-5">
-        <div className=" font-bold text-white  cursor-pointer hover:opacity-90 transition-all">
+        <div
+          style={{ color: colors.defaultblue }}
+          className=" font-bold text-white  cursor-pointer hover:opacity-90 transition-all"
+        >
           Sign-in
         </div>
         <div
@@ -77,7 +106,10 @@ export default function Navbar() {
       <div className="sidemenu md:hidden">
         <Sheet>
           <SheetTrigger>
-            <div className="icon text-white">
+            <div
+              className="icon text-white"
+              style={{ color: colors.defaultblue }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -142,7 +174,9 @@ export default function Navbar() {
               <p className=" line h-0.5 w-[20%] bg-white/30 rounded-full mx-auto mb-4"></p>
               <Link
                 href={"/auth/login"}
-                className=" px-5 py-3 rounded-xl  font-semibold bg-white/10 text-white cursor-pointer hover:opacity-90 transition-all"
+                // style={{ background: colors.defaultblue }}
+
+                className=" px-5 py-3 rounded-xl  font-semibold bg-white/10 /text-white cursor-pointer hover:opacity-90 transition-all"
               >
                 Sign-in
               </Link>
