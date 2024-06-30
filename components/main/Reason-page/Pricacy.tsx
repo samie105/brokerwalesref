@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Privacy() {
   const colors = useColors();
   return (
-    <div className="mt-8 z-30 privacy items-end md:items-center /bg-white gap-8 /px- shadow-lg shadow-gray-200 rounded-lg overflow-hidden /mx-5 /shadow-md md:mx-20 /md:px-10 grid grid-cols-1 s/hadow-md md:grid-cols-2">
+    <div className="mt-8 z-30 privacy bg-white items-end md:items-center /bg-white gap-8 /px- shadow-lg shadow-gray-200 rounded-lg overflow-hidden /mx-5 /shadow-md md:mx-20 /md:px-10 grid grid-cols-1 s/hadow-md md:grid-cols-2">
       <div className="image bg-blue-700/5 h-full order-first md:order-none">
         {/* <Image
           src={"/assets/privacywcu.png"}

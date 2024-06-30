@@ -25,7 +25,7 @@ export default function BTT() {
       className={`fixed bottom-10 left-10 rounded-full z-50 ${
         showButton ? "" : "hidden"
       }`}
-      style={{ background: colors.darkdefualtblue }}
+      style={{ background: colors.defaultblue }}
     >
       <div className="rounded-full cursor-pointer bg-blue-700/5 p-4">
         <svg

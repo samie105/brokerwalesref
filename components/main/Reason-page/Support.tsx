@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Support() {
   const colors = useColors();
   return (
-    <div className="mt-8 privacy items-center gap-8 shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /px-2 /md:px-10 grid md:grid-cols-2">
+    <div className="mt-8 privacy items-center gap-8 shadow-lg bg-white shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /px-2 /md:px-10 grid md:grid-cols-2">
       {/* <div className="flex h-full bg-blue-700/10">
         <div
           className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"

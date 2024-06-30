@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Update() {
   const colors = useColors();
   return (
-    <div className="mt-8 privacy items-center s/hadow-md shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /md:px-10 grid md:grid-cols-2">
+    <div className="mt-8 privacy items-center s/hadow-md bg-white shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /md:px-10 grid md:grid-cols-2">
       <div className="text-cont order-last flex md:py-20 md:px-12 py-6 px-5 /items-center h-full">
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div> */}
         {/* <div

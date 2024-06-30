@@ -10,7 +10,7 @@ export default function Footer() {
   const colors = useColors();
   return (
     <footer className="bg-[#02062d] text-white py-12 md:py-16">
-      <div className="container mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="container mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
         <div className="flex flex-col items-start">
           <Image
             src={hero}
@@ -120,7 +120,7 @@ export default function Footer() {
             </Link> */}
           </div>
         </div>
-        <div className="grid gap-4">
+        <div className="grid gap-4 w-full">
           <h4 className="text-lg font-semibold">Newsletter</h4>
           <p className="text-gray-400 text-sm">
             Subscribe to our newsletter to stay up-to-date with the latest news

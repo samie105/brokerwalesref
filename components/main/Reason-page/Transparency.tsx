@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Transparency() {
   const colors = useColors();
   return (
-    <div className="mt-8 privacy items-center gap-x-8 shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /px-2 /md:px-10 grid md:grid-cols-2">
+    <div className="mt-8 privacy items-center gap-x-8 shadow-lg bg-white shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /px-2 /md:px-10 grid md:grid-cols-2">
       {/* <div className="flex h-full">
         <div
           className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"

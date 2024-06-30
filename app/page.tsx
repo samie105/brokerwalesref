@@ -11,10 +11,13 @@ import Footer from "@/components/main/Footer/Footer";
 import Category from "@/components/main/bank_cat/Category";
 import Flight from "@/components/main/Flight/Flight";
 import BTT from "@/components/main/BackToTop";
+import Navbar from "@/components/main/navbar/Navbar";
 
 export default function page() {
   return (
-    <div className=" ">
+    <div className="bg-[#E9EDF0]/ ">
+      <Navbar />
+
       <Hero />
       <Discover />
       <CardPage />

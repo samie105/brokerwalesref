@@ -32,11 +32,26 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  type navItems = { id: number; name: string; path: string }[];
+  type navItems = {
+    id: number;
+    name: string;
+    path: string;
+    className: string;
+  }[];
   const pathname = usePathname();
   const nav: navItems = [
-    { id: 1, name: "Home", path: "/" },
-    { id: 2, name: "Contacts", path: "/contact" },
+    {
+      id: 1,
+      name: "Home",
+      path: "/",
+      className: "animate__animated animate__fadeInUp animate__delay-2s",
+    },
+    {
+      id: 2,
+      name: "Contacts",
+      path: "/contact",
+      className: "animate__animated animate__fadeInUp animate__delay-3s",
+    },
   ];
   const colors = useColors();
   return (
@@ -48,7 +63,7 @@ export default function Navbar() {
       }  fixed top-0 w-full md:py-3 py-5 px-10 flex items-center text-sm justify-between `}
       // style={{ background: colors.defaultblue }}
     >
-      <div className="logo font-bold">
+      <div className="logo font-bold animate__animated animate__fadeInUp animate__delay">
         <Image
           src={hero}
           alt=""
@@ -72,7 +87,9 @@ export default function Navbar() {
                 nav.path === pathname
                   ? `font-bold text-[#fff]   rounded-xl`
                   : "text-white/80 font-bold  hover:opacity-100"
-              } cursor-pointer /overflow-hidden px-5 py-2 relative transition`}
+              } cursor-pointer /overflow-hidden px-5 py-2 relative transition ${
+                nav.className
+              }`}
             >
               <MotionLink href={nav.path}>
                 <motion.p className="z-30">{nav.name}</motion.p>
@@ -81,7 +98,7 @@ export default function Navbar() {
                     transition={{ type: "spring" }}
                     style={{ backgroundColor: colors.defaultblue + "10" }}
                     layoutId="underline"
-                    className="absolute mover bg-[#ffffff26] rounded-full top-0 left-0 w-full h-full z-10"
+                    className="absolute  mover bg-[#ffffff26] rounded-full top-0 left-0 w-full h-full z-10 "
                   ></motion.div>
                 ) : null}
               </MotionLink>
@@ -89,7 +106,10 @@ export default function Navbar() {
           ))}
         </AnimatePresence>
       </div>
-      <div className="cta hidden md:flex  items-center gap-5">
+      <Link
+        href={"/auth/login"}
+        className="cta hidden md:flex  items-center gap-5"
+      >
         <div
           style={{ color: colors.defaultblue }}
           className=" font-bold text-white  cursor-pointer hover:opacity-90 transition-all"
@@ -102,7 +122,7 @@ export default function Navbar() {
         >
           Get Started
         </div>
-      </div>
+      </Link>
       <div className="sidemenu md:hidden">
         <Sheet>
           <SheetTrigger>

@@ -9,27 +9,28 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import hero from "@/public/assets/testimonials_avatar/jennifer.png";
+import hero from "@/public/assets/cardImage.jpg";
 import { useColors } from "@/context/colorContext";
+import { BackgroundBeams } from "@/components/ui/BackgroundBeam";
 
 export default function Login() {
   const colors = useColors();
   return (
     <div className="grid min-h-[100dvh] w-full grid-cols-1 lg:grid-cols-2">
-      <div className="hidden lg:block">
+      <div className="hidden lg:block /border relative overflow-hidden">
         <Image
           src={hero}
           alt="Login Hero"
           width="1920"
           height="1080"
-          className="h-full w-full object-cover"
+          className="h-5/6 w-5/6 object-cover"
         />
       </div>
       <div className="flex items-center justify-center mt-9 p-6 lg:p-10">
         <div className="mx-auto w-full max-w-[400px] space-y-6">
-          <div className="/space-y-2 text-center">
-            <h1 className="text-lg font-bold">Welcome Back</h1>
-            <p className="text-gray-500 text-sm dark:text-gray-400">
+          <div className="/space-y-2 /text-center">
+            <h1 className="text-2xl font-bold">Welcome Back 👋</h1>
+            <p className="text-gray-500 /text-sm dark:text-gray-400">
               Enter your email and password to sign in
             </p>
           </div>
@@ -79,7 +80,7 @@ export default function Login() {
           </div>
           <div className="flex items-center justify-center">
             <Link
-              href="#"
+              href="/"
               className="text-sm font-medium text-gray-900 hidden hover:underline dark:text-gray-50"
               prefetch={false}
             >
@@ -88,7 +89,7 @@ export default function Login() {
             <div className="text-sm text-gray-500 dark:text-gray-400">
               Don&apos;t have an account?{" "}
               <Link
-                href="#"
+                href="/auth/signup"
                 className="font-medium text-gray-900 hover:underline dark:text-gray-50"
                 prefetch={false}
               >
