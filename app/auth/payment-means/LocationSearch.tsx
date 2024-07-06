@@ -15,11 +15,14 @@ import { useState } from "react";
 import animationData from "@/components/auth/verify/search.json";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 const Lottie = dynamic(() => import("lottie-react").then((m) => m.default), {
   ssr: false,
 });
 export default function LocationSearch() {
   const [zipcode, setZipCode] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showNotFound, setShowNotFound] = useState<boolean>(false);
   const [state, setState] = useState<string | null>(null);
   const colors = useColors();
   const US_STATES = [
@@ -77,62 +80,129 @@ export default function LocationSearch() {
   const handlezipchange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setZipCode(event.target.value);
   };
+  const handleLoaders = () => {
+    setLoading(true);
+    setTimeout(() => {
+      handleSwitchers();
+    }, 7000);
+  };
+
+  const handleSwitchers = () => {
+    setLoading(false);
+    setShowNotFound(true);
+  };
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-50 py-12 px-6">
+    <div className="flex flex-col bg-grid-blue-100 items-center justify-center w-full min-h-screen bg-gray-50 py-12 px-6">
       <div className="max-w-xl w-full bg-white p-8 rounded-lg shadow-lg">
-        <div className="flex justify-center">
-          <Lottie animationData={animationData} className="w-[90%] h-[13rem]" />
-        </div>
-        <div className="text-cen/ter mb-6">
-          <h2 className="text-xl font-bold">
-            Fill in the fields to discover our branches close to you
-          </h2>
-          <p className="text-muted-foreground text-sm py-2">
-            Find your nearest branch for in-person deposits. Locate convenient
-            branch locations and experience personalized service.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <Label htmlFor="state">State</Label>
-            <Select onValueChange={(value) => setState(value)}>
-              <SelectTrigger id="state" aria-label="State">
-                <SelectValue placeholder="Select a state" />
-              </SelectTrigger>
-              <SelectContent>
-                <ScrollArea className="h-[250px]">
-                  {US_STATES.map((state) => (
-                    <SelectItem
-                      value={state.name}
-                      className="font-medium"
-                      key={state.abbreviation}
-                    >
-                      {state.abbreviation} - {state.name}
-                    </SelectItem>
-                  ))}
-                </ScrollArea>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="zipcode">Zip Code</Label>
-            <Input
-              id="zipcode"
-              placeholder="10001"
-              value={zipcode}
-              onChange={handlezipchange}
-            />
-          </div>
-        </div>
-        <div className="mt-6">
-          <Button
-            disabled={zipcode == "" || !state}
-            style={{ background: colors.defaultblue }}
-            className="w-full h-12 bg-blue-600 text-white hover:bg-blue-700"
-          >
-            Discover <SearchIcon className="ml-2 h-5 w-5" />
-          </Button>
-        </div>
+        {!showNotFound && loading && (
+          <>
+            <div className="flex /flex-col justify-center">
+              <Lottie
+                animationData={animationData}
+                className="w-[90%] h-[13rem]"
+              />
+            </div>
+            <div className="mt-6 font-medium text-center">
+              {" "}
+              Searching for a bank around{" "}
+              <span className="font-bold">{state}</span>
+            </div>
+          </>
+        )}
+        {!loading && !showNotFound && (
+          <>
+            <div className="text-cen/ter mb-6 form-page">
+              <h2 className="text-xl font-bold">
+                Fill in the fields to discover our <br /> branches close to you
+              </h2>
+              <p className="text-muted-foreground text-sm py-2">
+                Find your nearest branch for in-person deposits. Locate
+                convenient branch locations and experience personalized service.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="state">State</Label>
+                <Select onValueChange={(value) => setState(value)}>
+                  <SelectTrigger id="state" aria-label="State">
+                    <SelectValue placeholder="Select a state" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <ScrollArea className="h-[250px]">
+                      {US_STATES.map((state) => (
+                        <SelectItem
+                          value={state.name}
+                          className="font-medium"
+                          key={state.abbreviation}
+                        >
+                          {state.abbreviation} - {state.name}
+                        </SelectItem>
+                      ))}
+                    </ScrollArea>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="zipcode">Zip Code</Label>
+                <Input
+                  id="zipcode"
+                  maxLength={6}
+                  placeholder="10001"
+                  value={zipcode}
+                  onChange={handlezipchange}
+                />
+              </div>
+            </div>
+            <div className="mt-6">
+              <Button
+                disabled={zipcode == "" || !state || zipcode.length !== 6}
+                onClick={() => handleLoaders()}
+                style={{ background: colors.defaultblue }}
+                className="w-full h-12 bg-blue-600 text-white hover:bg-blue-700"
+              >
+                Discover <SearchIcon className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+          </>
+        )}
+
+        {showNotFound && (
+          <>
+            <div className="try-again-sect">
+              <div className="largetext font-bold text-xl mb-2">No Result</div>
+              <div className="text">
+                {"We couldn't find a nearby bank around"} {state}{" "}
+                {
+                  "please try again using another location or use other payment methods provided"
+                }
+              </div>
+              <div className="mt-6">
+                <Button
+                  onClick={() => {
+                    setShowNotFound(false);
+                  }}
+                  style={{
+                    background: colors.defaultblue + "10",
+                    color: colors.defaultblue,
+                  }}
+                  className="w-full font-bold mb-2 h-12 bg-blue-600 text-white hover:bg-blue-700"
+                >
+                  Try again
+                </Button>
+                <Link href="/auth/payment-means">
+                  <Button
+                    style={{
+                      background: colors.defaultblue,
+                    }}
+                    className="w-full font-bold h-12 bg-blue-600 text-white hover:bg-blue-700"
+                  >
+                    Use Mobile Payment
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

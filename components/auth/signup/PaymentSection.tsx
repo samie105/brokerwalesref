@@ -11,256 +11,212 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { useColors } from "@/context/colorContext";
+
+const paymentMethods = [
+  {
+    name: "bitcoin",
+    src: "/assets/mbp/bitcoin.webp",
+    address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+  },
+  {
+    name: "ethereum",
+    src: "/assets/mbp/ETH.svg",
+    address: "0x32Be343B94f860124dC4fEe278FDCBD38C102D88",
+  },
+  {
+    name: "litecoin",
+    src: "/assets/mbp/LTC.svg",
+    address: "LZTH9Zg2VPRuQyjFGejrBWTUFGk62stUpD",
+  },
+  {
+    name: "dogecoin",
+    src: "/assets/mbp/DOGE.svg",
+    address: "D7Y55gG8U3JDPJ4mdZY2A9XWcFXBJ2dQW9",
+  },
+  {
+    name: "paypal",
+    src: "/assets/mbp/paypal.webp",
+    address: "example@paypal.com",
+  },
+  {
+    name: "zelle",
+    src: "/assets/mbp/zelle.png",
+    address: "example@zelle.com",
+  },
+  {
+    name: "venmo",
+    src: "/assets/mbp/venmo.png",
+    address: "@example",
+  },
+];
 
 export default function PaymentSection() {
+  const colors = useColors();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
     string | null
   >(null);
-  return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Payment</CardTitle>
-        <CardDescription>Select your payment method</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            variant={
-              selectedPaymentMethod === "bitcoin" ? "default" : "outline"
-            }
-            onClick={() => setSelectedPaymentMethod("bitcoin")}
-          >
-            <BitcoinIcon className="h-6 w-6 mr-2" />
-            Bitcoin
-          </Button>
-          <Button
-            variant={
-              selectedPaymentMethod === "ethereum" ? "default" : "outline"
-            }
-            onClick={() => setSelectedPaymentMethod("ethereum")}
-          >
-            <EclipseIcon className="h-6 w-6 mr-2" />
-            Ethereum
-          </Button>
-          <Button
-            variant={
-              selectedPaymentMethod === "litecoin" ? "default" : "outline"
-            }
-            onClick={() => setSelectedPaymentMethod("litecoin")}
-          >
-            <BitcoinIcon className="h-6 w-6 mr-2" />
-            Litecoin
-          </Button>
-          <Button
-            variant={
-              selectedPaymentMethod === "dogecoin" ? "default" : "outline"
-            }
-            onClick={() => setSelectedPaymentMethod("dogecoin")}
-          >
-            <DogIcon className="h-6 w-6 mr-2" />
-            Dogecoin
-          </Button>
-        </div>
-        <Separator />
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            variant={selectedPaymentMethod === "paypal" ? "default" : "outline"}
-            onClick={() => setSelectedPaymentMethod("paypal")}
-          >
-            <ShoppingCartIcon className="h-6 w-6 mr-2" />
-            PayPal
-          </Button>
-          <Button
-            variant={selectedPaymentMethod === "zelle" ? "default" : "outline"}
-            onClick={() => setSelectedPaymentMethod("zelle")}
-          >
-            <ZapIcon className="h-6 w-6 mr-2" />
-            Zelle
-          </Button>
-          <Button
-            variant={selectedPaymentMethod === "venmo" ? "default" : "outline"}
-            onClick={() => setSelectedPaymentMethod("venmo")}
-          >
-            <CreditCardIcon className="h-6 w-6 mr-2" />
-            Venmo
-          </Button>
-        </div>
-      </CardContent>
-      <CardFooter className="flex justify-between items-center">
-        <div className="text-lg font-medium">Total: $50</div>
-        <Button disabled={!selectedPaymentMethod} className="ml-auto">
-          Pay Now
-        </Button>
-      </CardFooter>
-      {selectedPaymentMethod && (
-        <div className="p-4 bg-muted rounded-b-lg">
-          {selectedPaymentMethod === "bitcoin" && (
-            <div className="grid gap-2">
-              <div>Send BTC to: 1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2</div>
-              <div>Amount: 0.0025 BTC</div>
-            </div>
-          )}
-          {selectedPaymentMethod === "ethereum" && (
-            <div className="grid gap-2">
-              <div>Send ETH to: 0x0123456789012345678901234567890123456789</div>
-              <div>Amount: 0.05 ETH</div>
-            </div>
-          )}
-          {selectedPaymentMethod === "litecoin" && (
-            <div className="grid gap-2">
-              <div>Send LTC to: LTCAddress1234567890abcdefghijklmnopqrstuv</div>
-              <div>Amount: 0.25 LTC</div>
-            </div>
-          )}
-          {selectedPaymentMethod === "dogecoin" && (
-            <div className="grid gap-2">
-              <div>Send DOGE to: DogecoinAddress1234567890abcdefghijklmnop</div>
-              <div>Amount: 100 DOGE</div>
-            </div>
-          )}
-          {selectedPaymentMethod === "paypal" && (
-            <div className="grid gap-2">
-              <div>Pay to: payments@example.com</div>
-              <div>Amount: $50</div>
-            </div>
-          )}
-          {selectedPaymentMethod === "zelle" && (
-            <div className="grid gap-2">
-              <div>Pay to: zelle@example.com</div>
-              <div>Amount: $50</div>
-            </div>
-          )}
-          {selectedPaymentMethod === "venmo" && (
-            <div className="grid gap-2">
-              <div>Pay to: @venmo-example</div>
-              <div>Amount: $50</div>
-            </div>
-          )}
-        </div>
-      )}
-    </Card>
-  );
-}
 
-function BitcoinIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-3.94-.694m5.155-6.2L8.29 4.26m5.908 1.042.348-1.97M7.48 20.364l3.126-17.727" />
-    </svg>
+  const selectedMethod = paymentMethods.find(
+    (method) => method.name === selectedPaymentMethod
   );
-}
 
-function CreditCardIcon(props: any) {
   return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="20" height="14" x="2" y="5" rx="2" />
-      <line x1="2" x2="22" y1="10" y2="10" />
-    </svg>
-  );
-}
-
-function DogIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5" />
-      <path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5" />
-      <path d="M8 14v.5" />
-      <path d="M16 14v.5" />
-      <path d="M11.25 16.25h1.5L12 17l-.75-.75Z" />
-      <path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306" />
-    </svg>
-  );
-}
-
-function EclipseIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 2a7 7 0 1 0 10 10" />
-    </svg>
-  );
-}
-
-function ShoppingCartIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="8" cy="21" r="1" />
-      <circle cx="19" cy="21" r="1" />
-      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-    </svg>
-  );
-}
-
-function ZapIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
-    </svg>
+    <div className="flex items-center justify-center h-screen">
+      <Card className="w-full max-w-md">
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            {" "}
+            <CardTitle className="text-xl">Payment</CardTitle>
+            <CardDescription className="text-sm">
+              Select your payment method
+            </CardDescription>
+          </div>
+          <div
+            style={{
+              color: colors.defaultblue + "80",
+              background: colors.defaultblue + "10",
+            }}
+            className="bg-gray-100 font-medium font-sans p-4 rounded-full"
+          >
+            {" "}
+            $50
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            {paymentMethods.slice(0, 4).map((method) => (
+              <Button
+                key={method.name}
+                className="border py-5"
+                style={
+                  selectedPaymentMethod === method.name
+                    ? { backgroundColor: colors.defaultblue }
+                    : {
+                        backgroundColor: colors.defaultblue + "07",
+                        color: "#333",
+                      }
+                }
+                onClick={() => setSelectedPaymentMethod(method.name)}
+              >
+                <Image
+                  alt=""
+                  src={method.src}
+                  width={1000}
+                  height={1000}
+                  className="h-5 w-5 mr-2"
+                />
+                {method.name.charAt(0).toUpperCase() + method.name.slice(1)}
+              </Button>
+            ))}
+          </div>
+          <Separator />
+          <div></div>
+          <div className="grid grid-cols-2 gap-4">
+            {paymentMethods.slice(4).map((method) => (
+              <Button
+                key={method.name}
+                className="border py-5"
+                style={
+                  selectedPaymentMethod === method.name
+                    ? { backgroundColor: colors.defaultblue }
+                    : {
+                        backgroundColor: colors.defaultblue + "07",
+                        color: "#333",
+                      }
+                }
+                onClick={() => setSelectedPaymentMethod(method.name)}
+              >
+                <Image
+                  alt=""
+                  src={method.src}
+                  width={1000}
+                  height={1000}
+                  className="h-5 w-5 mr-2 rounded-full"
+                />
+                {method.name.charAt(0).toUpperCase() + method.name.slice(1)}
+              </Button>
+            ))}
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-between items-center">
+          <Dialog>
+            <DialogTrigger
+              disabled={!selectedPaymentMethod}
+              // style={{ backgroundColor: colors.defaultblue }}
+              className="ml-auto w-full justify-center disabled:bg-gray-200 bg-blue-800
+               text-white px-4 py-3 rounded-md text-sm font-semibold flex items-center gap-x-2"
+            >
+              <p>Pay Now</p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="size-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </DialogTrigger>
+            <DialogContent>
+              {selectedMethod && (
+                <div className="flex flex-col items-center space-y-4">
+                  <Image
+                    alt=""
+                    src={selectedMethod.src}
+                    width={100}
+                    height={100}
+                    className="h-10 w-10 rounded-full"
+                  />
+                  {/* 
+                  <div className="text-lg font-medium">
+                    {selectedMethod.name.charAt(0).toUpperCase() +
+                      selectedMethod.name.slice(1)}
+                  </div> */}
+                  <div className="address box w-full">
+                    <Label htmlFor={selectedMethod.address + "address"}>
+                      {selectedMethod.name.charAt(0).toUpperCase() +
+                        selectedMethod.name.slice(1)}{" "}
+                      address
+                    </Label>
+                    <div className="bg-gray-100 mt-1 text-sm rounded-md flex items-center justify-between p-4">
+                      {" "}
+                      <p>{selectedMethod.address}</p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-5 cursor-pointer text-gray-600"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75"
+                        />
+                      </svg>
+                      {/* <Input
+                        type="text"
+                        readOnly
+                        className="bg-gray-100"
+                        value={selectedMethod.address}
+                      /> */}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </DialogContent>
+          </Dialog>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

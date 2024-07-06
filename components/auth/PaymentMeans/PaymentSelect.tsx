@@ -8,16 +8,16 @@ export default function PaymentSelect() {
   const colors = useColors();
 
   return (
-    <div className="container mx-auto max-w-md px-4 py-12">
+    <div className="container mx-auto  max-w-md px-4 py-12">
       <div className="space-y-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold">Choose Your Deposit Method</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl font-bold">Choose Your Deposit Method</h1>
+          <p className="text-muted-foreground text-sm">
             Select the option that best suits your needs.
           </p>
         </div>
         <RadioGroup defaultValue="branch" className="space-y-4">
-          <div className="flex cursor-pointer items-start gap-4 rounded-lg border p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground">
+          <div className="flex cursor-pointer bg-white items-start gap-4 rounded-lg border p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
               <BuildingIcon className="h-6 w-6" />
             </div>
@@ -65,7 +65,7 @@ export default function PaymentSelect() {
               </p>
               <Link
                 style={{ backgroundColor: colors.defaultblue }}
-                href="#"
+                href="/auth/payment-means/mobile-deposit"
                 className="inline-flex h-12 mt-20 items-center gap-2 font-bold rounded-md bg-primary px-4 py-2 text-sm f/ont-medium text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 prefetch={false}
               >

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function page() {
   return (
-    <div>
+    <div className="bg-grid-blue-50">
       <PaymentSelect />
     </div>
   );
