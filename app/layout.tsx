@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Raleway } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 import "animate.css";
 import { ColorProvider } from "@/context/colorContext";
 import { SignUpProvider } from "@/context/signUpFormContext";
@@ -23,7 +24,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SignUpProvider>
-          <ColorProvider>{children}</ColorProvider>
+          <ColorProvider>
+            <Toaster richColors position="top-center" />
+            {children}
+          </ColorProvider>
         </SignUpProvider>
       </body>
     </html>
