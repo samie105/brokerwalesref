@@ -195,7 +195,7 @@ export default function PaymentSection() {
                 />
               </svg>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="w-[90%] flex flex-col rounded-md">
               {selectedMethod && (
                 <div className="flex flex-col items-center space-y-4">
                   <div className="flex items-center justify-center gap-x-3">
@@ -217,58 +217,70 @@ export default function PaymentSection() {
                     </div>
                   </div>
 
-                  <div className="address box w-full text-sm">
-                    <label htmlFor={selectedMethod.address + "address"}>
-                      {selectedMethod.name.charAt(0).toUpperCase() +
-                        selectedMethod.name.slice(1)}{" "}
-                      ID
-                    </label>
-                    <div className="bg-gray-100 mt-1 text-sm rounded-md flex items-center justify-between p-4">
-                      <p>{selectedMethod.address}</p>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        onClick={() => handleCopy(selectedMethod.address)}
-                        className="size-5 cursor-pointer text-gray-600"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="payment-checker">
-                    <div className="notes text-xs bg-gray-100 text-black/80 font-medium/ rounded-md p-2">
-                      Copy the payment id and make the transaction. When done,
-                      click on the button below to proceed. Be sure to have made
-                      the transaction before proceeding as the payment id is
-                      bound to change
-                    </div>
-                    <Button
-                      className="btn w-full h-12 text-sm gap-x-2 mt-3"
-                      style={{ background: colors.defaultblue }}
-                    >
+                  {!paid && (
+                    <>
                       {" "}
-                      <p>Click to proceed</p>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="size-5"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </Button>
-                  </div>
+                      <div className="address box w-full text-sm">
+                        <label htmlFor={selectedMethod.address + "address"}>
+                          {selectedMethod.name.charAt(0).toUpperCase() +
+                            selectedMethod.name.slice(1)}{" "}
+                          ID
+                        </label>
+                        <div className="bg-gray-100 mt-1 text-sm rounded-md flex items-center justify-between p-4">
+                          <Input
+                            className="w-5/6 focus-within:outline-none focus:outline-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-gray-100 ring-0 focus-within:ring-0 focus:ring-0"
+                            value={selectedMethod.address}
+                            readOnly
+                          />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            onClick={() => handleCopy(selectedMethod.address)}
+                            className="size-5 cursor-pointer text-gray-600"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div className="payment-checker">
+                        <div className="notes text-xs bg-gray-100 text-black/80 font-medium/ rounded-md p-2">
+                          Copy the payment id and make the transaction. When
+                          done, click on the button below to proceed. Be sure to
+                          have made the transaction before proceeding as the
+                          payment id is bound to change
+                        </div>
+                        <Button
+                          className="btn w-full h-12 text-sm gap-x-2 mt-3"
+                          style={{ background: colors.defaultblue }}
+                          onClick={() => {
+                            setPaid(true);
+                          }}
+                        >
+                          {" "}
+                          <p>Payment Done</p>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            className="size-5"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </Button>
+                      </div>
+                    </>
+                  )}
                   {paid && (
                     <div className="w-full">
                       <Label className="block text-sm font-medium text-gray-700">
@@ -313,6 +325,34 @@ export default function PaymentSection() {
                           </button>
                         </div>
                       )}
+                      <div className="payment-checker mt-2">
+                        <div className="notes text-xs bg-gray-100 text-black/80 font-medium/ rounded-md p-2">
+                          Upload the payment transaction screenshot as a means
+                          of verifying the payemnt. Note the process of
+                          verification is automated so do well to provide
+                          accurate payment proof to avoid payment losses.
+                        </div>
+                        <Button
+                          disabled={uploadedFile === null}
+                          className="btn w-full h-12 text-sm gap-x-2 mt-3 disabled:cursor-not-allowed"
+                          style={{ background: colors.defaultblue }}
+                        >
+                          {" "}
+                          <p>Verify Payment</p>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            className="size-5"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </Button>
+                      </div>
                     </div>
                   )}
                 </div>
