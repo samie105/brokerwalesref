@@ -110,13 +110,7 @@ export default function PaymentSection() {
               Select your payment method
             </CardDescription>
           </div>
-          <div
-            style={{
-              color: colors.defaultblue,
-              background: colors.defaultblue + "10",
-            }}
-            className="bg-gray-100 font-medium font-sans p-2 rounded-full"
-          >
+          <div className="bg-gray-100 text-gray-600 font-medium font-sans p-2 rounded-full">
             <p>$50</p>
           </div>
         </CardHeader>
@@ -179,9 +173,9 @@ export default function PaymentSection() {
           <Dialog>
             <DialogTrigger
               disabled={!selectedPaymentMethod}
-              className="ml-auto w-full justify-center disabled:bg-gray-200 bg-blue-800 text-white px-4 py-3 rounded-md text-sm font-semibold flex items-center gap-x-2 disabled:cursor-not-allowed"
+              className="ml-auto w-full justify-center disabled:bg-gray-200 disabled:text-gray-500 bg-[#0013BB] text-white px-4 py-3 rounded-md text-sm font-semibold flex items-center gap-x-2 disabled:cursor-not-allowed"
             >
-              <p>Pay Now</p>
+              <p>Pay now</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -198,7 +192,7 @@ export default function PaymentSection() {
             <DialogContent className="w-[90%] flex flex-col rounded-md">
               {selectedMethod && (
                 <div className="flex flex-col items-center space-y-4">
-                  <div className="flex items-center justify-center gap-x-3">
+                  <div className="flex items-center justify-center gap-x-2">
                     <Image
                       alt=""
                       src={selectedMethod.src}
@@ -206,12 +200,14 @@ export default function PaymentSection() {
                       height={100}
                       className="h-10 w-10 rounded-full"
                     />
+                    <div className=" h-1.5 w-1.5 rounded-full bg-gray-300"></div>
+
                     <div
                       style={{
-                        color: "#0000ff",
-                        background: "#0000ff10",
+                        color: "#fff",
+                        background: colors.darkdefualtblue,
                       }}
-                      className="bg-gray-100 font-medium font-sans p-3 rounded-full"
+                      className="bg-gray-100 font-medium font-sans p-3 text-sm rounded-full"
                     >
                       <p>$50</p>
                     </div>

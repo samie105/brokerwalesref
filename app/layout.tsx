@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import "animate.css";
 import { ColorProvider } from "@/context/colorContext";
 import { SignUpProvider } from "@/context/signUpFormContext";
+import { LoginProvider } from "@/context/loginFormContext";
 const inter = Raleway({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -24,10 +25,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SignUpProvider>
-          <ColorProvider>
-            <Toaster richColors position="top-center" />
-            {children}
-          </ColorProvider>
+          <LoginProvider>
+            <ColorProvider>
+              <Toaster richColors position="top-center" />
+              {children}
+            </ColorProvider>
+          </LoginProvider>
         </SignUpProvider>
       </body>
     </html>

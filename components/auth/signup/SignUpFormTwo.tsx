@@ -18,6 +18,7 @@ interface SignUpFormTwoProps {
 // Define an interface for the form data
 interface FormData {
   motherMaidenName: string;
+  ssn: string;
   password: string;
   confirmPassword: string;
 }
@@ -26,6 +27,7 @@ interface FormData {
 const schema = z
   .object({
     motherMaidenName: z.string().min(1, "Mother's maiden name is required."),
+    ssn: z.string().min(9, "Invalid ssn, check again"),
     password: z.string().min(6, "Password must be at least 6 characters."),
     confirmPassword: z
       .string()
@@ -61,8 +63,6 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
     setFormData(data);
     console.log(formData);
     router;
-    // Optionally increment steps or handle next form logic
-    setSteps((prevStep) => prevStep + 1);
   };
 
   return (
@@ -80,6 +80,19 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
         {errors.motherMaidenName && (
           <p className="text-red-500">{errors.motherMaidenName.message}</p>
         )}
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="ssn">{"Ssn"}</Label>
+        <Input
+          id="ssn"
+          {...register("ssn")}
+          maxLength={9}
+          onChange={handleInputChange}
+          value={formData.ssn || ""}
+          placeholder="xxx-xx-xxxx"
+          required
+        />
+        {errors.ssn && <p className="text-red-500">{errors.ssn.message}</p>}
       </div>
       <div className="space-y-2">
         <Label htmlFor="password">Password</Label>

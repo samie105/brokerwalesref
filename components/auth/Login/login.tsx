@@ -12,9 +12,43 @@ import Image from "next/image";
 import hero from "@/public/assets/cardImage.jpg";
 import { useColors } from "@/context/colorContext";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeam";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useLoginContext } from "@/context/loginFormContext";
+
+// Define the validation schema with Zod
+const loginSchema = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function Login() {
+  const router = useRouter();
+  const { formData, setFormData } = useLoginContext();
   const colors = useColors();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: formData,
+  });
+
+  const onSubmit = (data: LoginFormData) => {
+    setFormData(data);
+    router.push(
+      "/auth/ikhidkfhksjndfgiskjlfgniusdjkfgniusjkdhfgniuksfgi/login-verification"
+    );
+  };
+
   return (
     <div className="grid min-h-[100dvh] w-full grid-cols-1 lg:grid-cols-2">
       <div className="hidden lg:block /border relative overflow-hidden">
@@ -29,7 +63,7 @@ export default function Login() {
       <div className="flex items-center justify-center mt-9 p-6 lg:p-10">
         <div className="mx-auto w-full max-w-[400px] space-y-6">
           <div className="/space-y-2 /text-center">
-            <h1 className="text-2xl font-bold">Welcome Back 👋</h1>
+            <h1 className="text-2xl font-bold">Welcome Back</h1>
             <p className="text-gray-500 /text-sm dark:text-gray-400">
               Enter your email and password to sign in
             </p>
@@ -37,19 +71,35 @@ export default function Login() {
           <div className="w-full">
             <div className="w-10 mx-auto h-0.5 rounded-full bg-neutral-300 my-3"></div>
           </div>
-          <div className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2 text-sm">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="m@example.com"
-                required
+                {...register("email")}
+                className={errors.email ? "border-red-500" : ""}
               />
+              {errors.email && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
             <div className="space-y-2 text-sm">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" required />
+              <Input
+                id="password"
+                type="password"
+                {...register("password")}
+                className={errors.password ? "border-red-500" : ""}
+              />
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
             <Button
               type="submit"
@@ -77,7 +127,7 @@ export default function Login() {
             >
               Forgot your password?
             </Link>
-          </div>
+          </form>
           <div className="flex items-center justify-center">
             <Link
               href="/"

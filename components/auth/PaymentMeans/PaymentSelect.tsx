@@ -49,11 +49,11 @@ export default function PaymentSelect() {
               </Link>
             </div>
           </div>
-          <div className="flex cursor-pointer items-start gap-4 rounded-lg border p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground">
+          <div className="flex cursor-pointer bg-white items-start gap-4 rounded-lg border p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
               <CreditCardIcon className="h-6 w-6" />
             </div>
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-2 ">
               <RadioGroupItem value="card" id="card" className="peer sr-only" />
               <Label htmlFor="card" className="text-lg font-bold text-black/70">
                 Deposit Via Mobile Deposit

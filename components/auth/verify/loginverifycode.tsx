@@ -18,11 +18,20 @@ import { useColors } from "@/context/colorContext";
 import dynamic from "next/dynamic";
 import animationData from "@/components/auth/verify/verify.json";
 import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useLoginContext } from "@/context/loginFormContext";
 
 const Lottie = dynamic(() => import("lottie-react").then((m) => m.default), {
   ssr: false,
 });
-export default function VerifyOTP() {
+
+export default function LoginVerifyOTP() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { formData } = useLoginContext();
+  const handleVerification = () => {
+    if (pathname.includes("login")) router.push("/auth/payment-means/");
+  };
   const [value, setValue] = useState<string | null>(null);
   const colors = useColors();
   return (
@@ -32,11 +41,12 @@ export default function VerifyOTP() {
           <Lottie animationData={animationData} className="w-[90%] h-[13rem]" />
         </div>
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-xl font-bold">Verify your email</CardTitle>
+          <CardTitle className="text-xl font-bold">
+            {"Verify It's you"}
+          </CardTitle>
           <CardDescription>
             Enter the 6-digit code sent to{" "}
-            <span className="font-bold">samsonrichfield@gmail.com</span> email
-            address
+            <span className="font-bold">{formData.email}</span> email address
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -70,6 +80,7 @@ export default function VerifyOTP() {
           <Button
             style={{ background: colors.defaultblue }}
             type="submit"
+            onClick={handleVerification}
             disabled={value == null || value?.length < 6}
             className="w-full h-12 font-bold flex items-center gap-x-1"
           >

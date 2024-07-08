@@ -9,6 +9,7 @@ interface SignUpFormData {
   phone?: string;
   dob?: string;
   motherMaidenName?: string;
+  ssn?: string;
   password?: string;
   confirmPassword?: string;
 }
