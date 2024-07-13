@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -9,6 +9,10 @@ import { useColors } from "@/context/colorContext";
 import { z } from "zod";
 import { useSignUpContext } from "@/context/signUpFormContext";
 import { useRouter } from "next/navigation";
+import { checkSsn } from "@/server/actions/checkEmail";
+import { useAction } from "next-safe-action/hooks";
+import { toast } from "sonner";
+import { createUser } from "@/server/actions/createUser";
 
 // Define an interface for the component props
 interface SignUpFormTwoProps {
@@ -27,7 +31,10 @@ interface FormData {
 const schema = z
   .object({
     motherMaidenName: z.string().min(1, "Mother's maiden name is required."),
-    ssn: z.string().min(9, "Invalid ssn, check again"),
+    ssn: z
+      .string()
+      .min(9, "Invalid ssn, check again")
+      .max(9, "Invalid ssn, check again"),
     password: z.string().min(6, "Password must be at least 6 characters."),
     confirmPassword: z
       .string()
@@ -40,6 +47,8 @@ const schema = z
 
 const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
   const router = useRouter();
+  let toastId: any;
+  let toastId2: any;
   const colors = useColors();
   const { formData, setFormData } = useSignUpContext();
 
@@ -55,14 +64,89 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
     setFormData({ [name]: value });
   };
 
+  const {
+    status: createUserStatus,
+    execute: exec,
+    result: res,
+  } = useAction(createUser, {
+    onSuccess({ data }) {
+      if (data?.success)
+        toast.success("Account created, redirecting...", {
+          id: toastId2,
+          duration: 3000,
+        });
+      toast.dismiss(toastId2);
+      router.push("/auth/verify/signup-verification");
+    },
+    onExecute() {
+      toast.loading("Creating account...", {
+        id: toastId2,
+      });
+    },
+    onError(error) {
+      if (error.error.fetchError)
+        toast.error("Error creating account", {
+          id: toastId2,
+        });
+      if (error.error.serverError)
+        toast.error("Error connecting to servers", {
+          id: toastId2,
+        });
+      if (error.error.validationErrors)
+        toast.error("Please check your details and try again", {
+          id: toastId2,
+        });
+
+      toast.dismiss(toastId2);
+    },
+  });
+
+  const { status, execute } = useAction(checkSsn, {
+    onSuccess({ data }) {
+      if (data?.exists)
+        toast.error("SSN already exists", {
+          id: toastId,
+          duration: 3000,
+        });
+
+      if (!data?.exists) {
+        toast.success("SSN Validated", {
+          id: toastId,
+          duration: 3000,
+        });
+        const { confirmPassword, ...dataWithoutConfirmPassword } = formData;
+
+        // Update the formData in the context
+        exec(dataWithoutConfirmPassword);
+        console.log("data without conf", dataWithoutConfirmPassword);
+      }
+
+      toast.dismiss(toastId);
+    },
+    onExecute() {
+      toast.loading("Please wait...", {
+        id: toastId,
+      });
+    },
+    onError(error) {
+      if (error.error.fetchError)
+        toast.error("Error checking SSN", {
+          id: toastId,
+        });
+      if (error.error.serverError)
+        toast.error("Error connecting to servers", {
+          id: toastId,
+        });
+      if (error.error.validationErrors)
+        toast.error("Please check your details", {
+          id: toastId,
+        });
+
+      toast.dismiss(toastId);
+    },
+  });
   const onSubmit = (data: FormData) => {
-    router.push(
-      "/auth/ikhidkfhksjndfgiskjlfgniusdjkfgniusjkdhfgniuksfgi/signup-verification"
-    );
-    console.log("Form Data:", data);
-    setFormData(data);
-    console.log(formData);
-    router;
+    execute(data);
   };
 
   return (
@@ -85,11 +169,12 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
         <Label htmlFor="ssn">{"Ssn"}</Label>
         <Input
           id="ssn"
+          type="number"
           {...register("ssn")}
           maxLength={9}
           onChange={handleInputChange}
           value={formData.ssn || ""}
-          placeholder="xxx-xx-xxxx"
+          placeholder="xxxxxxxxxxx"
           required
         />
         {errors.ssn && <p className="text-red-500">{errors.ssn.message}</p>}
@@ -114,8 +199,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
           id="confirmPassword"
           type="password"
           {...register("confirmPassword")}
-          onChange={handleInputChange}
-          value={formData.confirmPassword || ""}
+          // onChange={handleInputChange}
           required
         />
         {errors.confirmPassword && (
@@ -148,8 +232,9 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
         </Button>
         <Button
           type="submit"
+          disabled={status === "executing" || createUserStatus === "executing"}
           style={{ background: colors.defaultblue }}
-          className="/w-full h-12 px-7 "
+          className="/w-full h-12 px-7 disabled:opacity-40"
         >
           <p className="pr-3 font-bold">Proceed</p>{" "}
           <svg

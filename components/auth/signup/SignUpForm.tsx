@@ -6,55 +6,71 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useColors } from "@/context/colorContext";
-import { z } from "zod";
+import { TypeOf, z } from "zod";
 import { useSignUpContext } from "@/context/signUpFormContext";
-
-const signUpSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email("Invalid email address"),
-  phone: z
-    .string()
-    .min(10, "Phone number is too short")
-    .regex(
-      /^\+?(\d{1,3})?\s?\(?\d{3}\)?[-\s]?\d{3}[-\s]?\d{4}$/,
-      "Invalid phone number format"
-    ),
-  dob: z.string().refine((date) => {
-    const today = new Date();
-    const birthDate = new Date(date);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age >= 18;
-  }, "You must be at least 18 years old"),
-});
+import { signUpSchema } from "@/server/schema";
+import { checkEmail } from "@/server/actions/checkEmail";
+import { useAction } from "next-safe-action/hooks";
+import { toast } from "sonner";
 
 export default function SignUpForm({ setSteps }: { setSteps: any }) {
   const colors = useColors();
+  let toastId: any;
   const { formData, setFormData } = useSignUpContext();
-  const [d, setD] = useState({});
-
+  type SignUpFormData = TypeOf<typeof signUpSchema>;
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
   });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ [name]: value });
   };
+  const { status, execute, result } = useAction(checkEmail, {
+    onSuccess({ data }) {
+      if (data?.exists)
+        toast.error("A User with this credentials exists", {
+          id: toastId,
+          duration: 3000,
+        });
 
-  const onSubmit = (data: any) => {
-    setSteps(1);
-    setFormData(data);
-    console.log("Form Data:", data);
-    console.log(formData);
-    setD(data);
+      if (!data?.exists) {
+        toast.success("Credentials Validated", {
+          id: toastId,
+          duration: 3000,
+        });
+        setSteps(1);
+      }
+      toast.dismiss(toastId);
+    },
+    onExecute() {
+      toast.loading("Checking credenttials...", {
+        id: toastId,
+      });
+    },
+    onError(error) {
+      if (error.error.fetchError)
+        toast.error("Error checking credentials", {
+          id: toastId,
+        });
+      if (error.error.serverError)
+        toast.error("Error connecting to servers", {
+          id: toastId,
+        });
+      if (error.error.validationErrors)
+        toast.error("Please check your details", {
+          id: toastId,
+        });
+
+      toast.dismiss(toastId);
+    },
+  });
+
+  const onSubmit = async (data: SignUpFormData) => {
+    execute(data);
   };
   return (
     <form className="space-y-4">
@@ -138,9 +154,10 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
       </div>
       <Button
         type="button"
+        disabled={status === "executing"}
         onClick={handleSubmit(onSubmit)}
         style={{ background: colors.defaultblue }}
-        className="w-full h-12"
+        className="w-full h-12 disabled:opacity-40"
       >
         Proceed <ArrowRightIcon className="ml-2 h-4 w-4" />
       </Button>

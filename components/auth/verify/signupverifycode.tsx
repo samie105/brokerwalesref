@@ -20,6 +20,7 @@ import animationData from "@/components/auth/verify/verify.json";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useSignUpContext } from "@/context/signUpFormContext";
+import nookies from "nookies";
 
 const Lottie = dynamic(() => import("lottie-react").then((m) => m.default), {
   ssr: false,
@@ -29,11 +30,23 @@ export default function SignupVerifyOTP() {
   const router = useRouter();
   const pathname = usePathname();
   const { formData } = useSignUpContext();
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [value, setValue] = useState<string | null>(null);
+  const colors = useColors();
+
+  useEffect(() => {
+    // Get the userEmail from cookies
+    const cookies = nookies.get(null);
+    const emailCookie = cookies.userEmail;
+    if (emailCookie) {
+      setUserEmail(emailCookie);
+    }
+  }, []);
+
   const handleVerification = () => {
     if (pathname.includes("signup")) router.push("/auth/payment-means/");
   };
-  const [value, setValue] = useState<string | null>(null);
-  const colors = useColors();
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background">
       <Card className="w-full max-w-md">
@@ -45,7 +58,7 @@ export default function SignupVerifyOTP() {
           <CardDescription>
             Enter the 6-digit code sent to{" "}
             <span className="font-bold">
-              {pathname.includes("signup-verification") ? formData.email : ""}
+              {pathname.includes("signup-verification") ? userEmail : ""}
             </span>{" "}
             email address
           </CardDescription>
