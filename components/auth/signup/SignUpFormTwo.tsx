@@ -66,7 +66,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
   });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({ [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
   const {
@@ -82,6 +82,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
         });
       toast.dismiss(toastId2);
       router.push("/auth/verify/signup-verification");
+      localStorage.setItem("email", JSON.stringify(formData.email));
     },
     onExecute() {
       toast.loading("Creating account...", {
