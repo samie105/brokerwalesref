@@ -98,7 +98,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
           id: toastId2,
         });
       if (error.error.validationErrors)
-        toast.error("Please check your details  lalala and try again", {
+        toast.error("Please check your details  and try again", {
           id: toastId2,
         });
 
