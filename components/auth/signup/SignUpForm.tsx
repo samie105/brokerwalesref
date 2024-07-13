@@ -17,7 +17,17 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
   const colors = useColors();
   let toastId: any;
   const { formData, setFormData } = useSignUpContext();
-  type SignUpFormData = TypeOf<typeof signUpSchema>;
+  interface SignUpFormData {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    dob?: string;
+    motherMaidenName?: string;
+    ssn?: string;
+    password?: string;
+    confirmPassword?: string;
+  }
   const {
     register,
     handleSubmit,

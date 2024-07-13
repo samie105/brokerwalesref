@@ -21,10 +21,15 @@ interface SignUpFormTwoProps {
 
 // Define an interface for the form data
 interface FormData {
-  motherMaidenName: string;
-  ssn: string;
-  password: string;
-  confirmPassword: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  dob?: string;
+  motherMaidenName?: string;
+  ssn?: string;
+  password?: string;
+  confirmPassword?: string;
 }
 
 // Define the Zod schema for form validation
@@ -114,7 +119,8 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
           id: toastId,
           duration: 3000,
         });
-        exec(formData);
+        const { confirmPassword, ...deets } = formData;
+        exec(deets);
       }
 
       toast.dismiss(toastId);

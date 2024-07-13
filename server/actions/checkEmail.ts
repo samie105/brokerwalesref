@@ -6,11 +6,11 @@ import { actionClient } from "@/lib/safeActionClient";
 
 // Define a schema specifically for checking the email and phone
 const checkEmailPhoneSchema = z.object({
-  email: z.string().email(),
-  phone: z.string().nonempty(),
+  email: z.string().email().optional(),
+  phone: z.string().nonempty().optional(),
 });
 const checkSsnSchema = z.object({
-  ssn: z.string().nonempty(),
+  ssn: z.string().nonempty().optional(),
 });
 export const checkEmail = actionClient
   .schema(checkEmailPhoneSchema)
