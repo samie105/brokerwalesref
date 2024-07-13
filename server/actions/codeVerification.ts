@@ -4,6 +4,9 @@ import { cookies } from "next/headers";
 import { sendMail } from "@/server/mailer"; // Import the sendMail function
 import { z } from "zod";
 
+function generateRandomCode(): string {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
 const email = z.object({
   email: z.string().nonempty().optional(),
 });
@@ -23,6 +26,25 @@ export const sendCode = actionClient
     }
 
     const res = await sendMail(parsedInput.email, verificationCode.value);
+    if (res.success) return { success: true };
+    if (!res.success) return { success: false };
+  });
+
+export const resendCode = actionClient
+  .schema(email)
+  .action(async ({ parsedInput }) => {
+    const verificationCode = generateRandomCode();
+    cookies().set("verificationCode", verificationCode, {
+      path: "/",
+      httpOnly: true,
+    });
+    // const email = cookies().get("userEmail");
+    console.log(parsedInput.email);
+    if (!parsedInput.email) {
+      throw new Error("User email not found");
+    }
+
+    const res = await sendMail(parsedInput.email, verificationCode);
     if (res.success) return { success: true };
     if (!res.success) return { success: false };
   });

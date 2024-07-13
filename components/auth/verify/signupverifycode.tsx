@@ -17,12 +17,12 @@ import { Button } from "@/components/ui/button";
 import { useColors } from "@/context/colorContext";
 import dynamic from "next/dynamic";
 import animationData from "@/components/auth/verify/verify.json";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useSignUpContext } from "@/context/signUpFormContext";
 import nookies from "nookies";
 import { useAction } from "next-safe-action/hooks";
-import { sendCode } from "@/server/actions/codeVerification";
+import { resendCode, sendCode } from "@/server/actions/codeVerification";
 import { toast } from "sonner";
 
 const Lottie = dynamic(() => import("lottie-react").then((m) => m.default), {
@@ -39,6 +39,7 @@ export default function SignupVerifyOTP() {
   const [resendEnabled, setResendEnabled] = useState<boolean>(false);
   const [codeSent, setCodeSent] = useState<boolean>(false);
   const colors = useColors();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const { execute, status } = useAction(sendCode, {
     onExecute() {
       toast.loading("Sending code please wait...", {
@@ -80,38 +81,95 @@ export default function SignupVerifyOTP() {
       toast.dismiss(codeToastId);
     },
   });
+
+  const { execute: resendCodeFn, status: resendCodeStatus } = useAction(
+    resendCode,
+    {
+      onExecute() {
+        toast.loading("Resending code please wait...", {
+          id: codeToastId,
+          duration: 3000,
+        });
+      },
+      onSuccess({ data }) {
+        if (data?.success) {
+          toast.success("Code resent", {
+            id: codeToastId,
+            duration: 3000,
+          });
+          startCountdown();
+
+          setResendEnabled(false);
+        }
+        if (!data?.success)
+          toast.error("Error resending code, please try again", {
+            id: codeToastId,
+            duration: 3000,
+          });
+
+        toast.dismiss(codeToastId);
+      },
+
+      onError(error) {
+        if (error.error.fetchError)
+          toast.error("Error resending code", {
+            id: codeToastId,
+          });
+        if (error.error.serverError)
+          toast.error("Error connecting to servers", {
+            id: codeToastId,
+          });
+        if (error.error.validationErrors)
+          toast.error("Error, try again later", {
+            id: codeToastId,
+          });
+
+        toast.dismiss(codeToastId);
+      },
+    }
+  );
   const handleClick = () => {
     execute({ email: userEmail });
   };
   useEffect(() => {
-    // Get the userEmail from cookies
+    // Get the userEmail from localStorage
     const emailCookie = localStorage.getItem("email");
     if (emailCookie) {
       const email = JSON.parse(emailCookie);
       setUserEmail(email);
     }
 
-    const timer = setInterval(() => {
+    startCountdown();
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, []);
+  const startCountdown = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    setCountdown(60);
+    setResendEnabled(false);
+    timerRef.current = setInterval(() => {
       setCountdown((prev) => {
-        if (prev === 0) {
-          clearInterval(timer);
+        if (prev === 1) {
+          clearInterval(timerRef.current as NodeJS.Timeout);
           setResendEnabled(true);
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
+  };
   const handleVerification = () => {
     if (pathname.includes("signup")) router.push("/auth/payment-means/");
   };
 
   const handleResendCode = () => {
-    setCountdown(60);
-    setResendEnabled(false);
+    resendCodeFn({ email: userEmail });
 
     // Simulate the resend code action
     // Here you would typically call an API to resend the code
@@ -204,7 +262,10 @@ export default function SignupVerifyOTP() {
               type="submit"
               onClick={handleVerification}
               disabled={
-                value == null || value?.length < 6 || status === "executing"
+                value == null ||
+                value?.length < 6 ||
+                status === "executing" ||
+                resendCodeStatus === "executing"
               }
               className="w-full h-12 font-bold flex items-center gap-x-1"
             >

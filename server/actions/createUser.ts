@@ -38,7 +38,7 @@ export const createUser = actionClient
       // Set user information in cookies (you can set any information you deem necessary)
       cookies().set("userEmail", createdUser.email, {
         path: "/",
-        httpOnly: false,
+        httpOnly: true,
       });
 
       // Return success response with the created user data (excluding sensitive information)
