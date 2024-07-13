@@ -33,7 +33,7 @@ export default function SignupVerifyOTP() {
   const router = useRouter();
   const pathname = usePathname();
   let codeToastId: any;
-  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string | undefined>(undefined);
   const [value, setValue] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<number>(60);
   const [resendEnabled, setResendEnabled] = useState<boolean>(false);
