@@ -29,7 +29,6 @@ const Lottie = dynamic(() => import("lottie-react").then((m) => m.default), {
 export default function SignupVerifyOTP() {
   const router = useRouter();
   const pathname = usePathname();
-  const { formData } = useSignUpContext();
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [value, setValue] = useState<string | null>(null);
   const colors = useColors();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -93,7 +93,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
           id: toastId2,
         });
       if (error.error.validationErrors)
-        toast.error("Please check your details and try again", {
+        toast.error("Please check your details  lalala and try again", {
           id: toastId2,
         });
 
@@ -114,11 +114,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
           id: toastId,
           duration: 3000,
         });
-        const { confirmPassword, ...dataWithoutConfirmPassword } = formData;
-
-        // Update the formData in the context
-        exec(dataWithoutConfirmPassword);
-        console.log("data without conf", dataWithoutConfirmPassword);
+        exec(formData);
       }
 
       toast.dismiss(toastId);

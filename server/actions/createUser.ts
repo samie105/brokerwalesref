@@ -45,7 +45,6 @@ export const createUser = actionClient
       return {
         success: true,
         user: {
-          id: createdUser._id,
           firstName: createdUser.firstName,
           lastName: createdUser.lastName,
           email: createdUser.email,
