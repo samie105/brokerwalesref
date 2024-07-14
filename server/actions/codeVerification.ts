@@ -10,6 +10,9 @@ function generateRandomCode(): string {
 const email = z.object({
   email: z.string().nonempty().optional(),
 });
+const code = z.object({
+  code: z.string().nonempty().optional(),
+});
 export const sendCode = actionClient
   .schema(email)
   .action(async ({ parsedInput }) => {
@@ -47,4 +50,17 @@ export const resendCode = actionClient
     const res = await sendMail(parsedInput.email, verificationCode);
     if (res.success) return { success: true };
     if (!res.success) return { success: false };
+  });
+
+export const verifyCode = actionClient
+  .schema(code)
+  .action(async ({ parsedInput }) => {
+    const verificationCode = cookies().get("verificationCode");
+
+    if (!verificationCode) {
+      throw new Error("Verification code not found");
+    }
+    console.log(verificationCode, parsedInput.code);
+    if (verificationCode.value == parsedInput.code) return { verified: true };
+    if (verificationCode.value != parsedInput.code) return { verified: false };
   });

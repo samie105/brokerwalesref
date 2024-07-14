@@ -22,7 +22,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSignUpContext } from "@/context/signUpFormContext";
 import nookies from "nookies";
 import { useAction } from "next-safe-action/hooks";
-import { resendCode, sendCode } from "@/server/actions/codeVerification";
+import {
+  resendCode,
+  sendCode,
+  verifyCode,
+} from "@/server/actions/codeVerification";
 import { toast } from "sonner";
 
 const Lottie = dynamic(() => import("lottie-react").then((m) => m.default), {
@@ -34,7 +38,7 @@ export default function SignupVerifyOTP() {
   const pathname = usePathname();
   let codeToastId: any;
   const [userEmail, setUserEmail] = useState<string | undefined>(undefined);
-  const [value, setValue] = useState<string | null>(null);
+  const [value, setValue] = useState<string | undefined>(undefined);
   const [countdown, setCountdown] = useState<number>(60);
   const [resendEnabled, setResendEnabled] = useState<boolean>(false);
   const [codeSent, setCodeSent] = useState<boolean>(false);
@@ -128,6 +132,7 @@ export default function SignupVerifyOTP() {
       },
     }
   );
+
   const handleClick = () => {
     execute({ email: userEmail });
   };
@@ -164,8 +169,51 @@ export default function SignupVerifyOTP() {
       });
     }, 1000);
   };
+  const { execute: verifyCodeFn, status: verificationStatus } = useAction(
+    verifyCode,
+    {
+      onError(error) {
+        if (error.error.fetchError)
+          toast.error("Error verifying code", {
+            id: codeToastId,
+          });
+        if (error.error.serverError)
+          toast.error("Error connecting to servers", {
+            id: codeToastId,
+          });
+        if (error.error.validationErrors)
+          toast.error("Error, try again later", {
+            id: codeToastId,
+          });
+
+        toast.dismiss(codeToastId);
+      },
+      onExecute() {
+        toast.loading("Verifying code, please wait...", {
+          id: codeToastId,
+          duration: 3000,
+        });
+      },
+      onSuccess({ data }) {
+        if (data?.verified) {
+          toast.success("Congrats! Your email has been verified", {
+            id: codeToastId,
+            duration: 3000,
+          });
+        }
+        if (!data?.verified) {
+          toast.error("Invalid code! please try again", {
+            id: codeToastId,
+            duration: 3000,
+          });
+        }
+        toast.dismiss(codeToastId);
+      },
+    }
+  );
   const handleVerification = () => {
-    if (pathname.includes("signup")) router.push("/auth/payment-means/");
+    verifyCodeFn({ code: value });
+    // if (pathname.includes("signup")) router.push("/auth/payment-means/");
   };
 
   const handleResendCode = () => {
@@ -265,7 +313,8 @@ export default function SignupVerifyOTP() {
                 value == null ||
                 value?.length < 6 ||
                 status === "executing" ||
-                resendCodeStatus === "executing"
+                resendCodeStatus === "executing" ||
+                verificationStatus === "executing"
               }
               className="w-full h-12 font-bold flex items-center gap-x-1"
             >
