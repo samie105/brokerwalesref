@@ -125,6 +125,7 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
           onChange={handleInputChange}
           value={formData.email || ""}
           type="email"
+          className="lowercase"
           placeholder="m@example.com"
         />
         {errors.email && (
