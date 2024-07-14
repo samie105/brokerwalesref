@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useColors } from "@/context/colorContext";
-import { TypeOf, z } from "zod";
 import { useSignUpContext } from "@/context/signUpFormContext";
 import { signUpSchema } from "@/server/schema";
 import { checkEmail } from "@/server/actions/checkEmail";
