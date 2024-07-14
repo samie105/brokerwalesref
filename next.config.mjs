@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  experimental: {
-    serverActions: {
-      allowedOrigins: ["wilsonbank.vercel.app", "*.vercel.app"],
-    },
+export const experimental = {
+  serverActions: {
+    allowedOrigins: ["wilsonbank.vercel.app", "*.vercel.app"],
   },
 };
