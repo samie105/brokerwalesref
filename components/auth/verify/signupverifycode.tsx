@@ -189,7 +189,7 @@ export default function SignupVerifyOTP() {
         toast.dismiss(codeToastId);
       },
       onExecute() {
-        toast.loading("Verifying code, please wait...", {
+        toast.loading("Verifying code, Please wait...", {
           id: codeToastId,
           duration: 3000,
         });

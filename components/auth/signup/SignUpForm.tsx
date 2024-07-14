@@ -57,7 +57,7 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
       toast.dismiss(toastId);
     },
     onExecute() {
-      toast.loading("Checking credenttials...", {
+      toast.loading("Checking credentials...", {
         id: toastId,
       });
     },
