@@ -27,6 +27,7 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
     password?: string;
     confirmPassword?: string;
   }
+
   const {
     register,
     handleSubmit,
@@ -38,7 +39,7 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
     const { name, value } = e.target;
     setFormData({ [name]: value });
   };
-  const { status, execute, result } = useAction(checkEmail, {
+  const { status, execute } = useAction(checkEmail, {
     onSuccess({ data }) {
       if (data?.exists)
         toast.error("A User with this credentials exists", {
@@ -80,6 +81,7 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
 
   const onSubmit = async (data: SignUpFormData) => {
     execute(data);
+    setFormData(data);
   };
   return (
     <form className="space-y-4">

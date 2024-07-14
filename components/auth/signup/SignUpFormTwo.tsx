@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -53,6 +53,7 @@ const schema = z
 const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
   const router = useRouter();
   let toastId: any;
+  const [signUp, setSignUp] = useState<boolean>(false);
   let toastId2: any;
   const colors = useColors();
   const { formData, setFormData } = useSignUpContext();
@@ -66,14 +67,10 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
   });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ [name]: value });
   };
 
-  const {
-    status: createUserStatus,
-    execute: exec,
-    result: res,
-  } = useAction(createUser, {
+  const { status: createUserStatus, execute: exec } = useAction(createUser, {
     onSuccess({ data }) {
       if (data?.success)
         toast.success("Account created, redirecting...", {
@@ -120,8 +117,8 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
           id: toastId,
           duration: 3000,
         });
-        const { confirmPassword, ...deets } = formData;
-        exec(deets);
+
+        setSignUp(true);
       }
 
       toast.dismiss(toastId);
@@ -148,10 +145,13 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
       toast.dismiss(toastId);
     },
   });
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
+    await setFormData(data);
     execute(data);
   };
-
+  useEffect(() => {
+    if (signUp) exec(formData);
+  }, [formData, signUp]);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="space-y-2">

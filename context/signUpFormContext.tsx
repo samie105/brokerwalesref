@@ -17,7 +17,7 @@ interface SignUpFormData {
 // Define the context type
 interface SignUpContextType {
   formData: SignUpFormData;
-  setFormData: (data: SignUpFormData) => void;
+  setFormData: (data: Partial<SignUpFormData>) => Promise<void>;
 }
 
 // Create the context
@@ -38,14 +38,20 @@ interface SignUpProviderProps {
 }
 
 export const SignUpProvider: React.FC<SignUpProviderProps> = ({ children }) => {
-  const [formData, setFormData] = useState<SignUpFormData>({});
+  const [formData, setFormDataState] = useState<SignUpFormData>({});
 
-  const updateFormData = (newData: SignUpFormData) => {
-    setFormData((prevData) => ({ ...prevData, ...newData }));
+  const setFormData = (newData: Partial<SignUpFormData>) => {
+    return new Promise<void>((resolve) => {
+      setFormDataState((prevData) => {
+        const updatedData = { ...prevData, ...newData };
+        resolve();
+        return updatedData;
+      });
+    });
   };
 
   return (
-    <SignUpContext.Provider value={{ formData, setFormData: updateFormData }}>
+    <SignUpContext.Provider value={{ formData, setFormData }}>
       {children}
     </SignUpContext.Provider>
   );
