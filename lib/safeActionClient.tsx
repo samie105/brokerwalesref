@@ -1,2 +1,2 @@
-import { createSafeActionClient } from "next-safe-action/typeschema";
+import { createSafeActionClient } from "next-safe-action";
 export const actionClient = createSafeActionClient();
