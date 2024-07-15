@@ -1,6 +1,5 @@
 "use server";
 import dbConnect from "..";
-import { z } from "zod";
 import User, { IUser } from "../userSchema";
 import { actionClient } from "@/lib/safeActionClient";
 import { signUpSchemaFull } from "../schema";
