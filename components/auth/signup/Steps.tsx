@@ -10,8 +10,8 @@ export default function StepsLoader({
 }) {
   const colors = useColors();
   return (
-    <div className="flex items-center gap-x-4 py-3">
-      <div className="progress-cont w-full h-1 bg-blue-700/10 relative rounded-md">
+    <div className="flex items-center gap-x-4 pt-3 ">
+      <div className="progress-cont w-full h-0.5 bg-blue-700/10 relative rounded-md">
         <div
           className="progress-bar transition-all absolute rounded-md h-full top-0 left-0"
           style={{

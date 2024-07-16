@@ -14,7 +14,7 @@ import SignUpFormTwo from "./SignUpFormTwo";
 export default function SignUp() {
   const colors = useColors();
   const totalSteps = 2;
-  const [steps, setSteps] = useState(0);
+  const [steps, setSteps] = useState(0.1);
   return (
     <div className="grid min-h-[100dvh] w-full grid-cols-1 lg:grid-cols-2">
       <div className="hidden lg:block w-full h-full /border relative /overflow-hidden">

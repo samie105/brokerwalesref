@@ -213,7 +213,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
         <Button
           type="button"
           id="previous"
-          onClick={() => setSteps((prev: number) => prev - 1)}
+          onClick={() => setSteps((prev: number) => prev - 0.8)}
           style={{
             background: colors.defaultblue + "10",
             color: colors.defaultblue,
