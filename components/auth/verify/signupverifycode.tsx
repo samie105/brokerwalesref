@@ -33,7 +33,11 @@ const Lottie = dynamic(() => import("lottie-react").then((m) => m.default), {
   ssr: false,
 });
 
-export default function SignupVerifyOTP() {
+export default function SignupVerifyOTP({
+  email,
+}: {
+  email: string | undefined;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   let codeToastId: any;
@@ -85,7 +89,6 @@ export default function SignupVerifyOTP() {
       toast.dismiss(codeToastId);
     },
   });
-
   const { execute: resendCodeFn, status: resendCodeStatus } = useAction(
     resendCode,
     {
@@ -134,15 +137,10 @@ export default function SignupVerifyOTP() {
   );
 
   const handleClick = () => {
-    execute({ email: userEmail });
+    execute({ email });
   };
   useEffect(() => {
     // Get the userEmail from localStorage
-    const emailCookie = localStorage.getItem("email");
-    if (emailCookie) {
-      const email = JSON.parse(emailCookie);
-      setUserEmail(email);
-    }
 
     startCountdown();
 
@@ -178,7 +176,7 @@ export default function SignupVerifyOTP() {
             id: codeToastId,
           });
         if (error.error.serverError)
-          toast.error("Error connecting to servers", {
+          toast.error("Error verifying code, Please resend code.", {
             id: codeToastId,
           });
         if (error.error.validationErrors)
@@ -200,9 +198,10 @@ export default function SignupVerifyOTP() {
             id: codeToastId,
             duration: 3000,
           });
+          router.push("/auth/payment-means/", { scroll: true });
         }
         if (!data?.verified) {
-          toast.error("Invalid code! please try again", {
+          toast.error("Invalid code! Either Incorrect or Expired", {
             id: codeToastId,
             duration: 3000,
           });
@@ -213,11 +212,10 @@ export default function SignupVerifyOTP() {
   );
   const handleVerification = () => {
     verifyCodeFn({ code: value });
-    // if (pathname.includes("signup")) router.push("/auth/payment-means/");
   };
 
   const handleResendCode = () => {
-    resendCodeFn({ email: userEmail });
+    resendCodeFn({ email });
 
     // Simulate the resend code action
     // Here you would typically call an API to resend the code
@@ -234,14 +232,21 @@ export default function SignupVerifyOTP() {
           {codeSent && (
             <CardDescription>
               Enter the 6-digit code sent to{" "}
-              <span className="font-bold">{userEmail}</span> email address
+              <span className="font-bold">{email}</span> email address
             </CardDescription>
           )}
           {!codeSent && (
-            <CardDescription>
+            <div className="text-sm text-black/70">
               {"We'll send a"} 6-digit code sent to{" "}
-              <span className="font-bold">{userEmail}</span> to verify the email
-            </CardDescription>
+              <span className="font-bold">{email}</span> to verify the email
+              <div className="note bg-gray-100 py-2 rounded-md mx-6 mt-3 text-black/80">
+                <span className="font-bold">Note:</span>{" "}
+                <span className="font-medium">
+                  {" "}
+                  The sent code will expire in 10 minutes
+                </span>
+              </div>
+            </div>
           )}
         </CardHeader>
         <CardContent className="space-y-4">
@@ -251,6 +256,10 @@ export default function SignupVerifyOTP() {
                 type="button"
                 disabled={status === "executing"}
                 onClick={handleClick}
+                style={{
+                  background: colors.defaultblue + "10",
+                  color: colors.defaultblue,
+                }}
                 className="flex disabled:opacity-50 items-center gap-x-2 bg-gray-100 text-sm w-full font-semibold hover:bg-gray-200 text-black/80 rounded-md h-12"
               >
                 <svg

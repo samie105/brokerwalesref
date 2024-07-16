@@ -26,21 +26,26 @@ export const createUser = actionClient
       const createdUser: IUser = await User.create(userDeets);
 
       // Generate a 6-digit random code
-      const randomCode = generateRandomCode();
 
-      // Save the random code in cookies
-      cookies().set("verificationCode", randomCode, {
-        path: "/",
-        httpOnly: true,
-      });
-
-      // Set user information in cookies (you can set any information you deem necessary)
       cookies().set("userEmail", createdUser.email, {
         path: "/",
         httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 4 * 24 * 60 * 60,
       });
-
-      // Return success response with the created user data (excluding sensitive information)
+      cookies().set("verified", "false", {
+        path: "/",
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+      });
+      cookies().set("paid", "false", {
+        path: "/",
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+      });
       return {
         success: true,
         user: {
