@@ -35,8 +35,10 @@ const Lottie = dynamic(() => import("lottie-react").then((m) => m.default), {
 
 export default function SignupVerifyOTP({
   email,
+  type,
 }: {
   email: string | undefined;
+  type: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -228,7 +230,9 @@ export default function SignupVerifyOTP({
           <Lottie animationData={animationData} className="w-[90%] h-[13rem]" />
         </div>
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-xl font-bold">Verify your email</CardTitle>
+          <CardTitle className="text-xl font-bold">
+            {type.includes("signup") ? "Verify your email" : "Verify it's you"}
+          </CardTitle>
           {codeSent && (
             <CardDescription>
               Enter the 6-digit code sent to{" "}
@@ -236,10 +240,11 @@ export default function SignupVerifyOTP({
             </CardDescription>
           )}
           {!codeSent && (
-            <div className="text-sm text-black/70">
+            <div className="text-sm text-black/70 text-wrap">
               {"We'll send a"} 6-digit code sent to{" "}
-              <span className="font-bold">{email}</span> to verify the email
-              <div className="note bg-gray-100 py-2 rounded-md mx-6 mt-3 text-black/80">
+              <span className="font-bold">{email}</span> to{" "}
+              {type.includes("signup") ? "verify the email" : "verify it's you"}{" "}
+              <div className="note bg-gray-100 py-2 rounded-md md:mx-6 mt-3 text-black/80">
                 <span className="font-bold">Note:</span>{" "}
                 <span className="font-medium">
                   {" "}

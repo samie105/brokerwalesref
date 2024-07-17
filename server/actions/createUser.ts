@@ -17,6 +17,7 @@ const deets = {
 export const createUser = actionClient
   .schema(signUpSchemaFull)
   .action(async ({ parsedInput }) => {
+    parsedInput.email = parsedInput.email.toLowerCase();
     const userDeets: any = { ...parsedInput, ...deets };
     console.log(userDeets);
     await dbConnect();

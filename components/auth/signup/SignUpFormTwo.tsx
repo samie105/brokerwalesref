@@ -151,7 +151,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
   };
   useEffect(() => {
     if (signUp) exec(formData);
-  }, [formData, signUp]);
+  }, [exec, formData, signUp]);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="space-y-2">

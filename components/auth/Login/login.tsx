@@ -11,12 +11,14 @@ import Link from "next/link";
 import Image from "next/image";
 import hero from "@/public/assets/cardImage.jpg";
 import { useColors } from "@/context/colorContext";
-import { BackgroundBeams } from "@/components/ui/BackgroundBeam";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useLoginContext } from "@/context/loginFormContext";
+import { useAction } from "next-safe-action/hooks";
+import { loginUser } from "@/server/actions/lognUser";
+import { toast } from "sonner";
 
 // Define the validation schema with Zod
 const loginSchema = z.object({
@@ -32,6 +34,7 @@ export default function Login() {
   const router = useRouter();
   const { formData, setFormData } = useLoginContext();
   const colors = useColors();
+  let toastId: any;
 
   const {
     register,
@@ -41,12 +44,50 @@ export default function Login() {
     resolver: zodResolver(loginSchema),
     defaultValues: formData,
   });
+  const { execute, status } = useAction(loginUser, {
+    onSuccess({ data }) {
+      if (data?.success) {
+        toast.success(data.message, {
+          id: toastId,
+          duration: 3000,
+        });
+        router.push("/auth/verify/login-verification");
+      }
+      if (!data?.success) {
+        toast.error(data?.message, {
+          id: toastId,
+          duration: 3000,
+        });
+      }
+      toast.dismiss(toastId);
+    },
 
+    onExecute() {
+      toast.loading("Please wait, authenticating user", {
+        id: toastId,
+      });
+    },
+
+    onError(error) {
+      if (error.error.fetchError)
+        toast.error("Error authenticating this email", {
+          id: toastId,
+        });
+      if (error.error.serverError)
+        toast.error("Error connecting to servers", {
+          id: toastId,
+        });
+      if (error.error.validationErrors)
+        toast.error("Please check your details", {
+          id: toastId,
+        });
+
+      toast.dismiss(toastId);
+    },
+  });
   const onSubmit = (data: LoginFormData) => {
+    execute(data);
     setFormData(data);
-    router.push(
-      "/auth/ikhidkfhksjndfgiskjlfgniusdjkfgniusjkdhfgniuksfgi/login-verification"
-    );
   };
 
   return (
@@ -79,7 +120,9 @@ export default function Login() {
                 type="email"
                 placeholder="m@example.com"
                 {...register("email")}
-                className={errors.email ? "border-red-500" : ""}
+                className={
+                  errors.email ? "border-red-500 lowercase" : "lowercase"
+                }
               />
               {errors.email && (
                 <p className="text-red-500 text-xs mt-1">
@@ -103,6 +146,7 @@ export default function Login() {
             </div>
             <Button
               type="submit"
+              disabled={status === "executing"}
               className="w-full h-12 font-bold flex items-center gap-x-1"
               style={{ backgroundColor: colors.defaultblue }}
             >
@@ -120,13 +164,13 @@ export default function Login() {
                 />
               </svg>
             </Button>
-            <Link
+            {/* <Link
               href="#"
               className="inline-block w-full text-right text-xs font-semibold /underline"
               prefetch={false}
             >
               Forgot your password?
-            </Link>
+            </Link> */}
           </form>
           <div className="flex items-center justify-center">
             <Link

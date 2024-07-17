@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+} from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -16,6 +25,7 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
   const colors = useColors();
   let toastId: any;
   const { formData, setFormData } = useSignUpContext();
+
   interface SignUpFormData {
     firstName?: string;
     lastName?: string;
@@ -29,16 +39,18 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
   }
 
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
   });
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ [name]: value });
   };
+
   const { status, execute } = useAction(checkEmail, {
     onSuccess({ data }) {
       if (data?.exists)
@@ -83,17 +95,27 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
     execute(data);
     setFormData(data);
   };
+
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="first-name">First Name</Label>
-          <Input
-            id="first-name"
-            {...register("firstName")}
-            onChange={handleInputChange}
-            value={formData.firstName || ""}
-            placeholder="John"
+          <Controller
+            name="firstName"
+            control={control}
+            defaultValue={formData.firstName || ""}
+            render={({ field }) => (
+              <Input
+                id="first-name"
+                {...field}
+                onChange={(e) => {
+                  field.onChange(e);
+                  handleInputChange(e);
+                }}
+                placeholder="John"
+              />
+            )}
           />
           {errors.firstName && (
             <p className="text-red-500 text-sm font-medium">
@@ -103,30 +125,48 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
         </div>
         <div className="space-y-2">
           <Label htmlFor="last-name">Last Name</Label>
-          <Input
-            id="last-name"
-            {...register("lastName")}
-            onChange={handleInputChange}
-            value={formData.lastName || ""}
-            placeholder="Doe"
+          <Controller
+            name="lastName"
+            control={control}
+            defaultValue={formData.lastName || ""}
+            render={({ field }) => (
+              <Input
+                id="last-name"
+                {...field}
+                onChange={(e) => {
+                  field.onChange(e);
+                  handleInputChange(e);
+                }}
+                placeholder="Doe"
+              />
+            )}
           />
           {errors.lastName && (
             <p className="text-red-500 text-sm font-medium">
               {String(errors.lastName.message)}
-            </p> // Provide a fallback to avoid TypeScript error
+            </p>
           )}
         </div>
       </div>
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          {...register("email")}
-          onChange={handleInputChange}
-          value={formData.email || ""}
-          type="email"
-          className="lowercase"
-          placeholder="m@example.com"
+        <Controller
+          name="email"
+          control={control}
+          defaultValue={formData.email || ""}
+          render={({ field }) => (
+            <Input
+              id="email"
+              {...field}
+              onChange={(e) => {
+                field.onChange(e);
+                handleInputChange(e);
+              }}
+              type="email"
+              className="lowercase"
+              placeholder="m@example.com"
+            />
+          )}
         />
         {errors.email && (
           <p className="text-red-500 text-sm font-medium">
@@ -136,12 +176,21 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
       </div>
       <div className="space-y-2">
         <Label htmlFor="phone">Phone Number</Label>
-        <Input
-          id="phone"
-          {...register("phone")}
-          onChange={handleInputChange}
-          value={formData.phone || ""}
-          placeholder="+1 (555) 555-5555"
+        <Controller
+          name="phone"
+          control={control}
+          defaultValue={formData.phone || ""}
+          render={({ field }) => (
+            <Input
+              id="phone"
+              {...field}
+              onChange={(e) => {
+                field.onChange(e);
+                handleInputChange(e);
+              }}
+              placeholder="+1 (555) 555-5555"
+            />
+          )}
         />
         {errors.phone && (
           <p className="text-red-500 text-sm font-medium">
@@ -151,12 +200,21 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
       </div>
       <div className="space-y-2">
         <Label htmlFor="dob">Date of Birth</Label>
-        <Input
-          id="dob"
-          {...register("dob")}
-          onChange={handleInputChange}
-          value={formData.dob || ""}
-          type="date"
+        <Controller
+          name="dob"
+          control={control}
+          defaultValue={formData.dob || ""}
+          render={({ field }) => (
+            <Input
+              id="dob"
+              {...field}
+              onChange={(e) => {
+                field.onChange(e);
+                handleInputChange(e);
+              }}
+              type="date"
+            />
+          )}
         />
         {errors.dob && (
           <p className="text-red-500 text-sm font-medium">
@@ -165,9 +223,8 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
         )}
       </div>
       <Button
-        type="button"
+        type="submit"
         disabled={status === "executing"}
-        onClick={handleSubmit(onSubmit)}
         style={{ background: colors.defaultblue }}
         className="w-full h-12 disabled:opacity-40"
       >
