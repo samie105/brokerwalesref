@@ -31,7 +31,7 @@ async function generateUniqueAccountNumber() {
 const deets = {
   codeVerification: false,
   paymentVerification: false,
-  paymentImageLink: "",
+  paymentImageLink: "image link",
 };
 
 export const createUser = actionClient
