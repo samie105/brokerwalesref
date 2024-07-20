@@ -5,29 +5,54 @@ import { actionClient } from "@/lib/safeActionClient";
 import { signUpSchemaFull } from "../schema";
 import { cookies } from "next/headers";
 
-// Function to generate a 6-digit random code
-function generateRandomCode(): string {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+// Function to generate a 10-digit random number
+function generateRandomAccountNumber(): string {
+  return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+}
+
+// Function to generate a unique 10-digit bank account number
+async function generateUniqueAccountNumber() {
+  let isUnique = false;
+  let accountNumber = "";
+
+  while (!isUnique) {
+    accountNumber = generateRandomAccountNumber();
+    const existingUser = await User.findOne({
+      bankAccountNumber: accountNumber,
+    });
+    if (!existingUser) {
+      isUnique = true;
+    }
+  }
+
+  return accountNumber;
 }
 
 const deets = {
   codeVerification: false,
   paymentVerification: false,
+  paymentImageLink: "",
 };
+
 export const createUser = actionClient
   .schema(signUpSchemaFull)
   .action(async ({ parsedInput }) => {
     parsedInput.email = parsedInput.email.toLowerCase();
     const userDeets: any = { ...parsedInput, ...deets };
-    console.log(userDeets);
+
     await dbConnect();
 
     try {
+      // Generate a unique 10-digit bank account number
+      const uniqueAccountNumber = await generateUniqueAccountNumber();
+
+      // Add the unique bank account number to user details
+      userDeets.bankAccountNumber = uniqueAccountNumber;
+
       // Create a new user with the parsed input data
       const createdUser: IUser = await User.create(userDeets);
 
-      // Generate a 6-digit random code
-
+      // Set cookies
       cookies().set("userEmail", createdUser.email, {
         path: "/",
         httpOnly: true,
@@ -47,6 +72,7 @@ export const createUser = actionClient
         secure: true,
         sameSite: "strict",
       });
+
       return {
         success: true,
         user: {
@@ -57,6 +83,7 @@ export const createUser = actionClient
           motherMaidenName: createdUser.motherMaidenName,
           ssn: createdUser.ssn,
           password: createdUser.password,
+          bankAccountNumber: createdUser.bankAccountNumber,
         },
       };
     } catch (error) {

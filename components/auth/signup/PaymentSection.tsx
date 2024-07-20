@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -18,18 +18,21 @@ import { Input } from "@/components/ui/input";
 import { useColors } from "@/context/colorContext";
 import { toast } from "sonner";
 import { useDropzone } from "react-dropzone";
+import { useAction } from "next-safe-action/hooks";
+import { uploadImage } from "@/server/actions/paymentUpload";
+import { useRouter } from "next/navigation";
 
 type PaymentMethod = {
   name: string;
   src: string;
   address: string;
-};
+}[];
 
 type Props = {
   selectedMethod: PaymentMethod | null;
 };
 
-const paymentMethods = [
+const paymentMethods: PaymentMethod = [
   {
     name: "bitcoin",
     src: "/assets/mbp/bitcoin.webp",
@@ -75,19 +78,33 @@ const paymentMethods = [
 export default function PaymentSection() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [paid, setPaid] = useState(false);
+  const router = useRouter();
+  let toastId: any;
 
   const handleCopy = (value: string) => {
     navigator.clipboard.writeText(value);
     toast.success("Copied successfully");
   };
 
-  const onDrop = (acceptedFiles: File[]) => {
+  const onDrop = (acceptedFiles: File[], rejectedFiles: any) => {
+    if (rejectedFiles.length > 0) {
+      toast.error("Only JPG and PNG files are accepted");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("file", acceptedFiles[0]);
+    formData.append("upload_preset", "my_preset");
+    execute({ file: formData });
+
     setUploadedFile(acceptedFiles[0]);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: { "image/*": [] },
+    accept: {
+      "image/jpeg": [".jpeg", ".jpg"],
+      "image/png": [".png"],
+    },
     maxFiles: 1,
   });
 
@@ -99,6 +116,51 @@ export default function PaymentSection() {
   const selectedMethod = paymentMethods.find(
     (method) => method.name === selectedPaymentMethod
   );
+  const handleUpload = () => {
+    toast.info("Your Payment is in Review", {
+      id: toastId,
+      duration: 3000,
+    });
+    router.push("/dashboard");
+  };
+  const { execute, status } = useAction(uploadImage, {
+    onError(error) {
+      if (error.error.fetchError)
+        toast.error("Error Fetching Upload Server", {
+          id: toastId,
+        });
+      if (error.error.serverError)
+        toast.error("Error connecting to servers", {
+          id: toastId,
+        });
+      if (error.error.validationErrors)
+        toast.error("Error, try again later", {
+          id: toastId,
+        });
+
+      toast.dismiss(toastId);
+    },
+    onExecute() {
+      toast.loading("Uploading Image, Please wait...", {
+        id: toastId,
+      });
+    },
+    onSuccess({ data }) {
+      if (data?.success) {
+        toast.success("Image uploaded successfully", {
+          id: toastId,
+          duration: 3000,
+        });
+      }
+      if (!data?.success) {
+        toast.error("Error uploading image", {
+          id: toastId,
+          duration: 3000,
+        });
+      }
+      toast.dismiss(toastId);
+    },
+  });
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -329,7 +391,10 @@ export default function PaymentSection() {
                           accurate payment proof to avoid payment losses.
                         </div>
                         <Button
-                          disabled={uploadedFile === null}
+                          onClick={() => handleUpload()}
+                          disabled={
+                            uploadedFile === null || status === "executing"
+                          }
                           className="btn w-full h-12 text-sm gap-x-2 mt-3 disabled:cursor-not-allowed"
                           style={{ background: colors.defaultblue }}
                         >

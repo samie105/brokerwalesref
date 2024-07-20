@@ -12,6 +12,8 @@ export interface IUser extends Document {
   password: string;
   codeVerification: boolean;
   paymentVerification: boolean;
+  paymentImageLink: string;
+  bankAccountNumber: string;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -25,6 +27,8 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   password: { type: String, required: true },
   codeVerification: { type: Boolean, required: true },
   paymentVerification: { type: Boolean, required: true },
+  paymentImageLink: { type: String, required: true },
+  bankAccountNumber: { type: String, required: true, unique: true },
 });
 
 const User: Model<IUser> =

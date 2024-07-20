@@ -51,7 +51,7 @@ export default function Login() {
           id: toastId,
           duration: 3000,
         });
-        router.push("/auth/verify/login-verification");
+        router.push("/dashboard");
       }
       if (!data?.success) {
         toast.error(data?.message, {

@@ -200,7 +200,7 @@ export default function SignupVerifyOTP({
             id: codeToastId,
             duration: 3000,
           });
-          router.push("/auth/payment-means/", { scroll: true });
+          router.push("/dashboard", { scroll: true });
         }
         if (!data?.verified) {
           toast.error("Invalid code! Either Incorrect or Expired", {

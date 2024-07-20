@@ -10,10 +10,12 @@ export default function PaymentSelect() {
   return (
     <div className="container mx-auto  max-w-md px-4 py-12">
       <div className="space-y-6">
-        <div className="text-center">
+        <div className="text-/">
           <h1 className="text-2xl font-bold">Choose Your Deposit Method</h1>
-          <p className="text-muted-foreground text-sm">
-            Select the option that best suits your needs.
+          <p className="text-muted-foreground text-sm mt-2 font-medium">
+            An account opening deposit of{" "}
+            <span className="font-semibold">$50</span> is required. Select your
+            preferred way to pay
           </p>
         </div>
         <RadioGroup defaultValue="branch" className="space-y-4">
@@ -59,9 +61,9 @@ export default function PaymentSelect() {
                 Deposit Via Mobile Deposit
               </Label>
               <p className="text-muted-foreground text-sm text-medium">
-                Send money securely with your card. Enjoy the convenience of
-                instant transfers and peace of mind knowing your transactions
-                are protected.
+                Send money securely with mobile payment methods. Enjoy the
+                convenience of instant transfers and peace of mind knowing your
+                transactions are protected.
               </p>
               <Link
                 style={{ backgroundColor: colors.defaultblue }}
