@@ -20,7 +20,7 @@ export default function Navbar() {
 
   const handleScroll = () => {
     // Show button when the user scrolls beyond 100 pixels
-    if (window.pageYOffset > 80) {
+    if (window.scrollY > 80) {
       setShowButton(true);
     } else {
       setShowButton(false);

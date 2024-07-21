@@ -4,6 +4,7 @@ import User from "../userSchema";
 import dbConnect from "..";
 import { z } from "zod";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 const loginDeets = z.object({
   email: z.string().email().optional(),
@@ -54,7 +55,7 @@ export const loginUser = actionClient
               maxAge: 4 * 24 * 60 * 60,
             });
           if (!user.paymentVerification)
-            cookies().set("paid", "fakse", {
+            cookies().set("paid", "false", {
               path: "/",
               httpOnly: true,
               secure: true,
@@ -74,6 +75,8 @@ export const loginUser = actionClient
             message: "Logged in successfully, redirecting...",
           };
         }
+
+        revalidatePath("/auth");
       }
     } catch (error) {}
   });
