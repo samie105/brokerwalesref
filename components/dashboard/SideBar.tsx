@@ -128,9 +128,9 @@ export default function SideBar() {
     },
   ];
   return (
-    <div className="w-full h-screen p-3 flex flex-col gap-y-2 items-center justify-center">
-      <div className="side-bar-cont bg-white w-full h-auto rounded-lg p-4">
-        <div className="mt-5">
+    <div className="w-full h-full overflow-hidden flex flex-col gap-y-2 /items-center j/ustify-center">
+      <div className="side-bar-cont bg-white w-full  rounded-md p-4">
+        <div className="">
           {" "}
           <Image
             src={hero}
@@ -142,6 +142,10 @@ export default function SideBar() {
           />
         </div>
         <div className="space-y-3 mt-8">
+          <p className="font-semibold uppercase text-neutral-700 text-xs">
+            {" "}
+            menu
+          </p>
           <AnimatePresence>
             {nav.map((nav) => (
               <motion.div
@@ -154,8 +158,8 @@ export default function SideBar() {
                 className={`${
                   nav.path === pathname
                     ? `text-neutral-700  font-semibold rounded-md`
-                    : " text-neutral-700/80 font-medium hover:opacity-100"
-                } cursor-pointer /overflow-hidden hover:bg-gray-100 rounded-md text-sm px-3 py-3 relative transition`}
+                    : " text-neutral-700/80 font-medium hover:bg-gray-100  hover:opacity-100"
+                } cursor-pointer /overflow-hidden rounded-md text-sm px-3 py-3 relative transition`}
               >
                 <MotionLink href={nav.path}>
                   <motion.div className="z-30 flex items-center gap-x-2">
@@ -176,8 +180,8 @@ export default function SideBar() {
           </AnimatePresence>
         </div>
       </div>
-      <div className="bg-white w-full h-full rounded-lg p-4">
-        <p className="font-semibold uppercase text-neutral-700 /text-sm">
+      <div className="bg-white w-full h-auto rounded-lg p-4">
+        <p className="font-semibold uppercase text-neutral-700 text-xs">
           {" "}
           quick controls
         </p>
@@ -188,14 +192,13 @@ export default function SideBar() {
           <div className="flex items-center gap-x-2 text-neutral-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
+              viewBox="0 0 20 20"
               fill="currentColor"
               className="size-4"
             >
-              <path d="M3.6 1.7A.75.75 0 1 0 2.4.799a6.978 6.978 0 0 0-1.123 2.247.75.75 0 1 0 1.44.418c.187-.644.489-1.24.883-1.764ZM13.6.799a.75.75 0 1 0-1.2.9 5.48 5.48 0 0 1 .883 1.765.75.75 0 1 0 1.44-.418A6.978 6.978 0 0 0 13.6.799Z" />
               <path
                 fillRule="evenodd"
-                d="M8 1a4 4 0 0 1 4 4v2.379c0 .398.158.779.44 1.06l1.267 1.268a1 1 0 0 1 .293.707V11a1 1 0 0 1-1 1h-2a3 3 0 1 1-6 0H3a1 1 0 0 1-1-1v-.586a1 1 0 0 1 .293-.707L3.56 8.44A1.5 1.5 0 0 0 4 7.38V5a4 4 0 0 1 4-4Zm0 12.5A1.5 1.5 0 0 1 6.5 12h3A1.5 1.5 0 0 1 8 13.5Z"
+                d="M10 2a6 6 0 0 0-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 0 0 .515 1.076 32.91 32.91 0 0 0 3.256.508 3.5 3.5 0 0 0 6.972 0 32.903 32.903 0 0 0 3.256-.508.75.75 0 0 0 .515-1.076A11.448 11.448 0 0 1 16 8a6 6 0 0 0-6-6ZM8.05 14.943a33.54 33.54 0 0 0 3.9 0 2 2 0 0 1-3.9 0Z"
                 clipRule="evenodd"
               />
             </svg>

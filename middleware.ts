@@ -9,6 +9,10 @@ export function middleware(request: NextRequest) {
   const paid = request.cookies.get("paid")?.value;
 
   // Redirect logic
+  if (pathname === "/auth") {
+    return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
+
   if (pathname.startsWith("/auth/verify")) {
     // If no email, redirect to login
     if (!email) {
@@ -67,6 +71,7 @@ export function middleware(request: NextRequest) {
 // Export the matcher to specify which paths should be processed by this middleware
 export const config = {
   matcher: [
+    "/auth",
     "/auth/login",
     "/auth/signup",
     "/auth/verify",

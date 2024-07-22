@@ -5,7 +5,7 @@ import User from "../userSchema";
 import { actionClient } from "@/lib/safeActionClient";
 import { v2 as cloudinary } from "cloudinary";
 import { cookies } from "next/headers";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 // Define the schema for the image URL
 const imageUrlSchema = z.object({
@@ -25,21 +25,22 @@ export const uploadImage = actionClient
 
     try {
       // Upload file to Cloudinary using the file path
-      const result: {
-        secure_url: string;
-      } = await axios.post(`${process.env.CONNECTION_CLOUDINARY_API}`, file);
+      const result: AxiosResponse = await axios.post(
+        `${process.env.CONNECTION_CLOUDINARY_API}`,
+        file
+      );
       // Extract secure URL from Cloudinary response
-      const secureUrl = result.secure_url;
+      const secureUrl = result.data.secure_url;
       const email = cookies().get("userEmail")?.value;
 
       if (!email) {
         throw new Error("User email not found in cookies");
       }
-
+      console.log(result.data.secure_url);
       // Update user's paymentImageLink in the database
       const user = await User.findOneAndUpdate(
         { email },
-        { paymentImageLink: secureUrl },
+        { paymentImageLink: secureUrl, paymentVerification: true },
         { new: true } // Return the updated document
       );
 
