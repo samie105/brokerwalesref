@@ -1,29 +1,187 @@
-"use client";
-import { useColors } from "@/context/colorContext";
 import React from "react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { formatDistance } from "date-fns";
 
 export default function Notification() {
-  const colors = useColors();
+  const notifications: NotificationType[] = [
+    {
+      id: 1,
+      message: "Welcome to Wilson Bank na today you go die ajeh just dey hope",
+      status: "success",
+      type: "transactional",
+      dateAdded: new Date(),
+    },
+    {
+      id: 3,
+      message: "Welcome to Wilson Bank na today you go die ajeh just dey hope",
+      status: "neutral",
+      type: "neutral",
+      dateAdded: new Date(),
+    },
+    {
+      id: 2,
+      message: "Oboy your card don block, iya dey play, you feel say na joke",
+      status: "failed",
+      type: "card",
+      dateAdded: new Date(),
+    },
+  ];
   return (
-    <div>
-      <div
-        className="notification transition-all hover:bg-[#0013BB09] p-3 cursor-pointer rounded-full"
-        // style={{ backgroundColor: colors.darkdefualtblue + "08" }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="size-5 text-neutral-500"
-          //   style={{ color: colors.defaultblue }}
-        >
-          <path
-            fillRule="evenodd"
-            d="M10 2a6 6 0 0 0-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 0 0 .515 1.076 32.91 32.91 0 0 0 3.256.508 3.5 3.5 0 0 0 6.972 0 32.903 32.903 0 0 0 3.256-.508.75.75 0 0 0 .515-1.076A11.448 11.448 0 0 1 16 8a6 6 0 0 0-6-6ZM8.05 14.943a33.54 33.54 0 0 0 3.9 0 2 2 0 0 1-3.9 0Z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </div>
+    <div className="relative flex items-center justify-center">
+      <Popover>
+        <PopoverTrigger className="/p-0 /m-0">
+          <div
+            className="notification transition-all bg-[#0013BB08] p-3 cursor-pointer rounded-full"
+            // style={{ backgroundColor: colors.darkdefualtblue + "08" }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="size-4 text-base-color/80"
+              //   style={{ color: colors.defaultblue }}
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 2a6 6 0 0 0-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 0 0 .515 1.076 32.91 32.91 0 0 0 3.256.508 3.5 3.5 0 0 0 6.972 0 32.903 32.903 0 0 0 3.256-.508.75.75 0 0 0 .515-1.076A11.448 11.448 0 0 1 16 8a6 6 0 0 0-6-6ZM8.05 14.943a33.54 33.54 0 0 0 3.9 0 2 2 0 0 1-3.9 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+        </PopoverTrigger>
+        <PopoverContent className="border-base-color/5 w-[380px] /h-[400px] max-h-[400px] overflow-y-scroll /shadow-md">
+          <div className="title text-sm font-semibold text-neutral-500">
+            Notifications
+          </div>
+          <div className="separator w-12 h-0.5 my-4 bg-black/10 mx-auto"></div>
+          {notifications.length > 0 && (
+            <div className="space-y-3">
+              {" "}
+              {notifications.reverse().map((notification, index) => (
+                <div key={notification.id}>
+                  <div className="flex justify-between  items-center">
+                    <div className="message&icon relative  flex items-start gap-x-4">
+                      <div
+                        className={`icon p-3 bg-base-color/5 text-base-color/80 /border relative flex z-20 justify-center rounded-full `}
+                      >
+                        {/* ${
+                        notification.status === "success"
+                          ? "bg-green-600/5 text-green-600 border-green-600/30"
+                          : notification.status === "warning"
+                          ? "bg-yellow-600/5 text-yellow-600 border-yellow-600/30"
+                          : notification.status === "failed"
+                          ? "bg-red-600/5 text-red-600 border-red-600/30"
+                          : "bg-neutral-100/50 text-neutral-700"
+                      } */}
+                        {notification.type === "card" ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="size-4"
+                          >
+                            <path d="M4.5 3.75a3 3 0 0 0-3 3v.75h21v-.75a3 3 0 0 0-3-3h-15Z" />
+                            <path
+                              fillRule="evenodd"
+                              d="M22.5 9.75h-21v7.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-7.5Zm-18 3.75a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        ) : notification.type === "neutral" ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="size-4"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="size-4"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M15.97 2.47a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H7.5a.75.75 0 0 1 0-1.5h11.69l-3.22-3.22a.75.75 0 0 1 0-1.06Zm-7.94 9a.75.75 0 0 1 0 1.06l-3.22 3.22H16.5a.75.75 0 0 1 0 1.5H4.81l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 0Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
+
+                        {/* {index < notifications.length - 1 && (
+                          <div
+                            className={`liner flex absolute h-10 w-[1px]  -z-10 -bottom-10 bg-base-color/5`}
+                          ></div>
+                        )} */}
+                      </div>
+                      <div className="message pb-2 pr-7 text-[13px] text-black fon/t-medium">
+                        {notification.message}
+                        <div className="date mt-1 font-medium /text-base-color/80">
+                          {formatDistance(notification.dateAdded, new Date(), {
+                            addSuffix: true,
+                          }).replace("less than a minute ago", "Just now")}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="delete-notification rounded-full /bg-red-500/5 /p-3 text-red-500">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="size-4"
+                      >
+                        <path d="M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3Z" />
+                        <path
+                          fillRule="evenodd"
+                          d="M13 6H3v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6ZM5.72 7.47a.75.75 0 0 1 1.06 0L8 8.69l1.22-1.22a.75.75 0 1 1 1.06 1.06L9.06 9.75l1.22 1.22a.75.75 0 1 1-1.06 1.06L8 10.81l-1.22 1.22a.75.75 0 0 1-1.06-1.06l1.22-1.22-1.22-1.22a.75.75 0 0 1 0-1.06Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  {index < notifications.length - 1 && (
+                    <div className="separator w-full h-[1px] bg-black/5 mx-auto"></div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          {notifications.length <= 0 && (
+            <div className=" flex justify-center h-[300px] items-center">
+              <div className="text-cont ">
+                <div className="icon flex justify-center text-neutral-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="size-5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M1 11.27c0-.246.033-.492.099-.73l1.523-5.521A2.75 2.75 0 0 1 5.273 3h9.454a2.75 2.75 0 0 1 2.651 2.019l1.523 5.52c.066.239.099.485.099.732V15a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3.73Zm3.068-5.852A1.25 1.25 0 0 1 5.273 4.5h9.454a1.25 1.25 0 0 1 1.205.918l1.523 5.52c.006.02.01.041.015.062H14a1 1 0 0 0-.86.49l-.606 1.02a1 1 0 0 1-.86.49H8.236a1 1 0 0 1-.894-.553l-.448-.894A1 1 0 0 0 6 11H2.53l.015-.062 1.523-5.52Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div className="texts mt-1 font-medium text-sm text-neutral-500">
+                  No new notifications
+                </div>
+              </div>
+            </div>
+          )}
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }

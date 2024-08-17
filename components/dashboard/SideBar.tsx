@@ -42,7 +42,7 @@ export default function SideBar() {
     {
       id: 2,
       name: "Deposit",
-      path: "/deposit",
+      path: "/dashboard/deposit",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +128,7 @@ export default function SideBar() {
     },
   ];
   return (
-    <div className="w-full h-full overflow-hidden flex flex-col gap-y-2 /items-center j/ustify-center">
+    <div className="w-full h-screen overflow-scroll flex flex-col gap-y-2 /items-center j/ustify-center">
       <div className="side-bar-cont bg-white w-full  rounded-md p-4">
         <div className="">
           {" "}
@@ -148,7 +148,8 @@ export default function SideBar() {
           </p>
           <AnimatePresence>
             {nav.map((nav) => (
-              <motion.div
+              <MotionLink
+                href={nav.path}
                 key={nav.path}
                 // style={
                 //   nav.path === pathname
@@ -157,25 +158,25 @@ export default function SideBar() {
                 // }
                 className={`${
                   nav.path === pathname
-                    ? `text-neutral-700  font-semibold rounded-md`
+                    ? `text-base-color/70  font-semibold rounded-md`
                     : " text-neutral-700/80 font-medium hover:bg-gray-100  hover:opacity-100"
-                } cursor-pointer /overflow-hidden rounded-md text-sm px-3 py-3 relative transition`}
+                } cursor-pointer block /overflow-hidden rounded-md text-sm px-3 py-3 relative transition`}
               >
-                <MotionLink href={nav.path}>
+                <motion.div>
                   <motion.div className="z-30 flex items-center gap-x-2">
                     {nav.icon}
                     <p>{nav.name}</p>
                   </motion.div>
                   {nav.path === pathname ? (
                     <motion.div
-                      transition={{ type: "spring" }}
+                      transition={{ type: "tween" }}
                       style={{ backgroundColor: colors.defaultblue + "09" }}
                       layoutId="underline"
                       className="absolute  mover bg-[#ffffff26] rounded-md top-0 left-0 w-full h-full z-10 "
                     ></motion.div>
                   ) : null}
-                </MotionLink>
-              </motion.div>
+                </motion.div>
+              </MotionLink>
             ))}
           </AnimatePresence>
         </div>
@@ -214,17 +215,13 @@ export default function SideBar() {
           <div className="flex items-center gap-x-2 text-neutral-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
+              viewBox="0 0 20 20"
               fill="currentColor"
-              className="size-4"
+              className="size-5"
             >
-              <path
-                fillRule="evenodd"
-                d="M2 3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v8.5a2.5 2.5 0 0 1-5 0V3Zm3.25 8.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                clipRule="evenodd"
-              />
-              <path d="m8.5 11.035 3.778-3.778a1 1 0 0 0 0-1.414l-2.122-2.121a1 1 0 0 0-1.414 0l-.242.242v7.07ZM7.656 14H13a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-.344l-5 5Z" />
+              <path d="M10 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 2ZM10 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 15ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM15.657 5.404a.75.75 0 1 0-1.06-1.06l-1.061 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM6.464 14.596a.75.75 0 1 0-1.06-1.06l-1.06 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM18 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 18 10ZM5 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 5 10ZM14.596 15.657a.75.75 0 0 0 1.06-1.06l-1.06-1.061a.75.75 0 1 0-1.06 1.06l1.06 1.06ZM5.404 6.464a.75.75 0 0 0 1.06-1.06l-1.06-1.06a.75.75 0 1 0-1.061 1.06l1.06 1.06Z" />
             </svg>
+
             <p className="  text-sm font-medium">Dark mode</p>
           </div>{" "}
           <Switch className="h-4 w-7" />

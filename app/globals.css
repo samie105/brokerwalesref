@@ -24,6 +24,11 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.75rem;
+    --chart-1: 221.2 83.2% 53.3%;
+    --chart-2: 212 95% 68%;
+    --chart-3: 216 92% 60%;
+    --chart-4: 210 98% 78%;
+    --chart-5: 212 97% 87%;
   }
 
   .dark {
@@ -46,6 +51,11 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
+    --chart-1: 221.2 83.2% 53.3%;
+    --chart-2: 212 95% 68%;
+    --chart-3: 216 92% 60%;
+    --chart-4: 210 98% 78%;
+    --chart-5: 212 97% 87%;
   }
 }
 
@@ -68,15 +78,40 @@
 ::-webkit-scrollbar-track {
   background: #fff;
   border-radius: 5px;
+  width: 2px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #0013BB;
+  background: #e5e5e5;
   border-radius: 999px;
+  width: 2px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #000f96;
+  background: #ababab;
+}
+
+div.rccs {
+  width: 100% !important;
+  height: 250px !important;
+  box-shadow: none !important;
+}
+
+.rccs__card {
+  width: 95% !important;
+  height: 100% !important;
+  box-shadow: none !important;
+}
+
+.rccs__chip {
+  width: 50px !important;
+  height: 35px !important;
+}
+
+.rccs__card--front,
+.rccs__card--back {
+  box-shadow: none !important;
+  border: none !important;
 }

@@ -32,6 +32,24 @@ const deets = {
   codeVerification: false,
   paymentVerification: false,
   paymentImageLink: "image link",
+  notifications: [
+    {
+      id: 1,
+      message: "Welcome to wilson bank",
+      status: "neutral",
+      type: "neutral",
+      dateAdded: new Date(),
+    },
+  ],
+  readNotification: false,
+  card: {
+    cardName: "",
+    cardNumber: "",
+    cardExpiry: "",
+    cardCVC: "",
+    cardBillingAddress: "",
+    cardZipCode: "",
+  },
 };
 
 export const createUser = actionClient

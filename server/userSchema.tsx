@@ -2,18 +2,36 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 export interface IUser extends Document {
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone?: string;
-  dob?: string;
-  motherMaidenName?: string;
-  ssn?: string;
+  phone: string;
+  dob: string;
+  motherMaidenName: string;
+  ssn: string;
   password: string;
   codeVerification: boolean;
   paymentVerification: boolean;
   paymentImageLink: string;
   bankAccountNumber: string;
+  notifications: [
+    {
+      id: number;
+      message: string;
+      status: "success" | "failed" | "neutral" | "warning";
+      type: "transactional" | "card" | "neutral";
+      dateAdded: Date;
+    }
+  ];
+  readNotification: boolean;
+  card: {
+    cardNumber: string;
+    cardExpiry: string;
+    cardType: string;
+    cardCVC: string;
+    cardBillingAddress: string;
+    cardZipCode: string;
+  };
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -29,6 +47,9 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   paymentVerification: { type: Boolean, required: true },
   paymentImageLink: { type: String, required: true },
   bankAccountNumber: { type: String, required: true, unique: true },
+  notifications: [Object],
+  readNotification: { type: Boolean, default: false },
+  card: Object,
 });
 
 const User: Model<IUser> =
