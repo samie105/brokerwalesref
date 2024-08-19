@@ -1,5 +1,5 @@
 type NotificationType = {
-  id: number;
+  id: any;
   message: string;
   status: "success" | "failed" | "neutral" | "warning";
   type: "transactional" | "card" | "neutral";

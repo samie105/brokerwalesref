@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Popover,
@@ -5,31 +6,53 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { formatDistance } from "date-fns";
+import { useAction } from "next-safe-action/hooks";
+import { deleteNotification } from "@/server/dashboard/navActions";
+import { toast } from "sonner";
 
-export default function Notification() {
-  const notifications: NotificationType[] = [
-    {
-      id: 1,
-      message: "Welcome to Wilson Bank na today you go die ajeh just dey hope",
-      status: "success",
-      type: "transactional",
-      dateAdded: new Date(),
+export default function Notification({
+  notifications,
+}: {
+  notifications: NotificationType[];
+}) {
+  let toastId: string;
+  const { status, execute } = useAction(deleteNotification, {
+    onSuccess({ data }) {
+      toast.success(data?.message, {
+        id: toastId,
+        duration: 3000,
+      });
+
+      toast.dismiss(toastId);
     },
-    {
-      id: 3,
-      message: "Welcome to Wilson Bank na today you go die ajeh just dey hope",
-      status: "neutral",
-      type: "neutral",
-      dateAdded: new Date(),
+
+    onExecute() {
+      toast.loading("Please wait, Deleting notification", {
+        id: toastId,
+      });
     },
-    {
-      id: 2,
-      message: "Oboy your card don block, iya dey play, you feel say na joke",
-      status: "failed",
-      type: "card",
-      dateAdded: new Date(),
+
+    onError(error) {
+      if (error.error.fetchError)
+        toast.error("Error communicating with providers", {
+          id: toastId,
+        });
+      if (error.error.serverError)
+        toast.error("Error connecting to servers", {
+          id: toastId,
+        });
+      if (error.error.validationErrors)
+        toast.error("Error deleting notification", {
+          id: toastId,
+        });
+
+      toast.dismiss(toastId);
     },
-  ];
+  });
+  const deleteNotificationFn = (id: any) => {
+    execute({ id });
+  };
+
   return (
     <div className="relative flex items-center justify-center">
       <Popover>
@@ -130,11 +153,22 @@ export default function Notification() {
                         <div className="date mt-1 font-medium /text-base-color/80">
                           {formatDistance(notification.dateAdded, new Date(), {
                             addSuffix: true,
-                          }).replace("less than a minute ago", "Just now")}
+                          })
+                            .charAt(0)
+                            .toUpperCase() +
+                            formatDistance(notification.dateAdded, new Date(), {
+                              addSuffix: true,
+                            })
+                              .slice(1)
+                              .replace("Less than a minute ago", "Just now")}
                         </div>
                       </div>
                     </div>
-                    <div className="delete-notification rounded-full /bg-red-500/5 /p-3 text-red-500">
+                    <button
+                      disabled={status === "executing"}
+                      onClick={() => deleteNotificationFn(notification.id)}
+                      className="disabled:opacity-15 hover:bg-red-50 p-1 transition-all rounded delete-notification  /bg-red-500/5 /p-3 text-red-500"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 16"
@@ -148,7 +182,7 @@ export default function Notification() {
                           clipRule="evenodd"
                         />
                       </svg>
-                    </div>
+                    </button>
                   </div>
                   {index < notifications.length - 1 && (
                     <div className="separator w-full h-[1px] bg-black/5 mx-auto"></div>

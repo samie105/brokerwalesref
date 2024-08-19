@@ -3,10 +3,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import Cards, { Focused } from "react-credit-cards-2";
 import { format } from "date-fns";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import React, { MouseEvent, useState } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import { useColors } from "@/context/colorContext";
 import { Inter } from "next/font/google";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   Dialog,
   DialogClose,
@@ -30,15 +35,18 @@ import { Button } from "@/components/ui/button";
 import { number } from "zod";
 import { toast } from "sonner";
 import { IUser } from "@/server/userSchema";
-import { actionClient } from "@/lib/safeActionClient";
-import { createCard } from "@/server/dashboard/cardActions";
+import { createCard, DeleteCard } from "@/server/dashboard/cardActions";
 import { useAction } from "next-safe-action/hooks";
+import { useFetchInfo } from "@/lib/data/fetchPost";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
-export default function Dashboard({ data }: { data: IUser }) {
+export default function Dashboard() {
+  const { data: deets } = useFetchInfo();
+  const data = deets!.data;
   const colors = useColors();
+  let toastId: any;
   const [state, setState] = useState<{
     number: string;
     expiry: string;
@@ -48,9 +56,9 @@ export default function Dashboard({ data }: { data: IUser }) {
   }>({
     number: data.card.cardNumber,
     // number: "",
-    expiry: data.card.cardExpiry,
-    cvc: data.card.cardCVC,
-    name: `${data.firstName} ${data.lastName}`,
+    expiry: "",
+    cvc: "",
+    name: ``,
     focus: "",
   });
   const showCvc = (e: MouseEvent<HTMLButtonElement>) => {
@@ -60,6 +68,51 @@ export default function Dashboard({ data }: { data: IUser }) {
       focus: state.focus === name ? "" : (name as Focused),
     }));
   };
+
+  const { execute, status } = useAction(DeleteCard, {
+    onSuccess({ data }) {
+      toast.success(data?.message, {
+        id: toastId,
+        duration: 3000,
+      });
+      setState((prev) => {
+        return {
+          ...prev,
+          number: "",
+          expiry: "",
+          cvc: "",
+        };
+      });
+      toast.dismiss(toastId);
+    },
+
+    onExecute() {
+      toast.loading("Please wait, Deleting card", {
+        id: toastId,
+      });
+    },
+
+    onError(error) {
+      if (error.error.fetchError)
+        toast.error("Error communicating with providers", {
+          id: toastId,
+        });
+      if (error.error.serverError)
+        toast.error("Error connecting to servers", {
+          id: toastId,
+        });
+      if (error.error.validationErrors)
+        toast.error("Error deleting card", {
+          id: toastId,
+        });
+
+      toast.dismiss(toastId);
+    },
+  });
+  const handleCardDeletion = async () => {
+    execute({ action: "delete card" });
+  };
+  // useEffect(() => console.log(state), [state]);
   return (
     <div className="space-y-3">
       <section className="dashboard_card-section gap-x-2 grid md:grid-cols-2 grid-cols-1">
@@ -219,16 +272,16 @@ export default function Dashboard({ data }: { data: IUser }) {
           </div>
         </div>
         <Card className="card b/order shadow-none border-none rounded-md p-3 /border inset-1 /border-dashed border-base-color/80">
-          {state.number !== "" && (
+          {data.card.cardNumber !== "" && (
             <div>
               {" "}
               <div className="w-full /bg-red-50 relative">
                 {" "}
                 <Cards
-                  number={state.number}
-                  expiry={state.expiry}
-                  cvc={state.cvc}
-                  name={state.name}
+                  number={data.card.cardNumber}
+                  expiry={data.card.cardExpiry}
+                  cvc={data.card.cardCVC}
+                  name={data.firstName + " " + data.lastName}
                   focused={state.focus}
                 />
                 {state.focus === "" && (
@@ -268,11 +321,16 @@ export default function Dashboard({ data }: { data: IUser }) {
                         <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                       </svg>
                     </div>
-                    <CreditCardDetails state={state} cardInfo={data.card} />
+                    <CreditCardDetails
+                      status={status}
+                      state={state}
+                      cardInfo={data.card}
+                    />
                     <button
+                      disabled={status === "executing"}
                       name="cvc"
                       onClick={showCvc}
-                      className="showcvc cursor-pointer rounded-md b/order text-base-color/80 border-black/10 p-3"
+                      className="showcvc disabled:opacity-25 cursor-pointer rounded-md b/order text-base-color/80 border-black/10 p-3"
                       style={{ background: colors.defaultblue + "09" }}
                     >
                       <svg
@@ -284,26 +342,66 @@ export default function Dashboard({ data }: { data: IUser }) {
                         <path d="M4.25 2A2.25 2.25 0 0 0 2 4.25v2a.75.75 0 0 0 1.5 0v-2a.75.75 0 0 1 .75-.75h2a.75.75 0 0 0 0-1.5h-2ZM13.75 2a.75.75 0 0 0 0 1.5h2a.75.75 0 0 1 .75.75v2a.75.75 0 0 0 1.5 0v-2A2.25 2.25 0 0 0 15.75 2h-2ZM3.5 13.75a.75.75 0 0 0-1.5 0v2A2.25 2.25 0 0 0 4.25 18h2a.75.75 0 0 0 0-1.5h-2a.75.75 0 0 1-.75-.75v-2ZM18 13.75a.75.75 0 0 0-1.5 0v2a.75.75 0 0 1-.75.75h-2a.75.75 0 0 0 0 1.5h2A2.25 2.25 0 0 0 18 15.75v-2ZM7 10a3 3 0 1 1 6 0 3 3 0 0 1-6 0Z" />
                       </svg>
                     </button>
-                    <div className="deleteCard cursor-pointer rounded-md b/order text-red-600 border-red-600/10 bg-red-600/10 p-3">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="size-5"
+                    <Dialog>
+                      <DialogTrigger
+                        disabled={status === "executing"}
+                        className="disabled:opacity-25"
                       >
-                        <path
-                          fillRule="evenodd"
-                          d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
+                        <div className="deleteCard cursor-pointer rounded-md b/order text-red-600 disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-pointer border-red-600/10 bg-red-600/10 p-3">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            className="size-5"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </DialogTrigger>
+                      <DialogContent className="w-[90%]">
+                        <DialogTitle className="text-neutral-600">
+                          Delete Credit Card
+                        </DialogTitle>
+                        <DialogDescription className="text-neutral-600">
+                          Please note that this action is irreversible, please
+                          review and be sure of this action
+                        </DialogDescription>
+
+                        <div className="actions flex justify-between items-center">
+                          <SheetClose className="py-3 px-5 rounded-sm cursor-pointer border bg-neutral-100 text-neutral-600">
+                            <div className="cancel font-semibold ">Cancel</div>
+                          </SheetClose>
+                          <SheetClose
+                            onClick={handleCardDeletion}
+                            className="p-3 rounded-sm cursor-pointer flex items-center space-x-2 bg-red-600 text-white font-semibold"
+                          >
+                            <p>Delete card</p>{" "}
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                              className="size-4"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </SheetClose>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
               </div>
             </div>
           )}
-          {state.number === "" && (
+          {data.card.cardNumber === "" && (
             <>
               <div className="flex items-center justify-center w-md h-full  rounded-md bg-white">
                 <div className="space-y-2 text-center">
@@ -454,7 +552,14 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
         id: toastId,
         duration: 3000,
       });
-
+      setState((prev) => {
+        return {
+          ...prev,
+          number: data?.data.cardNumber,
+          expiry: data?.data.cardExpiry,
+          cvc: data?.data.cardCVC,
+        };
+      });
       toast.dismiss(toastId);
     },
 
@@ -493,9 +598,6 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
       cardType,
       cardBillingAddress,
       cardZipCode,
-    });
-    setState((prev) => {
-      return { ...prev, cardNumber, cardExpiry, cardCVC };
     });
   };
   return (
@@ -679,6 +781,7 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
 export function CreditCardDetails({
   state,
   cardInfo,
+  status,
 }: {
   state: {
     name: string;
@@ -687,12 +790,16 @@ export function CreditCardDetails({
     cvc: string;
   };
   cardInfo: { cardBillingAddress: string; cardZipCode: string };
+  status: string;
 }) {
   const data = Object.entries(state);
   return (
     <>
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger
+          disabled={status === "executing"}
+          className="disabled:opacity-25"
+        >
           <div className="card-details cursor-pointer rounded-md /border text-base-color/80 border-black/10 p-3 bg-base-color/5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -708,7 +815,7 @@ export function CreditCardDetails({
             </svg>
           </div>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="w-[90%]">
           <DialogTitle className="tt text-lg text-neutral-700 font-medium">
             <div className="text-base flex items-center gap-x-2 text-neutral-700/">
               <div className="font-semibold flex items-center gap-x-2 bg-[#0013BB08] p-2 /inline rounded-sm text-base-color/90">
@@ -773,6 +880,90 @@ export function CreditCardDetails({
                 )}
               </div>
             ))}
+          </div>
+
+          <div className="billing-address">
+            <div className="tt text-neutral-500/ font-medium">
+              Billing Address
+            </div>
+            <div>
+              <div className="flex bg-/neutral-50 rounded-md py-3 px-2 items-center justify-between">
+                <div>
+                  <div className="capitalize text-neutral-500 font-medium text-sm /font-semibold">
+                    Card Billing Address
+                  </div>
+                  <div
+                    className={`${inter.className} text-neutral-600 font-medium /text-sm  f/ont-light`}
+                  >
+                    {cardInfo.cardBillingAddress}
+                  </div>
+                </div>
+                <div
+                  onClick={() => {
+                    navigator.clipboard.writeText(cardInfo.cardBillingAddress);
+                    toast.success(`Card Billing Address copied`.toUpperCase());
+                  }}
+                  className="icon cursor-pointer hover:bg-base-color/10 transition-all bg-base-color/5 hover:text-base-color/80 text-base-color/50 p-2 rounded-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="size-5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M15.988 3.012A2.25 2.25 0 0 1 18 5.25v6.5A2.25 2.25 0 0 1 15.75 14H13.5V7A2.5 2.5 0 0 0 11 4.5H8.128a2.252 2.252 0 0 1 1.884-1.488A2.25 2.25 0 0 1 12.25 1h1.5a2.25 2.25 0 0 1 2.238 2.012ZM11.5 3.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v.25h-3v-.25Z"
+                      clipRule="evenodd"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      d="M2 7a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7Zm2 3.25a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Zm0 3.5a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="flex bg-/neutral-50 rounded-md py-3 px-2 items-center justify-between">
+                <div>
+                  <div className="capitalize text-neutral-500 font-medium text-sm /font-semibold">
+                    Card Zip Code
+                  </div>
+                  <div
+                    className={`${inter.className} text-neutral-600 font-medium /text-sm  f/ont-light`}
+                  >
+                    {cardInfo.cardZipCode}
+                  </div>
+                </div>
+                <div
+                  onClick={() => {
+                    navigator.clipboard.writeText(cardInfo.cardZipCode);
+                    toast.success(`Card Zip Code copied`.toUpperCase());
+                  }}
+                  className="icon cursor-pointer hover:bg-base-color/10 transition-all bg-base-color/5 hover:text-base-color/80 text-base-color/50 p-2 rounded-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="size-5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M15.988 3.012A2.25 2.25 0 0 1 18 5.25v6.5A2.25 2.25 0 0 1 15.75 14H13.5V7A2.5 2.5 0 0 0 11 4.5H8.128a2.252 2.252 0 0 1 1.884-1.488A2.25 2.25 0 0 1 12.25 1h1.5a2.25 2.25 0 0 1 2.238 2.012ZM11.5 3.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v.25h-3v-.25Z"
+                      clipRule="evenodd"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      d="M2 7a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7Zm2 3.25a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Zm0 3.5a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
         </DialogContent>
       </Dialog>

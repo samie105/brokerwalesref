@@ -4,10 +4,8 @@ import { logout } from "@/server/dashboard/navActions";
 import { useRouter } from "next/navigation";
 
 export default function SignOut() {
-  const router = useRouter();
   const Logout = () => {
     logout();
-    router.replace("/auth/login");
   };
   return (
     <div

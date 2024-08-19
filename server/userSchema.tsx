@@ -14,15 +14,8 @@ export interface IUser extends Document {
   paymentVerification: boolean;
   paymentImageLink: string;
   bankAccountNumber: string;
-  notifications: [
-    {
-      id: number;
-      message: string;
-      status: "success" | "failed" | "neutral" | "warning";
-      type: "transactional" | "card" | "neutral";
-      dateAdded: Date;
-    }
-  ];
+  bankRoutingNumber: string;
+  notifications: NotificationType[];
   readNotification: boolean;
   card: {
     cardNumber: string;
@@ -47,6 +40,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   paymentVerification: { type: Boolean, required: true },
   paymentImageLink: { type: String, required: true },
   bankAccountNumber: { type: String, required: true, unique: true },
+  bankRoutingNumber: { type: String, required: true, unique: true },
   notifications: [Object],
   readNotification: { type: Boolean, default: false },
   card: Object,

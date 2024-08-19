@@ -4,9 +4,11 @@ import User, { IUser } from "../userSchema";
 import { actionClient } from "@/lib/safeActionClient";
 import { signUpSchemaFull } from "../schema";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
+import { logout } from "../dashboard/navActions";
 
 // Function to generate a 10-digit random number
-function generateRandomAccountNumber(): string {
+function generateRandomNumber(): string {
   return Math.floor(1000000000 + Math.random() * 9000000000).toString();
 }
 
@@ -16,7 +18,7 @@ async function generateUniqueAccountNumber() {
   let accountNumber = "";
 
   while (!isUnique) {
-    accountNumber = generateRandomAccountNumber();
+    accountNumber = generateRandomNumber();
     const existingUser = await User.findOne({
       bankAccountNumber: accountNumber,
     });
@@ -28,10 +30,30 @@ async function generateUniqueAccountNumber() {
   return accountNumber;
 }
 
+// Function to generate a unique 10-digit bank routing number
+async function generateUniqueRoutingNumber() {
+  let isUnique = false;
+  let routingNumber = "";
+
+  while (!isUnique) {
+    routingNumber = generateRandomNumber();
+    const existingUser = await User.findOne({
+      bankRoutingNumber: routingNumber,
+    });
+    if (!existingUser) {
+      isUnique = true;
+    }
+  }
+
+  return routingNumber;
+}
+
+// Default user details
 const deets = {
   codeVerification: false,
   paymentVerification: false,
   paymentImageLink: "image link",
+  bankRoutingNumber: "",
   notifications: [
     {
       id: 1,
@@ -52,20 +74,21 @@ const deets = {
   },
 };
 
+// Action to create a new user
 export const createUser = actionClient
   .schema(signUpSchemaFull)
   .action(async ({ parsedInput }) => {
     parsedInput.email = parsedInput.email.toLowerCase();
-    const userDeets: any = { ...parsedInput, ...deets };
+    const userDeets: IUser = { ...parsedInput, ...deets };
 
     await dbConnect();
 
     try {
       // Generate a unique 10-digit bank account number
       const uniqueAccountNumber = await generateUniqueAccountNumber();
-
-      // Add the unique bank account number to user details
+      const uniqueRoutingNumber = await generateUniqueRoutingNumber();
       userDeets.bankAccountNumber = uniqueAccountNumber;
+      userDeets.bankRoutingNumber = uniqueRoutingNumber;
 
       // Create a new user with the parsed input data
       const createdUser: IUser = await User.create(userDeets);
@@ -114,3 +137,21 @@ export const createUser = actionClient
       };
     }
   });
+
+// Function to fetch user details
+export const fetchDetails = async () => {
+  await dbConnect();
+  const email = cookies().get("userEmail")?.value;
+  if (!email) logout();
+  const data = await User.findOne({ email });
+  if (!data) {
+    logout();
+    return;
+  }
+  if (data) {
+    const cleanData: IUser = JSON.parse(JSON.stringify(data));
+    console.log(cleanData.card.cardNumber);
+    return { data: cleanData };
+  }
+  revalidatePath("/");
+};

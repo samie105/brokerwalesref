@@ -10,12 +10,13 @@ import Link from "next/link";
 import React from "react";
 import { Inter } from "next/font/google";
 import { toast } from "sonner";
+import { IUser } from "@/server/userSchema";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export default function NavOptions() {
+export default function NavOptions({ data }: { data: IUser }) {
   const datas = [
     {
       name: "Deposit",
@@ -115,13 +116,14 @@ export default function NavOptions() {
               <Avatar>
                 {<AvatarImage src="https://github.com/shadcn.png" />}
                 <AvatarFallback className="font-bold text-sm border border-base-color/30 text-base-color/80 bg-base-color/5">
-                  SR
+                  {data.firstName.charAt(0).toUpperCase()}
+                  {data.lastName.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div className="pl-1">
                 {" "}
                 <div className="name  text-sm text-neutral-500 font-semibold">
-                  Samson Richfield
+                  {data.firstName} {data.lastName}
                 </div>
                 <div className="account-type mt-0.5 text-xs font-medium text-neutral-400">
                   Checkings account
@@ -174,12 +176,12 @@ export default function NavOptions() {
                   <code
                     className={`accountno text-neutral-500/  f/ont-medium text-neutral-600 text-sm /${inter.className}`}
                   >
-                    446672193031
+                    {data.bankAccountNumber}
                   </code>
                 </div>
               </div>
               <div
-                onClick={() => handleAccountCopy("446672193031")}
+                onClick={() => handleAccountCopy(data.bankAccountNumber)}
                 className="copy cursor-pointer text-base-color/80 p-2 rounded-full bg-base-color/5"
               >
                 <svg
@@ -225,12 +227,12 @@ export default function NavOptions() {
                   <code
                     className={`accountno text-neutral-500/  /font-medium text-neutral-600 text-sm /${inter.className}`}
                   >
-                    748394193031
+                    {data.bankRoutingNumber}
                   </code>
                 </div>
               </div>
               <div
-                onClick={() => handleAccountCopy("748394193031")}
+                onClick={() => handleAccountCopy(data.bankRoutingNumber)}
                 className="copy cursor-pointer text-base-color/80 p-2 rounded-full bg-base-color/5"
               >
                 <svg

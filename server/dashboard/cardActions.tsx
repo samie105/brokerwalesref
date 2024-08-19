@@ -45,13 +45,59 @@ export const createCard = actionClient
             cardBillingAddress,
             cardZipCode,
           };
+
+          user.notifications.push({
+            dateAdded: new Date(),
+            id: crypto.randomUUID(),
+            status: "success",
+            type: "card",
+            message: `Your ${cardType} credit card has been created and issues`,
+          });
           user.save();
         }
         revalidatePath("/");
-        return { message: `${cardType} card created succesfully` };
+        return {
+          message: `${cardType} card created succesfully`,
+          data: { cardNumber, cardExpiry, cardCVC },
+        };
       } catch (error) {
         console.error("Error Creating card", error);
         throw new Error("Error attempting card creation");
       }
     }
   );
+export const DeleteCard = actionClient.action(async () => {
+  await dbConnect();
+  const email = cookies().get("userEmail")?.value;
+  try {
+    const user = await User.findOne({
+      email,
+    });
+
+    if (user) {
+      user.card = {
+        cardNumber: "",
+        cardExpiry: "",
+        cardCVC: "",
+        cardType: "",
+        cardBillingAddress: "",
+        cardZipCode: "",
+      };
+      user.notifications.push({
+        dateAdded: new Date(),
+        id: crypto.randomUUID(),
+        status: "success",
+        type: "card",
+        message: `Your credit card has been revoked and deleted`,
+      });
+      user.save();
+    }
+    revalidatePath("/");
+    return {
+      message: `Credit Card deletion successful`,
+    };
+  } catch (error) {
+    console.error("Error Deleting card", error);
+    throw new Error("Error attempting card deletion");
+  }
+});
