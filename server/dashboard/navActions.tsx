@@ -35,3 +35,13 @@ export const deleteNotification = actionClient
       return { message: "Notification deleted succesfully" };
     } catch (error) {}
   });
+
+export const readNotifications = async () => {
+  const email = cookies().get("userEmail")?.value;
+  const user = await User.findOne({ email });
+  if (user) {
+    user.readNotification = true;
+    user.save();
+    revalidatePath("/");
+  }
+};

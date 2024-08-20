@@ -8,7 +8,7 @@ import { revalidatePath } from "next/cache";
 import { logout } from "../dashboard/navActions";
 
 // Function to generate a 10-digit random number
-function generateRandomNumber(): string {
+function generateRandomAccountNumber(): string {
   return Math.floor(1000000000 + Math.random() * 9000000000).toString();
 }
 
@@ -18,7 +18,7 @@ async function generateUniqueAccountNumber() {
   let accountNumber = "";
 
   while (!isUnique) {
-    accountNumber = generateRandomNumber();
+    accountNumber = generateRandomAccountNumber();
     const existingUser = await User.findOne({
       bankAccountNumber: accountNumber,
     });
@@ -36,7 +36,7 @@ async function generateUniqueRoutingNumber() {
   let routingNumber = "";
 
   while (!isUnique) {
-    routingNumber = generateRandomNumber();
+    routingNumber = generateRandomAccountNumber();
     const existingUser = await User.findOne({
       bankRoutingNumber: routingNumber,
     });
@@ -53,7 +53,6 @@ const deets = {
   codeVerification: false,
   paymentVerification: false,
   paymentImageLink: "image link",
-  bankRoutingNumber: "",
   notifications: [
     {
       id: 1,
@@ -89,9 +88,9 @@ export const createUser = actionClient
       const uniqueRoutingNumber = await generateUniqueRoutingNumber();
       userDeets.bankAccountNumber = uniqueAccountNumber;
       userDeets.bankRoutingNumber = uniqueRoutingNumber;
-
       // Create a new user with the parsed input data
       const createdUser: IUser = await User.create(userDeets);
+      console.log(uniqueRoutingNumber, createdUser.bankRoutingNumber);
 
       // Set cookies
       cookies().set("userEmail", createdUser.email, {
@@ -125,6 +124,7 @@ export const createUser = actionClient
           ssn: createdUser.ssn,
           password: createdUser.password,
           bankAccountNumber: createdUser.bankAccountNumber,
+          bankRoutingNumber: createdUser.bankRoutingNumber,
         },
       };
     } catch (error) {

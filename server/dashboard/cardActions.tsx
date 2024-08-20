@@ -53,6 +53,8 @@ export const createCard = actionClient
             type: "card",
             message: `Your ${cardType} credit card has been created and issues`,
           });
+          user.readNotification = false;
+
           user.save();
         }
         revalidatePath("/");
@@ -90,6 +92,7 @@ export const DeleteCard = actionClient.action(async () => {
         type: "card",
         message: `Your credit card has been revoked and deleted`,
       });
+      user.readNotification = false;
       user.save();
     }
     revalidatePath("/");

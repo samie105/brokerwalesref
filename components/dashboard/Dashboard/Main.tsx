@@ -68,7 +68,12 @@ export default function Dashboard() {
       focus: state.focus === name ? "" : (name as Focused),
     }));
   };
-
+  const cardDeet = {
+    name: data.firstName + " " + data.lastName,
+    number: data.card.cardNumber,
+    expiry: data.card.cardExpiry,
+    cvc: data.card.cardCVC,
+  };
   const { execute, status } = useAction(DeleteCard, {
     onSuccess({ data }) {
       toast.success(data?.message, {
@@ -83,6 +88,7 @@ export default function Dashboard() {
           cvc: "",
         };
       });
+      console.log(data);
       toast.dismiss(toastId);
     },
 
@@ -271,17 +277,24 @@ export default function Dashboard() {
             </Card>
           </div>
         </div>
-        <Card className="card b/order shadow-none border-none rounded-md p-3 /border inset-1 /border-dashed border-base-color/80">
+        <Card
+          className={`card b/order relative shadow-none border-none rounded-md p-3 /border w-full inset-1 /border-dashed border-neutral-600 `}
+        >
+          {data.card.cardNumber === "" && (
+            <div className="image-cont absolute w-full h-full animate-spi top-0 left-0">
+              <Image alt="" src={"/assets/cards/no_card_bg.svg"} fill />
+            </div>
+          )}
           {data.card.cardNumber !== "" && (
             <div>
               {" "}
-              <div className="w-full /bg-red-50 relative">
+              <div className="w-full relative">
                 {" "}
                 <Cards
-                  number={data.card.cardNumber}
-                  expiry={data.card.cardExpiry}
-                  cvc={data.card.cardCVC}
-                  name={data.firstName + " " + data.lastName}
+                  number={data.card.cardNumber || ""}
+                  expiry={data.card.cardExpiry || ""}
+                  cvc={data.card.cardCVC || ""}
+                  name={data.firstName + " " + data.lastName || ""}
                   focused={state.focus}
                 />
                 {state.focus === "" && (
@@ -323,7 +336,7 @@ export default function Dashboard() {
                     </div>
                     <CreditCardDetails
                       status={status}
-                      state={state}
+                      state={cardDeet}
                       cardInfo={data.card}
                     />
                     <button
@@ -403,8 +416,8 @@ export default function Dashboard() {
           )}
           {data.card.cardNumber === "" && (
             <>
-              <div className="flex items-center justify-center w-md h-full  rounded-md bg-white">
-                <div className="space-y-2 text-center">
+              <div className="flex /border items-center justify-center w-md h-full  rounded-md ">
+                <div className="space-y-2 b/order p-4 bg-[#ffffff6a] backdrop-filter backdrop-blur-sm rounded-md text-center">
                   {" "}
                   <CreateCardForm setState={setState} />
                 </div>

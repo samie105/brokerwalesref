@@ -4,9 +4,7 @@ import Fixed from "@/components/dashboard/Dashboard/Fixed";
 import Dashboard from "@/components/dashboard/Dashboard/Main";
 import dbConnect from "@/server";
 import { fetchDetails } from "@/server/actions/createUser";
-import User, { IUser } from "@/server/userSchema";
-import { revalidatePath, unstable_noStore } from "next/cache";
-import { cookies } from "next/headers";
+
 import {
   QueryClient,
   HydrationBoundary,

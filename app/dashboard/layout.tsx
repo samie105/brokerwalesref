@@ -10,7 +10,7 @@ export default function Layout({
 }>) {
   return (
     <Providers>
-      <div className="grid p-3 gap-x-2 grid-cols-12 relative w-screen h-screen overflow-hidden bg-base-color/5">
+      <div className="grid p-2 gap-x-2 grid-cols-12 relative w-screen h-screen overflow-hidden bg-neutral-100">
         <div className="lg:col-span-2 col-span-3">
           <SideBar />
         </div>
