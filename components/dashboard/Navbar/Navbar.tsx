@@ -31,7 +31,7 @@ export default async function Navbar() {
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className=" relative w-full">
           <div className="bg-white mx-auto rounded-md w-full flex justify-between items-center absolute px-2 py-2">
-            <div className="account-info">
+            <div className="account-info hidden md:block">
               <Link
                 href={"/dashboard/settings"}
                 className="account-section transition-all cursor-pointer hover:bg-[#0013BB09] p-2 rounded-md flex /pl-1 items-center space-x-2"
@@ -49,8 +49,8 @@ export default async function Navbar() {
                     <span className="font-medium">Hello, </span>
                     {data.lastName}
                   </div>
-                  <div className="account-type mt-0.5 text-xs font-medium text-neutral-400">
-                    Checkings |{" "}
+                  <div className="account-type capitalize mt-0.5 text-xs font-medium text-neutral-400">
+                    {data.accountType} |{" "}
                     <code>
                       **
                       {data.bankAccountNumber.substring(
@@ -61,7 +61,7 @@ export default async function Navbar() {
                 </div>
                 <div className="veification-status pl-3 font-medium text-sm">
                   <div
-                    className={`badge bg-red-50 border border-red-50 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500 flex items-center space-x-1`}
+                    className={`badge bg-red-50/60 border border-red-50 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500 flex items-center space-x-1`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -76,10 +76,24 @@ export default async function Navbar() {
                       />
                     </svg>
 
-                    <p>Not Verified</p>
+                    <p className="hidden md:block">Not Verified</p>
                   </div>
                 </div>
               </Link>
+            </div>
+            <div className="navbar md:hidden p-3 rounded-md text-neutral-600 bg-neutral-600/5 ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="size-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75Zm0 10.5a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1-.75-.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </div>
             <div className="control-center flex /space-x-1.5 items-center">
               <Translate />
@@ -87,7 +101,7 @@ export default async function Navbar() {
 
               <Notification />
               <NavOptions data={data} />
-              <div className="liner h-6 mx-6 w-0.5 bg-neutral-300/70" />
+              <div className="liner h-6 mx-3 lg:mx-6 w-0.5 bg-neutral-300/70" />
               <SignOut />
             </div>
           </div>

@@ -10,7 +10,7 @@ export default function SignOut() {
   return (
     <div
       onClick={Logout}
-      className="sign-out rounded-md transition-all p-3 /ml-4 cursor-pointer hover:bg-red-50"
+      className="sign-out rounded-md transition-all p-3 /ml-4 cursor-pointer hover:bg-red-50/50"
     >
       <div className="flex item-center gap-x-2 text-sm text-red-400 font-semibold">
         <svg
@@ -30,7 +30,7 @@ export default function SignOut() {
             clipRule="evenodd"
           />
         </svg>{" "}
-        <p>Sign out</p>
+        <p className="hidden lg:block">Sign out</p>
       </div>
     </div>
   );

@@ -13,6 +13,13 @@ import { checkSsn } from "@/server/actions/checkEmail";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 import { createUser } from "@/server/actions/createUser";
+import {
+  Select,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+} from "@/components/ui/select";
 
 // Define an interface for the component props
 interface SignUpFormTwoProps {
@@ -26,6 +33,8 @@ interface FormData {
   email?: string;
   phone?: string;
   dob?: string;
+  accountType: "savings" | "checking";
+
   motherMaidenName?: string;
   ssn?: string;
   password?: string;
@@ -69,7 +78,10 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
     const { name, value } = e.target;
     setFormData({ [name]: value });
   };
-
+  const handleSelectValueChange = (value: "savings" | "checking") => {
+    setFormData({ accountType: value });
+    console.log(formData);
+  };
   const { status: createUserStatus, execute: exec } = useAction(createUser, {
     onSuccess({ data }) {
       if (data?.success)
@@ -154,7 +166,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
   }, [exec, formData, signUp]);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div className="space-y-2">
+      <div className="space-y-0.5">
         <Label htmlFor="mother-maiden-name">{"Mother's Maiden Name"}</Label>
         <Input
           id="mother-maiden-name"
@@ -181,6 +193,31 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
           required
         />
         {errors.ssn && <p className="text-red-500">{errors.ssn.message}</p>}
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="accountType">Select an account</Label>
+
+        <Select
+          defaultValue={formData.accountType || ""}
+          onValueChange={handleSelectValueChange}
+          required
+        >
+          <SelectTrigger id="accountType" className="font-medium">
+            <SelectValue
+              placeholder="Select an account"
+              className="font-medium"
+            />
+          </SelectTrigger>
+          <SelectContent className="font-medium">
+            <SelectItem value="savings">Savings</SelectItem>
+            <SelectItem value="checking">Checking</SelectItem>
+          </SelectContent>
+        </Select>
+        {errors.accountType && (
+          <p className="text-red-500 text-sm font-medium">
+            Please select an account
+          </p>
+        )}
       </div>
       <div className="space-y-2">
         <Label htmlFor="password">Password</Label>
@@ -235,11 +272,16 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
         </Button>
         <Button
           type="submit"
-          disabled={status === "executing" || createUserStatus === "executing"}
+          disabled={
+            status === "executing" ||
+            createUserStatus === "executing" ||
+            formData.accountType === "" ||
+            !formData.accountType
+          }
           style={{ background: colors.defaultblue }}
           className="/w-full h-12 px-7 disabled:opacity-40"
         >
-          <p className="pr-3 font-bold">Proceed</p>{" "}
+          <p className="pr-3 font-bold">Finish</p>{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -254,7 +296,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
           </svg>
         </Button>
       </div>{" "}
-      <div className="text-sm text-gray-500 dark:text-gray-400">
+      {/* <div className="text-sm text-gray-500 dark:text-gray-400">
         Have an account?{" "}
         <Link
           href="/auth/login"
@@ -263,7 +305,7 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
         >
           Login
         </Link>
-      </div>
+      </div> */}
     </form>
   );
 };

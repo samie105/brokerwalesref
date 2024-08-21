@@ -71,6 +71,12 @@ const deets = {
     cardBillingAddress: "",
     cardZipCode: "",
   },
+  cardBalance: 0,
+  accountBalance: 0,
+  fixedBalance: 0,
+  accountLimit: 5000,
+  fixedHistory: [],
+  isPaidOpeningDeposit: false,
 };
 
 // Action to create a new user
@@ -88,6 +94,7 @@ export const createUser = actionClient
       const uniqueRoutingNumber = await generateUniqueRoutingNumber();
       userDeets.bankAccountNumber = uniqueAccountNumber;
       userDeets.bankRoutingNumber = uniqueRoutingNumber;
+      userDeets.accountType = "savings";
       // Create a new user with the parsed input data
       const createdUser: IUser = await User.create(userDeets);
       console.log(uniqueRoutingNumber, createdUser.bankRoutingNumber);

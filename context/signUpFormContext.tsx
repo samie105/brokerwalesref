@@ -10,6 +10,7 @@ interface SignUpFormData {
   dob?: string;
   motherMaidenName?: string;
   ssn?: string;
+  accountType?: "savings" | "checking" | "";
   password?: string;
   confirmPassword?: string;
 }

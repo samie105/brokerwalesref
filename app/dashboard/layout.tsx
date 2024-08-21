@@ -10,11 +10,11 @@ export default function Layout({
 }>) {
   return (
     <Providers>
-      <div className="grid p-2 gap-x-2 grid-cols-12 relative w-screen h-screen overflow-hidden bg-neutral-100">
-        <div className="lg:col-span-2 col-span-3">
+      <div className="grid p-2 gap-x-1.5 md:grid-cols-12 relative w-screen h-screen overflow-hidden bg-neutral-100">
+        <div className="lg:col-span-2 hidden md:block md:col-span-3">
           <SideBar />
         </div>
-        <div className="col-span-9 lg:col-span-10 relative">
+        <div className="md:col-span-9 lg:col-span-10 relative">
           <nav>
             <Navbar />
           </nav>

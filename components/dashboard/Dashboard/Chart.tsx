@@ -18,12 +18,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [
-  { data: "transfers", Amount: 27095, fill: "#200cf7" },
-  { data: "fixed", Amount: 15880, fill: "#150f90" },
-  { data: "deposits", Amount: 23387, fill: "#625fff" },
-  { data: "cards", Amount: 11073, fill: "#c8cfff" },
-];
 
 const chartConfig = {
   amount: {
@@ -47,12 +41,21 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 import { Inter } from "next/font/google";
+import { useFetchInfo } from "@/lib/data/fetchPost";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export function Chart() {
+  const { data: deets } = useFetchInfo();
+  const data = deets!.data;
+  const chartData = [
+    { data: "transfers", Amount: 27095, fill: "#200cf7" },
+    { data: "fixed", Amount: data.fixedBalance, fill: "#150f90" },
+    { data: "deposits", Amount: 23387, fill: "#625fff" },
+    { data: "cards", Amount: data.cardBalance, fill: "#c8cfff" },
+  ];
   return (
     <Card className="flex flex-col border-none shadow-none border-black/5">
       <CardHeader className="items-start pl-12 pb-0">
@@ -107,7 +110,7 @@ export function Chart() {
                 <div
                   className={`ml-auto font-semibold text-sm ${inter.className}`}
                 >
-                  ${chartData[1].Amount.toLocaleString()}
+                  ${data.fixedBalance.toLocaleString()}
                 </div>
               </div>
             </div>
@@ -129,7 +132,7 @@ export function Chart() {
                 <div
                   className={`ml-auto font-semibold text-sm ${inter.className}`}
                 >
-                  ${chartData[3].Amount.toLocaleString()}
+                  ${data.cardBalance.toLocaleString()}
                 </div>
               </div>
             </div>

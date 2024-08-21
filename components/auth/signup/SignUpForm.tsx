@@ -32,6 +32,7 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
     email?: string;
     phone?: string;
     dob?: string;
+    accountType: "savings" | "checking";
     motherMaidenName?: string;
     ssn?: string;
     password?: string;

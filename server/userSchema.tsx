@@ -25,6 +25,13 @@ export interface IUser extends Document {
     cardBillingAddress: string;
     cardZipCode: string;
   };
+  cardBalance: number;
+  accountBalance: number;
+  fixedBalance: number;
+  accountLimit: number;
+  isPaidOpeningDeposit: boolean;
+  fixedHistory: FixedType[];
+  accountType: "savings" | "checking";
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -44,6 +51,13 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   notifications: [Object],
   readNotification: { type: Boolean, default: false },
   card: Object,
+  cardBalance: { type: Number },
+  accountBalance: { type: Number },
+  fixedBalance: { type: Number },
+  accountLimit: { type: Number },
+  isPaidOpeningDeposit: { type: Boolean },
+  accountType: { type: String },
+  fixedHistory: [Object],
 });
 
 const User: Model<IUser> =

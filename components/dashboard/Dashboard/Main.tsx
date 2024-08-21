@@ -121,7 +121,7 @@ export default function Dashboard() {
   // useEffect(() => console.log(state), [state]);
   return (
     <div className="space-y-3">
-      <section className="dashboard_card-section gap-x-2 grid md:grid-cols-2 grid-cols-1">
+      <section className="dashboard_card-section gap-x-1 grid md:grid-cols-2 grid-cols-1">
         <div className="dashboard">
           <div className="card ">
             <Card>
@@ -135,11 +135,15 @@ export default function Dashboard() {
                     <div
                       className={`account-balance text-3xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
                     >
-                      <span className="text-sm">$</span>0.00
+                      <span className="text-sm">$</span>
+                      {data.accountBalance.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                   <div className="actions flex items-center space-x-2">
-                    <div className="deposit-action rounded-full bg-white/5 border border-white/10 p-3 text-white">
+                    <div className="deposit-action rounded-md bg-white/5 borde/r border-white/10 p-3 text-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
@@ -153,7 +157,7 @@ export default function Dashboard() {
                         />
                       </svg>
                     </div>
-                    <div className="transfer-action rounded-full bg-white/5 border border-white/10 p-3 text-white">
+                    <div className="transfer-action rounded-md bg-white/5 bord/er border-white/10 p-3 text-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
@@ -228,7 +232,9 @@ export default function Dashboard() {
                         <div className="account-limit text-neutral-200/80 font-semibold text-sm">
                           <div>Account limit</div>
                           <div className="amount text-neutral-200 font-semibold /text-base">
-                            <p className={`${inter.className}`}>$5000</p>
+                            <p className={`${inter.className}`}>
+                              ${data.accountLimit.toLocaleString()}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -265,11 +271,19 @@ export default function Dashboard() {
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`text-yellow-500 bg-yellow-500/10 rounded-sm py-1 px-2 border-yellow-500/20 border text-xs font-semibold `}
-                      >
-                        Pending
-                      </div>
+                      {!data.isPaidOpeningDeposit ? (
+                        <div
+                          className={`text-yellow-500 bg-yellow-500/10 rounded py-1 px-2 border-yellow-500/20 border text-xs font-semibold `}
+                        >
+                          Pending
+                        </div>
+                      ) : (
+                        <div
+                          className={`text-green-500 bg-green-500/10 rounded py-1 px-2 border-green-500/20 border text-xs font-semibold `}
+                        >
+                          Verified
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -316,7 +330,11 @@ export default function Dashboard() {
                     <div
                       className={`text-xl font-bold text-neutral-700 ${inter.className}`}
                     >
-                      $0.00
+                      $
+                      {data.cardBalance.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
 
