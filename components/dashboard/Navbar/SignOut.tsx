@@ -10,7 +10,7 @@ export default function SignOut() {
   return (
     <div
       onClick={Logout}
-      className="sign-out rounded-md transition-all p-3 /ml-4 cursor-pointer hover:bg-red-50/50"
+      className="sign-out rounded-md  transition-all bg-red-50 md:bg-transparent p-3 /ml-4 cursor-pointer hover:bg-red-50/50"
     >
       <div className="flex item-center gap-x-2 text-sm text-red-400 font-semibold">
         <svg

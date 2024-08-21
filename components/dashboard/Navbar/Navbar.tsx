@@ -1,6 +1,7 @@
 import React from "react";
 import Notification from "./Notification";
 import NavOptions from "./NavOptions";
+import hero from "@/public/assets/hero-logo-blue.png";
 import Translate from "./Translate";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SignOut from "./SignOut";
@@ -14,6 +15,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { fetchDetails } from "@/server/actions/createUser";
+import Image from "next/image";
 
 export default async function Navbar() {
   await dbConnect();
@@ -30,7 +32,7 @@ export default async function Navbar() {
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className=" relative w-full">
-          <div className="bg-white mx-auto rounded-md w-full flex justify-between items-center absolute px-2 py-2">
+          <div className="bg-white mx-auto rounded-md w-full flex justify-between items-center absolute px-3 md:px-2 py-3 md:py-2 ">
             <div className="account-info hidden md:block">
               <Link
                 href={"/dashboard/settings"}
@@ -81,27 +83,39 @@ export default async function Navbar() {
                 </div>
               </Link>
             </div>
-            <div className="navbar md:hidden p-3 rounded-md text-neutral-600 bg-neutral-600/5 ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="size-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75Zm0 10.5a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1-.75-.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Z"
-                  clipRule="evenodd"
+            <div className="flex items-center gap-x-2">
+              <div className="navbar md:hidden p-3 rounded-md text-base-color/80 bg-base-color/5 ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="size-5"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75Zm0 10.5a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1-.75-.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+
+              <div className="image">
+                <Image
+                  src={hero}
+                  alt=""
+                  width={1000}
+                  height={1000}
+                  className="w-14 h-5 opacity-80"
                 />
-              </svg>
+              </div>
             </div>
             <div className="control-center flex /space-x-1.5 items-center">
-              <Translate />
-              <div className="liner h-2 mx-3 w-0.5 bg-neutral-300/70" />
+              {/* <Translate />
+              <div className="liner hidden md:block h-2 mx-3 w-0.5 bg-neutral-300/70" /> */}
 
               <Notification />
               <NavOptions data={data} />
-              <div className="liner h-6 mx-3 lg:mx-6 w-0.5 bg-neutral-300/70" />
+              <div className="liner h-3 md:h-6 mx-3 hidde/n md:block lg:mx-6 w-[1px] bg-neutral-300/70" />
               <SignOut />
             </div>
           </div>
