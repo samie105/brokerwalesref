@@ -38,6 +38,8 @@ import { IUser } from "@/server/userSchema";
 import { createCard, DeleteCard } from "@/server/dashboard/cardActions";
 import { useAction } from "next-safe-action/hooks";
 import { useFetchInfo } from "@/lib/data/fetchPost";
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -88,7 +90,6 @@ export default function Dashboard() {
           cvc: "",
         };
       });
-      console.log(data);
       toast.dismiss(toastId);
     },
 
@@ -118,299 +119,155 @@ export default function Dashboard() {
   const handleCardDeletion = async () => {
     execute({ action: "delete card" });
   };
-  // useEffect(() => console.log(state), [state]);
   return (
-    <div className="space-y-3">
-      <section className="dashboard_card-section gap-x-1 grid md:grid-cols-2 grid-cols-1">
-        <div className="dashboard">
-          <div className="card ">
-            <Card>
-              <CardContent className="py-5 rounded-sm bg-gradient-to-r from-gray-700 via-gray-900 to-black ">
-                <div className="flex items-center justify-between">
-                  {" "}
-                  <div className="">
-                    <div className="account-type text-xs bg-white/5 border border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
-                      Checking account
-                    </div>
-                    <div
-                      className={`account-balance text-3xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
-                    >
-                      <span className="text-sm">$</span>
-                      {data.accountBalance.toLocaleString("en-US", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
-                    </div>
-                  </div>
-                  <div className="actions flex items-center space-x-2">
-                    <div className="deposit-action rounded-md bg-white/5 borde/r border-white/10 p-3 text-white">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="size-5"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div className="transfer-action rounded-md bg-white/5 bord/er border-white/10 p-3 text-white">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="size-5"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M13.75 7h-3V3.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0L6.2 4.74a.75.75 0 0 0 1.1 1.02l1.95-2.1V7h-3A2.25 2.25 0 0 0 4 9.25v7.5A2.25 2.25 0 0 0 6.25 19h7.5A2.25 2.25 0 0 0 16 16.75v-7.5A2.25 2.25 0 0 0 13.75 7Zm-3 0h-1.5v5.25a.75.75 0 0 0 1.5 0V7Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-x-2 mt-5">
-                  <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="size-4"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M9.638 1.093a.75.75 0 0 1 .724 0l2 1.104a.75.75 0 1 1-.724 1.313L10 2.607l-1.638.903a.75.75 0 1 1-.724-1.313l2-1.104ZM5.403 4.287a.75.75 0 0 1-.295 1.019l-.805.444.805.444a.75.75 0 0 1-.724 1.314L3.5 7.02v.73a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 1 .388-.657l1.996-1.1a.75.75 0 0 1 1.019.294Zm9.194 0a.75.75 0 0 1 1.02-.295l1.995 1.101A.75.75 0 0 1 18 5.75v2a.75.75 0 0 1-1.5 0v-.73l-.884.488a.75.75 0 1 1-.724-1.314l.806-.444-.806-.444a.75.75 0 0 1-.295-1.02ZM7.343 8.284a.75.75 0 0 1 1.02-.294L10 8.893l1.638-.903a.75.75 0 1 1 .724 1.313l-1.612.89v1.557a.75.75 0 0 1-1.5 0v-1.557l-1.612-.89a.75.75 0 0 1-.295-1.019ZM2.75 11.5a.75.75 0 0 1 .75.75v1.557l1.608.887a.75.75 0 0 1-.724 1.314l-1.996-1.101A.75.75 0 0 1 2 14.25v-2a.75.75 0 0 1 .75-.75Zm14.5 0a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-.388.657l-1.996 1.1a.75.75 0 1 1-.724-1.313l1.608-.887V12.25a.75.75 0 0 1 .75-.75Zm-7.25 4a.75.75 0 0 1 .75.75v.73l.888-.49a.75.75 0 0 1 .724 1.313l-2 1.104a.75.75 0 0 1-.724 0l-2-1.104a.75.75 0 1 1 .724-1.313l.888.49v-.73a.75.75 0 0 1 .75-.75Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <p>Fixed</p>
-                  </div>
-                  <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="size-4"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M2.5 4A1.5 1.5 0 0 0 1 5.5V6h18v-.5A1.5 1.5 0 0 0 17.5 4h-15ZM19 8.5H1v6A1.5 1.5 0 0 0 2.5 16h15a1.5 1.5 0 0 0 1.5-1.5v-6ZM3 13.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75Zm4.75-.75a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <p>Cards</p>
-                  </div>
-                </div>
-                <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div>
-
-                <div className="acount-info">
-                  <h1 className="text-neutral-300 font-medium text-sm mt-5">
-                    Account Info
-                  </h1>
-                  <div className="account-limit-info mt-5">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-x-2">
-                        <div className="icon-cont rounded-full relative justify-center items-center flex bg-white/5 border text-white border-white/10 p-3 ">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            className="size-4"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M13.2 2.24a.75.75 0 0 0 .04 1.06l2.1 1.95H6.75a.75.75 0 0 0 0 1.5h8.59l-2.1 1.95a.75.75 0 1 0 1.02 1.1l3.5-3.25a.75.75 0 0 0 0-1.1l-3.5-3.25a.75.75 0 0 0-1.06.04Zm-6.4 8a.75.75 0 0 0-1.06-.04l-3.5 3.25a.75.75 0 0 0 0 1.1l3.5 3.25a.75.75 0 1 0 1.02-1.1l-2.1-1.95h8.59a.75.75 0 0 0 0-1.5H4.66l2.1-1.95a.75.75 0 0 0 .04-1.06Z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                          <div className="liner absolute h-7 w-[1px] bg-white/10 z-0 -bottom-7"></div>
-                        </div>
-                        <div className="account-limit text-neutral-200/80 font-semibold text-sm">
-                          <div>Account limit</div>
-                          <div className="amount text-neutral-200 font-semibold /text-base">
-                            <p className={`${inter.className}`}>
-                              ${data.accountLimit.toLocaleString()}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      {/* <div
-                        className={`text-red-500 text-sm font-semibold ${inter.className}`}
-                      >
-                        ~ $4000
-                      </div> */}
-                    </div>
-                  </div>
-                  <div className="separator w-5 h-0.5 my-1 bg-white/10 mx-auto"></div>
-
-                  <div className="account-limit-info mt-5">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-x-2">
-                        <div className="icon-cont rounded-full bg-white/5 border text-white border-white/10 p-3 ">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            className="size-4"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M13.2 2.24a.75.75 0 0 0 .04 1.06l2.1 1.95H6.75a.75.75 0 0 0 0 1.5h8.59l-2.1 1.95a.75.75 0 1 0 1.02 1.1l3.5-3.25a.75.75 0 0 0 0-1.1l-3.5-3.25a.75.75 0 0 0-1.06.04Zm-6.4 8a.75.75 0 0 0-1.06-.04l-3.5 3.25a.75.75 0 0 0 0 1.1l3.5 3.25a.75.75 0 1 0 1.02-1.1l-2.1-1.95h8.59a.75.75 0 0 0 0-1.5H4.66l2.1-1.95a.75.75 0 0 0 .04-1.06Z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </div>
-                        <div className="account-dep-ver text-neutral-200/80 font-semibold text-sm">
-                          <div>Opening deposit</div>
-                          <div className="amount text-neutral-200 font-semibold /text-base">
-                            <p className={`${inter.className}`}>$50</p>
-                          </div>
-                        </div>
-                      </div>
-                      {!data.isPaidOpeningDeposit ? (
-                        <div
-                          className={`text-yellow-500 bg-yellow-500/10 rounded py-1 px-2 border-yellow-500/20 border text-xs font-semibold `}
-                        >
-                          Pending
-                        </div>
-                      ) : (
-                        <div
-                          className={`text-green-500 bg-green-500/10 rounded py-1 px-2 border-green-500/20 border text-xs font-semibold `}
-                        >
-                          Verified
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-        <Card
-          className={`card b/order relative shadow-none border-none rounded-md p-3 /border w-full inset-1 /border-dashed border-neutral-600 `}
+    <>
+      <div className="account-info mb-1 bg-white p-2 rounded-sm md:hidden">
+        <Link
+          href={"/dashboard/settings"}
+          className="account-section transition-all cursor-pointer hover:bg-[#0013BB0/9] p-2 rounded-md flex /pl-1 items-center space-x-2 justify-between"
         >
-          {data.card.cardNumber === "" && (
-            <div className="image-cont absolute w-full h-full animate-spi top-0 left-0">
-              <Image alt="" src={"/assets/cards/no_card_bg.svg"} fill />
-            </div>
-          )}
-          {data.card.cardNumber !== "" && (
-            <div>
+          <div className="flex items-center space-x-2">
+            <Avatar>
+              {<AvatarImage src="https://github.com/shadcn.png" />}
+              <AvatarFallback className="font-bold bo/rder border-base-color/30 text-sm text-base-color/80 bg/-base-color/5">
+                {data.firstName.charAt(0).toUpperCase()}
+                {data.lastName.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div className="pl-1">
               {" "}
-              <div className="w-full relative">
-                {" "}
-                <Cards
-                  number={data.card.cardNumber || ""}
-                  expiry={data.card.cardExpiry || ""}
-                  cvc={data.card.cardCVC || ""}
-                  name={data.firstName + " " + data.lastName || ""}
-                  focused={state.focus}
-                />
-                {state.focus === "" && (
-                  <div className="absolute animate__animated animate__lightSpeedInRight bankName uppercase bottom-2 left-[60px] text-sm text-neutral-300 font-medium">
-                    <code>Wilson Bank</code>
-                  </div>
-                )}{" "}
+              <div className="name  text-sm text-neutral-700 font-semibold">
+                <span className="font-medium">Hello, </span>
+                {data.lastName}
               </div>
-              <div className="separator w-20 h-0.5 mt-4 mb-2 bg-black/10 mx-auto"></div>
-              <div className="card-actions /mt-1 cont px-3">
-                <div className="flex justify-between items-center /shadow-sm w-full rounded-md px-3 /pt-2">
-                  <div
-                    className="card-balance space-y-1 /px-4 py-1 rounded-md"
-                    // style={{ background: colors.defaultblue + "09" }}
-                  >
-                    <div className="text-xs font-semibold text-neutral-500">
-                      Card balance
+              <div className="account-type capitalize mt-0.5 text-xs font-medium text-neutral-500">
+                {data.accountType} |{" "}
+                <code>
+                  **
+                  {data.bankAccountNumber.substring(
+                    data.bankAccountNumber.length - 4
+                  )}
+                </code>
+              </div>
+            </div>
+          </div>
+          <div className="veification-status  pl-3 font-medium text-sm">
+            <div
+              className={`badge bg-red-50/60 border border-red-50 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500 flex items-center space-x-1`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="size-4"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+
+              <p className="">Not Verified</p>
+            </div>
+          </div>
+        </Link>
+      </div>
+      <div className="space-y-1.5">
+        <section className="dashboard_card-section gap-y-1 gap-x-1 grid md:grid-cols-2 grid-cols-1">
+          <div className="dashboard">
+            <div className="card ">
+              <Card>
+                <CardContent className="py-5 rounded-sm bg-gradient-to-r from-gray-700 via-gray-900 to-black ">
+                  <div className="flex items-center justify-between">
+                    {" "}
+                    <div className="">
+                      <div className="account-type text-xs bg-white/5 border border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
+                        Checking account
+                      </div>
+                      <div
+                        className={`account-balance text-3xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
+                      >
+                        <span className="text-sm">$</span>
+                        {data.accountBalance.toLocaleString("en-US", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </div>
                     </div>
-                    <div
-                      className={`text-xl font-bold text-neutral-700 ${inter.className}`}
-                    >
-                      $
-                      {data.cardBalance.toLocaleString("en-US", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                    <div className="actions flex items-center space-x-2">
+                      <div className="deposit-action rounded-md bg-white/5 borde/r border-white/10 p-3 text-white">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-5"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <div className="transfer-action rounded-md bg-white/5 bord/er border-white/10 p-3 text-white">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-5"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M13.75 7h-3V3.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0L6.2 4.74a.75.75 0 0 0 1.1 1.02l1.95-2.1V7h-3A2.25 2.25 0 0 0 4 9.25v7.5A2.25 2.25 0 0 0 6.25 19h7.5A2.25 2.25 0 0 0 16 16.75v-7.5A2.25 2.25 0 0 0 13.75 7Zm-3 0h-1.5v5.25a.75.75 0 0 0 1.5 0V7Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="actions flex items-center gap-x-2">
-                    <div
-                      className="topup cursor-pointer rounded-md b/order text-base-color/80 border-black/10 p-3"
-                      style={{ background: colors.defaultblue + "09" }}
-                    >
+                  <div className="flex items-center gap-x-2 mt-5">
+                    <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
-                        className="size-5"
+                        className="size-4"
                       >
-                        <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                        <path
+                          fillRule="evenodd"
+                          d="M9.638 1.093a.75.75 0 0 1 .724 0l2 1.104a.75.75 0 1 1-.724 1.313L10 2.607l-1.638.903a.75.75 0 1 1-.724-1.313l2-1.104ZM5.403 4.287a.75.75 0 0 1-.295 1.019l-.805.444.805.444a.75.75 0 0 1-.724 1.314L3.5 7.02v.73a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 1 .388-.657l1.996-1.1a.75.75 0 0 1 1.019.294Zm9.194 0a.75.75 0 0 1 1.02-.295l1.995 1.101A.75.75 0 0 1 18 5.75v2a.75.75 0 0 1-1.5 0v-.73l-.884.488a.75.75 0 1 1-.724-1.314l.806-.444-.806-.444a.75.75 0 0 1-.295-1.02ZM7.343 8.284a.75.75 0 0 1 1.02-.294L10 8.893l1.638-.903a.75.75 0 1 1 .724 1.313l-1.612.89v1.557a.75.75 0 0 1-1.5 0v-1.557l-1.612-.89a.75.75 0 0 1-.295-1.019ZM2.75 11.5a.75.75 0 0 1 .75.75v1.557l1.608.887a.75.75 0 0 1-.724 1.314l-1.996-1.101A.75.75 0 0 1 2 14.25v-2a.75.75 0 0 1 .75-.75Zm14.5 0a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-.388.657l-1.996 1.1a.75.75 0 1 1-.724-1.313l1.608-.887V12.25a.75.75 0 0 1 .75-.75Zm-7.25 4a.75.75 0 0 1 .75.75v.73l.888-.49a.75.75 0 0 1 .724 1.313l-2 1.104a.75.75 0 0 1-.724 0l-2-1.104a.75.75 0 1 1 .724-1.313l.888.49v-.73a.75.75 0 0 1 .75-.75Z"
+                          clipRule="evenodd"
+                        />
                       </svg>
+                      <p>Fixed</p>
                     </div>
-                    <CreditCardDetails
-                      status={status}
-                      state={cardDeet}
-                      cardInfo={data.card}
-                    />
-                    <button
-                      disabled={status === "executing"}
-                      name="cvc"
-                      onClick={showCvc}
-                      className="showcvc disabled:opacity-25 cursor-pointer rounded-md b/order text-base-color/80 border-black/10 p-3"
-                      style={{ background: colors.defaultblue + "09" }}
-                    >
+                    <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
-                        className="size-5"
+                        className="size-4"
                       >
-                        <path d="M4.25 2A2.25 2.25 0 0 0 2 4.25v2a.75.75 0 0 0 1.5 0v-2a.75.75 0 0 1 .75-.75h2a.75.75 0 0 0 0-1.5h-2ZM13.75 2a.75.75 0 0 0 0 1.5h2a.75.75 0 0 1 .75.75v2a.75.75 0 0 0 1.5 0v-2A2.25 2.25 0 0 0 15.75 2h-2ZM3.5 13.75a.75.75 0 0 0-1.5 0v2A2.25 2.25 0 0 0 4.25 18h2a.75.75 0 0 0 0-1.5h-2a.75.75 0 0 1-.75-.75v-2ZM18 13.75a.75.75 0 0 0-1.5 0v2a.75.75 0 0 1-.75.75h-2a.75.75 0 0 0 0 1.5h2A2.25 2.25 0 0 0 18 15.75v-2ZM7 10a3 3 0 1 1 6 0 3 3 0 0 1-6 0Z" />
+                        <path
+                          fillRule="evenodd"
+                          d="M2.5 4A1.5 1.5 0 0 0 1 5.5V6h18v-.5A1.5 1.5 0 0 0 17.5 4h-15ZM19 8.5H1v6A1.5 1.5 0 0 0 2.5 16h15a1.5 1.5 0 0 0 1.5-1.5v-6ZM3 13.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75Zm4.75-.75a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z"
+                          clipRule="evenodd"
+                        />
                       </svg>
-                    </button>
-                    <Dialog>
-                      <DialogTrigger
-                        disabled={status === "executing"}
-                        className="disabled:opacity-25"
-                      >
-                        <div className="deleteCard cursor-pointer rounded-md b/order text-red-600 disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-pointer border-red-600/10 bg-red-600/10 p-3">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            className="size-5"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </div>
-                      </DialogTrigger>
-                      <DialogContent className="w-[90%]">
-                        <DialogTitle className="text-neutral-600">
-                          Delete Credit Card
-                        </DialogTitle>
-                        <DialogDescription className="text-neutral-600">
-                          Please note that this action is irreversible, please
-                          review and be sure of this action
-                        </DialogDescription>
+                      <p>Cards</p>
+                    </div>
+                  </div>
+                  <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div>
 
-                        <div className="actions flex justify-between items-center">
-                          <SheetClose className="py-3 px-5 rounded-sm cursor-pointer border bg-neutral-100 text-neutral-600">
-                            <div className="cancel font-semibold ">Cancel</div>
-                          </SheetClose>
-                          <SheetClose
-                            onClick={handleCardDeletion}
-                            className="p-3 rounded-sm cursor-pointer flex items-center space-x-2 bg-red-600 text-white font-semibold"
-                          >
-                            <p>Delete card</p>{" "}
+                  <div className="acount-info">
+                    <h1 className="text-neutral-300 font-medium text-sm mt-5">
+                      Account Info
+                    </h1>
+                    <div className="account-limit-info mt-5">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-x-2">
+                          <div className="icon-cont rounded-full relative justify-center items-center flex bg-white/5 border text-white border-white/10 p-3 ">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 20 20"
@@ -419,32 +276,231 @@ export default function Dashboard() {
                             >
                               <path
                                 fillRule="evenodd"
+                                d="M13.2 2.24a.75.75 0 0 0 .04 1.06l2.1 1.95H6.75a.75.75 0 0 0 0 1.5h8.59l-2.1 1.95a.75.75 0 1 0 1.02 1.1l3.5-3.25a.75.75 0 0 0 0-1.1l-3.5-3.25a.75.75 0 0 0-1.06.04Zm-6.4 8a.75.75 0 0 0-1.06-.04l-3.5 3.25a.75.75 0 0 0 0 1.1l3.5 3.25a.75.75 0 1 0 1.02-1.1l-2.1-1.95h8.59a.75.75 0 0 0 0-1.5H4.66l2.1-1.95a.75.75 0 0 0 .04-1.06Z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                            <div className="liner absolute h-7 w-[1px] bg-white/10 z-0 -bottom-7"></div>
+                          </div>
+                          <div className="account-limit text-neutral-200/80 font-semibold text-sm">
+                            <div>Account limit</div>
+                            <div className="amount text-neutral-200 font-semibold /text-base">
+                              <p className={`${inter.className}`}>
+                                ${data.accountLimit.toLocaleString()}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        {/* <div
+                        className={`text-red-500 text-sm font-semibold ${inter.className}`}
+                      >
+                        ~ $4000
+                      </div> */}
+                      </div>
+                    </div>
+                    <div className="separator w-5 h-0.5 my-1 bg-white/10 mx-auto"></div>
+
+                    <div className="account-limit-info mt-5">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-x-2">
+                          <div className="icon-cont rounded-full bg-white/5 border text-white border-white/10 p-3 ">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                              className="size-4"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M13.2 2.24a.75.75 0 0 0 .04 1.06l2.1 1.95H6.75a.75.75 0 0 0 0 1.5h8.59l-2.1 1.95a.75.75 0 1 0 1.02 1.1l3.5-3.25a.75.75 0 0 0 0-1.1l-3.5-3.25a.75.75 0 0 0-1.06.04Zm-6.4 8a.75.75 0 0 0-1.06-.04l-3.5 3.25a.75.75 0 0 0 0 1.1l3.5 3.25a.75.75 0 1 0 1.02-1.1l-2.1-1.95h8.59a.75.75 0 0 0 0-1.5H4.66l2.1-1.95a.75.75 0 0 0 .04-1.06Z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                          <div className="account-dep-ver text-neutral-200/80 font-semibold text-sm">
+                            <div>Opening deposit</div>
+                            <div className="amount text-neutral-200 font-semibold /text-base">
+                              <p className={`${inter.className}`}>$50</p>
+                            </div>
+                          </div>
+                        </div>
+                        {!data.isPaidOpeningDeposit ? (
+                          <div
+                            className={`text-yellow-500 bg-yellow-500/10 rounded py-1 px-2 border-yellow-500/20 border text-xs font-semibold `}
+                          >
+                            Pending
+                          </div>
+                        ) : (
+                          <div
+                            className={`text-green-500 bg-green-500/10 rounded py-1 px-2 border-green-500/20 border text-xs font-semibold `}
+                          >
+                            Verified
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+          <Card
+            className={`card b/order relative shadow-none border-none rounded-md p-3 /border w-full inset-1 /border-dashed border-neutral-600 `}
+          >
+            {data.card.cardNumber === "" && (
+              <div className="image-cont absolute w-full h-full animate-spi top-0 left-0">
+                <Image alt="" src={"/assets/cards/no_card_bg.svg"} fill />
+              </div>
+            )}
+            {data.card.cardNumber !== "" && (
+              <div>
+                {" "}
+                <div className="w-full relative">
+                  {" "}
+                  <Cards
+                    number={data.card.cardNumber || ""}
+                    expiry={data.card.cardExpiry || ""}
+                    cvc={data.card.cardCVC || ""}
+                    name={data.firstName + " " + data.lastName || ""}
+                    focused={state.focus}
+                  />
+                  {state.focus === "" && (
+                    <div className="absolute animate__animated animate__lightSpeedInRight bankName uppercase bottom-2 left-[60px] text-sm text-neutral-300 font-medium">
+                      <code>Wilson Bank</code>
+                    </div>
+                  )}{" "}
+                </div>
+                <div className="separator w-20 h-0.5 mt-4 mb-2 bg-black/10 mx-auto"></div>
+                <div className="card-actions /mt-1 cont px-3">
+                  <div className="flex justify-between items-center /shadow-sm w-full rounded-md px-3 /pt-2">
+                    <div
+                      className="card-balance space-y-1 /px-4 py-1 rounded-md"
+                      // style={{ background: colors.defaultblue + "09" }}
+                    >
+                      <div className="text-xs font-semibold text-neutral-500">
+                        Card balance
+                      </div>
+                      <div
+                        className={`text-xl font-bold text-neutral-700 ${inter.className}`}
+                      >
+                        $
+                        {data.cardBalance.toLocaleString("en-US", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="actions flex items-center gap-x-2">
+                      <div
+                        className="topup cursor-pointer rounded-md b/order text-base-color/80 border-black/10 p-3"
+                        style={{ background: colors.defaultblue + "09" }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-5"
+                        >
+                          <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                        </svg>
+                      </div>
+                      <CreditCardDetails
+                        status={status}
+                        state={cardDeet}
+                        cardInfo={data.card}
+                      />
+                      <button
+                        disabled={status === "executing"}
+                        name="cvc"
+                        onClick={showCvc}
+                        className="showcvc disabled:opacity-25 cursor-pointer rounded-md b/order text-base-color/80 border-black/10 p-3"
+                        style={{ background: colors.defaultblue + "09" }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-5"
+                        >
+                          <path d="M4.25 2A2.25 2.25 0 0 0 2 4.25v2a.75.75 0 0 0 1.5 0v-2a.75.75 0 0 1 .75-.75h2a.75.75 0 0 0 0-1.5h-2ZM13.75 2a.75.75 0 0 0 0 1.5h2a.75.75 0 0 1 .75.75v2a.75.75 0 0 0 1.5 0v-2A2.25 2.25 0 0 0 15.75 2h-2ZM3.5 13.75a.75.75 0 0 0-1.5 0v2A2.25 2.25 0 0 0 4.25 18h2a.75.75 0 0 0 0-1.5h-2a.75.75 0 0 1-.75-.75v-2ZM18 13.75a.75.75 0 0 0-1.5 0v2a.75.75 0 0 1-.75.75h-2a.75.75 0 0 0 0 1.5h2A2.25 2.25 0 0 0 18 15.75v-2ZM7 10a3 3 0 1 1 6 0 3 3 0 0 1-6 0Z" />
+                        </svg>
+                      </button>
+                      <Dialog>
+                        <DialogTrigger
+                          disabled={status === "executing"}
+                          className="disabled:opacity-25"
+                        >
+                          <div className="deleteCard cursor-pointer rounded-md b/order text-red-600 disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-pointer border-red-600/10 bg-red-600/10 p-3">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                              className="size-5"
+                            >
+                              <path
+                                fillRule="evenodd"
                                 d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z"
                                 clipRule="evenodd"
                               />
                             </svg>
-                          </SheetClose>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                          </div>
+                        </DialogTrigger>
+                        <DialogContent className="w-[90%]">
+                          <DialogTitle className="text-neutral-600">
+                            Delete Credit Card
+                          </DialogTitle>
+                          <DialogDescription className="text-neutral-600">
+                            Please note that this action is irreversible, please
+                            review and be sure of this action
+                          </DialogDescription>
+
+                          <div className="actions flex justify-between items-center">
+                            <SheetClose className="py-3 px-5 rounded-sm cursor-pointer border bg-neutral-100 text-neutral-600">
+                              <div className="cancel font-semibold ">
+                                Cancel
+                              </div>
+                            </SheetClose>
+                            <SheetClose
+                              onClick={handleCardDeletion}
+                              className="p-3 rounded-sm cursor-pointer flex items-center space-x-2 bg-red-600 text-white font-semibold"
+                            >
+                              <p>Delete card</p>{" "}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                className="size-4"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </SheetClose>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
-          {data.card.cardNumber === "" && (
-            <>
-              <div className="flex /border items-center justify-center w-md h-full  rounded-md ">
-                <div className="space-y-2 b/order p-4 bg-[#ffffff6a] backdrop-filter backdrop-blur-sm rounded-md text-center">
-                  {" "}
-                  <CreateCardForm setState={setState} />
+            )}
+            {data.card.cardNumber === "" && (
+              <>
+                <div className="flex /border items-center justify-center w-md h-full  rounded-md ">
+                  <div className="space-y-2 b/order p-4 bg-[#ffffff6a] backdrop-filter backdrop-blur-sm rounded-md text-center">
+                    {" "}
+                    <CreateCardForm setState={setState} />
+                  </div>
                 </div>
-              </div>
-            </>
-          )}
-        </Card>
-      </section>
-    </div>
+              </>
+            )}
+          </Card>
+        </section>
+      </div>
+    </>
   );
 }
 type CreateCardFormProps = {

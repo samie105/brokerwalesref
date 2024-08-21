@@ -157,7 +157,6 @@ export const fetchDetails = async () => {
   }
   if (data) {
     const cleanData: IUser = JSON.parse(JSON.stringify(data));
-    console.log(cleanData.card.cardNumber);
     return { data: cleanData };
   }
   revalidatePath("/");

@@ -83,8 +83,8 @@ export default async function Navbar() {
                 </div>
               </Link>
             </div>
-            <div className="flex items-center gap-x-2">
-              <div className="navbar md:hidden p-3 rounded-md text-base-color/80 bg-base-color/5 ">
+            <div className="flex md:hidden items-center gap-x-2">
+              <div className="navbar  p-3 rounded-md text-base-color/80 bg-base-color/5 ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
