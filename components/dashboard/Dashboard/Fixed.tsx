@@ -159,7 +159,7 @@ export default function Fixed() {
                 </div>
               ))}
           {fixedHistory.length < 1 && (
-            <div className="flex items-center h-full justify-center">
+            <div className="flex items-center min-h-72 h-full justify-center">
               <div className="inner-items /text-center">
                 <div className="icon flex justify-center text-neutral-600">
                   <svg

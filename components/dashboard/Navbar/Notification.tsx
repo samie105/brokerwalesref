@@ -16,7 +16,7 @@ import { useFetchInfo } from "@/lib/data/fetchPost";
 
 export default function Notification() {
   const { data } = useFetchInfo();
-  const notifications = data!.data.notifications;
+  const notifications = data!.data.notifications.reverse();
   const readNotifs = data!.data.readNotification;
   let toastId: string;
   const { status, execute } = useAction(deleteNotification, {
@@ -98,16 +98,14 @@ export default function Notification() {
           {notifications.length > 0 && (
             <div className="space-y-3">
               {" "}
-              {notifications
-                .sort((a: any, b: any) => b.dateAdded - a.dateAdded)
-                .map((notification, index) => (
-                  <div key={notification.id}>
-                    <div className="flex justify-between  items-center">
-                      <div className="message&icon relative  flex items-start gap-x-4">
-                        <div
-                          className={`icon p-3 bg-base-color/5 text-base-color/80 /border relative flex z-20 justify-center rounded-full `}
-                        >
-                          {/* ${
+              {notifications.map((notification, index) => (
+                <div key={notification.id}>
+                  <div className="flex justify-between  items-center">
+                    <div className="message&icon relative  flex items-start gap-x-4">
+                      <div
+                        className={`icon p-3 bg-base-color/5 text-base-color/80 /border relative flex z-20 justify-center rounded-full `}
+                      >
+                        {/* ${
                         notification.status === "success"
                           ? "bg-green-600/5 text-green-600 border-green-600/30"
                           : notification.status === "warning"
@@ -116,103 +114,95 @@ export default function Notification() {
                           ? "bg-red-600/5 text-red-600 border-red-600/30"
                           : "bg-neutral-100/50 text-neutral-700"
                       } */}
-                          {notification.type === "card" ? (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="currentColor"
-                              className="size-4"
-                            >
-                              <path d="M4.5 3.75a3 3 0 0 0-3 3v.75h21v-.75a3 3 0 0 0-3-3h-15Z" />
-                              <path
-                                fillRule="evenodd"
-                                d="M22.5 9.75h-21v7.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-7.5Zm-18 3.75a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          ) : notification.type === "neutral" ? (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="currentColor"
-                              className="size-4"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          ) : (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="currentColor"
-                              className="size-4"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M15.97 2.47a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H7.5a.75.75 0 0 1 0-1.5h11.69l-3.22-3.22a.75.75 0 0 1 0-1.06Zm-7.94 9a.75.75 0 0 1 0 1.06l-3.22 3.22H16.5a.75.75 0 0 1 0 1.5H4.81l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 0Z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          )}
+                        {notification.type === "card" ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="size-4"
+                          >
+                            <path d="M4.5 3.75a3 3 0 0 0-3 3v.75h21v-.75a3 3 0 0 0-3-3h-15Z" />
+                            <path
+                              fillRule="evenodd"
+                              d="M22.5 9.75h-21v7.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-7.5Zm-18 3.75a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        ) : notification.type === "neutral" ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="size-4"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="size-4"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M15.97 2.47a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H7.5a.75.75 0 0 1 0-1.5h11.69l-3.22-3.22a.75.75 0 0 1 0-1.06Zm-7.94 9a.75.75 0 0 1 0 1.06l-3.22 3.22H16.5a.75.75 0 0 1 0 1.5H4.81l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 0Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
 
-                          {/* {index < notifications.length - 1 && (
+                        {/* {index < notifications.length - 1 && (
                           <div
                             className={`liner flex absolute h-10 w-[1px]  -z-10 -bottom-10 bg-base-color/5`}
                           ></div>
                         )} */}
-                        </div>
-                        <div className="message pb-2 pr-7 text-[13px] text-black fon/t-medium">
-                          {notification.message}
-                          <div className="date mt-1 font-medium /text-base-color/80">
-                            {formatDistance(
-                              notification.dateAdded,
-                              new Date(),
-                              {
-                                addSuffix: true,
-                              }
-                            )
-                              .charAt(0)
-                              .toUpperCase() +
-                              formatDistance(
-                                notification.dateAdded,
-                                new Date(),
-                                {
-                                  addSuffix: true,
-                                }
-                              )
-                                .slice(1)
-                                .replace("Less than a minute ago", "Just now")}
-                          </div>
+                      </div>
+                      <div className="message pb-2 pr-7 text-[13px] text-black fon/t-medium">
+                        {notification.message}
+                        <div className="date mt-1 font-medium /text-base-color/80">
+                          {formatDistance(notification.dateAdded, new Date(), {
+                            addSuffix: true,
+                          })
+                            .charAt(0)
+                            .toUpperCase() +
+                            formatDistance(notification.dateAdded, new Date(), {
+                              addSuffix: true,
+                            })
+                              .slice(1)
+                              .replace("Less than a minute ago", "Just now")}
                         </div>
                       </div>
-                      <button
-                        disabled={notification.id && status === "executing"}
-                        onClick={() => deleteNotificationFn(notification.id)}
-                        className="disabled:opacity-15 hover:bg-red-50 p-1 transition-all rounded delete-notification  /bg-red-500/5 /p-3 text-red-500"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 16 16"
-                          fill="currentColor"
-                          className="size-4"
-                        >
-                          <path d="M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3Z" />
-                          <path
-                            fillRule="evenodd"
-                            d="M13 6H3v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6ZM5.72 7.47a.75.75 0 0 1 1.06 0L8 8.69l1.22-1.22a.75.75 0 1 1 1.06 1.06L9.06 9.75l1.22 1.22a.75.75 0 1 1-1.06 1.06L8 10.81l-1.22 1.22a.75.75 0 0 1-1.06-1.06l1.22-1.22-1.22-1.22a.75.75 0 0 1 0-1.06Z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </button>
                     </div>
-                    {index < notifications.length - 1 && (
-                      <div className="separator w-full h-[1px] bg-black/5 mx-auto"></div>
-                    )}
+                    <button
+                      disabled={notification.id && status === "executing"}
+                      onClick={() => deleteNotificationFn(notification.id)}
+                      className="disabled:opacity-15 hover:bg-red-50 p-1 transition-all rounded delete-notification  /bg-red-500/5 /p-3 text-red-500"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="size-4"
+                      >
+                        <path d="M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3Z" />
+                        <path
+                          fillRule="evenodd"
+                          d="M13 6H3v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6ZM5.72 7.47a.75.75 0 0 1 1.06 0L8 8.69l1.22-1.22a.75.75 0 1 1 1.06 1.06L9.06 9.75l1.22 1.22a.75.75 0 1 1-1.06 1.06L8 10.81l-1.22 1.22a.75.75 0 0 1-1.06-1.06l1.22-1.22-1.22-1.22a.75.75 0 0 1 0-1.06Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
                   </div>
-                ))}
+                  {index < notifications.length - 1 && (
+                    <div className="separator w-full h-[1px] bg-black/5 mx-auto"></div>
+                  )}
+                </div>
+              ))}
             </div>
           )}
           {notifications.length <= 0 && (

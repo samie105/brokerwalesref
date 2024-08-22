@@ -173,7 +173,7 @@ export default function Dashboard() {
           </div>
         </Link>
       </div>
-      <div className="space-y-1.5">
+      <div className="space-y-2">
         <section className="dashboard_card-section gap-y-1 gap-x-1 grid md:grid-cols-2 grid-cols-1">
           <div className="dashboard">
             <div className="card ">
@@ -345,7 +345,7 @@ export default function Dashboard() {
             </div>
           </div>
           <Card
-            className={`card b/order relative shadow-none border-none rounded-md p-3 /border w-full inset-1 /border-dashed border-neutral-600 `}
+            className={`card b/order relative shadow-none border-none rounded-md md:p-3 pt-2 md:pt-0 /border w-full inset-1 min-h-48 pb-3 md:pb:0 /border-dashed border-neutral-600 `}
           >
             {data.card.cardNumber === "" && (
               <div className="image-cont absolute w-full h-full animate-spi top-0 left-0">
@@ -371,7 +371,7 @@ export default function Dashboard() {
                   )}{" "}
                 </div>
                 <div className="separator w-20 h-0.5 mt-4 mb-2 bg-black/10 mx-auto"></div>
-                <div className="card-actions /mt-1 cont px-3">
+                <div className="card-actions /mt-1 cont px-1 md:px-3">
                   <div className="flex justify-between items-center /shadow-sm w-full rounded-md px-3 /pt-2">
                     <div
                       className="card-balance space-y-1 /px-4 py-1 rounded-md"
@@ -489,7 +489,7 @@ export default function Dashboard() {
             )}
             {data.card.cardNumber === "" && (
               <>
-                <div className="flex /border items-center justify-center w-md h-full  rounded-md ">
+                <div className="flex /border items-center justify-center w-md min-h-96 md:h-full  rounded-md ">
                   <div className="space-y-2 b/order p-4 bg-[#ffffff6a] backdrop-filter backdrop-blur-sm rounded-md text-center">
                     {" "}
                     <CreateCardForm setState={setState} />

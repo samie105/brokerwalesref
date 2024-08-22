@@ -24,7 +24,7 @@ export default async function page() {
         <div className="h-[calc(100vh-5.5rem)] overflow-y-scroll overflow-x-hidden rounded-md">
           {" "}
           <Dashboard />
-          <div className="grid grid-cols-1 md:grid-cols-2 mt-2 gap-x-2 pb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 mt-2 gap-y-1 gap-x-2 pb-2">
             {" "}
             <Fixed />
             <Chart />
