@@ -121,7 +121,7 @@ export default function Dashboard() {
   };
   return (
     <>
-      <div className="account-info mb-1 bg-white p-2 rounded-sm md:hidden">
+      {/* <div className="account-info mb-1 bg-white p-2 rounded-sm md:hidden">
         <Link
           href={"/dashboard/settings"}
           className="account-section transition-all cursor-pointer hover:bg-[#0013BB0/9] p-2 rounded-md flex /pl-1 items-center space-x-2 justify-between"
@@ -174,7 +174,7 @@ export default function Dashboard() {
             </div>
           </div>
         </Link>
-      </div>
+      </div> */}
       <div className="space-y-2">
         <section className="dashboard_card-section gap-y-1 gap-x-1 grid md:grid-cols-2 grid-cols-1">
           <div className="dashboard">
@@ -326,7 +326,7 @@ export default function Dashboard() {
                             </div>
                           </div>
                         </div>
-                        {data.isPaidOpeningDeposit ? (
+                        {!data.isPaidOpeningDeposit ? (
                           <div
                             className={`text-yellow-400 bg-yellow-300/20 rounded py-1 px-2 border-yellow-400/20 border text-xs font-semibold `}
                           >

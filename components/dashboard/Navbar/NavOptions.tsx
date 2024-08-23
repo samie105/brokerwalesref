@@ -11,6 +11,7 @@ import React from "react";
 import { Inter } from "next/font/google";
 import { toast } from "sonner";
 import { IUser } from "@/server/userSchema";
+import { logout } from "@/server/dashboard/navActions";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -316,8 +317,11 @@ export default function NavOptions({ data }: { data: IUser }) {
           </div>
           <div className="separator w-14 h-[1px] my-4 bg-black/10 mx-auto"></div>
 
-          <div className="w-full border-base-color/40 border text-center font-bold text-base-color/80 rounded-sm mt-1 text-sm p-2">
+          <div className="w-full md:block hidden border-base-color/40 border text-center font-bold text-base-color/80 rounded-sm mt-1 text-sm p-2">
             <Link href={"/dashboard/settings"}>Go to settings</Link>
+          </div>
+          <div className="w-full md:hidden  bg-red-500/10 py-3 cursor-pointer border border-red-500/20 text-center font-semibold text-red-500/80 rounded-sm mt-1 text-sm p-2">
+            <div onClick={() => logout()}>Sign Out</div>
           </div>
         </PopoverContent>
       </Popover>

@@ -115,7 +115,7 @@ export default async function Navbar() {
 
               <Notification />
               <NavOptions data={data} />
-              <div className="liner h-3 md:h-6 mx-3 hidde/n md:block lg:mx-6 w-[1px] bg-neutral-300/70" />
+              <div className="liner h-3 md:h-6 mx-3 hidden md:block lg:mx-6 w-[1px] bg-neutral-300/70" />
               <SignOut />
             </div>
           </div>
