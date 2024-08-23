@@ -97,7 +97,7 @@ export default function NavOptions({ data }: { data: IUser }) {
         <PopoverTrigger>
           {" "}
           <div
-            className="navoptions transition-all bg-neutral-500/5 md:bg-[#0013BB08] p-3 cursor-pointer rounded-md"
+            className="navoptions transition-all bg-base-color/5 p-3 cursor-pointer rounded-md"
             // style={{ backgroundColor: colors.darkdefualtblue + "08" }}
           >
             <svg

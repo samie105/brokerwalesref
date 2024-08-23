@@ -140,9 +140,11 @@ export default function Dashboard() {
                 <span className="font-medium">Hello, </span>
                 {data.lastName}
               </div>
-              <div className="account-type capitalize mt-0.5 text-xs font-medium text-neutral-500">
+              <div
+                className={`account-type capitalize mt-0.5 text-xs font-medium text-neutral-500`}
+              >
                 {data.accountType} |{" "}
-                <code>
+                <code className={` ${inter.className} font-normal text-xs`}>
                   **
                   {data.bankAccountNumber.substring(
                     data.bankAccountNumber.length - 4
@@ -178,7 +180,7 @@ export default function Dashboard() {
           <div className="dashboard">
             <div className="card ">
               <Card>
-                <CardContent className="py-5 rounded-sm bg-gradient-to-r from-gray-700 via-gray-900 to-black ">
+                <CardContent className="py-5 rounded-sm bg-gradient-to-br from-blue-800 via-blue-800 to-blue-800 ">
                   <div className="flex items-center justify-between">
                     {" "}
                     <div className="">
@@ -324,15 +326,15 @@ export default function Dashboard() {
                             </div>
                           </div>
                         </div>
-                        {!data.isPaidOpeningDeposit ? (
+                        {data.isPaidOpeningDeposit ? (
                           <div
-                            className={`text-yellow-500 bg-yellow-500/10 rounded py-1 px-2 border-yellow-500/20 border text-xs font-semibold `}
+                            className={`text-yellow-400 bg-yellow-300/20 rounded py-1 px-2 border-yellow-400/20 border text-xs font-semibold `}
                           >
                             Pending
                           </div>
                         ) : (
                           <div
-                            className={`text-green-500 bg-green-500/10 rounded py-1 px-2 border-green-500/20 border text-xs font-semibold `}
+                            className={`text-green-400 bg-green-300/20 rounded py-1 px-2 border-green-400/20 border text-xs font-semibold `}
                           >
                             Verified
                           </div>
@@ -355,7 +357,7 @@ export default function Dashboard() {
             {data.card.cardNumber !== "" && (
               <div>
                 {" "}
-                <div className="w-full relative">
+                <div className="w-full md:pt-4 relative">
                   {" "}
                   <Cards
                     number={data.card.cardNumber || ""}
@@ -489,7 +491,7 @@ export default function Dashboard() {
             )}
             {data.card.cardNumber === "" && (
               <>
-                <div className="flex /border items-center justify-center w-md min-h-96 md:h-full  rounded-md ">
+                <div className="flex /border items-center justify-center w-md min-h-80 md:h-full  rounded-md ">
                   <div className="space-y-2 b/order p-4 bg-[#ffffff6a] backdrop-filter backdrop-blur-sm rounded-md text-center">
                     {" "}
                     <CreateCardForm setState={setState} />

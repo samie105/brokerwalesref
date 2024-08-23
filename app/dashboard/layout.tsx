@@ -10,15 +10,17 @@ export default function Layout({
 }>) {
   return (
     <Providers>
-      <div className="grid gap-x-1.5 md:grid-cols-12 relative w-screen h-screen overflow-hidden bg-neutral-100">
+      <div className="grid gap-x-1. bg-white md:bg-neutral-100 md:grid-cols-12 relative w-screen h-screen overflow-hidden ">
         <div className="lg:col-span-2 pl-2 py-2 hidden md:block md:col-span-3">
           <SideBar />
         </div>
         <div className="md:col-span-9 lg:col-span-10 relative">
-          <nav className="px-2 pt-2">
+          <nav className="md:pr-2 pt-2 ">
             <Navbar />
           </nav>
-          <div className="mt-[4.6rem] pl-2 pr-1.5 md:mt-20">{children}</div>
+          <div className="mt-[4.6rem]  pl-2 md:pl-0 pr-1.5 md:mt-[4.6rem]">
+            {children}
+          </div>
         </div>
       </div>
     </Providers>

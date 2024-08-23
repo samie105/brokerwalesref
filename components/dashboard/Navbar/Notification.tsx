@@ -67,7 +67,7 @@ export default function Notification() {
           onClick={readNotification}
         >
           <div
-            className={`notification transition-all bg-[#0013BB08] p-3 cursor-pointer rounded-md  `}
+            className={`notification transition-all bg-base-color/5 p-3 cursor-pointer rounded-md  `}
             // style={{ backgroundColor: colors.darkdefualtblue + "08" }}
           >
             <svg

@@ -31,8 +31,8 @@ export default async function Navbar() {
   if (data)
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <div className=" relative w-full">
-          <div className="bg-white mx-auto rounded-md w-full flex justify-between items-center absolute px-3 md:px-2 py-3 md:py-2 ">
+        <div className=" relative w-full ">
+          <div className="bg-white border-b md:border-0 mx-auto /rounded-md w-full flex justify-between items-center absolute px-3 md:px-2 py-3 md:py-2 ">
             <div className="account-info hidden md:block">
               <Link
                 href={"/dashboard/settings"}
