@@ -32,7 +32,7 @@ export default async function Navbar() {
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className=" relative w-full ">
-          <div className="bg-white border-b md:border-0 mx-auto /rounded-md w-full flex justify-between items-center absolute px-3 md:px-2 py-3 md:py-2 ">
+          <div className="bg-white /border-b md:border-0 mx-auto /rounded-md w-full flex justify-between items-center absolute px-3 md:px-2 py-3 md:py-2 ">
             <div className="account-info hidden md:block">
               <Link
                 href={"/dashboard/settings"}
@@ -115,8 +115,18 @@ export default async function Navbar() {
 
               <Notification />
               <NavOptions data={data} />
-              <div className="liner h-3 md:h-6 mx-3 hidden md:block lg:mx-6 w-[1px] bg-neutral-300/70" />
+              <div className="liner h-3 md:h-6 mx-3  md:block lg:mx-6 w-[1px] bg-neutral-300/70" />
               <SignOut />
+              <Link href={"/dashboard/settings"} className="md:hidden mr-2">
+                {" "}
+                <Avatar>
+                  {<AvatarImage src="https://github.com/shadcn.png" />}
+                  <AvatarFallback className="font-bold border border-base-color/30 text-sm text-base-color/80 bg-base-color/5">
+                    {data.firstName.charAt(0).toUpperCase()}
+                    {data.lastName.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </Link>
             </div>
           </div>
         </div>

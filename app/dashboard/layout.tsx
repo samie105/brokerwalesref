@@ -10,7 +10,7 @@ export default function Layout({
 }>) {
   return (
     <Providers>
-      <div className="grid gap-x-1. bg-white md:bg-neutral-100 md:grid-cols-12 relative w-screen h-screen overflow-hidden ">
+      <div className="grid gap-x-1. bg-neutral-50 md:bg-neutral-100 md:grid-cols-12 relative w-screen h-screen overflow-hidden ">
         <div className="lg:col-span-2 pl-2 py-2 hidden md:block md:col-span-3">
           <SideBar />
         </div>
