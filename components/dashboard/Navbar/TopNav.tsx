@@ -79,7 +79,7 @@ export default function TopNav({
       <div className="w-full pl-1 flex items-center space-x-2">
         <div className="font-medium text-sm bg-white rounded-md py-1 px-2">
           <span className="text-lg">👋</span>
-          <span className="font-semibold">{data.lastName}</span>
+          <span className="font-semibold"></span>
         </div>
         <div className="liner h-3 md:h-6 mx-3  md:block lg:mx-6 w-[1px] bg-neutral-300/70" />
 
@@ -89,7 +89,7 @@ export default function TopNav({
             key={nav.name}
             className={`py-2 px-2 capitalize cursor-pointer flex item-center gap-x-3 rounded-sm font-medium  text-sm  ${
               currentMode === nav.name
-                ? "text-neutral-500 font-semibold bg-white border border-neutral-500/20"
+                ? "text-base-color/80 font-semibold bg-white border border-base-color/40"
                 : "text-neutral-500  bg-white"
             } `}
           >

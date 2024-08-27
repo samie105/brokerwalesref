@@ -12,6 +12,7 @@ import {
 } from "@tanstack/react-query";
 import TopNav from "@/components/dashboard/Navbar/TopNav";
 import AcctSectManager from "@/components/dashboard/Dashboard/AcctSectManager";
+import QuickLinkSect from "@/components/dashboard/Dashboard/QuickLinkSect";
 
 export default async function page({
   searchParams,
@@ -43,6 +44,7 @@ export default async function page({
           <TopNav currentMode={currentMode} />
           <div className="mt-2" />
           <AcctSectManager currentMode={currentMode} />
+          <QuickLinkSect />
         </div>
       </div>
     </HydrationBoundary>
