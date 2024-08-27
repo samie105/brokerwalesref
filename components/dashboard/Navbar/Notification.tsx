@@ -67,20 +67,21 @@ export default function Notification() {
           onClick={readNotification}
         >
           <div
-            className={`notification transition-all bg-base-color/5 p-3 cursor-pointer rounded-md  `}
+            className={`notification transition-all md:bg-base-color/5 md:p-3 cursor-pointer rounded-md  `}
             // style={{ backgroundColor: colors.darkdefualtblue + "08" }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="size-5 md:size-4 text-base-color/80"
-              //   style={{ color: colors.defaultblue }}
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-5 md:size-4 text-neutral-500 md:text-base-color/80 "
             >
               <path
-                fillRule="evenodd"
-                d="M10 2a6 6 0 0 0-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 0 0 .515 1.076 32.91 32.91 0 0 0 3.256.508 3.5 3.5 0 0 0 6.972 0 32.903 32.903 0 0 0 3.256-.508.75.75 0 0 0 .515-1.076A11.448 11.448 0 0 1 16 8a6 6 0 0 0-6-6ZM8.05 14.943a33.54 33.54 0 0 0 3.9 0 2 2 0 0 1-3.9 0Z"
-                clipRule="evenodd"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
               />
             </svg>
             {!readNotifs && (
@@ -90,7 +91,7 @@ export default function Notification() {
             )}
           </div>
         </PopoverTrigger>
-        <PopoverContent className="border-base-color/5 w-[380px] /h-[400px] max-h-[400px] overflow-y-scroll /shadow-md">
+        <PopoverContent className="border-base-color/5 w-[350px] mr-3 overflow-hidden md:mr-0 rounded-md md:w-[380px] /h-[400px] max-h-[400px] overflow-y-scroll /shadow-md">
           <div className="title text-sm font-semibold text-neutral-500">
             Notifications
           </div>

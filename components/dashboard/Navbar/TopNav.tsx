@@ -1,3 +1,5 @@
+"use client";
+import { useFetchInfo } from "@/lib/data/fetchPost";
 import Link from "next/link";
 import React from "react";
 
@@ -70,23 +72,32 @@ export default function TopNav({
       ),
     },
   ];
-
+  const { data: deets } = useFetchInfo();
+  const data = deets!.data;
   return (
-    <div className="w-full pl-1 flex items-center space-x-2">
-      {TopNavs.map((nav, index) => (
-        <Link
-          href={`?mode=${nav.name}`}
-          key={nav.name}
-          className={`py-2 px-4 capitalize cursor-pointer flex item-center gap-x-3 rounded-sm font-medium  text-sm  ${
-            currentMode === nav.name
-              ? "text-base-color/80 font-semibold bg-base-color/5"
-              : "text-neutral-500  bg-white"
-          } `}
-        >
-          {" "}
-          {nav.icon} {nav.name}
-        </Link>
-      ))}
-    </div>
+    <>
+      <div className="w-full pl-1 flex items-center space-x-2">
+        <div className="font-medium text-sm bg-white rounded-md py-1 px-2">
+          <span className="text-lg">👋</span>
+          <span className="font-semibold">{data.lastName}</span>
+        </div>
+        <div className="liner h-3 md:h-6 mx-3  md:block lg:mx-6 w-[1px] bg-neutral-300/70" />
+
+        {TopNavs.map((nav) => (
+          <Link
+            href={`?mode=${nav.name}`}
+            key={nav.name}
+            className={`py-2 px-2 capitalize cursor-pointer flex item-center gap-x-3 rounded-sm font-medium  text-sm  ${
+              currentMode === nav.name
+                ? "text-neutral-500 font-semibold bg-white border border-neutral-500/20"
+                : "text-neutral-500  bg-white"
+            } `}
+          >
+            {" "}
+            {nav.icon} {nav.name}
+          </Link>
+        ))}
+      </div>
+    </>
   );
 }

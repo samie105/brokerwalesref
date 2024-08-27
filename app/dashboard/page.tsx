@@ -38,6 +38,8 @@ export default async function page({
           </div>
         </div>
         <div className="h-[calc(100vh-5.5rem)] overflow-y-scroll md:hidden overflow-x-hidden rounded-md">
+          <div className="mt-1" />
+
           <TopNav currentMode={currentMode} />
           <div className="mt-2" />
           <AcctSectManager currentMode={currentMode} />
