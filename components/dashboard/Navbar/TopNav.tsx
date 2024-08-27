@@ -90,7 +90,7 @@ export default function TopNav({
             className={`py-2 px-2 capitalize cursor-pointer flex item-center gap-x-2 rounded-sm   text-sm  ${
               currentMode === nav.name
                 ? "text-base-color/60 font-semibold bg-whit/e /border bg-[#0013BB06] /border-base-color/40"
-                : "text-neutral-400 font-medium bg-white"
+                : "text-neutral-600 font-medium bg-white"
             } `}
           >
             {" "}

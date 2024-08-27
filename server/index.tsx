@@ -24,7 +24,6 @@ if (!cached) {
 
 async function dbConnect(): Promise<Connection> {
   if (cached.conn) {
-    console.log("Using existing database connection");
     return cached.conn;
   }
 

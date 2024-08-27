@@ -128,97 +128,98 @@ export default function AcctSectManager({
       {currentMode === "account" && (
         <div>
           <div className="card ">
-            <Card>
-              <CardContent className="py-5 rounded-sm bg-gradient-to-br from-blue-800 via-blue-800 to-blue-800 ">
-                <div className="flex items-center justify-between">
-                  {" "}
-                  <div className="">
-                    <div className="account-type text-xs bg-white/5 border border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
-                      Checking account
+            <Card className="shadow-none border-0 border-none bg-transparent">
+              <CardContent className="p-0 shadow-none border-none border-0">
+                <div className="py-5 px-6 w-full rounded-sm bg-blue-800">
+                  <div className="flex items-center justify-between">
+                    {" "}
+                    <div className="">
+                      <div className="account-type text-xs bg-white/5 border border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
+                        Checking account
+                      </div>
+                      <div
+                        className={`account-balance text-3xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
+                      >
+                        <span className="text-sm">$</span>
+                        {data.accountBalance.toLocaleString("en-US", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </div>
                     </div>
-                    <div
-                      className={`account-balance text-3xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
-                    >
-                      <span className="text-sm">$</span>
-                      {data.accountBalance.toLocaleString("en-US", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                    <div className="actions flex items-center space-x-2">
+                      <div className="deposit-action rounded-md bg-white/5 borde/r border-white/10 p-3 text-white">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-5"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <div className="transfer-action rounded-md bg-white/5 bord/er border-white/10 p-3 text-white">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-5"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M13.75 7h-3V3.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0L6.2 4.74a.75.75 0 0 0 1.1 1.02l1.95-2.1V7h-3A2.25 2.25 0 0 0 4 9.25v7.5A2.25 2.25 0 0 0 6.25 19h7.5A2.25 2.25 0 0 0 16 16.75v-7.5A2.25 2.25 0 0 0 13.75 7Zm-3 0h-1.5v5.25a.75.75 0 0 0 1.5 0V7Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
-                  <div className="actions flex items-center space-x-2">
-                    <div className="deposit-action rounded-md bg-white/5 borde/r border-white/10 p-3 text-white">
+                  <div className="flex items-center gap-x-2 mt-5">
+                    <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
-                        className="size-5"
+                        className="size-4"
                       >
                         <path
                           fillRule="evenodd"
-                          d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z"
+                          d="M9.638 1.093a.75.75 0 0 1 .724 0l2 1.104a.75.75 0 1 1-.724 1.313L10 2.607l-1.638.903a.75.75 0 1 1-.724-1.313l2-1.104ZM5.403 4.287a.75.75 0 0 1-.295 1.019l-.805.444.805.444a.75.75 0 0 1-.724 1.314L3.5 7.02v.73a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 1 .388-.657l1.996-1.1a.75.75 0 0 1 1.019.294Zm9.194 0a.75.75 0 0 1 1.02-.295l1.995 1.101A.75.75 0 0 1 18 5.75v2a.75.75 0 0 1-1.5 0v-.73l-.884.488a.75.75 0 1 1-.724-1.314l.806-.444-.806-.444a.75.75 0 0 1-.295-1.02ZM7.343 8.284a.75.75 0 0 1 1.02-.294L10 8.893l1.638-.903a.75.75 0 1 1 .724 1.313l-1.612.89v1.557a.75.75 0 0 1-1.5 0v-1.557l-1.612-.89a.75.75 0 0 1-.295-1.019ZM2.75 11.5a.75.75 0 0 1 .75.75v1.557l1.608.887a.75.75 0 0 1-.724 1.314l-1.996-1.101A.75.75 0 0 1 2 14.25v-2a.75.75 0 0 1 .75-.75Zm14.5 0a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-.388.657l-1.996 1.1a.75.75 0 1 1-.724-1.313l1.608-.887V12.25a.75.75 0 0 1 .75-.75Zm-7.25 4a.75.75 0 0 1 .75.75v.73l.888-.49a.75.75 0 0 1 .724 1.313l-2 1.104a.75.75 0 0 1-.724 0l-2-1.104a.75.75 0 1 1 .724-1.313l.888.49v-.73a.75.75 0 0 1 .75-.75Z"
                           clipRule="evenodd"
                         />
                       </svg>
+                      <p>Fixed</p>
                     </div>
-                    <div className="transfer-action rounded-md bg-white/5 bord/er border-white/10 p-3 text-white">
+                    <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
-                        className="size-5"
+                        className="size-4"
                       >
                         <path
                           fillRule="evenodd"
-                          d="M13.75 7h-3V3.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0L6.2 4.74a.75.75 0 0 0 1.1 1.02l1.95-2.1V7h-3A2.25 2.25 0 0 0 4 9.25v7.5A2.25 2.25 0 0 0 6.25 19h7.5A2.25 2.25 0 0 0 16 16.75v-7.5A2.25 2.25 0 0 0 13.75 7Zm-3 0h-1.5v5.25a.75.75 0 0 0 1.5 0V7Z"
+                          d="M2.5 4A1.5 1.5 0 0 0 1 5.5V6h18v-.5A1.5 1.5 0 0 0 17.5 4h-15ZM19 8.5H1v6A1.5 1.5 0 0 0 2.5 16h15a1.5 1.5 0 0 0 1.5-1.5v-6ZM3 13.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75Zm4.75-.75a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z"
                           clipRule="evenodd"
                         />
                       </svg>
+                      <p>Cards</p>
                     </div>
                   </div>
+                  {/* <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div> */}
                 </div>
-                <div className="flex items-center gap-x-2 mt-5">
-                  <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="size-4"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M9.638 1.093a.75.75 0 0 1 .724 0l2 1.104a.75.75 0 1 1-.724 1.313L10 2.607l-1.638.903a.75.75 0 1 1-.724-1.313l2-1.104ZM5.403 4.287a.75.75 0 0 1-.295 1.019l-.805.444.805.444a.75.75 0 0 1-.724 1.314L3.5 7.02v.73a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 1 .388-.657l1.996-1.1a.75.75 0 0 1 1.019.294Zm9.194 0a.75.75 0 0 1 1.02-.295l1.995 1.101A.75.75 0 0 1 18 5.75v2a.75.75 0 0 1-1.5 0v-.73l-.884.488a.75.75 0 1 1-.724-1.314l.806-.444-.806-.444a.75.75 0 0 1-.295-1.02ZM7.343 8.284a.75.75 0 0 1 1.02-.294L10 8.893l1.638-.903a.75.75 0 1 1 .724 1.313l-1.612.89v1.557a.75.75 0 0 1-1.5 0v-1.557l-1.612-.89a.75.75 0 0 1-.295-1.019ZM2.75 11.5a.75.75 0 0 1 .75.75v1.557l1.608.887a.75.75 0 0 1-.724 1.314l-1.996-1.101A.75.75 0 0 1 2 14.25v-2a.75.75 0 0 1 .75-.75Zm14.5 0a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-.388.657l-1.996 1.1a.75.75 0 1 1-.724-1.313l1.608-.887V12.25a.75.75 0 0 1 .75-.75Zm-7.25 4a.75.75 0 0 1 .75.75v.73l.888-.49a.75.75 0 0 1 .724 1.313l-2 1.104a.75.75 0 0 1-.724 0l-2-1.104a.75.75 0 1 1 .724-1.313l.888.49v-.73a.75.75 0 0 1 .75-.75Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <p>Fixed</p>
-                  </div>
-                  <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="size-4"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M2.5 4A1.5 1.5 0 0 0 1 5.5V6h18v-.5A1.5 1.5 0 0 0 17.5 4h-15ZM19 8.5H1v6A1.5 1.5 0 0 0 2.5 16h15a1.5 1.5 0 0 0 1.5-1.5v-6ZM3 13.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75Zm4.75-.75a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <p>Cards</p>
-                  </div>
-                </div>
-                <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div>
-
-                <div className="acount-info">
-                  <h1 className="text-neutral-300 font-medium text-sm mt-5">
+                <div className="acount-info mt-2 py-5 bg-white rounded-sm px-6">
+                  <h1 className="text-neutral-600 py-2 px-3 rounded bg-neutral-500/5 inline font-med/ium text-sm ">
                     Account Info
                   </h1>
                   <div className="account-limit-info mt-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-x-2">
-                        <div className="icon-cont rounded-full relative justify-center items-center flex bg-white/5 border text-white border-white/10 p-3 ">
+                        <div className="icon-cont rounded-full relative justify-center items-center flex bg-base-color/5 border text-base-color/80 border-base-color/10 p-3 ">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
@@ -231,11 +232,11 @@ export default function AcctSectManager({
                               clipRule="evenodd"
                             />
                           </svg>
-                          <div className="liner absolute h-7 w-[1px] bg-white/10 z-0 -bottom-7"></div>
+                          <div className="liner absolute h-7 w-[1px] bg-base-color/10 z-0 -bottom-7"></div>
                         </div>
-                        <div className="account-limit text-neutral-200/80 font-semibold text-sm">
+                        <div className="account-limit text-neutral-500/80 font-semibold text-sm">
                           <div>Account limit</div>
-                          <div className="amount text-neutral-200 font-semibold /text-base">
+                          <div className="amount text-neutral-700 font-semibold /text-base">
                             <p className={`${inter.className}`}>
                               ${data.accountLimit.toLocaleString()}
                             </p>
@@ -249,12 +250,12 @@ export default function AcctSectManager({
                       </div> */}
                     </div>
                   </div>
-                  <div className="separator w-5 h-0.5 my-1 bg-white/10 mx-auto"></div>
+                  <div className="separator w-5 h-0.5 my-1 bg-black/10 mx-auto"></div>
 
                   <div className="account-limit-info mt-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-x-2">
-                        <div className="icon-cont rounded-full bg-white/5 border text-white border-white/10 p-3 ">
+                        <div className="icon-cont rounded-full bg-base-color/5 border text-base-color/80 border-base-color/10 p-3 ">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
@@ -268,22 +269,22 @@ export default function AcctSectManager({
                             />
                           </svg>
                         </div>
-                        <div className="account-dep-ver text-neutral-200/80 font-semibold text-sm">
+                        <div className="account-dep-ver text-neutral-500/80 font-semibold text-sm">
                           <div>Opening deposit</div>
-                          <div className="amount text-neutral-200 font-semibold /text-base">
+                          <div className="amount text-neutral-700 font-semibold /text-base">
                             <p className={`${inter.className}`}>$50</p>
                           </div>
                         </div>
                       </div>
                       {!data.isPaidOpeningDeposit ? (
                         <div
-                          className={`text-yellow-400 bg-yellow-300/20 rounded py-1 px-2 border-yellow-400/20 border text-xs font-semibold `}
+                          className={`text-yellow-500 bg-yellow-500/5 rounded py-1 px-2 border-yellow-500/20 border text-xs font-semibold `}
                         >
                           Pending
                         </div>
                       ) : (
                         <div
-                          className={`text-green-400 bg-green-300/20 rounded py-1 px-2 border-green-400/20 border text-xs font-semibold `}
+                          className={`text-green-500 bg-green-500/5 rounded py-1 px-2 border-green-500/20 border text-xs font-semibold `}
                         >
                           Verified
                         </div>
