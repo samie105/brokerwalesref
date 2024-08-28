@@ -38,12 +38,12 @@ export default async function page({
             <Chart />
           </div>
         </div>
-        <div className="h-[calc(100vh-5.5rem)] overflow-y-scroll md:hidden overflow-x-hidden rounded-md">
-          <div className="mt-" />
-
-          <TopNav currentMode={currentMode} />
-          <div className="mt-1" />
-          <AcctSectManager currentMode={currentMode} />
+        <div className="h-[calc(100vh-5.5rem)] overflow-y-scroll pb-[4.5rem]  md:hidden overflow-x-hidden rounded-md">
+          <div className="bg-white p-3">
+            <TopNav currentMode={currentMode} />
+            <div className="mt-1" />
+            <AcctSectManager currentMode={currentMode} />{" "}
+          </div>
           <QuickLinkSect />
         </div>
       </div>

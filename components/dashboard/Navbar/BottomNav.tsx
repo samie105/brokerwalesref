@@ -88,7 +88,7 @@ export default function BottomNav() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
           fill="currentColor"
-          className="size-4"
+          className="size-4 text-purple-700"
         >
           <path
             fillRule="evenodd"
@@ -111,12 +111,18 @@ export default function BottomNav() {
           <div
             className={`space-y-1 p-2 ${
               pathName === _.path
-                ? "text-base-color/80 font-semibold"
+                ? "text-base-color/80 font-bold"
                 : "text-neutral-400"
             }`}
           >
             <div className="bottomnavs flex justify-center">{_.icon}</div>
-            <div className="bottomnavs text-xs">{_.name}</div>
+            <div
+              className={`bottomnavs text-xs ${
+                _.name === "Support" ? "text-purple-500 font-bold" : ""
+              }`}
+            >
+              {_.name}
+            </div>
           </div>
         </Link>
       ))}

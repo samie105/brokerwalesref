@@ -210,18 +210,21 @@ export default function AcctSectManager({
                       <p>Cards</p>
                     </div>
                   </div>
+
                   {/* <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div> */}
                 </div>
-                <div className="acount-info mt-2 py-5 bg-white rounded-sm px-6">
+                <div className="separator w-10 h-[3px] mt-4 rounded-full my-1 bg-black/10 mx-auto"></div>
+
+                <div className="acount-info mt-2 py-5 bg-white rounded-sm px-1">
                   <h1 className="text-neutral-600 font-medium text-sm ">
                     Account Info
                   </h1>
-                  <div className="separator w-10 h-[3px] rounded-full my-1 bg-black/10 mx-auto"></div>
+                  {/* <div className="separator w-10 h-[3px] rounded-full my-1 bg-black/10 mx-auto"></div> */}
 
-                  <div className="account-limit-info mt-5">
+                  <div className="account-limit-info mt-5 py-3 px-2 rounded-md bg-[#0013BB04]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-x-2">
-                        <div className="icon-cont rounded-full relative justify-center items-center flex bg-blue-500/5 /border text-blue-600/80 border-blue-500/10 p-3 ">
+                        <div className="icon-cont rounded-full relative justify-center items-center flex bg-base-color/5 /border text-base-color/80 border-base-color/10 p-4 ">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -237,7 +240,7 @@ export default function AcctSectManager({
                             />
                           </svg>
 
-                          <div className="liner absolute h-5 w-[1px] bg-neutral-500/10 z-0 -bottom-5"></div>
+                          <div className="liner hidden absolute h-5 w-[1px] bg-neutral-500/10 z-0 -bottom-5"></div>
                         </div>
                         <div className="account-limit text-neutral-500/80 font-medium text-sm">
                           <div>Account limit</div>
@@ -257,10 +260,10 @@ export default function AcctSectManager({
                   </div>
                   <div className="separator w-52 h-[1px] hidden my-1 bg-black/10 mx-auto"></div>
 
-                  <div className="account-limit-info mt-5">
+                  <div className="opening-deposit-info mt-2 py-3 px-2 rounded-md bg-[#0013BB04]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-x-2">
-                        <div className="icon-cont rounded-full bg-base-color/5 border/ text-base-color/80 border-base-color/10 p-3 ">
+                        <div className="icon-cont rounded-full bg-base-color/5 border/ text-base-color/80 border-base-color/10 p-4 ">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"

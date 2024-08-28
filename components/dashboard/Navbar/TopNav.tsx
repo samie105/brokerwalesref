@@ -74,27 +74,34 @@ export default function TopNav({
   ];
   const { data: deets } = useFetchInfo();
   const data = deets!.data;
+  const currentTime = new Date();
+  const hours = currentTime.getHours();
+  let greeting = "";
+  let emoji = "";
+
+  if (hours < 12) {
+    greeting = "Good morning";
+    emoji = "☀️";
+  } else if (hours < 17) {
+    greeting = "Good afternoon";
+    emoji = "🌞";
+  } else {
+    greeting = "Good evening";
+    emoji = "🌃";
+  }
+
   return (
     <>
-      <div className="w-full pl-1 flex items-center space-x-2">
-        <Link
-          href={"/dashboard/setting"}
-          className="font-medium text-sm bg-white rounded-sm p-2"
-        >
-          <span className="text-">
-            {" "}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="size-5 text-neutral-400"
-            >
-              <path d="M6.5 2.25a.75.75 0 0 0-1.5 0v3a.75.75 0 0 0 1.5 0V4.5h6.75a.75.75 0 0 0 0-1.5H6.5v-.75ZM11 6.5a.75.75 0 0 0-1.5 0v3a.75.75 0 0 0 1.5 0v-.75h2.25a.75.75 0 0 0 0-1.5H11V6.5ZM5.75 10a.75.75 0 0 1 .75.75v.75h6.75a.75.75 0 0 1 0 1.5H6.5v.75a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 .75-.75ZM2.75 7.25H8.5v1.5H2.75a.75.75 0 0 1 0-1.5ZM4 3H2.75a.75.75 0 0 0 0 1.5H4V3ZM2.75 11.5H4V13H2.75a.75.75 0 0 1 0-1.5Z" />
-            </svg>
-          </span>
-        </Link>
-        <div className="liner h-3 md:h-6 mx-3  md:block lg:mx-6 w-[1px] bg-neutral-300/70" />
+      <div className="greeting mb-1 textsm m">
+        {" "}
+        <span className="font-medium text-neutral-600">
+          <span className="text-lg">👋</span> {greeting}{" "}
+          <span className="capitalize font-semibold">{data.lastName} </span>
+        </span>
+      </div>
+      <div className="separator w-10 h-[1.5px] rounded-full my-3 bg-black/10 mx-auto"></div>
 
+      <div className="w-full mb-2 flex items-center space-x-2">
         {TopNavs.map((nav) => (
           <Link
             href={`?mode=${nav.name}`}
@@ -102,7 +109,7 @@ export default function TopNav({
             className={`py-2 px-2 capitalize cursor-pointer flex item-center gap-x-2 rounded-sm   text-sm  ${
               currentMode === nav.name
                 ? "text-base-color/60 font-semibold bg-whit/e /border bg-[#0013BB06] /border-base-color/40"
-                : "text-neutral-600 font-medium bg-white"
+                : "text-neutral-600 font-medium bg-neutral-50/80"
             } `}
           >
             {" "}
