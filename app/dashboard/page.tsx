@@ -42,7 +42,7 @@ export default async function page({
           <div className="mt-" />
 
           <TopNav currentMode={currentMode} />
-          <div className="mt-3" />
+          <div className="mt-1" />
           <AcctSectManager currentMode={currentMode} />
           <QuickLinkSect />
         </div>

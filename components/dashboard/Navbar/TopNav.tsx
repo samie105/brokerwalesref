@@ -77,10 +77,22 @@ export default function TopNav({
   return (
     <>
       <div className="w-full pl-1 flex items-center space-x-2">
-        <div className="font-medium text-sm bg-white rounded-md py-1 px-2">
-          <span className="text-lg">👋</span>
-          <span className="font-semibold"></span>
-        </div>
+        <Link
+          href={"/dashboard/setting"}
+          className="font-medium text-sm bg-white rounded-sm p-2"
+        >
+          <span className="text-">
+            {" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="size-5 text-neutral-400"
+            >
+              <path d="M6.5 2.25a.75.75 0 0 0-1.5 0v3a.75.75 0 0 0 1.5 0V4.5h6.75a.75.75 0 0 0 0-1.5H6.5v-.75ZM11 6.5a.75.75 0 0 0-1.5 0v3a.75.75 0 0 0 1.5 0v-.75h2.25a.75.75 0 0 0 0-1.5H11V6.5ZM5.75 10a.75.75 0 0 1 .75.75v.75h6.75a.75.75 0 0 1 0 1.5H6.5v.75a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 .75-.75ZM2.75 7.25H8.5v1.5H2.75a.75.75 0 0 1 0-1.5ZM4 3H2.75a.75.75 0 0 0 0 1.5H4V3ZM2.75 11.5H4V13H2.75a.75.75 0 0 1 0-1.5Z" />
+            </svg>
+          </span>
+        </Link>
         <div className="liner h-3 md:h-6 mx-3  md:block lg:mx-6 w-[1px] bg-neutral-300/70" />
 
         {TopNavs.map((nav) => (

@@ -78,21 +78,7 @@ export default function BottomNav() {
         </svg>
       ),
     },
-    {
-      id: 5,
-      name: "Settings",
-      path: "/settings",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-          className="size-4"
-        >
-          <path d="M6.5 2.25a.75.75 0 0 0-1.5 0v3a.75.75 0 0 0 1.5 0V4.5h6.75a.75.75 0 0 0 0-1.5H6.5v-.75ZM11 6.5a.75.75 0 0 0-1.5 0v3a.75.75 0 0 0 1.5 0v-.75h2.25a.75.75 0 0 0 0-1.5H11V6.5ZM5.75 10a.75.75 0 0 1 .75.75v.75h6.75a.75.75 0 0 1 0 1.5H6.5v.75a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 .75-.75ZM2.75 7.25H8.5v1.5H2.75a.75.75 0 0 1 0-1.5ZM4 3H2.75a.75.75 0 0 0 0 1.5H4V3ZM2.75 11.5H4V13H2.75a.75.75 0 0 1 0-1.5Z" />
-        </svg>
-      ),
-    },
+
     {
       id: 6,
       name: "Support",
@@ -115,7 +101,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="bg-white w-full py-3 justify-center px-3 grid grid-cols-6 gap-x-2">
+    <div className="bg-white w-full py-3 justify-center px-5 grid grid-cols-5 gap-x-2">
       {nav.map((_) => (
         <Link
           href={_.path}
@@ -126,7 +112,7 @@ export default function BottomNav() {
             className={`space-y-1 p-2 ${
               pathName === _.path
                 ? "text-base-color/80 font-semibold"
-                : "text-neutral-500"
+                : "text-neutral-400"
             }`}
           >
             <div className="bottomnavs flex justify-center">{_.icon}</div>

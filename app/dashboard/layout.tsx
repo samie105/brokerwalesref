@@ -23,7 +23,7 @@ export default function Layout({
             {children}
           </div>
 
-          <div className="absolute md:hidden w-full bottom-0 left-0 buttom-nav">
+          <div className="fixed md:hidden w-full bottom-0 left-0 buttom-nav">
             <BottomNav />
           </div>
         </div>
