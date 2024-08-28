@@ -1,6 +1,7 @@
 import Navbar from "@/components/dashboard/Navbar/Navbar";
 import SideBar from "@/components/dashboard/SideBar";
 import Providers from "@/lib/queryClient";
+import BottomNav from "@/components/dashboard/Navbar/BottomNav";
 import React from "react";
 
 export default function Layout({
@@ -20,6 +21,10 @@ export default function Layout({
           </nav>
           <div className="mt-[4.6rem]  pl-2 md:pl-0 pr-1.5 md:mt-[4.6rem]">
             {children}
+          </div>
+
+          <div className="absolute md:hidden w-full bottom-0 left-0 buttom-nav">
+            <BottomNav />
           </div>
         </div>
       </div>
