@@ -213,13 +213,15 @@ export default function AcctSectManager({
                   {/* <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div> */}
                 </div>
                 <div className="acount-info mt-2 py-5 bg-white rounded-sm px-6">
-                  <h1 className="text-neutral-600 py-2 px-3 rounded bg-neutral-500/5 inline font-med/ium text-sm ">
+                  <h1 className="text-neutral-600 font-medium text-sm ">
                     Account Info
                   </h1>
+                  <div className="separator w-10 h-[3px] rounded-full my-1 bg-black/10 mx-auto"></div>
+
                   <div className="account-limit-info mt-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-x-2">
-                        <div className="icon-cont rounded-full relative justify-center items-center flex bg-base-color/5 border text-base-color/80 border-base-color/10 p-3 ">
+                        <div className="icon-cont rounded-full relative justify-center items-center flex bg-neutral-500/5 border text-neutral-500/80 border-neutral-500/10 p-3 ">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
@@ -232,9 +234,9 @@ export default function AcctSectManager({
                               clipRule="evenodd"
                             />
                           </svg>
-                          <div className="liner absolute h-7 w-[1px] bg-base-color/10 z-0 -bottom-7"></div>
+                          <div className="liner absolute h-5 w-[1px] bg-neutral-500/10 z-0 -bottom-5"></div>
                         </div>
-                        <div className="account-limit text-neutral-500/80 font-semibold text-sm">
+                        <div className="account-limit text-neutral-500/80 font-medium text-sm">
                           <div>Account limit</div>
                           <div className="amount text-neutral-700 font-semibold /text-base">
                             <p className={`${inter.className}`}>
@@ -250,12 +252,12 @@ export default function AcctSectManager({
                       </div> */}
                     </div>
                   </div>
-                  <div className="separator w-5 h-0.5 my-1 bg-black/10 mx-auto"></div>
+                  <div className="separator w-52 h-[1px] hidden my-1 bg-black/10 mx-auto"></div>
 
                   <div className="account-limit-info mt-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-x-2">
-                        <div className="icon-cont rounded-full bg-base-color/5 border text-base-color/80 border-base-color/10 p-3 ">
+                        <div className="icon-cont rounded-full bg-neutral-500/5 border text-neutral-500/80 border-neutral-500/10 p-3 ">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
@@ -269,7 +271,7 @@ export default function AcctSectManager({
                             />
                           </svg>
                         </div>
-                        <div className="account-dep-ver text-neutral-500/80 font-semibold text-sm">
+                        <div className="account-dep-ver text-neutral-500/80 font-medium text-sm">
                           <div>Opening deposit</div>
                           <div className="amount text-neutral-700 font-semibold /text-base">
                             <p className={`${inter.className}`}>$50</p>
