@@ -15,7 +15,7 @@ export default function Layout({
         <div className="lg:col-span-2 pl-2 py-2 hidden md:block md:col-span-3">
           <SideBar />
         </div>
-        <div className="md:col-span-9 lg:col-span-10 relative">
+        <div className="md:col-span-9 md:pl-0.5 lg:col-span-10 relative">
           <nav className="md:pr-2 md:pt-2 ">
             <Navbar />
           </nav>

@@ -5,8 +5,10 @@ import React from "react";
 
 export default function TopNav({
   currentMode,
+  transactionTab,
 }: {
   currentMode: string | string[];
+  transactionTab: string | string[];
 }) {
   const TopNavs = [
     {
@@ -104,7 +106,7 @@ export default function TopNav({
       <div className="w-full mb-2 flex items-center space-x-2">
         {TopNavs.map((nav) => (
           <Link
-            href={`?mode=${nav.name}`}
+            href={`?mode=${nav.name}&tab=${transactionTab}`}
             key={nav.name}
             className={`py-2 px-2 capitalize cursor-pointer flex item-center gap-x-2 rounded-sm   text-sm  ${
               currentMode === nav.name

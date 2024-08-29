@@ -310,7 +310,7 @@ export default function AcctSectManager({
       {currentMode === "cards" && (
         <div>
           <Card
-            className={`card b/order relative shadow-none border-none rounded-md md:p-3 pt-2 md:pt-0 /border w-full inset-1 min-h-48 pb-3 md:pb:0 /border-dashed border-neutral-600 `}
+            className={`card b/order relative shadow-none  border-none rounded-md md:p-3 pt-2 md:pt-0 /border w-full inset-1 min-h-48 pb-3 md:pb:0 /border-dashed border-neutral-600 `}
           >
             {data.card.cardNumber === "" && (
               <div className="image-cont absolute w-full h-full animate-spi top-0 left-0">
@@ -320,7 +320,7 @@ export default function AcctSectManager({
             {data.card.cardNumber !== "" && (
               <div>
                 {" "}
-                <div className="w-full md:pt-4 relative">
+                <div className="w-full small-screen md:pt-4 relative">
                   {" "}
                   <Cards
                     number={data.card.cardNumber || ""}
@@ -330,14 +330,14 @@ export default function AcctSectManager({
                     focused={state.focus}
                   />
                   {state.focus === "" && (
-                    <div className="absolute animate__animated animate__lightSpeedInRight bankName uppercase bottom-2 left-[60px] text-sm text-neutral-300 font-medium">
+                    <div className="absolute animate__animated animate__lightSpeedInRight bankName uppercase bottom-2 left-[50px] text-sm text-neutral-300 font-medium">
                       <code>Wilson Bank</code>
                     </div>
                   )}{" "}
                 </div>
                 <div className="separator w-20 h-0.5 mt-4 mb-2 bg-black/10 mx-auto"></div>
-                <div className="card-actions /mt-1 cont px-1 md:px-3">
-                  <div className="flex justify-between items-center /shadow-sm w-full rounded-md px-3 /pt-2">
+                <div className="card-actions">
+                  <div className="flex justify-between items-center /shadow-sm w-full rounded-md px-1.5 /pt-2">
                     <div
                       className="card-balance space-y-1 /px-4 py-1 rounded-md"
                       // style={{ background: colors.defaultblue + "09" }}

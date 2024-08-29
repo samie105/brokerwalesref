@@ -172,7 +172,7 @@ export default function Dashboard() {
         </Link>
       </div> */}
       <div className="space-y-2">
-        <section className="dashboard_card-section gap-y-1 gap-x-1 grid md:grid-cols-2 grid-cols-1">
+        <section className="dashboard_card-section /gap-y-1 mt-0.5 items-center gap-x-1 grid md:grid-cols-2 grid-cols-1">
           <div className="dashboard">
             <div className="card ">
               <Card>
@@ -343,7 +343,7 @@ export default function Dashboard() {
             </div>
           </div>
           <Card
-            className={`card b/order relative shadow-none border-none rounded-md md:p-3 pt-2 md:pt-0 /border w-full inset-1 min-h-48 pb-3 md:pb:0 /border-dashed border-neutral-600 `}
+            className={`card b/order relative shadow-none h-full bg-white m-0 border-none rounded-md md:p-3 pt-2 md:pt-0 /border w-full min-h-48 pb-3 md:pb:0 /border-dashed border-neutral-600 `}
           >
             {data.card.cardNumber === "" && (
               <div className="image-cont absolute w-full h-full animate-spi top-0 left-0">

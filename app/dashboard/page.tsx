@@ -12,6 +12,7 @@ import {
 } from "@tanstack/react-query";
 import TopNav from "@/components/dashboard/Navbar/TopNav";
 import AcctSectManager from "@/components/dashboard/Dashboard/AcctSectManager";
+import TransactionSummary from "@/components/dashboard/Dashboard/Transaction_Summary";
 import QuickLinkSect from "@/components/dashboard/Dashboard/QuickLinkSect";
 
 export default async function page({
@@ -20,6 +21,7 @@ export default async function page({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const currentMode = searchParams.mode || "account";
+  const transactionTab = searchParams.tab || "transfers";
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
@@ -32,15 +34,23 @@ export default async function page({
         <div className="h-[calc(100vh-5.5rem)] hidden md:block overflow-y-scroll overflow-x-hidden rounded-md">
           {" "}
           <Dashboard />
-          <div className="grid grid-cols-1 md:grid-cols-2 mt-2 gap-y-1 gap-x-2 pb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 mt-1 gap-y-1 gap-x-1 pb-2">
             {" "}
             <Fixed />
+            <Chart />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 mt-1 gap-y-1 gap-x-1 pb-2">
+            {" "}
+            <TransactionSummary
+              currentMode={currentMode}
+              transactionTab={transactionTab}
+            />
             <Chart />
           </div>
         </div>
         <div className="h-[calc(100vh-5.5rem)] overflow-y-scroll pb-[4.5rem]  md:hidden overflow-x-hidden rounded-md">
           <div className="bg-white p-3">
-            <TopNav currentMode={currentMode} />
+            <TopNav currentMode={currentMode} transactionTab={transactionTab} />
             <div className="mt-1" />
             <AcctSectManager currentMode={currentMode} />{" "}
           </div>
