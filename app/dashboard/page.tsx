@@ -14,6 +14,8 @@ import TopNav from "@/components/dashboard/Navbar/TopNav";
 import AcctSectManager from "@/components/dashboard/Dashboard/AcctSectManager";
 import TransactionSummary from "@/components/dashboard/Dashboard/Transaction_Summary";
 import QuickLinkSect from "@/components/dashboard/Dashboard/QuickLinkSect";
+import Transaction_Chart from "@/components/dashboard/Dashboard/Transaction_Chart";
+import TransactionMobileHistory from "@/components/dashboard/Dashboard/TransactionMobileHistory";
 
 export default async function page({
   searchParams,
@@ -34,7 +36,7 @@ export default async function page({
         <div className="h-[calc(100vh-5.5rem)] hidden md:block overflow-y-scroll overflow-x-hidden rounded-md">
           {" "}
           <Dashboard />
-          <div className="grid grid-cols-1 md:grid-cols-2 mt-1 gap-y-1 gap-x-1 pb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 mt-1 gap-y-1 gap-x-1">
             {" "}
             <Fixed />
             <Chart />
@@ -45,7 +47,7 @@ export default async function page({
               currentMode={currentMode}
               transactionTab={transactionTab}
             />
-            <Chart />
+            <Transaction_Chart />
           </div>
         </div>
         <div className="h-[calc(100vh-5.5rem)] overflow-y-scroll pb-[4.5rem]  md:hidden overflow-x-hidden rounded-md">
@@ -55,6 +57,10 @@ export default async function page({
             <AcctSectManager currentMode={currentMode} />{" "}
           </div>
           <QuickLinkSect />
+          <TransactionMobileHistory
+            currentMode={currentMode}
+            transactionTab={transactionTab}
+          />
         </div>
       </div>
     </HydrationBoundary>

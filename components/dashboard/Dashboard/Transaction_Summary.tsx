@@ -58,7 +58,40 @@ export default function TransactionSummary({
   const { data: deets } = useFetchInfo();
   const data = deets!.data;
 
-  const fixedHistory = data.fixedHistory;
+  const transactionHistory = [
+    {
+      id: 1,
+      amount: 23332,
+      date: new Date(),
+      receipientAccountNumber: 5553333332,
+      status: "pending",
+      receipientNmae: "Oj Richie",
+      receipientBankName: "Chase Bank",
+    },
+    {
+      id: 1,
+      amount: -23774,
+      date: new Date(),
+      receipientAccountNumber: 5553333332,
+      status: "pending",
+      receipientNmae: "Matthew Hogswart",
+      receipientBankName: "Truist Bank",
+    },
+    {
+      id: 1,
+      amount: 4000,
+      date: new Date(),
+      receipientAccountNumber: 5553333332,
+      status: "pending",
+      receipientNmae: "James Addijones",
+      receipientBankName: "Bank of America",
+    },
+  ];
+
+  const totalAmount = transactionHistory.reduce(
+    (acc, current) => acc + (current.amount > 0 ? current.amount : 0),
+    0
+  );
 
   return (
     <div className="w-full border-none shadow-none rounded-md p-4 bg-white">
@@ -77,7 +110,7 @@ export default function TransactionSummary({
                 clipRule="evenodd"
               />
             </svg> */}
-            <p> Transaction History</p>
+            <p> Recent Transactions</p>
           </div>
           <div className="flex items-center font-medium space-x-2">
             {tabs.map((tab) => (
@@ -87,7 +120,7 @@ export default function TransactionSummary({
                 className={` px-3 py-2 flex gap-x-2 items-center rounded-sm text-sm capitalize ${
                   tab.name === transactionTab
                     ? "bg-base-color/5 text-base-color/80 font-semibold"
-                    : "bg-neutral-500/5 text-neutral-500"
+                    : "bg-neutral-400/5 text-neutral-500"
                 }`}
               >
                 {tab.icon} <p>{tab.name}</p>
@@ -98,7 +131,7 @@ export default function TransactionSummary({
             className={`Fixed-balance text-3xl mt-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
           >
             <span className="text-sm">$</span>
-            {data.fixedBalance.toLocaleString("en-US", {
+            {totalAmount.toLocaleString("en-US", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
@@ -106,94 +139,84 @@ export default function TransactionSummary({
         </div>
       </div>
       <div className="text-xs text-neutral-500 font-medium mt-2">
-        Total in {transactionTab}
+        Total in <span className="capitalize">{transactionTab}</span>
       </div>
 
       <div className="separator w-20 h-0.5 mt-4 bg-black/10 mx-auto"></div>
       <div className="Fixed-info">
-        <h1 className="text-neutral-700 font-bold text-sm mt-5">
-          Fixed history
+        <h1 className="text-neutral-700 hidden font-bold text-sm mt-5">
+          Transaction history
         </h1>
         <div className="Fixed-limit-info mt-5 space-y-6">
-          {fixedHistory.length >= 1 &&
-            fixedHistory
-              .slice(0, 2)
-              .sort((a, b) => b.startDate - a.startDate)
-              .map((hist, index) => (
-                <div
-                  key={hist.id}
-                  className="flex items-center justify-between"
-                >
-                  <div className="flex items-center gap-x-2">
-                    <div className="icon-cont rounded-full relative justify-center items-center flex bg-base-color/5 /border text-base-color /border-white/10 p-3 ">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="size-4"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M13.2 2.24a.75.75 0 0 0 .04 1.06l2.1 1.95H6.75a.75.75 0 0 0 0 1.5h8.59l-2.1 1.95a.75.75 0 1 0 1.02 1.1l3.5-3.25a.75.75 0 0 0 0-1.1l-3.5-3.25a.75.75 0 0 0-1.06.04Zm-6.4 8a.75.75 0 0 0-1.06-.04l-3.5 3.25a.75.75 0 0 0 0 1.1l3.5 3.25a.75.75 0 1 0 1.02-1.1l-2.1-1.95h8.59a.75.75 0 0 0 0-1.5H4.66l2.1-1.95a.75.75 0 0 0 .04-1.06Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      {index < fixedHistory.slice(0, 2).length - 1 && (
-                        <div className="liner absolute h-7 w-[1px] bg-base-color/10 z-0 -bottom-7"></div>
-                      )}
-                    </div>
-                    <div className="Fixed-limit text-neutral-600 font-semibold text-sm">
-                      <div>Fixed amount</div>
-                      <div className="amount text-neutral-500 mt-1 font-medium /text-base">
-                        <p className={`${inter.className}`}>
-                          ${hist.amount.toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+          {transactionHistory.length >= 1 && (
+            <div className="space-y-1 ">
+              {transactionHistory.slice(0, 2).map((history, index) => (
+                <>
                   <div
-                    className={`${
-                      hist.status === "running"
-                        ? "text-base-color/70 bg-base-color/5 border-base-color/20"
-                        : "text-green-700/70 bg-green-700/5 border-green-700/20"
-                    } rounded-sm py-1 px-2 flex items-center gap-x-1 capitalize border text-xs font-semibold `}
+                    key={history.id}
+                    className="border-neutral-500/10 flex justify-between items-center  /border rounded-md p-2"
                   >
-                    <p>{hist.status}</p>
-                    <div className="icon">
-                      {hist.status === "running" ? (
-                        <div className="animate-spin">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            className="size-4"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M13.836 2.477a.75.75 0 0 1 .75.75v3.182a.75.75 0 0 1-.75.75h-3.182a.75.75 0 0 1 0-1.5h1.37l-.84-.841a4.5 4.5 0 0 0-7.08.932.75.75 0 0 1-1.3-.75 6 6 0 0 1 9.44-1.242l.842.84V3.227a.75.75 0 0 1 .75-.75Zm-.911 7.5A.75.75 0 0 1 13.199 11a6 6 0 0 1-9.44 1.241l-.84-.84v1.371a.75.75 0 0 1-1.5 0V9.591a.75.75 0 0 1 .75-.75H5.35a.75.75 0 0 1 0 1.5H3.98l.841.841a4.5 4.5 0 0 0 7.08-.932.75.75 0 0 1 1.025-.273Z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </div>
-                      ) : (
+                    {" "}
+                    <div className="first-box flex items-center gap-x-2">
+                      {" "}
+                      <div className="logo-area rounded-full bg-neutral-500/10 p-4 text-neutral-600 ">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 16 16"
-                          fill="currentColor"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
                           className="size-4"
                         >
                           <path
-                            fillRule="evenodd"
-                            d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
-                            clipRule="evenodd"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
                           />
                         </svg>
-                      )}
+                      </div>
+                      <div className="transaction-details">
+                        <div className="name font-semibold">
+                          {history.receipientNmae}
+                        </div>
+                        <div
+                          className={`detail text-xs font-normal text-neutral-500 ${inter.className}`}
+                        >
+                          {history.date.toLocaleString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}{" "}
+                          |{" "}
+                          {history.date.toLocaleString("en-US", {
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                          })}
+                        </div>
+                      </div>{" "}
+                    </div>
+                    <div
+                      className={`amount-box font-semibold text-sm ${
+                        inter.className
+                      } ${
+                        history.amount < 0 ? "text-red-500" : "text-green-500"
+                      }`}
+                    >
+                      {history.amount < 0
+                        ? `-${Math.abs(history.amount).toLocaleString()}`
+                        : `+${history.amount.toLocaleString()}`}
                     </div>{" "}
-                  </div>
-                </div>
+                  </div>{" "}
+                  {index < transactionHistory.slice(0, 2).length - 1 && (
+                    <div className="separator w-10 h-[1px] my-1 bg-black/10 mx-auto"></div>
+                  )}
+                </>
               ))}
-          {fixedHistory.length < 1 && (
+            </div>
+          )}
+
+          {transactionHistory.length < 1 && (
             <div className="flex items-center min-h-44 h-full justify-center">
               <div className="inner-items /text-center">
                 <div className="icon flex justify-center text-neutral-600">
@@ -211,29 +234,17 @@ export default function TransactionSummary({
                   </svg>
                 </div>
                 <div className="text text-neutral-500 text-sm font-semibold">
-                  No Fixed History
+                  No History Here
                 </div>
               </div>
             </div>
           )}
-          {fixedHistory.length >= 1 && (
+          {transactionHistory.length >= 1 && (
             <Link
               className="fixed-main-hist-link flex items-center justify-center text-sm gap-x-1 font-semibold text-base-color/80 border border-base-color/10 hover:bg-base-color/5 transition-all /bg-black/5 w-full rounded-md py-3"
-              href={"/dashboard/fixed"}
+              href={`/dashboard/${transactionTab}`}
             >
               <p>View all history</p>
-              {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="size-4"
-            >
-              <path
-                fillRule="evenodd"
-                d="M8 2a.75.75 0 0 1 .75.75v8.69l1.22-1.22a.75.75 0 1 1 1.06 1.06l-2.5 2.5a.75.75 0 0 1-1.06 0l-2.5-2.5a.75.75 0 1 1 1.06-1.06l1.22 1.22V2.75A.75.75 0 0 1 8 2Z"
-                clipRule="evenodd"
-              />
-            </svg> */}
             </Link>
           )}
         </div>

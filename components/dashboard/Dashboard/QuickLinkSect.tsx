@@ -77,9 +77,9 @@ export default function QuickLinkSect() {
     },
   ];
   return (
-    <div className="mt-2 /px-2">
+    <div className="mt- /px-2">
       {/* <div className="text-sm/ font-semibold">Quick Links</div> */}
-      <div className="account-info grid grid-cols-4 gap-1 mt-2">
+      <div className="account-info grid grid-cols-4 gap-1 mt-1">
         {datas.map((data) => (
           <Link
             href={data.path}

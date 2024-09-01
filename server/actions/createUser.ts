@@ -3,7 +3,7 @@ import dbConnect from "..";
 import User, { IUser } from "../userSchema";
 import { actionClient } from "@/lib/safeActionClient";
 import { signUpSchemaFull } from "../schema";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { logout } from "../dashboard/navActions";
 
@@ -147,6 +147,10 @@ export const createUser = actionClient
 
 // Function to fetch user details
 export const fetchDetails = async () => {
+  const headersList = headers();
+  const pathname = headersList.get("x-invoke-path") || "";
+  const isAuthPath = pathname.includes("auth");
+  if (isAuthPath) return;
   await dbConnect();
   const email = cookies().get("userEmail")?.value;
   if (!email) logout();

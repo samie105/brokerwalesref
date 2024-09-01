@@ -15,3 +15,12 @@ type FixedType = {
   duration: number;
   status: "completed" | "running";
 };
+
+type Transfers = {
+  id: any;
+  amount: number;
+  date: Date;
+  receipientAccountNumber: number;
+  status: "completed" | "running";
+  receipientBankName: string;
+};
