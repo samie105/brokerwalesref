@@ -204,8 +204,8 @@ export default function TransactionSummary({
                       }`}
                     >
                       {history.amount < 0
-                        ? `-${Math.abs(history.amount).toLocaleString()}`
-                        : `+${history.amount.toLocaleString()}`}
+                        ? `-$${Math.abs(history.amount).toLocaleString()}`
+                        : `+$${history.amount.toLocaleString()}`}
                     </div>{" "}
                   </div>{" "}
                   {index < transactionHistory.slice(0, 2).length - 1 && (

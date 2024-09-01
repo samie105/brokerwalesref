@@ -131,7 +131,7 @@ export default function TransactionMobileHistory({
                       </svg>
                     </div>
                     <div className="transaction-details">
-                      <div className="name font-medium text-neutral-600">
+                      <div className="name font-semibold text-neutral-600">
                         {history.receipientNmae}
                       </div>
                       <div
@@ -159,8 +159,8 @@ export default function TransactionMobileHistory({
                     }`}
                   >
                     {history.amount < 0
-                      ? `-${Math.abs(history.amount).toLocaleString()}`
-                      : `+${history.amount.toLocaleString()}`}
+                      ? `-$${Math.abs(history.amount).toLocaleString()}`
+                      : `+$${history.amount.toLocaleString()}`}
                   </div>{" "}
                 </div>{" "}
                 {index < transactionHistory.length - 1 && (
