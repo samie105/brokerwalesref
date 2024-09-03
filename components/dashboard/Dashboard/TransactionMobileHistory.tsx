@@ -130,7 +130,7 @@ export default function TransactionMobileHistory({
                         />
                       </svg>
                     </div>
-                    <div className="transaction-details">
+                    <div className="transaction-details text-sm">
                       <div className="name font-semibold text-neutral-600">
                         {history.receipientNmae}
                       </div>

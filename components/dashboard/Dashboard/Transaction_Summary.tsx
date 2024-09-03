@@ -151,11 +151,8 @@ export default function TransactionSummary({
           {transactionHistory.length >= 1 && (
             <div className="space-y-1 ">
               {transactionHistory.slice(0, 2).map((history, index) => (
-                <>
-                  <div
-                    key={history.id}
-                    className="border-neutral-500/10 flex justify-between items-center  /border rounded-md p-2"
-                  >
+                <div key={history.id}>
+                  <div className="border-neutral-500/10 flex justify-between items-center  /border rounded-md p-2">
                     {" "}
                     <div className="first-box flex items-center gap-x-2">
                       {" "}
@@ -175,7 +172,7 @@ export default function TransactionSummary({
                           />
                         </svg>
                       </div>
-                      <div className="transaction-details">
+                      <div className="transaction-details text-sm">
                         <div className="name font-semibold">
                           {history.receipientNmae}
                         </div>
@@ -209,9 +206,9 @@ export default function TransactionSummary({
                     </div>{" "}
                   </div>{" "}
                   {index < transactionHistory.slice(0, 2).length - 1 && (
-                    <div className="separator w-10 h-[1px] my-1 bg-black/10 mx-auto"></div>
+                    <div className="separator w-5/6 h-[1px] my-1 bg-black/10 mx-auto"></div>
                   )}
-                </>
+                </div>
               ))}
             </div>
           )}

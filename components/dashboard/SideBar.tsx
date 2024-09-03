@@ -61,7 +61,7 @@ export default function SideBar() {
     {
       id: 3,
       name: "Fixed",
-      path: "/fixed",
+      path: "/dashboard/fixed",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ export default function SideBar() {
     {
       id: 4,
       name: "Transfer",
-      path: "/transfer",
+      path: "/dashboard/transfer",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +95,7 @@ export default function SideBar() {
     {
       id: 5,
       name: "Settings",
-      path: "/settings",
+      path: "/dashboard/settings",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ export default function SideBar() {
     {
       id: 6,
       name: "Support",
-      path: "/support",
+      path: "/dashboard/support",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -148,35 +148,37 @@ export default function SideBar() {
           </p>
           <AnimatePresence>
             {nav.map((nav) => (
-              <MotionLink
-                href={nav.path}
-                key={nav.path}
-                // style={
-                //   nav.path === pathname
-                //     ? { color: colors.defaultblue }
-                //     : { display: "block" }
-                // }
-                className={`${
-                  nav.path === pathname
-                    ? `text-base-color/70  font-semibold rounded-md`
-                    : " text-neutral-700/80 font-medium hover:bg-gray-100  hover:opacity-100"
-                } cursor-pointer block /overflow-hidden rounded-md text-sm px-3 py-3 relative transition`}
-              >
-                <motion.div>
-                  <motion.div className="z-30 flex items-center gap-x-2">
-                    {nav.icon}
-                    <p>{nav.name}</p>
+              <motion.div key={nav.path}>
+                <MotionLink
+                  href={nav.path}
+                  key={nav.path}
+                  // style={
+                  //   nav.path === pathname
+                  //     ? { color: colors.defaultblue }
+                  //     : { display: "block" }
+                  // }
+                  className={`${
+                    nav.path === pathname
+                      ? `text-base-color/70  font-semibold rounded-md`
+                      : " text-neutral-700/80 font-medium hover:bg-gray-100  hover:opacity-100"
+                  } cursor-pointer block /overflow-hidden rounded-md text-sm px-3 py-3 relative transition`}
+                >
+                  <motion.div>
+                    <motion.div className="z-30 flex items-center gap-x-2">
+                      {nav.icon}
+                      <p>{nav.name}</p>
+                    </motion.div>
+                    {nav.path === pathname ? (
+                      <motion.div
+                        transition={{ type: "tween" }}
+                        style={{ backgroundColor: colors.defaultblue + "09" }}
+                        layoutId="underline"
+                        className="absolute mover bg-[#ffffff26] rounded-md top-0 left-0 w-full h-full z-10 "
+                      ></motion.div>
+                    ) : null}
                   </motion.div>
-                  {nav.path === pathname ? (
-                    <motion.div
-                      transition={{ type: "tween" }}
-                      style={{ backgroundColor: colors.defaultblue + "09" }}
-                      layoutId="underline"
-                      className="absolute  mover bg-[#ffffff26] rounded-md top-0 left-0 w-full h-full z-10 "
-                    ></motion.div>
-                  ) : null}
-                </motion.div>
-              </MotionLink>
+                </MotionLink>
+              </motion.div>
             ))}
           </AnimatePresence>
         </div>
