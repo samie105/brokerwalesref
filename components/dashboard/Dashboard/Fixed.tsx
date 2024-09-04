@@ -83,7 +83,7 @@ export default function Fixed() {
           {fixedHistory.length >= 1 &&
             fixedHistory
               .slice(0, 2)
-              .sort((a, b) => b.startDate - a.startDate)
+              .sort((a: any, b: any) => b.startDate - a.startDate)
               .map((hist, index) => (
                 <div
                   key={hist.id}
