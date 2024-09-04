@@ -128,7 +128,7 @@ export default function SideBar() {
     },
   ];
   return (
-    <div className="w-full h-screen overflow-scroll flex flex-col gap-y-2 /items-center j/ustify-center">
+    <div className="w-full h-screen overflow-scroll flex flex-col gap-y-1 /items-center j/ustify-center">
       <div className="side-bar-cont bg-white w-full  rounded-md p-4">
         <div className="">
           {" "}

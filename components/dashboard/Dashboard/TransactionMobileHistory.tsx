@@ -87,7 +87,7 @@ export default function TransactionMobileHistory({
       <div className="title text-sm font-semibold text-neutral-600">
         Recent Transactions
       </div>
-      <div className="flex items-center mt-3 font-medium space-x-2">
+      <div className="flex items-center mt-6 font-medium space-x-2">
         {tabs.map((tab) => (
           <Link
             href={`?mode=${currentMode}&tab=${tab.name}`}
@@ -109,10 +109,10 @@ export default function TransactionMobileHistory({
               <>
                 <div
                   key={history.id}
-                  className="border-neutral-500/10 flex justify-between items-center  /border rounded-md p-2"
+                  className="border-neutral-500/10  flex justify-between items-center  /border rounded-md p-2"
                 >
                   {" "}
-                  <div className="first-box flex items-center gap-x-2">
+                  <div className="first-box flex items-center gap-x-4">
                     {" "}
                     <div className="logo-area rounded-full bg-base-color/5 p-4 text-base-color/80 ">
                       <svg
@@ -121,7 +121,7 @@ export default function TransactionMobileHistory({
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="size-5"
+                        className="size-4"
                       >
                         <path
                           strokeLinecap="round"
@@ -152,7 +152,7 @@ export default function TransactionMobileHistory({
                     </div>{" "}
                   </div>
                   <div
-                    className={`amount-box font-semibold text-sm ${
+                    className={`amount-box font-semibold text-xs ${
                       inter.className
                     } ${
                       history.amount < 0 ? "text-red-500" : "text-green-500"
@@ -164,7 +164,7 @@ export default function TransactionMobileHistory({
                   </div>{" "}
                 </div>{" "}
                 {index < transactionHistory.length - 1 && (
-                  <div className="separator w-10 h-[1px] my-1 bg-black/10 mx-auto"></div>
+                  <div className="separator w-5/6 h-[1px] my-1 bg-black/10 mx-auto"></div>
                 )}
               </>
             ))}

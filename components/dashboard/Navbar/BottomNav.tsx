@@ -47,7 +47,7 @@ export default function BottomNav() {
     {
       id: 3,
       name: "Fixed",
-      path: "/fixed",
+      path: "/dashboard/fixed",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ export default function BottomNav() {
     {
       id: 4,
       name: "Transfer",
-      path: "/transfer",
+      path: "/dashboard/transfer",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@ export default function BottomNav() {
     {
       id: 6,
       name: "Support",
-      path: "/support",
+      path: "/dashboard/support",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"

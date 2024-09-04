@@ -16,7 +16,7 @@ import { useFetchInfo } from "@/lib/data/fetchPost";
 
 export default function Notification() {
   const { data } = useFetchInfo();
-  const notifications = data!.data.notifications.reverse();
+  const notifications = data!.data.notifications.reverse() || [];
   const readNotifs = data!.data.readNotification;
   let toastId: string;
   const { status, execute } = useAction(deleteNotification, {

@@ -8,9 +8,11 @@ type NotificationType = {
 
 type FixedType = {
   id: any;
+  roi: number;
+  totalReturn: number;
   name: string;
-  startDate: number;
-  endDate: number;
+  startDate: Date;
+  endDate: Date;
   amount: number;
   duration: number;
   status: "completed" | "running";

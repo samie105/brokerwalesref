@@ -43,7 +43,7 @@ export default function Fixed() {
             })}
           </div>{" "}
           <p className="text-neutral-400 text-xs mt-1 font-medium">
-            Total in Fixed
+            Total available
           </p>
         </div>
         <div className="icons flex gap-x-2">
