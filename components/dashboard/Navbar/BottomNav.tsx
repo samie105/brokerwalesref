@@ -104,7 +104,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="bg-white shadow-[0px_5px_15px_0px_#00000009] w-full py-3 justify-center px-5 grid grid-cols-5 gap-x-2">
+    <div className="bg-white shadow-[0px_5px_15px_0px_#00000009] w-full py-3 justify-center px-5 grid grid-cols-5 gap-x-1">
       <AnimatePresence>
         {nav.map((_) => (
           <motion.div key={_.id}>
@@ -115,7 +115,7 @@ export default function BottomNav() {
             >
               <motion.div>
                 <motion.div
-                  className={`space-y-1 rounded-md relative p-2 ${
+                  className={`space-y-1 rounded-md relative py-2 px-4 flex flex-col justify-center items-center /pl-0.5 ${
                     pathName === _.path
                       ? "text-base-color/80 font-semibold"
                       : "text-neutral-400"
