@@ -32,7 +32,7 @@ export default async function Layout({
             <nav className="md:pr-2 md:pt-2 ">
               <Navbar />
             </nav>
-            <div className="mt-[4.6rem]  pl-2 md:pl-0 pr-1.5 md:mt-[4.6rem]">
+            <div className="mt-[4.6rem] w-full overflow-x-hidden pl-2 md:pl-0 pr-1.5 md:mt-[4.6rem]">
               {children}
             </div>
 

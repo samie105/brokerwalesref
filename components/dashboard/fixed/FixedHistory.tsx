@@ -83,17 +83,26 @@ export default function FixedHistory({ tab }: { tab: string }) {
   return (
     <div className="bg-white">
       <div className=" mx-auto py-10">
-        <div className="md:flex md:justify-between md:items-center grid grid-cols-1 mb-4">
+        <div className="title text-neutral-800 mb-4 font-semibold">
+          Fixed History
+        </div>
+        <div className="md:flex md:justify-between md:items-center grid grid-cols-1  mb-4">
           <Tabs value={tab || "all"} className="w-[400px]">
             <TabsList className="bg-neutral-50 text-sm text-neutral-500">
               <Link href={"?tab=all"}>
-                <TabsTrigger value="all">All</TabsTrigger>
+                <TabsTrigger value="all" className="text-nuetral-500">
+                  All
+                </TabsTrigger>
               </Link>
               <Link href={"?tab=running"}>
-                <TabsTrigger value="running">Running</TabsTrigger>
+                <TabsTrigger value="running" className="text-nuetral-500">
+                  Running
+                </TabsTrigger>
               </Link>
               <Link href={"?tab=completed"}>
-                <TabsTrigger value="completed">Completed</TabsTrigger>
+                <TabsTrigger value="completed" className="text-nuetral-500">
+                  Completed
+                </TabsTrigger>
               </Link>
             </TabsList>
           </Tabs>
@@ -104,18 +113,18 @@ export default function FixedHistory({ tab }: { tab: string }) {
             className="max-w-xs mt-2 md:mt-0 bg-neutral-50/50 border-neutral-500/20"
           />
         </div>
-        <div className="border0non rounded-md w-full ">
-          <Table className="overflow-x-scroll overflow-y-hidden max-w-full">
+        <div className=" rounded-md  ">
+          <Table className="overflow-x-scroll overflow-y-hidden  mx-auto">
             <TableHeader className="text-neutral-500 ">
               <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead className="text-right">Amount</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead className="text-right">Duration (months)</TableHead>
                 <TableHead className="text-right">ROI</TableHead>
                 <TableHead className="text-right">Total Return</TableHead>
                 <TableHead>Start Date</TableHead>
                 <TableHead>End Date</TableHead>
-                <TableHead>Status</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -125,7 +134,56 @@ export default function FixedHistory({ tab }: { tab: string }) {
                   <TableCell className="text-right">
                     {formatCurrency(item.amount)}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="flex items-center justify-center">
+                    <Badge
+                      variant={
+                        item.status === "running"
+                          ? "default"
+                          : item.status === "completed"
+                          ? "secondary"
+                          : "outline"
+                      }
+                      className={`flex items-center gap-x-2 ${
+                        item.status === "running"
+                          ? "bg-yellow-500 hover:bg-yellow-500 cursor-pointer"
+                          : item.status === "completed"
+                          ? "bg-green-500 hover:bg-green-500 text-white"
+                          : "outline"
+                      }`}
+                    >
+                      {item.status === "running" ? (
+                        <div className="animate-spin">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            className="size-4"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M13.836 2.477a.75.75 0 0 1 .75.75v3.182a.75.75 0 0 1-.75.75h-3.182a.75.75 0 0 1 0-1.5h1.37l-.84-.841a4.5 4.5 0 0 0-7.08.932.75.75 0 0 1-1.3-.75 6 6 0 0 1 9.44-1.242l.842.84V3.227a.75.75 0 0 1 .75-.75Zm-.911 7.5A.75.75 0 0 1 13.199 11a6 6 0 0 1-9.44 1.241l-.84-.84v1.371a.75.75 0 0 1-1.5 0V9.591a.75.75 0 0 1 .75-.75H5.35a.75.75 0 0 1 0 1.5H3.98l.841.841a4.5 4.5 0 0 0 7.08-.932.75.75 0 0 1 1.025-.273Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 16 16"
+                          fill="currentColor"
+                          className="size-4"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                      <div>{item.status}</div>
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-right/">
                     {item.duration} Months
                   </TableCell>
                   <TableCell className="text-right">
@@ -136,19 +194,6 @@ export default function FixedHistory({ tab }: { tab: string }) {
                   </TableCell>
                   <TableCell>{formatDate(item.startDate)}</TableCell>
                   <TableCell>{formatDate(item.endDate)}</TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={
-                        item.status === "running"
-                          ? "default"
-                          : item.status === "completed"
-                          ? "secondary"
-                          : "outline"
-                      }
-                    >
-                      {item.status}
-                    </Badge>
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

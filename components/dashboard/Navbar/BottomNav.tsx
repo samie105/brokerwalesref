@@ -1,10 +1,13 @@
 "use client";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 export default function BottomNav() {
   const pathName = usePathname();
+  const MotionLink = motion(Link);
+
   const nav = [
     {
       id: 1,
@@ -88,7 +91,7 @@ export default function BottomNav() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
           fill="currentColor"
-          className="size-4 text-purple-700"
+          className="size-4 /text-purple-700"
         >
           <path
             fillRule="evenodd"
@@ -101,31 +104,46 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="bg-white w-full py-3 justify-center px-5 grid grid-cols-5 gap-x-2">
-      {nav.map((_) => (
-        <Link
-          href={_.path}
-          key={_.id}
-          className="flex justify-center text-center"
-        >
-          <div
-            className={`space-y-1 p-2 ${
-              pathName === _.path
-                ? "text-base-color/80 font-bold"
-                : "text-neutral-400"
-            }`}
-          >
-            <div className="bottomnavs flex justify-center">{_.icon}</div>
-            <div
-              className={`bottomnavs text-xs ${
-                _.name === "Support" ? "text-purple-500 font-bold" : ""
-              }`}
+    <div className="bg-white shadow-[0px_5px_15px_0px_#00000009] w-full py-3 justify-center px-5 grid grid-cols-5 gap-x-2">
+      <AnimatePresence>
+        {nav.map((_) => (
+          <motion.div key={_.id}>
+            <MotionLink
+              href={_.path}
+              key={_.id}
+              className="fjustify-center w-full relative text-center"
             >
-              {_.name}
-            </div>
-          </div>
-        </Link>
-      ))}
+              <motion.div>
+                <motion.div
+                  className={`space-y-1 rounded-md relative p-2 ${
+                    pathName === _.path
+                      ? "text-base-color/80 font-semibold"
+                      : "text-neutral-400"
+                  }`}
+                >
+                  <motion.div className="bottomnavs flex items-center justify-center">
+                    {_.icon}
+                  </motion.div>
+                  <motion.div
+                    className={`bottomnavs text-[10px] ${
+                      _.name === "Support" ? "/text-purple-500 font/-bold" : ""
+                    }`}
+                  >
+                    {_.name}
+                    {_.path === pathName ? (
+                      <motion.div
+                        transition={{ type: "tween" }}
+                        layoutId="linear"
+                        className="absolute mover bg-base-color/5 rounded-md top-0 left-0 w-full h-full /z-50 "
+                      ></motion.div>
+                    ) : null}
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            </MotionLink>
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 }
