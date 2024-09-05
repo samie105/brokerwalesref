@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Raleway } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "sonner";
 import "animate.css";
 import { ColorProvider } from "@/context/colorContext";
 import { SignUpProvider } from "@/context/signUpFormContext";
 import { LoginProvider } from "@/context/loginFormContext";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Raleway({
   subsets: ["latin"],

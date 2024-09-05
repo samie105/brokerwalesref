@@ -120,7 +120,7 @@ export default function FixedHistory({ tab }: { tab: string }) {
                 <TableHead>Name</TableHead>
                 <TableHead className="text-nowrap">Amount</TableHead>
                 <TableHead className="text-nowrap">Status</TableHead>
-                <TableHead className="text-nowrap">Duration (months)</TableHead>
+                <TableHead className="text-nowrap">Duration</TableHead>
                 <TableHead className="text-nowrap">ROI</TableHead>
                 <TableHead className="text-nowrap">Total Return</TableHead>
                 <TableHead className="text-nowrap">Start Date</TableHead>
