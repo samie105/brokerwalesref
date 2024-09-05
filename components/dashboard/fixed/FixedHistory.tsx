@@ -82,12 +82,12 @@ export default function FixedHistory({ tab }: { tab: string }) {
 
   return (
     <div className="bg-white">
-      <div className=" mx-auto py-10">
+      <div className=" mx-auto py-4">
         <div className="title text-neutral-800 mb-4 font-semibold">
-          Fixed History
+          Fixed Transaction History
         </div>
         <div className="md:flex md:justify-between md:items-center grid grid-cols-1  mb-4">
-          <Tabs value={tab || "all"} className="w-[400px]">
+          <Tabs value={tab || "all"} className="md:w-[400px] w-full">
             <TabsList className="bg-neutral-50 text-sm text-neutral-500">
               <Link href={"?tab=all"}>
                 <TabsTrigger value="all" className="text-nuetral-500">
@@ -110,7 +110,7 @@ export default function FixedHistory({ tab }: { tab: string }) {
             placeholder="Search by name or status..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="max-w-xs mt-2 md:mt-0 bg-neutral-50/50 border-neutral-500/20"
+            className="w-full md:max-w-md mt-2 md:mt-0 bg-neutral-50/50 border-neutral-500/20"
           />
         </div>
         <div className=" rounded-md  ">
@@ -118,20 +118,22 @@ export default function FixedHistory({ tab }: { tab: string }) {
             <TableHeader className="text-neutral-500 ">
               <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Duration (months)</TableHead>
-                <TableHead className="text-right">ROI</TableHead>
-                <TableHead className="text-right">Total Return</TableHead>
-                <TableHead>Start Date</TableHead>
-                <TableHead>End Date</TableHead>
+                <TableHead className="text-nowrap">Amount</TableHead>
+                <TableHead className="text-nowrap">Status</TableHead>
+                <TableHead className="text-nowrap">Duration (months)</TableHead>
+                <TableHead className="text-nowrap">ROI</TableHead>
+                <TableHead className="text-nowrap">Total Return</TableHead>
+                <TableHead className="text-nowrap">Start Date</TableHead>
+                <TableHead className="text-nowrap">End Date</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredData.map((item) => (
                 <TableRow className="border-none" key={item.id}>
-                  <TableCell className="font-medium">{item.name}</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="font-medium text-nowrap">
+                    {item.name}
+                  </TableCell>
+                  <TableCell className="text-nowrap">
                     {formatCurrency(item.amount)}
                   </TableCell>
                   <TableCell className="flex items-center justify-center">
@@ -143,14 +145,15 @@ export default function FixedHistory({ tab }: { tab: string }) {
                           ? "secondary"
                           : "outline"
                       }
-                      className={`flex items-center gap-x-2 ${
+                      className={`flex items-center capitalize gap-x-2  ${
                         item.status === "running"
                           ? "bg-yellow-500 hover:bg-yellow-500 cursor-pointer"
                           : item.status === "completed"
-                          ? "bg-green-500 hover:bg-green-500 text-white"
+                          ? "bg-green-600 hover:bg-green-600 text-white"
                           : "outline"
                       }`}
                     >
+                      <div>{item.status}</div>
                       {item.status === "running" ? (
                         <div className="animate-spin">
                           <svg
@@ -180,20 +183,23 @@ export default function FixedHistory({ tab }: { tab: string }) {
                           />
                         </svg>
                       )}
-                      <div>{item.status}</div>
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-right/">
+                  <TableCell className="text-nowrap">
                     {item.duration} Months
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-nowrap">
                     {formatCurrency(item.totalReturn - item.amount)}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-nowrap">
                     {formatCurrency(item.totalReturn)}
                   </TableCell>
-                  <TableCell>{formatDate(item.startDate)}</TableCell>
-                  <TableCell>{formatDate(item.endDate)}</TableCell>
+                  <TableCell className="text-nowrap">
+                    {formatDate(item.startDate)}
+                  </TableCell>
+                  <TableCell className="text-nowrap">
+                    {formatDate(item.endDate)}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

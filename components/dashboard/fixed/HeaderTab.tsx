@@ -33,7 +33,7 @@ export default function HeaderTab() {
             <p> Fixed account</p>
           </div>
           <div
-            className={`Fixed-balance text-3xl mt-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
+            className={`Fixed-balance text-3xl mt-2  pl-3 /blur-md font-bold text-neutral-600 ${inter.className}`}
           >
             <span className="text-sm">$</span>
             {data.fixedBalance.toLocaleString("en-US", {
@@ -41,13 +41,13 @@ export default function HeaderTab() {
               maximumFractionDigits: 2,
             })}
           </div>{" "}
-          <p className="text-neutral-400 text-xs mt-1 font-medium">
+          <p className="text-neutral-400 text-xs mt-1 font-medium pl-3 ">
             Available Balance
           </p>
         </div>
         <div className="icons flex gap-x-2">
           {" "}
-          <div className="add-fixed-action md:flex md:pr-4 text-sm font-semibold md:items-center md:gap-x-2 rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80">
+          <div className="add-fixed-action flex md:pr-4 text-sm font-semibold items-center gap-x-2 rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -56,7 +56,7 @@ export default function HeaderTab() {
             >
               <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
             </svg>
-            <p className="hidden md:block">Create New</p>
+            <p className="hidd/en md:block text-sm">Create New</p>
           </div>
         </div>
       </div>
