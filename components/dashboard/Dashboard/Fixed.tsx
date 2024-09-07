@@ -3,6 +3,8 @@ import React from "react";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import { useFetchInfo } from "@/lib/data/fetchPost";
+import { Badge } from "@/components/ui/badge";
+import { FixedDialog } from "../fixed/FixedDailog";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -11,8 +13,22 @@ const inter = Inter({
 export default function Fixed() {
   const { data: deets } = useFetchInfo();
   const data = deets!.data;
-
   const fixedHistory = data.fixedHistory;
+
+  const formatDate = (date: string | Date | null | undefined) => {
+    if (!date) {
+      return ""; // or some other default value
+    }
+    const parsedDate = new Date(date);
+    if (isNaN(parsedDate.getTime())) {
+      return ""; // or some other default value
+    }
+    return parsedDate.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
 
   return (
     <div className="w-full border-none shadow-none rounded-md p-4 bg-white">
@@ -48,17 +64,11 @@ export default function Fixed() {
         </div>
         <div className="icons flex gap-x-2">
           {" "}
-          <div className="add-fixed-action rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="size-5"
-            >
-              <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-            </svg>
-          </div>
-          <div className="fixed-history-action rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80">
+          <FixedDialog text={true} />
+          <Link
+            href={"/dashboard/fixed"}
+            className="fixed-history-action rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -71,7 +81,7 @@ export default function Fixed() {
                 clipRule="evenodd"
               />
             </svg>
-          </div>
+          </Link>
         </div>
       </div>
       <div className="separator w-20 h-0.5 mt-4 bg-black/10 mx-auto"></div>
@@ -85,46 +95,53 @@ export default function Fixed() {
               .slice(0, 2)
               .sort((a: any, b: any) => b.startDate - a.startDate)
               .map((hist, index) => (
-                <div
-                  key={hist.id}
-                  className="flex items-center justify-between"
-                >
-                  <div className="flex items-center gap-x-2">
-                    <div className="icon-cont rounded-full relative justify-center items-center flex bg-base-color/5 /border text-base-color /border-white/10 p-3 ">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="size-4"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M13.2 2.24a.75.75 0 0 0 .04 1.06l2.1 1.95H6.75a.75.75 0 0 0 0 1.5h8.59l-2.1 1.95a.75.75 0 1 0 1.02 1.1l3.5-3.25a.75.75 0 0 0 0-1.1l-3.5-3.25a.75.75 0 0 0-1.06.04Zm-6.4 8a.75.75 0 0 0-1.06-.04l-3.5 3.25a.75.75 0 0 0 0 1.1l3.5 3.25a.75.75 0 1 0 1.02-1.1l-2.1-1.95h8.59a.75.75 0 0 0 0-1.5H4.66l2.1-1.95a.75.75 0 0 0 .04-1.06Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      {index < fixedHistory.slice(0, 2).length - 1 && (
-                        <div className="liner absolute h-7 w-[1px] bg-base-color/10 z-0 -bottom-7"></div>
-                      )}
-                    </div>
-                    <div className="Fixed-limit text-neutral-600 font-semibold text-sm">
-                      <div>Fixed amount</div>
-                      <div className="amount text-neutral-500 mt-1 font-medium /text-base">
-                        <p className={`${inter.className}`}>
-                          ${hist.amount.toLocaleString()}
-                        </p>
+                <>
+                  <div
+                    key={hist.id}
+                    className="flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-x-2">
+                      <div className="icon-cont rounded-full relative justify-center items-center flex bg-neutral-500/10 /border text-neutral-500 /border-white/10 p-4 ">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-4"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M13.2 2.24a.75.75 0 0 0 .04 1.06l2.1 1.95H6.75a.75.75 0 0 0 0 1.5h8.59l-2.1 1.95a.75.75 0 1 0 1.02 1.1l3.5-3.25a.75.75 0 0 0 0-1.1l-3.5-3.25a.75.75 0 0 0-1.06.04Zm-6.4 8a.75.75 0 0 0-1.06-.04l-3.5 3.25a.75.75 0 0 0 0 1.1l3.5 3.25a.75.75 0 1 0 1.02-1.1l-2.1-1.95h8.59a.75.75 0 0 0 0-1.5H4.66l2.1-1.95a.75.75 0 0 0 .04-1.06Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <div className="Fixed-limit capitalize text-neutral-800 font-semibold text-sm">
+                        <div>{hist.name}</div>
+                        <div className="amount text-xs md:text-sm text-neutral-500 mt-1 font-medium /text-base">
+                          <p className={`${inter.className}`}>
+                            ${hist.amount.toLocaleString()} | Due{" "}
+                            {formatDate(hist.endDate)}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className={`${
-                      hist.status === "running"
-                        ? "text-base-color/70 bg-base-color/5 border-base-color/20"
-                        : "text-green-700/70 bg-green-700/5 border-green-700/20"
-                    } rounded-sm py-1 px-2 flex items-center gap-x-1 capitalize border text-xs font-semibold `}
-                  >
-                    <p>{hist.status}</p>
-                    <div className="icon">
+                    <Badge
+                      variant={
+                        hist.status === "running"
+                          ? "default"
+                          : hist.status === "completed"
+                          ? "secondary"
+                          : "outline"
+                      }
+                      className={`flex items-center capitalize gap-x-2  ${
+                        hist.status === "running"
+                          ? "bg-yellow-500 hover:bg-yellow-500 cursor-pointer"
+                          : hist.status === "completed"
+                          ? "bg-green-600 hover:bg-green-600 text-white"
+                          : "outline"
+                      }`}
+                    >
+                      <div>{hist.status}</div>
                       {hist.status === "running" ? (
                         <div className="animate-spin">
                           <svg
@@ -154,9 +171,12 @@ export default function Fixed() {
                           />
                         </svg>
                       )}
-                    </div>{" "}
-                  </div>
-                </div>
+                    </Badge>
+                  </div>{" "}
+                  {index < fixedHistory.slice(0, 2).length - 1 && (
+                    <div className="separator w-5/6 h-[1px] my-1 bg-black/10 mx-auto"></div>
+                  )}
+                </>
               ))}
           {fixedHistory.length < 1 && (
             <div className="flex items-center min-h-44 h-full justify-center">

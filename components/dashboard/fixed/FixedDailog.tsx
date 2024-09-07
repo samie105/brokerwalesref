@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -21,6 +22,8 @@ import {
 import { useFetchInfo } from "@/lib/data/fetchPost";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAction } from "next-safe-action/hooks";
+import { updateFixedHistory } from "@/server/dashboard/fixedActions";
 
 const roiRates = {
   1: 5,
@@ -39,6 +42,8 @@ export function FixedDialog({ text }: { text?: boolean }) {
   const [totalReturn, setTotalReturn] = useState(0);
   const { data: deets } = useFetchInfo();
   const data = deets!.data;
+  let toastId: any;
+  const fixedDeposit = data.fixedHistory.reverse();
   const router = useRouter();
   router.prefetch("/dashboard/deposit");
 
@@ -50,20 +55,55 @@ export function FixedDialog({ text }: { text?: boolean }) {
       setTotalReturn(amount + roiAmount);
     }
   }, [duration, amount]);
+  const { execute, status } = useAction(updateFixedHistory, {
+    onSuccess({ data }) {
+      toast.success(data?.message, {
+        id: toastId,
+        duration: 3000,
+      });
 
-  const isFormValid = name && duration && amount && amount >= 100;
+      toast.dismiss(toastId);
+    },
+    onExecute() {
+      toast.loading("Please wait, creating cycle", {
+        id: toastId,
+      });
+    },
+    onError(error) {
+      if (error.error.fetchError)
+        toast.error("Error communicating with server", {
+          id: toastId,
+        });
+      if (error.error.serverError)
+        toast.error("Error connecting to servers", {
+          id: toastId,
+        });
+      if (error.error.validationErrors)
+        toast.error("Error performing task", {
+          id: toastId,
+        });
+
+      toast.dismiss(toastId);
+      console.log(error);
+    },
+  });
+  const nameExists = fixedDeposit.some(
+    (item) => item.name.toLowerCase() === name.toLowerCase()
+  );
+  const isFormValid =
+    name && duration && amount && status !== "executing" && !nameExists;
 
   const handleSubmit = () => {
-    if (amount! > data.accountBalance)
-      toast("Insufficient Funds", {
-        description: "You don't have enough funds",
-        action: {
-          label: "Deposit",
-          onClick: () => router.push("/dashboard/deposit"),
-        },
-      });
+    // if (amount! > data.accountBalance)
+    //   toast("Insufficient Funds", {
+    //     description: "You don't have enough funds",
+    //     action: {
+    //       label: "Deposit",
+    //       onClick: () => router.push("/dashboard/deposit"),
+    //     },
+    //   });
     if (isFormValid) {
-      const investment: FixedType = {
+      const history: FixedType = {
         id: Date.now().toString(),
         roi,
         totalReturn,
@@ -74,6 +114,8 @@ export function FixedDialog({ text }: { text?: boolean }) {
         duration,
         status: "running",
       };
+      console.log(history.endDate);
+      execute(history);
     }
   };
 
@@ -89,8 +131,8 @@ export function FixedDialog({ text }: { text?: boolean }) {
           >
             <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
           </svg>
-          <p className="hidd/en md:block text-sm">{text && "Create New"}</p>
-        </div>{" "}
+          <p className="hidd/en md:block text-sm">{text && "Create Fixed"}</p>
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -107,7 +149,14 @@ export function FixedDialog({ text }: { text?: boolean }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter fixed name"
+              className={`${nameExists ? "border-red-500 border " : ""} `}
             />
+            {nameExists && (
+              <div className="error-message bg-red-400/10 p-2 rounded-sm text-red-500 text-sm">
+                {" "}
+                This name has been used already
+              </div>
+            )}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="duration">Duration</Label>
@@ -158,14 +207,14 @@ export function FixedDialog({ text }: { text?: boolean }) {
           </div>
         </div>
         <DialogFooter>
-          <Button
+          <DialogClose
             type="submit"
             onClick={handleSubmit}
             disabled={!isFormValid}
-            className="w-full"
+            className="w-full font-semibold text-sm text-white disabled:opacity-70 bg-base-color/80 rounded-sm py-3"
           >
-            Create Fixed
-          </Button>
+            Create Fixed Cycle
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

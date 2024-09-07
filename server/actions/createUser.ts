@@ -6,6 +6,7 @@ import { signUpSchemaFull } from "../schema";
 import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { logout } from "../dashboard/navActions";
+import { encrypt, decrypt, sign, unsign } from "@/lib/encription"; // You'll need to implement this
 
 // Function to generate a 10-digit random number
 function generateRandomAccountNumber(): string {
@@ -89,6 +90,40 @@ export const createUser = actionClient
     await dbConnect();
 
     try {
+      // ...
+
+      // Set cookies
+      const cookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict" as const,
+        path: "/",
+      };
+
+      const setSecureCookie = (
+        name: string,
+        value: string,
+        maxAge?: number
+      ) => {
+        const encryptedValue = encrypt(value);
+        const signedValue = sign(encryptedValue);
+        cookies().set(name, signedValue, {
+          ...cookieOptions,
+          maxAge: maxAge || 60 * 60, // 1 hour default
+        });
+      };
+
+      // Function to get and verify a cookie
+      const getSecureCookie = (name: string): string | null => {
+        const signedValue = cookies().get(name)?.value;
+        if (!signedValue) return null;
+
+        const unsignedValue = unsign(signedValue);
+        if (!unsignedValue) return null; // Cookie signature is invalid
+
+        return decrypt(unsignedValue);
+      };
+
       // Generate a unique 10-digit bank account number
       const uniqueAccountNumber = await generateUniqueAccountNumber();
       const uniqueRoutingNumber = await generateUniqueRoutingNumber();
@@ -97,8 +132,9 @@ export const createUser = actionClient
       userDeets.accountType = "savings";
       // Create a new user with the parsed input data
       const createdUser: IUser = await User.create(userDeets);
-      console.log(uniqueRoutingNumber, createdUser.bankRoutingNumber);
-
+      setSecureCookie("userEmail", createdUser.email, 4 * 24 * 60 * 60); // 4 days
+      setSecureCookie("verified", "false");
+      setSecureCookie("paid", "false");
       // Set cookies
       cookies().set("userEmail", createdUser.email, {
         path: "/",
