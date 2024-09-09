@@ -1,57 +1,100 @@
-// lib/encryption.ts
-import crypto from "crypto";
-
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY; // 32-byte key
 const IV_LENGTH = 16;
 
-export function encrypt(text: string): string {
-  const iv = crypto.randomBytes(IV_LENGTH);
-  const cipher = crypto.createCipheriv(
-    "aes-256-cbc",
-    Buffer.from(ENCRYPTION_KEY!),
-    iv
+async function getEncryptionKey() {
+  const keyBase64 = process.env.ENCRYPTION_KEY!;
+  const keyBuffer = new Uint8Array(
+    atob(keyBase64)
+      .split("")
+      .map((c) => c.charCodeAt(0))
   );
-  let encrypted = cipher.update(text);
-  encrypted = Buffer.concat([encrypted, cipher.final()]);
-  return iv.toString("hex") + ":" + encrypted.toString("hex");
-}
-
-export function decrypt(text: string): string {
-  const textParts = text.split(":");
-  const iv = Buffer.from(textParts.shift()!, "hex");
-  const encryptedText = Buffer.from(textParts.join(":"), "hex");
-  const decipher = crypto.createDecipheriv(
-    "aes-256-cbc",
-    Buffer.from(ENCRYPTION_KEY!),
-    iv
+  return await crypto.subtle.importKey(
+    "raw",
+    keyBuffer,
+    { name: "AES-CBC" },
+    false,
+    ["encrypt", "decrypt"]
   );
-  let decrypted = decipher.update(encryptedText);
-  decrypted = Buffer.concat([decrypted, decipher.final()]);
-  return decrypted.toString();
 }
 
-// lib/cookieSigning.ts
-import { createHmac } from "crypto";
-
-const SECRET = process.env.COOKIE_SECRET;
-
-export function sign(value: string): string {
-  const signature = createHmac("sha256", SECRET!)
-    .update(value)
-    .digest("base64")
-    .replace(/\=+$/, "");
-
-  return `${value}.${signature}`;
+export async function encrypt(text: string): Promise<string> {
+  const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH));
+  const key = await getEncryptionKey();
+  const encrypted = await crypto.subtle.encrypt(
+    { name: "AES-CBC", iv },
+    key,
+    new TextEncoder().encode(text)
+  );
+  const ivHex = Array.from(iv)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  const encryptedHex = Array.from(new Uint8Array(encrypted))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  return `${ivHex}:${encryptedHex}`;
 }
 
-export function unsign(signedValue: string): string | false {
-  const value = signedValue.slice(0, signedValue.lastIndexOf("."));
-  const signature = signedValue.slice(signedValue.lastIndexOf(".") + 1);
+export async function decrypt(text: string): Promise<string> {
+  const [ivHex, encryptedHex] = text.split(":");
+  const iv = new Uint8Array(
+    ivHex.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16))
+  );
+  const encryptedArray = new Uint8Array(
+    encryptedHex.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16))
+  );
+  const key = await getEncryptionKey();
+  const decrypted = await crypto.subtle.decrypt(
+    { name: "AES-CBC", iv },
+    key,
+    encryptedArray
+  );
+  return new TextDecoder().decode(decrypted);
+}
 
-  const expectedSignature = createHmac("sha256", SECRET!)
-    .update(value)
-    .digest("base64")
-    .replace(/\=+$/, "");
+async function getCookieSecret() {
+  const secretBase64 = process.env.COOKIE_SECRET!;
+  const secretBuffer = new Uint8Array(
+    atob(secretBase64)
+      .split("")
+      .map((c) => c.charCodeAt(0))
+  );
+  return await crypto.subtle.importKey(
+    "raw",
+    secretBuffer,
+    { name: "HMAC", hash: { name: "SHA-256" } },
+    false,
+    ["sign", "verify"]
+  );
+}
 
-  return signature === expectedSignature ? value : false;
+export async function sign(value: string): Promise<string> {
+  const key = await getCookieSecret();
+  const signature = await crypto.subtle.sign(
+    "HMAC",
+    key,
+    new TextEncoder().encode(value)
+  );
+  const signatureBase64 = btoa(
+    String.fromCharCode.apply(
+      null,
+      new Uint8Array(signature) as unknown as number[]
+    )
+  ).replace(/=+$/, "");
+  return `${value}.${signatureBase64}`;
+}
+
+export async function unsign(signedValue: string): Promise<string | false> {
+  const [value, signature] = signedValue.split(".");
+  const key = await getCookieSecret();
+  const signatureArray = new Uint8Array(
+    atob(signature)
+      .split("")
+      .map((c) => c.charCodeAt(0))
+  );
+  const isValid = await crypto.subtle.verify(
+    "HMAC",
+    key,
+    signatureArray,
+    new TextEncoder().encode(value)
+  );
+  return isValid ? value : false;
 }

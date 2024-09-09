@@ -3,91 +3,118 @@ import { actionClient } from "@/lib/safeActionClient";
 import { cookies } from "next/headers";
 import { sendMail } from "@/server/mailer"; // Import the sendMail function
 import { z } from "zod";
-import dbConnect from "..";
-import User from "../userSchema";
+import dbConnect from "../index"; // Import the db connection
+import User from "../userSchema"; // User schema import
+import { encrypt, decrypt, sign, unsign } from "@/lib/encription"; // You need to implement async encryption functions
 
 function generateRandomCode(): string {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+  return Math.floor(100000 + Math.random() * 900000).toString(); // Generates a random 6-digit code
 }
-const email = z.object({
-  email: z.string().nonempty().optional(),
+
+// Schema for email validation
+const emailSchema = z.object({
+  email: z.string().email(), // Use `email()` for validation instead of `nonempty()`
 });
-const code = z.object({
-  code: z.string().nonempty().optional(),
+
+// Schema for verification code validation
+const codeSchema = z.object({
+  code: z.string().nonempty(), // Code must be a non-empty string
 });
+
+const cookieOptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "strict" as const,
+  path: "/",
+};
+
+// Async function to set a secure cookie (await for encryption and signing)
+const setSecureCookie = async (
+  name: string,
+  value: string,
+  maxAge?: number
+) => {
+  const encryptedValue = await encrypt(value); // Await encryption
+  const signedValue = await sign(encryptedValue); // Await signing
+  cookies().set(name, signedValue, {
+    ...cookieOptions,
+    maxAge: maxAge || 10 * 60, // Default expiration 10 minutes
+  });
+};
+
+// Async function to get and verify a cookie
+const getSecureCookie = async (name: string): Promise<string | null> => {
+  try {
+    const signedValue = cookies().get(name)?.value;
+    if (!signedValue) return null;
+
+    const unsignedValue = await unsign(signedValue); // Await unsign
+    if (!unsignedValue) return null; // Invalid signature
+
+    return await decrypt(unsignedValue); // Await decryption
+  } catch (error) {
+    console.error(`Error getting cookie ${name}:`, error);
+    return null;
+  }
+};
+
 export const sendCode = actionClient
-  .schema(email)
+  .schema(emailSchema)
   .action(async ({ parsedInput }) => {
     const code = generateRandomCode();
-    cookies().set("verificationCode", code, {
-      path: "/",
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      maxAge: 10 * 60,
-    });
-    const verificationCode = cookies().get("verificationCode");
+    await setSecureCookie("verificationCode", code); // Set the secure cookie
+    const verificationCode = await getSecureCookie("verificationCode"); // Get the secure cookie
 
     if (!verificationCode) {
       throw new Error("Verification code not found");
     }
 
-    // const email = cookies().get("userEmail");
     console.log(parsedInput.email);
     if (!parsedInput.email) {
       throw new Error("User email not found");
     }
 
-    const res = await sendMail(parsedInput.email, verificationCode.value);
-    if (res.success) return { success: true };
-    if (!res.success) return { success: false };
+    const res = await sendMail(parsedInput.email, verificationCode); // Send verification email
+    return { success: res.success };
   });
 
 export const resendCode = actionClient
-  .schema(email)
+  .schema(emailSchema)
   .action(async ({ parsedInput }) => {
-    const verificationCode = generateRandomCode();
-    cookies().set("verificationCode", verificationCode, {
-      path: "/",
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      maxAge: 10 * 60,
-    });
-    // const email = cookies().get("userEmail");
+    const newVerificationCode = generateRandomCode();
+    await setSecureCookie("verificationCode", newVerificationCode); // Set the new code in the cookie
+
     if (!parsedInput.email) {
       throw new Error("User email not found");
     }
 
-    const res = await sendMail(parsedInput.email, verificationCode);
-    if (res.success) return { success: true };
-    if (!res.success) return { success: false };
+    const res = await sendMail(parsedInput.email, newVerificationCode); // Resend the code
+    return { success: res.success };
   });
 
 export const verifyCode = actionClient
-  .schema(code)
+  .schema(codeSchema)
   .action(async ({ parsedInput }) => {
-    const verificationCode = cookies().get("verificationCode");
+    const verificationCode = await getSecureCookie("verificationCode"); // Get the verification code from the cookie
 
     if (!verificationCode) {
       throw new Error("Verification code not found");
     }
-    if (verificationCode.value == parsedInput.code) {
+
+    if (verificationCode === parsedInput.code) {
       await dbConnect();
-      const email = cookies().get("userEmail")?.value;
+      const email = await getSecureCookie("userEmail"); // Get the user's email
       const user = await User.findOneAndUpdate(
         { email },
         { codeVerification: true },
         { new: true }
-      );
+      ); // Mark the email as verified
+
       if (!user) throw new Error("Error verifying email");
-      cookies().set("verified", "true", {
-        path: "/",
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-      });
+
+      await setSecureCookie("verified", "true"); // Set the 'verified' cookie
       return { verified: true };
     }
-    if (verificationCode.value != parsedInput.code) return { verified: false };
+
+    return { verified: false }; // If the code doesn't match, return false
   });

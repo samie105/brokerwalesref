@@ -49,6 +49,48 @@ async function generateUniqueRoutingNumber() {
   return routingNumber;
 }
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "strict" as const,
+  path: "/",
+};
+const setSecureCookie = async (
+  name: string,
+  value: string,
+  maxAge?: number
+) => {
+  try {
+    const encryptedValue = await encrypt(value);
+    const signedValue = await sign(encryptedValue);
+    cookies().set(name, signedValue, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+      maxAge: maxAge || 60 * 60, // 1 hour default
+    });
+  } catch (error) {
+    console.error(`Error setting cookie ${name}:`, error);
+  }
+};
+
+// Function to get and verify a cookie
+const getSecureCookie = async (name: string): Promise<string | null> => {
+  try {
+    const signedValue = cookies().get(name)?.value;
+    if (!signedValue) return null;
+
+    const unsignedValue = await unsign(signedValue);
+    if (!unsignedValue) return null; // Cookie signature is invalid
+
+    return await decrypt(unsignedValue);
+  } catch (error) {
+    console.error(`Error getting cookie ${name}:`, error);
+    return null;
+  }
+};
+
 // Default user details
 const deets = {
   codeVerification: false,
@@ -93,36 +135,6 @@ export const createUser = actionClient
       // ...
 
       // Set cookies
-      const cookieOptions = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict" as const,
-        path: "/",
-      };
-
-      const setSecureCookie = (
-        name: string,
-        value: string,
-        maxAge?: number
-      ) => {
-        const encryptedValue = encrypt(value);
-        const signedValue = sign(encryptedValue);
-        cookies().set(name, signedValue, {
-          ...cookieOptions,
-          maxAge: maxAge || 60 * 60, // 1 hour default
-        });
-      };
-
-      // Function to get and verify a cookie
-      const getSecureCookie = (name: string): string | null => {
-        const signedValue = cookies().get(name)?.value;
-        if (!signedValue) return null;
-
-        const unsignedValue = unsign(signedValue);
-        if (!unsignedValue) return null; // Cookie signature is invalid
-
-        return decrypt(unsignedValue);
-      };
 
       // Generate a unique 10-digit bank account number
       const uniqueAccountNumber = await generateUniqueAccountNumber();
@@ -132,29 +144,11 @@ export const createUser = actionClient
       userDeets.accountType = "savings";
       // Create a new user with the parsed input data
       const createdUser: IUser = await User.create(userDeets);
-      setSecureCookie("userEmail", createdUser.email, 4 * 24 * 60 * 60); // 4 days
-      setSecureCookie("verified", "false");
-      setSecureCookie("paid", "false");
-      // Set cookies
-      cookies().set("userEmail", createdUser.email, {
-        path: "/",
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-        maxAge: 4 * 24 * 60 * 60,
-      });
-      cookies().set("verified", "false", {
-        path: "/",
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-      });
-      cookies().set("paid", "false", {
-        path: "/",
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-      });
+      await setSecureCookie("userEmail", createdUser.email, 4 * 24 * 60 * 60); // 4 days
+      await setSecureCookie("verified", "false", 4 * 24 * 60 * 60);
+      await setSecureCookie("paid", "false", 4 * 24 * 60 * 60);
+      const email = await getSecureCookie("userEmail");
+      console.log(email);
 
       return {
         success: true,
@@ -188,7 +182,7 @@ export const fetchDetails = async () => {
   const isAuthPath = pathname.includes("auth");
   if (isAuthPath) return;
   await dbConnect();
-  const email = cookies().get("userEmail")?.value;
+  const email = await getSecureCookie("userEmail");
   if (!email) logout();
   const data = await User.findOne({ email });
   if (!data) {
