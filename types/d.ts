@@ -26,3 +26,11 @@ type Transfers = {
   status: "completed" | "running";
   receipientBankName: string;
 };
+type Deposits = {
+  id: any;
+  amount: number;
+  paymentMeans: "mobile deposit" | "check";
+  status: "failed" | "success" | "pending";
+  date: Date;
+  screenshotLink: string;
+};

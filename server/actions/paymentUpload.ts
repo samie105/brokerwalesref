@@ -6,10 +6,15 @@ import { actionClient } from "@/lib/safeActionClient";
 import { v2 as cloudinary } from "cloudinary";
 import { cookies } from "next/headers";
 import axios, { AxiosResponse } from "axios";
+import { getSecureCookie, setSecureCookie } from "@/lib/encription";
 
 // Define the schema for the image URL
 const imageUrlSchema = z.object({
   file: z.any(), // Ensure file is a non-empty string representing the file path
+});
+const history = z.object({
+  url: z.string(),
+  amount: z.number(),
 });
 
 cloudinary.config({
@@ -31,12 +36,11 @@ export const uploadImage = actionClient
       );
       // Extract secure URL from Cloudinary response
       const secureUrl = result.data.secure_url;
-      const email = cookies().get("userEmail")?.value;
+      const email = getSecureCookie("userEmail");
 
       if (!email) {
         throw new Error("User email not found in cookies");
       }
-      console.log(result.data.secure_url);
       // Update user's paymentImageLink in the database
       const user = await User.findOneAndUpdate(
         { email },
@@ -47,12 +51,7 @@ export const uploadImage = actionClient
       if (!user) {
         throw new Error("User not found");
       }
-      cookies().set("paid", "true", {
-        path: "/",
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-      });
+      setSecureCookie("paid", "true", 4 * 24 * 60 * 60);
       return {
         success: true,
         paymentImageLink: user.paymentImageLink,
@@ -64,6 +63,63 @@ export const uploadImage = actionClient
         success: false,
         error:
           "Error uploading image or updating user. Please try again later.",
+      };
+    }
+  });
+export const uploadImageUserDeposit = actionClient
+  .schema(imageUrlSchema)
+  .action(async ({ parsedInput: { file } }) => {
+    try {
+      // Upload file to Cloudinary using the file path
+      const result: AxiosResponse = await axios.post(
+        `${process.env.CONNECTION_CLOUDINARY_API}`,
+        file
+      );
+      // Extract secure URL from Cloudinary response
+
+      return { success: true, url: result.data.secure_url };
+    } catch (error) {
+      return {
+        success: false,
+        error:
+          "Error uploading image or updating user. Please try again later.",
+      };
+    }
+  });
+export const updateDepositHistory = actionClient
+  .schema(history)
+  .action(async ({ parsedInput: { amount, url } }) => {
+    const email = await getSecureCookie("userEmail");
+
+    if (!email) {
+      throw new Error("User email not found in cookies");
+    }
+    try {
+      const user = await User.findOne({ email });
+      if (!user) throw new Error("Cannot find user");
+      user.depositHistory.push({
+        amount,
+        screenshotLink: url,
+        date: new Date(),
+        id: crypto.randomUUID(),
+        paymentMeans: "mobile deposit",
+        status: "pending",
+      });
+      user.notifications.push({
+        dateAdded: new Date(),
+        id: crypto.randomUUID(),
+        message: `Your deposit of $${amount.toLocaleString()} is under review. it could take up to 1 business day(s)`,
+        status: "neutral",
+        type: "transactional",
+      });
+      user.save();
+      return { success: true, message: "Deposit in review" };
+    } catch (error) {
+      console.error("Error creating history", error);
+
+      return {
+        success: false,
+        error: "Error creating history",
       };
     }
   });

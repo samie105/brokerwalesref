@@ -22,17 +22,7 @@ import { useAction } from "next-safe-action/hooks";
 import { uploadImage } from "@/server/actions/paymentUpload";
 import { useRouter } from "next/navigation";
 
-type PaymentMethod = {
-  name: string;
-  src: string;
-  address: string;
-}[];
-
-type Props = {
-  selectedMethod: PaymentMethod | null;
-};
-
-const paymentMethods: PaymentMethod = [
+const paymentMethods = [
   {
     name: "bitcoin",
     src: "/assets/mbp/bitcoin.webp",
@@ -172,7 +162,7 @@ export default function PaymentSection() {
               Select your payment method
             </CardDescription>
           </div>
-          <div className="bg-gray-100 text-gray-600 font-medium font-sans p-2 rounded-full">
+          <div className="bg-neutral-100 text-neutral-600 font-semibold font- p-2 rounded-full">
             <p>$50</p>
           </div>
         </CardHeader>
@@ -181,7 +171,7 @@ export default function PaymentSection() {
             {paymentMethods.slice(0, 4).map((method) => (
               <Button
                 key={method.name}
-                className="border py-5"
+                className=" h-14 font-semibold"
                 style={
                   selectedPaymentMethod === method.name
                     ? { backgroundColor: colors.defaultblue }
@@ -208,7 +198,7 @@ export default function PaymentSection() {
             {paymentMethods.slice(4).map((method) => (
               <Button
                 key={method.name}
-                className="border py-5"
+                className="h-14 font-semibold "
                 style={
                   selectedPaymentMethod === method.name
                     ? { backgroundColor: colors.defaultblue }

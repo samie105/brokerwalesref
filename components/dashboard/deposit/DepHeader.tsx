@@ -13,7 +13,7 @@ export default function DepHeader() {
   const data = deets!.data;
 
   return (
-    <div className="grid md:grid-cols-3 grid-cols-1">
+    <div className="grid md:grid-cols-3 grid-cols-1 gap-y-2 md:gap-y-0">
       {" "}
       <div className="md:bg-white py-4 px-2 rounded-sm bor/der b/order-neutral-500/10">
         <div className="Fixed-type text-xs gap-x-1 bg-neutral-500/5 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold text-neutral-500">
@@ -44,10 +44,10 @@ export default function DepHeader() {
           Available Balance
         </p>
       </div>
-      <div className="md:bg-white bg-neutral-50/70 py-4 px-2 rounded-sm border border-neutral-500/10">
+      <div className="md:bg-white bg-neutral-50/70 py-4 px-2 rounde border-l border-r border-neutral-500/10">
         <div className="flex justify-between items-center">
           <div>
-            <div className="Fixed-type text-xs gap-x-1 bg-neutral-500/5 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold text-neutral-500">
+            <div className="Fixed-type text-xs gap-x-1 bg-base-color/5 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold text-base-color/80">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -75,7 +75,7 @@ export default function DepHeader() {
 
           <div className="copy-icon">
             <div
-              className="cont p-3 rounded-full cursor-pointer bg-neutral-500/5 text-neutral-600"
+              className="cont p-3 rounded-full cursor-pointer bg-base-color/5 text-base-color/80"
               onClick={() => {
                 toast.success("Copied");
                 navigator.clipboard.writeText(data.bankRoutingNumber);
@@ -97,10 +97,10 @@ export default function DepHeader() {
           </div>
         </div>
       </div>
-      <div className="md:bg-white bg-neutral-50/70 py-4 px-2 rounded-sm border border-neutral-500/10">
+      <div className="md:bg-white bg-neutral-50/70 py-4 px-2 rounded-s/m border-l border-r md:border-none border-neutral-500/10">
         <div className="flex justify-between items-center">
           <div>
-            <div className="Fixed-type text-xs gap-x-1 bg-neutral-500/5 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold text-neutral-500">
+            <div className="Fixed-type text-xs gap-x-1 bg-base-color/5 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold text-base-color/80">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -128,7 +128,7 @@ export default function DepHeader() {
 
           <div className="copy-icon">
             <div
-              className="cont p-3 rounded-full cursor-pointer bg-neutral-500/5 text-neutral-600"
+              className="cont p-3 rounded-full cursor-pointer bg-base-color/5 text-base-color/80"
               onClick={() => {
                 toast.success("Copied");
                 navigator.clipboard.writeText(data.bankAccountNumber);

@@ -1,5 +1,12 @@
 import React from "react";
+import DepMobileOptions from "./DepMobileOptions";
+import DepositHistory from "./DepositHistory";
 
 export default function Deposits() {
-  return <div>Deposits</div>;
+  return (
+    <div>
+      <DepMobileOptions />
+      <DepositHistory />
+    </div>
+  );
 }
