@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -122,7 +123,9 @@ export function FixedDialog({ text }: { text?: boolean }) {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="add-fixed-action flex md:pr-4 text-sm font-semibold items-center gap-x-2 rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80">
+        <div
+          className={`add-fixed-action flex md:pr-4 text-sm font-semibold items-center lg:gap-x-2 rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -131,14 +134,14 @@ export function FixedDialog({ text }: { text?: boolean }) {
           >
             <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
           </svg>
-          <p className="hidd/en md:block text-sm">{text && "Create Fixed"}</p>
+          <p className="hidd/en  text-sm hidden lg:block">Create Fixed</p>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="w-[95%] rounded-md border-none">
         <DialogHeader>
-          <DialogTitle>Fixed Account Investment</DialogTitle>
-          <DialogDescription className="w-[90%]">
-            Create a new fixed investment plan. Fill in the details below.
+          <DialogTitle className="text-left">Fixed Cycle</DialogTitle>
+          <DialogDescription className="text-left">
+            Create a new fixed cycle. Fill in the details below.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 const IV_LENGTH = 16;
 
 async function getEncryptionKey() {
@@ -98,3 +100,38 @@ export async function unsign(signedValue: string): Promise<string | false> {
   );
   return isValid ? value : false;
 }
+export const getSecureCookie = async (name: string): Promise<string | null> => {
+  try {
+    const signedValue = cookies().get(name)?.value;
+    if (!signedValue) return null;
+
+    const unsignedValue = await unsign(signedValue); // Await unsign
+    if (!unsignedValue) return null; // Invalid signature
+
+    return await decrypt(unsignedValue); // Await decryption
+  } catch (error) {
+    console.error(`Error getting cookie ${name}:`, error);
+    return null;
+  }
+};
+
+const cookieOptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "strict" as const,
+  path: "/",
+};
+
+// Async function to set a secure cookie (await for encryption and signing)
+export const setSecureCookie = async (
+  name: string,
+  value: string,
+  maxAge?: number
+) => {
+  const encryptedValue = await encrypt(value); // Await encryption
+  const signedValue = await sign(encryptedValue); // Await signing
+  cookies().set(name, signedValue, {
+    ...cookieOptions,
+    maxAge: maxAge || 10 * 60, // Default expiration 10 minutes
+  });
+};

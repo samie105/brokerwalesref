@@ -64,7 +64,7 @@ export default function Fixed() {
         </div>
         <div className="icons flex gap-x-2">
           {" "}
-          <FixedDialog text={true} />
+          <FixedDialog text={false} />
           <Link
             href={"/dashboard/fixed"}
             className="fixed-history-action rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80"
