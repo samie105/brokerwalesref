@@ -68,7 +68,7 @@ export default function DepositHistory() {
   return (
     <Card className="w-full px-0 border-none shadow-none">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold text-neutral-600">
+        <CardTitle className="text-lg pt-4 pb-2 font-semibold text-neutral-600">
           Deposit History
         </CardTitle>
       </CardHeader>
@@ -95,7 +95,7 @@ export default function DepositHistory() {
             <TableHeader>
               <TableRow>
                 <TableHead className={inter.className}>Amount</TableHead>
-                <TableHead>Payment Method</TableHead>
+                <TableHead className="text-nowrap">Payment Method</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Date</TableHead>
               </TableRow>
@@ -110,7 +110,7 @@ export default function DepositHistory() {
                       maximumFractionDigits: 2,
                     })}
                   </TableCell>
-                  <TableCell className="capitalize">
+                  <TableCell className="capitalize text-nowrap">
                     {deposit.paymentMeans}
                   </TableCell>
                   <TableCell>
@@ -121,7 +121,7 @@ export default function DepositHistory() {
                       {deposit.status}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right text-nowrap">
                     {formatDate(deposit.date)}
                   </TableCell>
                 </TableRow>
