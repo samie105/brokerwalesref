@@ -1,7 +1,6 @@
 import React from "react";
 import Deposits from "@/components/dashboard/deposit/Deposit";
 import DepHeader from "@/components/dashboard/deposit/DepHeader";
-export const dynamic = "force-dynamic";
 
 export default function Page() {
   return (

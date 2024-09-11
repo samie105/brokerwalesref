@@ -16,26 +16,10 @@ import {
 } from "@tanstack/react-query";
 import { fetchDetails } from "@/server/actions/createUser";
 import Image from "next/image";
-import { decrypt, unsign } from "@/lib/encription"; // You need to implement async encryption functions
 
 export default async function Navbar() {
   await dbConnect();
-  const getSecureCookie = async (name: string): Promise<string | null> => {
-    try {
-      const signedValue = cookies().get(name)?.value;
-      if (!signedValue) return null;
-
-      const unsignedValue = await unsign(signedValue); // Await unsign
-      if (!unsignedValue) return null; // Invalid signature
-
-      return await decrypt(unsignedValue); // Await decryption
-    } catch (error) {
-      console.error(`Error getting cookie ${name}:`, error);
-      return null;
-    }
-  };
-
-  const email = await getSecureCookie("userEmail");
+  const email = cookies().get("userEmail")?.value;
   const rawData = await User.findOne({ email });
   const data: IUser | null = JSON.parse(JSON.stringify(rawData));
 

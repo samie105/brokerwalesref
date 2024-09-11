@@ -1,30 +1,12 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { decrypt, unsign } from "@/lib/encription"; // Ensure this path is correct
 
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Helper function to retrieve and decrypt signed cookies
-  async function getSecureCookie(
-    request: NextRequest,
-    name: string
-  ): Promise<string | null> {
-    const signedValue = request.cookies.get(name)?.value;
-    if (!signedValue) return null;
-
-    const unsignedValue = await unsign(signedValue); // Await the async unsign function
-    if (!unsignedValue) return null; // Cookie signature is invalid
-
-    return await decrypt(unsignedValue); // Await the async decrypt function
-  }
-
-  // Await the cookie retrievals concurrently using Promise.all for better performance
-  const [verified, email, paid] = await Promise.all([
-    getSecureCookie(request, "verified"),
-    getSecureCookie(request, "userEmail"),
-    getSecureCookie(request, "paid"),
-  ]);
+  const verified = request.cookies.get("verified")?.value;
+  const email = request.cookies.get("userEmail")?.value;
+  const paid = request.cookies.get("paid")?.value;
 
   // Redirect logic
   if (pathname === "/auth") {

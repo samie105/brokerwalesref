@@ -5,7 +5,6 @@ import { z } from "zod";
 import dbConnect from "..";
 import User from "../userSchema";
 import { revalidatePath } from "next/cache";
-import { getSecureCookie } from "@/lib/encription";
 
 const updateFixedHistorySchema = z.object({
   id: z.any(),
@@ -22,7 +21,7 @@ export const updateFixedHistory = actionClient
   .schema(updateFixedHistorySchema)
   .action(async ({ parsedInput }) => {
     await dbConnect();
-    const email = await getSecureCookie("userEmail");
+    const email = cookies().get("userEmail")?.value;
     const user = await User.findOne({ email });
     try {
       if (user) {

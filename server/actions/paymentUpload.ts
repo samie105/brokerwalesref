@@ -6,15 +6,10 @@ import { actionClient } from "@/lib/safeActionClient";
 import { v2 as cloudinary } from "cloudinary";
 import { cookies } from "next/headers";
 import axios, { AxiosResponse } from "axios";
-import { getSecureCookie, setSecureCookie } from "@/lib/encription";
 
 // Define the schema for the image URL
 const imageUrlSchema = z.object({
   file: z.any(), // Ensure file is a non-empty string representing the file path
-});
-const history = z.object({
-  url: z.string(),
-  amount: z.number(),
 });
 
 cloudinary.config({
@@ -36,11 +31,12 @@ export const uploadImage = actionClient
       );
       // Extract secure URL from Cloudinary response
       const secureUrl = result.data.secure_url;
-      const email = getSecureCookie("userEmail");
+      const email = cookies().get("userEmail")?.value;
 
       if (!email) {
         throw new Error("User email not found in cookies");
       }
+      console.log(result.data.secure_url);
       // Update user's paymentImageLink in the database
       const user = await User.findOneAndUpdate(
         { email },
@@ -51,7 +47,12 @@ export const uploadImage = actionClient
       if (!user) {
         throw new Error("User not found");
       }
-      setSecureCookie("paid", "true", 4 * 24 * 60 * 60);
+      cookies().set("paid", "true", {
+        path: "/",
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+      });
       return {
         success: true,
         paymentImageLink: user.paymentImageLink,
@@ -89,7 +90,7 @@ export const uploadImageUserDeposit = actionClient
 export const updateDepositHistory = actionClient
   .schema(history)
   .action(async ({ parsedInput: { amount, url } }) => {
-    const email = await getSecureCookie("userEmail");
+    const email = cookies().get("userEmail")?.value;
 
     if (!email) {
       throw new Error("User email not found in cookies");

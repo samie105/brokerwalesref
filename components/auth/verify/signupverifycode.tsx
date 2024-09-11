@@ -37,7 +37,7 @@ export default function SignupVerifyOTP({
   email,
   type,
 }: {
-  email: string | null;
+  email: string | undefined;
   type: string;
 }) {
   const router = useRouter();
