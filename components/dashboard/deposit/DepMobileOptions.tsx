@@ -231,8 +231,8 @@ export default function DepMobileOptions() {
                 key={method.name}
                 className={`font-semibold text-sm md:text-base disabled:opacity-25 md:py-5 py-4 px-3 cursor-pointer flex items-center  text-right rounded-sm ${
                   method.name === selectedPaymentMethod
-                    ? "bg-base-color/5 text-base-olor border border-base-color/10"
-                    : "bg-neutral-500/5 text-neutral-700 hover:bg-neutral-500/10"
+                    ? "bg-neutral-50 border border-neutral-500/10"
+                    : "bg-neutral-50 text-neutral-700 hover:bg-neutral-500/10"
                 }`}
                 onClick={() => setSelectedPaymentMethod(method.name)}
               >
@@ -274,9 +274,9 @@ export default function DepMobileOptions() {
                     >
                       Deposit amount ($)
                     </label>
-                    <div className="bg-neutral-100 mt-1 text-sm rounded-md flex items-center justify-between p-2">
+                    <div className="bg-neutral-50 mt-1 text-sm rounded-md flex items-center justify-between p-2">
                       <Input
-                        className="w-full focus-within:outline-none focus:outline-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-neutral-100 ring-0 focus-within:ring-0 focus:ring-0"
+                        className="w-full focus-within:outline-none focus:outline-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-neutral-50 ring-0 focus-within:ring-0 focus:ring-0"
                         value={amount}
                         type="number"
                         placeholder="Deposit amount"
@@ -293,9 +293,9 @@ export default function DepMobileOptions() {
                         selectedMethod.name.slice(1)}{" "}
                       ID
                     </label>
-                    <div className="bg-neutral-100 mt-1 text-sm rounded-md flex items-center justify-between p-4">
+                    <div className="bg-neutral-50 mt-1 text-sm rounded-md flex items-center justify-between py-2 px-2">
                       <Input
-                        className="w-5/6 focus-within:outline-none focus:outline-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-neutral-100 ring-0 focus-within:ring-0 focus:ring-0"
+                        className="w-5/6 focus-within:outline-none focus:outline-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-neutral-50 ring-0 focus-within:ring-0 focus:ring-0"
                         value={selectedMethod.address}
                         readOnly
                       />
@@ -317,7 +317,7 @@ export default function DepMobileOptions() {
                     </div>
                   </div>
                   <div className="payment-checker">
-                    <div className="notes text-xs bg-neutral-100 text-neutral-600 font-medium/ rounded-md p-2">
+                    <div className="notes text-xs bg-neutral-100 text-neutral-600 font-medium/ rounded-md p-3">
                       Copy the payment id and make the transaction. When done,
                       click on the button below to proceed. Be sure to have made
                       the transaction before proceeding as the payment id is

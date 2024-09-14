@@ -35,13 +35,12 @@ export default function DepHeader() {
           className={`Fixed-balance text-3xl mt-2  pl-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
         >
           <span className="text-sm">$</span>
-          {data.fixedBalance.toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
+          {data.depositHistory
+            .filter((deposit) => deposit.status === "success")
+            .reduce((acc, deposit) => acc + deposit.amount, 0)}
         </div>{" "}
         <p className="text-neutral-400 text-xs mt-1 font-medium pl-2 ">
-          Available Balance
+          Total succesful deposit
         </p>
       </div>
       <div className="md:bg-white bg-neutral-50/70 py-4 px-2 rounde border-l border-r border-neutral-500/10">

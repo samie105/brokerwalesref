@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useMemo } from "react";
 import { useFetchInfo } from "@/lib/data/fetchPost";
 import { Inter } from "next/font/google";
@@ -10,20 +11,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { format, parseISO } from "date-fns";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
+type DepositStatus = "all" | "success" | "failed" | "pending";
+
 export default function DepositHistory() {
   const { data: deets } = useFetchInfo();
   const data = deets?.data;
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState<DepositStatus>("all");
 
   const sortedAndFilteredHistory = useMemo(() => {
     const history = data?.depositHistory || [];
@@ -31,33 +35,35 @@ export default function DepositHistory() {
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .filter((deposit) => {
         const searchLower = searchTerm.toLowerCase();
-        return (
+        const matchesSearch =
           deposit.amount.toString().includes(searchLower) ||
           deposit.paymentMeans.toLowerCase().includes(searchLower) ||
-          deposit.status.toLowerCase().includes(searchLower)
-        );
+          deposit.status.toLowerCase().includes(searchLower);
+        const matchesTab = activeTab === "all" || deposit.status === activeTab;
+        return matchesSearch && matchesTab;
       });
-  }, [data?.depositHistory, searchTerm]);
+  }, [data?.depositHistory, searchTerm, activeTab]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "success":
-        return "bg-green-100 text-green-800";
+        return "bg-green-500 text-white";
       case "failed":
-        return "bg-red-100 text-red-800";
+        return "bg-red-500 text-white";
       case "pending":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-500 text-white";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-neutral-200 text-neutral-800";
     }
   };
+
   const formatDate = (date: string | Date | null | undefined) => {
     if (!date) {
-      return ""; // or some other default value
+      return "";
     }
     const parsedDate = new Date(date);
     if (isNaN(parsedDate.getTime())) {
-      return ""; // or some other default value
+      return "";
     }
     return parsedDate.toLocaleDateString("en-US", {
       day: "numeric",
@@ -65,26 +71,49 @@ export default function DepositHistory() {
       year: "numeric",
     });
   };
+
   return (
     <Card className="w-full px-0 border-none shadow-none">
-      <CardHeader>
-        <CardTitle className="text-lg pt-4 pb-2 font-semibold text-neutral-600">
+      <div>
+        <div className="text-lg px-6 pt-4 pb-2 font-semibold text-neutral-600">
           Deposit History
-        </CardTitle>
-      </CardHeader>
+        </div>
+      </div>
       <CardContent className="px-3">
-        <div className="mb-4">
-          <Input
-            type="text"
-            placeholder="Search deposits..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="max-w-sm"
-          />
+        <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <Tabs
+            value={activeTab}
+            onValueChange={(value) => setActiveTab(value as DepositStatus)}
+            className="w-full sm:w-auto"
+          >
+            <TabsList className="w-full sm:w-auto bg-neutral-50">
+              <TabsTrigger value="all" className="flex-1 sm:flex-none">
+                All
+              </TabsTrigger>
+              <TabsTrigger value="success" className="flex-1 sm:flex-none">
+                Success
+              </TabsTrigger>
+              <TabsTrigger value="pending" className="flex-1 sm:flex-none">
+                Pending
+              </TabsTrigger>
+              <TabsTrigger value="failed" className="flex-1 sm:flex-none">
+                Failed
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>{" "}
+          <div className="w-full sm:w-auto">
+            <Input
+              type="text"
+              placeholder="Search deposits..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full sm:w-64 bg-neutral-50 border border-neutral-500/20"
+            />
+          </div>
         </div>
         {sortedAndFilteredHistory.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-gray-500 text-lg">
+            <p className="text-gray-500 text-sm">
               {searchTerm
                 ? "No matching deposits found."
                 : "No deposit history available."}
@@ -116,7 +145,9 @@ export default function DepositHistory() {
                   <TableCell>
                     <Badge
                       variant="secondary"
-                      className={`${getStatusColor(deposit.status)}`}
+                      className={`${getStatusColor(
+                        deposit.status
+                      )} capitalize p-1 px-2`}
                     >
                       {deposit.status}
                     </Badge>

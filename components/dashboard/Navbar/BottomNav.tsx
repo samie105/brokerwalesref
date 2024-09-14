@@ -66,7 +66,7 @@ export default function BottomNav() {
     {
       id: 4,
       name: "Transfer",
-      path: "/dashboard/transfer",
+      path: "/dashboard/transfers",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"

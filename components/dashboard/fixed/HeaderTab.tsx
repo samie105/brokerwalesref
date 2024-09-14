@@ -11,7 +11,6 @@ const inter = Inter({
 export default function HeaderTab() {
   const { data: deets } = useFetchInfo();
   const data = deets!.data;
-  const fixedHistory = data.fixedHistory;
 
   return (
     <div>
