@@ -119,8 +119,8 @@ export default function Settings() {
     <div className="md:container mx-auto p-2 md:p-4">
       <h1 className="text-lg font-semibold mb-2 md:hidden">Account Settings</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-1 gap-2">
-        <div className="grid md:grid-cols-3 grid-cols-1 gap-2">
+      <div className="grid grid-cols-1 ">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-2">
           <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
             <div className="p-4">
               <div className="text-base text-neutral-700 font-semibold py-1">
@@ -208,10 +208,10 @@ export default function Settings() {
           <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
             <div className="p-4">
               <div className="text-base text-neutral-700 font-semibold py-1">
-                Security
+                Transaction
               </div>
               <div className="mt- text-sm text-neutral-500 font-medium">
-                Manage your personal info
+                Manage your transaction pin
               </div>
             </div>
             <CardContent className="p-4">
@@ -247,17 +247,160 @@ export default function Settings() {
               </div>
             </CardContent>{" "}
           </Card>
+          <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+            <div className="p-4">
+              <div className="text-base text-neutral-700 font-semibold py-1">
+                Social Security
+              </div>
+              <div className="mt- text-sm text-neutral-500 font-medium">
+                View your social security number
+              </div>
+            </div>
+            <CardContent className="p-4">
+              <div className="grid grid-cols-1 gap-4">
+                <div className="relative">
+                  <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 rounded-sm ">
+                    <div className="name_pin">
+                      <div className="name text-xs font-medium text-neutral-500">
+                        SSN
+                      </div>
+                      <div
+                        className={`${inter.className} transition-all ${
+                          showTransactionPin ? "blur-md" : ""
+                        } text-neutral-700 mt-1 font-bold text-lg`}
+                      >
+                        {data.ssn}
+                      </div>
+                    </div>
+                    <div className="ctrls flex items-center gap-x-1">
+                      {" "}
+                      <ToggleVisibility
+                        show={showTransactionPin}
+                        onToggle={() =>
+                          setShowTransactionPin(!showTransactionPin)
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+                {/* <Button className="w-full font-semibold bg-base-color/70 text-white rounded-sm">
+                  Change pin
+                </Button> */}
+              </div>
+            </CardContent>{" "}
+          </Card>
+          <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+            <div className="p-4">
+              <div className="text-base text-neutral-700 font-semibold py-1">
+                Account Limit
+              </div>
+              <div className="mt- text-sm text-neutral-500 font-medium">
+                Manage your account limits
+              </div>
+            </div>
+            <CardContent className="p-4">
+              <div className="grid grid-cols-1 gap-4">
+                <div className="relative">
+                  <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 rounded-sm ">
+                    <div className="name_pin">
+                      <div className="name text-xs font-medium text-neutral-500">
+                        Account Limit
+                      </div>
+                      <div
+                        className={`limit text-neutral-700 font-bold text-lg `}
+                      >
+                        <span className="text-xs font-semibold ">$</span>
+                        <span className={`${inter.className}`}>
+                          {data.accountLimit.toLocaleString("en-US", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <Button className="w-full font-semibold bg-base-color/70 text-white rounded-sm">
+                  Increase Limit
+                </Button>
+              </div>
+            </CardContent>{" "}
+          </Card>
+          <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+            <div className="p-4">
+              <div className="text-base text-neutral-700 font-semibold py-1">
+                Account Verification
+              </div>
+              <div className="mt- text-sm text-neutral-500 font-medium">
+                Manage your account verification
+              </div>
+            </div>
+            <CardContent className="p-4">
+              <div className="grid grid-cols-1 gap-4">
+                <div className="relative">
+                  <div className="account-section transition-all  cursor-pointer bg-neutral-100 p-2 rounded-md flex /pl-1 items-center space-x-2/ justify-between">
+                    <div className="flex space-x-1">
+                      <Avatar>
+                        {<AvatarImage src="https://github.com/shadcn.png" />}
+                        <AvatarFallback className="font-bold text-sm border border-base-color/30 text-base-color/80 bg-base-color/5">
+                          {data.firstName.charAt(0).toUpperCase()}
+                          {data.lastName.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="pl-1">
+                        {" "}
+                        <div className="name  text-sm text-neutral-500 font-semibold">
+                          {data.firstName} {data.lastName}
+                        </div>
+                        <div className="account-type mt-0.5 text-xs font-medium text-neutral-400">
+                          Not Verified
+                        </div>
+                      </div>
+                    </div>
+                    <div className="veification-status pl-3 font-medium text-sm">
+                      <div
+                        className={`badge bg-red-500/10 border border-red-50 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500 flex items-center space-x-1`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-4"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <Button
+                  disabled={false}
+                  className="w-full disabled:bg-neutral-400 font-semibold bg-base-color/70 text-white rounded-sm"
+                >
+                  Verify account
+                </Button>
+              </div>
+            </CardContent>{" "}
+          </Card>
         </div>
 
         <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
           <div className="p-4">
-            <div className="text-base text-neutral-700 font-semibold py-1">
-              Personal Information
-            </div>
-            <div className="grid grid-cols-2">
-              <div className="mt- text-sm text-neutral-500 font-medium text-balance">
-                These are your account information with us, which are securely
-                stored and protected from unauthorized access.
+            <div className="grid md:grid-cols-2 grid-cols-1">
+              {" "}
+              <div>
+                {" "}
+                <div className="text-base text-neutral-700 font-semibold py-1">
+                  Personal Information
+                </div>
+                <div className="mt- text-sm text-neutral-500 font-medium md:text-balance">
+                  These are your account information with us, which are securely
+                  stored and protected from unauthorized access.
+                </div>
               </div>
             </div>
           </div>
