@@ -42,6 +42,6 @@ export const readNotifications = async () => {
   if (user) {
     user.readNotification = true;
     user.save();
-    revalidatePath("/");
+    revalidatePath("/dashboard");
   }
 };

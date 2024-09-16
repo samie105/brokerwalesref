@@ -20,10 +20,12 @@ type FixedType = {
 
 type Transfers = {
   id: any;
+  recipientName: string;
   amount: number;
   date: Date;
   receipientAccountNumber: number;
-  status: "completed" | "running";
+  receipientRoutingNumber: number;
+  status: "success" | "failed" | "pending";
   receipientBankName: string;
 };
 type Deposits = {

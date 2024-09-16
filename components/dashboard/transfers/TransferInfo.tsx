@@ -36,8 +36,43 @@ export default function TransferInfo() {
     </Button>
   );
   return (
-    <div className="grid md:grid-cols-2 mt-5 gap-x-2 grid-cols-1">
+    <div className="grid md:grid-cols-3 mt-5 gap-x-2 grid-cols-1">
       {" "}
+      <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+        <div className="p-4">
+          <div className="text-base text-neutral-700 font-semibold py-1">
+            Account Balance
+          </div>
+          <div className="mt- text-sm text-neutral-500 font-medium">
+            {"This is your total tranferable balance "}
+          </div>
+        </div>
+        <CardContent className="p-4">
+          <div className="grid grid-cols-1 gap-4">
+            <div className="relative">
+              <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 rounded-sm ">
+                <div className="name_pin">
+                  <div className="name text-xs font-medium text-neutral-500">
+                    Account Balance
+                  </div>
+                  <div className={`limit text-neutral-700 font-bold text-lg `}>
+                    <span className="text-xs font-semibold ">$</span>
+                    <span className={`${inter.className}`}>
+                      {data.accountBalance.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* <Button className="w-full font-semibold bg-base-color/70 text-white rounded-sm">
+              Increase Limit
+            </Button> */}
+          </div>
+        </CardContent>{" "}
+      </Card>
       <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
         <div className="p-4">
           <div className="text-base text-neutral-700 font-semibold py-1">
@@ -58,7 +93,7 @@ export default function TransferInfo() {
                   <div
                     className={`${inter.className} transition-all ${
                       showTransactionPin ? "blur-md" : ""
-                    } text-neutral-700 mt-1 font-bold text-xl`}
+                    } text-neutral-700 mt-1 font-bold text-lg`}
                   >
                     7463
                   </div>
