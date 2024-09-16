@@ -84,7 +84,7 @@ export default function TransferInfo() {
             Account Limit
           </div>
           <div className="mt- text-sm text-neutral-500 font-medium">
-            You can't transfer above this amount
+            {"You can't transfer above this amount"}
           </div>
         </div>
         <CardContent className="p-4">
