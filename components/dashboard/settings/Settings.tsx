@@ -227,7 +227,7 @@ export default function Settings() {
                           showTransactionPin ? "blur-md" : ""
                         } text-neutral-700 mt-1 font-bold text-xl`}
                       >
-                        7463
+                        {data.transactionPin}
                       </div>
                     </div>
                     <div className="ctrls flex items-center gap-x-1">

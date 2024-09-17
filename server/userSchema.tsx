@@ -34,6 +34,8 @@ export interface IUser extends Document {
   accountType: "savings" | "checking";
   depositHistory: Deposits[];
   transferHistory: Transfers[];
+  transactionPin: number;
+  profilePictureLink: string;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -62,6 +64,8 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   fixedHistory: [Object],
   depositHistory: [Object],
   transferHistory: [Object],
+  transactionPin: { type: Number },
+  profilePictureLink: { type: String },
 });
 
 const User: Model<IUser> =

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Inter } from "next/font/google";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
@@ -8,11 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Loader2 } from "lucide-react";
+import { Loader2, Clock } from "lucide-react";
 import LottieLoader from "./LottieLoader";
 import { useAction } from "next-safe-action/hooks";
 import { updateTransferHistory } from "@/server/dashboard/transferAction";
 import { toast } from "sonner";
+import { useFetchInfo } from "@/lib/data/fetchPost";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,14 +29,20 @@ type TransferFormData = {
   amount: string;
 };
 
-const correctTransactionPin = "1234"; // Set the correct transaction PIN here
-
 export default function TransferHeaders() {
-  const defaultAmount = 1000; // Set your default amount here
   let toastId: any;
+  const { data: deets } = useFetchInfo();
+  const data = deets!.data;
+  const correctTransactionPin = data.transactionPin; // Set the correct
+  const defaultAmount = data.accountBalance; // Set your default amount here
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [dialogPage, setDialogPage] = useState<"form" | "pending">("form");
+  const [dialogPage, setDialogPage] = useState<
+    "form" | "processing" | "pending"
+  >("form");
+  const [transferDetails, setTransferDetails] =
+    useState<TransferFormData | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -43,6 +50,7 @@ export default function TransferHeaders() {
     setError,
     clearErrors,
   } = useForm<TransferFormData>();
+
   const { execute, status } = useAction(updateTransferHistory, {
     onError(error) {
       if (error.error.fetchError)
@@ -59,8 +67,23 @@ export default function TransferHeaders() {
         });
 
       toast.dismiss(toastId);
+      setDialogPage("form");
+    },
+    onSuccess() {
+      setDialogPage("processing");
     },
   });
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (dialogPage === "processing") {
+      timer = setTimeout(() => {
+        setDialogPage("pending");
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [dialogPage]);
+
   const onSubmit: SubmitHandler<TransferFormData> = (data) => {
     const amount = parseFloat(data.amount);
     if (amount > defaultAmount) {
@@ -72,7 +95,7 @@ export default function TransferHeaders() {
     }
     clearErrors("amount");
 
-    if (data.transactionPin !== correctTransactionPin) {
+    if (parseInt(data.transactionPin) !== correctTransactionPin) {
       setError("transactionPin", {
         type: "manual",
         message: "Incorrect transaction PIN.",
@@ -89,15 +112,16 @@ export default function TransferHeaders() {
       receipientRoutingNumber: parseInt(data.recipientRoutingNumber),
       status: "pending",
       receipientBankName: data.bankName,
-      recipientName: data.recipientName, // Note: changed from receipientName to recipientName
+      recipientName: data.recipientName,
     };
+    setTransferDetails(data);
     execute(transfer);
-    setDialogPage("pending");
   };
 
   const closeDialog = () => {
     setIsDialogOpen(false);
     setDialogPage("form");
+    setTransferDetails(null);
   };
 
   return (
@@ -141,8 +165,8 @@ export default function TransferHeaders() {
               </svg>
             </div>
           </DialogTrigger>{" "}
-          <DialogContent className="w-[95%] ">
-            {dialogPage === "form" ? (
+          <DialogContent className="w-[95%] sm:max-w-[425px]">
+            {dialogPage === "form" && (
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                 <div>
                   <Label htmlFor="amount">Amount</Label>
@@ -166,7 +190,6 @@ export default function TransferHeaders() {
                   )}
                 </div>
                 <div className="separator w-20 h-0.5 my-2 bg-black/10 mx-auto"></div>
-
                 <div>
                   <Label htmlFor="bankName">Bank Name</Label>
                   <Input
@@ -206,13 +229,13 @@ export default function TransferHeaders() {
                   <Input
                     id="recipientAccountNumber"
                     type="text"
-                    placeholder="Enter 9-digit account number"
+                    placeholder="Enter 10-digit account number"
                     className={`${inter.className} bg-neutral-50 border-neutral-500/10`}
                     {...register("recipientAccountNumber", {
                       required: "Account number is required",
                       pattern: {
-                        value: /^[0-9]{9}$/,
-                        message: "Account number must be exactly 9 digits",
+                        value: /^[0-9]{10}$/,
+                        message: "Account number must be exactly 10 digits",
                       },
                     })}
                   />
@@ -246,7 +269,6 @@ export default function TransferHeaders() {
                   )}
                 </div>
                 <div className="separator w-20 h-0.5 my-2 bg-black/10 mx-auto"></div>
-
                 <div>
                   <Label htmlFor="transactionPin">Transaction PIN</Label>
                   <Input
@@ -276,7 +298,8 @@ export default function TransferHeaders() {
                   Initiate Transfer
                 </Button>
               </form>
-            ) : (
+            )}
+            {dialogPage === "processing" && (
               <div className="flex flex-col items-center justify-center space-y-4">
                 <LottieLoader />
                 <h2 className="text-xl font-semibold">
@@ -285,19 +308,66 @@ export default function TransferHeaders() {
                 <p className="text-center text-balance text-sm text-neutral-500 font-medium">
                   Your transfer is being processed. Please wait while we verify
                   the information you provided. If everything is accurate, the
-                  transaction will be completed successfully.{" "}
+                  transaction will be completed successfully.
                 </p>
+              </div>
+            )}
+            {dialogPage === "pending" && transferDetails && (
+              <div className="flex flex-col items-center justify-center space-y-4">
+                <Clock className="w-16 h-16 text-yellow-500" />
+                <h2 className="text-xl font-semibold">Transaction Pending</h2>
+                <p className="text-center text-balance text-sm text-neutral-500 font-medium">
+                  Your transfer is pending and will be processed within 1-3
+                  business days.
+                </p>
+                <div className="w-full space-y-2 text-sm rounded-md bg-neutral-50 p-2">
+                  <p className="bg-neutral-50 rounded-md p-3  font-medium">
+                    <span className="font-semibold text-neutral-700">
+                      Amount:
+                    </span>{" "}
+                    <span className={`${inter.className} text-neutral-500`}>
+                      ${transferDetails.amount}
+                    </span>
+                  </p>
+                  <p className="bg-neutral-50 rounded-md p-3  font-medium">
+                    <span className="font-semibold text-neutral-700">
+                      Recipient Routing Number:
+                    </span>{" "}
+                    <span className={`${inter.className} text-neutral-500`}>
+                      {transferDetails.recipientRoutingNumber}
+                    </span>
+                  </p>
+                  <p className="bg-neutral-50 rounded-md p-3  font-medium">
+                    <span className="font-semibold text-neutral-700">
+                      Recipient Account Number:
+                    </span>{" "}
+                    <span className={`${inter.className} text-neutral-500`}>
+                      ${transferDetails.recipientAccountNumber}
+                    </span>
+                  </p>
+                  <p className="bg-neutral-50 rounded-md p-3 font-medium">
+                    <span className="font-semibold text-neutral-700">
+                      Recipient Bank:
+                    </span>{" "}
+                    <span className="">{transferDetails.bankName}</span>
+                  </p>
+                  <p className="bg-neutral-50 rounded-md p-3 font-medium">
+                    <span className="font-semibold text-neutral-700">
+                      Recipient Name:
+                    </span>{" "}
+                    {transferDetails.recipientName}
+                  </p>
+                </div>
                 <Button
                   onClick={closeDialog}
                   className="mt-4 bg-base-color/5 hover:bg-base-color/5 text-base-color/80 rounded-sm font-bold"
                 >
-                  Close
+                  Acknowledged
                 </Button>
               </div>
             )}
           </DialogContent>
         </Dialog>
-        <div></div>
       </div>
     </div>
   );

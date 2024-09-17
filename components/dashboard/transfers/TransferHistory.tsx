@@ -22,13 +22,16 @@ export default function TransferHistory() {
   const { data: deets } = useFetchInfo();
   const data = deets!.data;
   const transfers = data.transferHistory;
+  const sortedTransfer = transfers.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
   const [activeTab, setActiveTab] = useState<
     "all" | "success" | "failed" | "pending"
   >("all");
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredTransfers = useMemo(() => {
-    return transfers.filter(
+    return sortedTransfer.filter(
       (transfer) =>
         (activeTab === "all" || transfer.status === activeTab) &&
         (transfer.receipientBankName

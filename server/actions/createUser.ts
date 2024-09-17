@@ -77,6 +77,8 @@ const deets = {
   accountLimit: 5000,
   fixedHistory: [],
   isPaidOpeningDeposit: false,
+  transactionPin: 1234,
+  profilePictureLink: "profile link",
 };
 
 // Action to create a new user
