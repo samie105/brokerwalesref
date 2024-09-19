@@ -86,7 +86,7 @@ export const changeTransactionPin = actionClient
       const user = await User.findOne({ email });
       if (!user) throw new Error("Couldn't perform task");
 
-      user.transactionPin === transactionPin;
+      user.transactionPin = transactionPin;
       user.notifications.push({
         dateAdded: new Date(),
         id: crypto.randomUUID(),
@@ -94,7 +94,7 @@ export const changeTransactionPin = actionClient
         status: "success",
         type: "neutral",
       });
-      user.readNotification === false;
+      user.readNotification = false;
       await user.save();
       revalidatePath("/dashboard");
     } catch (error) {
