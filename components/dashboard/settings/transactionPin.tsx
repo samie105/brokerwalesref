@@ -31,7 +31,7 @@ export default function TransactionPin() {
   let toastId: any;
   const data = deets!.data;
 
-  const [showTransactionPin, setShowTransactionPin] = useState(false);
+  const [showTransactionPin, setShowTransactionPin] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newPin, setNewPin] = useState("");
 
@@ -115,8 +115,9 @@ export default function TransactionPin() {
               <DialogHeader>
                 <DialogTitle>Change Transaction PIN</DialogTitle>
                 <DialogDescription>
-                  Enter your new transaction PIN below. Make sure it's secure
-                  and easy to remember.
+                  {
+                    "Enter your new transaction PIN below. Make sure it's secure and easy to remember."
+                  }
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleSubmit}>
