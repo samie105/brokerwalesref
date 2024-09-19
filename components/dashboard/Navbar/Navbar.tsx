@@ -39,7 +39,7 @@ export default async function Navbar() {
                 className="account-section transition-all cursor-pointer hover:bg-[#0013BB09] p-2 rounded-md flex /pl-1 items-center space-x-2"
               >
                 <Avatar>
-                  {<AvatarImage src="https://github.com/shadcn.png" />}
+                  {<AvatarImage src={data.profilePictureLink} />}
                   <AvatarFallback className="font-bold border border-base-color/30 text-sm text-base-color/80 bg-base-color/5">
                     {data.firstName.charAt(0).toUpperCase()}
                     {data.lastName.charAt(0).toUpperCase()}
@@ -120,7 +120,7 @@ export default async function Navbar() {
               <Link href={"/dashboard/settings"} className="md:hidden mr-2">
                 {" "}
                 <Avatar>
-                  {<AvatarImage src="https://github.com/shadcn.png" />}
+                  {<AvatarImage src={data.profilePictureLink} />}
                   <AvatarFallback className="font-bold border border-base-color/30 text-sm text-base-color/80 bg-base-color/5">
                     {data.firstName.charAt(0).toUpperCase()}
                     {data.lastName.charAt(0).toUpperCase()}

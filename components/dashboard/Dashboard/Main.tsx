@@ -124,7 +124,7 @@ export default function Dashboard() {
         >
           <div className="flex items-center space-x-2">
             <Avatar>
-              {<AvatarImage src="https://github.com/shadcn.png" />}
+              {<AvatarImage  src={data.profilePictureLink} />}
               <AvatarFallback className="font-bold bo/rder border-base-color/30 text-sm text-base-color/80 bg/-base-color/5">
                 {data.firstName.charAt(0).toUpperCase()}
                 {data.lastName.charAt(0).toUpperCase()}

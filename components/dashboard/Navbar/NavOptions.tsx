@@ -119,7 +119,7 @@ export default function NavOptions({ data }: { data: IUser }) {
           <div className="account-section transition-all  cursor-pointer hover:bg-[#0013BB02] p-2 rounded-md flex /pl-1 items-center space-x-2/ justify-between">
             <div className="flex space-x-1">
               <Avatar>
-                {<AvatarImage src="https://github.com/shadcn.png" />}
+                {<AvatarImage src={data.profilePictureLink} />}
                 <AvatarFallback className="font-bold text-sm border border-base-color/30 text-base-color/80 bg-base-color/5">
                   {data.firstName.charAt(0).toUpperCase()}
                   {data.lastName.charAt(0).toUpperCase()}
