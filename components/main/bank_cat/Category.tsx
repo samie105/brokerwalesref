@@ -1,10 +1,7 @@
-"use client";
-import { useColors } from "@/context/colorContext";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Category() {
-  const colors = useColors();
   return (
     <section className="w-full py-6 relative px-5 md:px-0">
       {" "}
@@ -30,8 +27,8 @@ export default function Category() {
         <div className="space-y-8">
           <div className="flex flex-col md:flex-row item-center md:justify-between relative  w-full md:gap-10 gap-5 pb-8 /px-14">
             <div className="text-4xl font-semibold z-20 text-neutral-700 ">
-              <span style={{ color: colors.defaultblue + "96" }}>Built</span>{" "}
-              for <br /> Businesses
+              <span className="text-base-color/70">Built</span> for <br />{" "}
+              Businesses
             </div>
             <div className="text-wrap font-medium md:text-base /text-center md:px-5 text-sm text-neutral-500">
               Wilson Bank is designed with the diverse <br /> needs of
@@ -42,8 +39,7 @@ export default function Category() {
               {" "}
               <Link
                 href="#"
-                style={{ background: colors.defaultblue }}
-                className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                className="flex bg-base-color/80 h-12 py-2 items-center justify-center gap-x-2 text-nowrap rounded-full px-8 text-sm /font-medium font-bold text-neutral-50 shadow transition-colors hover:bg-base-color/60 "
               >
                 <p>{"Create an account"}</p>{" "}
                 <svg
@@ -62,7 +58,7 @@ export default function Category() {
             </div>
           </div>
           <div className="grid gap-6 md:grid-cols-3 pb-10 z-30">
-            <div className="rounded-md overflow-hidden /border /border-gray-200 bg-white /p-6 shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
+            <div className="rounded-md overflow-hidden /border /border-gray-200 bg-neutral-50/50">
               <div className="space-y-4">
                 {" "}
                 <Image
@@ -70,7 +66,7 @@ export default function Category() {
                   width={400}
                   height={250}
                   alt="Small Business"
-                  className="rounded-md/ object-cover h-60 overflow-hidden w-full"
+                  className=" object-cover h-60 overflow-hidden w-full"
                 />{" "}
                 <div className="inline-block rounded-md bg-blue-50 mx-6 text-blue-500 font-medium px-3 py-2 text-xs dark:bg-gray-800">
                   <BriefcaseIcon className="w-4 h-4 mr-2 inline-block " />
@@ -87,12 +83,8 @@ export default function Category() {
                 <div className="flex px-6 pb-6">
                   {" "}
                   <Link
-                    href="#"
-                    style={{
-                      background: colors.defaultblue + "10",
-                      color: colors.defaultblue,
-                    }}
-                    className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                    href="/auth/login"
+                    className="flex h-12 text-neutral-600 bg-neutral-100 items-center justify-center gap-x-2 text-nowrap rounded-full px-8 text-sm /font-medium font-bold "
                   >
                     <p>{"Open an account"}</p>{" "}
                     <svg
@@ -111,7 +103,7 @@ export default function Category() {
                 </div>
               </div>
             </div>
-            <div className="rounded-lg overflow-hidden /border /border-gray-200 bg-white /p-6 shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
+            <div className="rounded-md overflow-hidden /border /border-gray-200 bg-neutral-50/50">
               <div className="space-y-4">
                 <Image
                   src={"/assets/bigbusinesses.png"}
@@ -134,11 +126,7 @@ export default function Category() {
                   {" "}
                   <Link
                     href="#"
-                    style={{
-                      background: colors.defaultblue + "10",
-                      color: colors.defaultblue,
-                    }}
-                    className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                    className="flex h-12 text-neutral-600 bg-neutral-100 items-center justify-center gap-x-2 text-nowrap rounded-full px-8 text-sm /font-medium font-bold "
                   >
                     <p>{"Open an account"}</p>{" "}
                     <svg
@@ -157,7 +145,7 @@ export default function Category() {
                 </div>
               </div>
             </div>
-            <div className="rounded-lg overflow-hidden /border /border-gray-200 bg-white shadow-md shadow-gray-200 dark:border-gray-800 dark:bg-gray-950">
+            <div className="rounded-md overflow-hidden /border /border-gray-200 bg-neutral-50/50">
               <div className="space-y-4">
                 <Image
                   src={"/assets/sstartups.png"}
@@ -179,12 +167,8 @@ export default function Category() {
                 <div className="flex px-6 pb-6">
                   {" "}
                   <Link
-                    href="#"
-                    style={{
-                      background: colors.defaultblue + "10",
-                      color: colors.defaultblue,
-                    }}
-                    className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                    href="/auth/login"
+                    className="flex h-12 text-neutral-600 bg-neutral-100 items-center justify-center gap-x-2 text-nowrap rounded-full px-8 text-sm /font-medium font-bold "
                   >
                     <p>{"Open an account"}</p>{" "}
                     <svg

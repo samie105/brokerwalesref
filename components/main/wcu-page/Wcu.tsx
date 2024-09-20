@@ -1,11 +1,15 @@
 "use client";
-import { useColors } from "@/context/colorContext";
 import React from "react";
 import LottieLoader from "./LottieLoader";
 import CountUp from "react-countup";
 import Image from "next/image";
 import Link from "next/link";
+import { Inter } from "next/font/google";
 
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 export default function Wcu() {
   type wcuType = {
     number: number;
@@ -196,7 +200,6 @@ export default function Wcu() {
       classname: "",
     },
   ];
-  const colors = useColors();
   return (
     <div className="wcu_cont mt-14 md:px-20 px-10 relative">
       <div className="absolute top-0 left-0 /pacity-10 w-full -z-10 h-full">
@@ -219,8 +222,7 @@ export default function Wcu() {
       </div> */}
       <div className="flex flex-col md:flex-row item-center md:justify-between relative  w-full md:gap-10 gap-5 pb-8 /px-14">
         <div className="text-4xl font-semibold z-20 text-neutral-700 ">
-          Why <span style={{ color: colors.defaultblue + "96" }}>Choose</span>{" "}
-          <br /> us
+          Why <span className="text-base-color/80">Choose</span> <br /> us
         </div>
         <div className="text-wrap font-medium md:text-base /text-center md:px-5 text-sm text-neutral-500">
           Wilson Bank Priotized security and other <br /> essential factor to
@@ -230,9 +232,8 @@ export default function Wcu() {
         <div className="md:flex hidden">
           {" "}
           <Link
-            href="#"
-            style={{ background: colors.defaultblue }}
-            className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+            href="/auth/login"
+            className="flex bg-base-color/80  h-12 items-center justify-center gap-x-2 text-nowrap rounded-full px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
           >
             <p>{"Create an account"}</p>{" "}
             <svg
@@ -257,15 +258,16 @@ export default function Wcu() {
             <LottieLoader />
             {wcu.map((data) => (
               <div key={data.number} className="my-6">
-                <div className="number text-neutral-800 text-xl font-sans font-bold">
+                <div className="number text-neutral-800 text-xl  font-bold">
                   <CountUp
                     end={data.number}
                     duration={5}
+                    className={inter.className}
                     decimals={data.description === "Trust Pilot" ? 1 : 0}
                   />
                   {data.plus}
                 </div>
-                <div className="desc text-[12px] text-neutral-600 text-wrap">
+                <div className="desc text-[12px] text-neutral-500 font-medium text-wrap">
                   {data.description}
                 </div>
               </div>
@@ -276,7 +278,7 @@ export default function Wcu() {
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-y-2 md:gap-3 mt-5">
             {wcuCardData.map((data) => (
               <div key={data.desc}>
-                <div className="card /shadow-[0px_5px_10px_1px_#33333308] /border /border-blue-500/10 rounded-xl py-4 px-4 md:px-6">
+                <div className="card  bg-neutral-50/60 /shadow-[0px_5px_10px_1px_#33333308] /border /border-blue-500/10 rounded-xl py-4 px-4 md:px-6">
                   <div
                     className={`icon rounded-xl p-1 h-10 w-10 flex items-center justify-center  ${data.classname}`}
                   >

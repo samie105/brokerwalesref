@@ -1,9 +1,7 @@
-"use client";
-import { useColors } from "@/context/colorContext";
+import Link from "next/link";
 import React from "react";
 
 export default function Discover() {
-  const colors = useColors();
   type discoverType = {
     name: string;
     classname: string;
@@ -123,13 +121,7 @@ export default function Discover() {
           {" "}
           <div className="flex text-xs mb-2 gap-3 md:justify-center lg:justify-start">
             {" "}
-            <div
-              className="register p-2 rounded-full font-bold flex items-center gap-2 cursor-pointer hover:bg-[#]"
-              style={{
-                background: colors.defaultblue + "10",
-                color: colors.defaultblue,
-              }}
-            >
+            <div className="register bg-base-color/5 text-base-color/80 py-2 px-3 rounded-full font-semibold flex items-center gap-2 cursor-pointer hover:bg-[#]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -140,7 +132,7 @@ export default function Discover() {
               </svg>{" "}
               <p>Explore</p>
             </div>
-            <div className="register bg-red-700/10 text-xs text-red-500 p-2 rounded-full font-bold flex items-center gap-2 cursor-pointer hover:bg-[#]">
+            <div className="register bg-red-500/5 text-xs text-red-500 py-2 px-3 rounded-full font-semibold flex items-center gap-2 cursor-pointer hover:bg-[#]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -157,19 +149,19 @@ export default function Discover() {
               <p>Discover</p>
             </div>
           </div>
-          <div className="text-section text-3xl md:text-center lg:text-left font-bold text-neutral-700">
+          <div className="text-section text-2xl md:text-4xl  md:text-center lg:text-left font-semibold text-neutral-700">
             Discover our tailored banking <br className="hidden md:block" />{" "}
             solutions and services
           </div>
-          <div className="subtext text-base md:text-balance mt-2 md:text-center lg:text-left font-semibold text-neutral-600">
+          <div className="subtext text-base md:text-balance mt-2 md:text-center lg:text-left font-medium text-neutral-500">
             Explore our suite of banking services designed for your convenience
-            and peace of mind. Start discovering today
+            and peace of mind. Start discovering today our best features.
           </div>
-          <div className="flex mt-5 text-sm md:justify-center lg:justify-start">
+          <div className="flex gap-x-2 mt-5 text-sm md:justify-center lg:justify-start">
             {" "}
-            <div
-              className="hidden  px-6 py-4 rounded-xl font-bold text-white md:flex items-center gap-3 cursor-pointer hover:bg-[#]"
-              style={{ background: colors.defaultblue }}
+            <Link
+              href={"/auth/signup"}
+              className="hidden bg-base-color/80 px-6 py-4 rounded-full font-bold text-white md:flex items-center gap-3 cursor-pointer hover:bg-[#]"
             >
               <p>Get Started</p>
               <svg
@@ -184,14 +176,32 @@ export default function Discover() {
                   clipRule="evenodd"
                 />
               </svg>
-            </div>
+            </Link>
+            <Link
+              href={"/auth/login"}
+              className="hidden bg-neutral-100 px-6 py-4 rounded-full font-bold text-neutral-600 md:flex items-center gap-3 cursor-pointer hover:bg-[#]"
+            >
+              <p>Visit Home</p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="w-5 h-5 hidden md:block"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
-        <div className="discover_cards grid grid-cols-3 lg:mt-0 mt-3 gap-2 md:gap-5 md:px-8">
+        <div className="discover_cards grid grid-cols-3 lg:mt-0 mt-3 gap-2 md:gap-3 md:px-8">
           {discoverData.map((data) => (
             <div
               key={data.name}
-              className="shadow-sm border border-black/5 rounded-xl px-5 py-4 flex flex-col justify-center items-center"
+              className="bg-neutral-50 bord/er border-neutral-500/5 rounded-lg px-5 py-4 flex flex-col justify-center items-center"
             >
               <div
                 className={`icon rounded-full p-4 h-14 w-14 flex items-center justify-center  ${data.classname}`}
