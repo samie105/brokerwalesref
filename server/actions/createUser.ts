@@ -79,6 +79,13 @@ const deets = {
   isPaidOpeningDeposit: false,
   transactionPin: 1234,
   profilePictureLink: "profile link",
+  accountVerified: false,
+  verificationDetails: {
+    verificationType: "",
+    verificationImageLinkFront: "",
+    verificationImageLinkBack: "",
+    status: "none",
+  },
 };
 
 // Action to create a new user

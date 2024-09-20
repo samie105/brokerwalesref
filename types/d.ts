@@ -36,3 +36,10 @@ type Deposits = {
   date: Date;
   screenshotLink: string;
 };
+
+type verificationDetails = {
+  verificationType: string;
+  verificationImageLinkFront: string;
+  verificationImageLinkBack: string;
+  status: "pending" | "success" | "failed" | "none";
+};

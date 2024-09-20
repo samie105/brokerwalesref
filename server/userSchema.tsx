@@ -36,6 +36,8 @@ export interface IUser extends Document {
   transferHistory: Transfers[];
   transactionPin: number;
   profilePictureLink: string;
+  accountVerified: boolean;
+  verificationDetails: verificationDetails;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
@@ -66,6 +68,8 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   transferHistory: [Object],
   transactionPin: { type: Number },
   profilePictureLink: { type: String },
+  verificationDetails: { type: Object },
+  accountVerified: { type: Boolean },
 });
 
 const User: Model<IUser> =

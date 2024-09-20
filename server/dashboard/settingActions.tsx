@@ -102,3 +102,106 @@ export const changeTransactionPin = actionClient
       throw new Error("Couldn't perform server tasks");
     }
   });
+
+export async function uploadVerificationDocuments(
+  formData: FormData
+): Promise<void> {
+  const email = cookies().get("userEmail")?.value;
+  if (!email) throw new Error("you're not authorized");
+
+  try {
+    await dbConnect();
+    const user = await User.findOne({ email });
+    if (!user) throw new Error("Couldn't perform task");
+
+    const idType = formData.get("idType") as string;
+    const frontPhoto = formData.get("frontPhoto") as File;
+    const backPhoto = formData.get("backPhoto") as File;
+
+    if (!idType || !frontPhoto || !backPhoto) {
+      throw new Error("Missing required fields");
+    }
+
+    const uploadToCloudinary = async (file: File) => {
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      return new Promise<string>((resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream(
+            {
+              folder: "verification_documents",
+              resource_type: "auto",
+            },
+            (error, result) => {
+              if (error) {
+                console.error("Upload to Cloudinary failed:", error);
+                reject(error);
+              } else {
+                resolve(result!.secure_url);
+              }
+            }
+          )
+          .end(buffer);
+      });
+    };
+
+    const frontPhotoUrl = await uploadToCloudinary(frontPhoto);
+    const backPhotoUrl = await uploadToCloudinary(backPhoto);
+
+    // Update the user's verification documents in the database
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          verificationDetails: {
+            verificationType: idType,
+            verificationImageLinkFront: frontPhotoUrl,
+            verificationImageLinkBack: backPhotoUrl,
+            status: "pending",
+          },
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      throw new Error("User not found");
+    }
+    revalidatePath("/dashboard");
+  } catch (error) {
+    console.error("Error in uploadVerificationDocuments:", error);
+    throw new Error("Failed to upload verification documents");
+  }
+}
+
+export async function changePassword(
+  currentPassword: string,
+  newPassword: string
+): Promise<void> {
+  const email = cookies().get("userEmail")?.value;
+  if (!email) {
+    throw new Error("Unauthorized");
+  }
+
+  try {
+    await dbConnect();
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const isPasswordValid = currentPassword === user.password;
+
+    if (!isPasswordValid) {
+      throw new Error("Current password is incorrect");
+    }
+
+    await User.findOneAndUpdate({ email }, { $set: { password: newPassword } });
+  } catch (error) {
+    console.error("Error in changePassword:", error);
+    throw new Error("Failed to change password");
+  }
+}

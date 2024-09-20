@@ -5,6 +5,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { CopyIcon } from "lucide-react";
 import { useFetchInfo } from "@/lib/data/fetchPost";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { toast } from "sonner";
+import { changePassword } from "@/server/dashboard/settingActions";
 
 type PersonalInfoItem = {
   label: string;
@@ -12,10 +25,15 @@ type PersonalInfoItem = {
 };
 
 export default function PersonalInformation() {
-  const { data: deets } = useFetchInfo();
+  const { data: deets, refetch } = useFetchInfo();
   const data = deets!.data;
 
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   const personalInfo: PersonalInfoItem[] = [
     { label: "First Name", value: data.firstName },
@@ -34,10 +52,41 @@ export default function PersonalInformation() {
     setTimeout(() => setCopiedField(null), 2000);
   };
 
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (currentPassword !== data.password) {
+      toast.error("Incorrect password, check your current password");
+      console.log(data.password);
+      return;
+    }
+    setIsChangingPassword(true);
+
+    if (newPassword !== confirmPassword) {
+      toast.error("New passwords do not match");
+      setIsChangingPassword(false);
+      return;
+    }
+
+    try {
+      await changePassword(currentPassword, newPassword);
+      toast.success("Password changed successfully");
+      setIsDialogOpen(false);
+      refetch(); // Refresh user data if needed
+    } catch (error) {
+      console.error("Error changing password:", error);
+      toast.error("Failed to change password. Please try again.");
+    } finally {
+      setIsChangingPassword(false);
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    }
+  };
+
   return (
     <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
       <div className="p-4">
-        <div className="grid md:grid-cols-2 grid-cols-1">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-3 items-center">
           <div>
             <div className="text-base text-neutral-700 font-semibold py-1">
               Personal Information
@@ -46,6 +95,91 @@ export default function PersonalInformation() {
               These are your account information with us, which are securely
               stored and protected from unauthorized access.
             </div>
+          </div>
+          <div className="flex md:justify-end">
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="font-medium items-center inline-flex gap-x-2 bg-neutral-100 p-3 rounded-md text-neutral-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="size-4"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <span className="text-sm">Change password</span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Change Password</DialogTitle>
+                  <DialogDescription>
+                    Enter your current password and a new password to update
+                    your account security.
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleChangePassword}>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-1 items-center gap-2">
+                      <Label htmlFor="current-password" className="">
+                        Current Password
+                      </Label>
+                      <Input
+                        id="current-password"
+                        type="password"
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        className="col-span-3 bg-neutral-50 border-neutral-500/10"
+                        required
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 items-center gap-2">
+                      <Label htmlFor="new-password" className="">
+                        New Password
+                      </Label>
+                      <Input
+                        id="new-password"
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        className="col-span-3 bg-neutral-50 border-neutral-500/10"
+                        required
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 items-center gap-2">
+                      <Label htmlFor="confirm-password" className="">
+                        Confirm New Password
+                      </Label>
+                      <Input
+                        id="confirm-password"
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        className="col-span-3 bg-neutral-50 border-neutral-500/10"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button
+                      type="submit"
+                      className="w-full font-bold"
+                      disabled={isChangingPassword}
+                    >
+                      {isChangingPassword ? "Changing..." : "Change Password"}
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
