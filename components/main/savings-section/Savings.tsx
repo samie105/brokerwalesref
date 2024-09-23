@@ -4,7 +4,23 @@ import Link from "next/link";
 
 export default function Savings() {
   return (
-    <div className="px-10 md:px-20 savings_cont grid md:grid-cols-2 flex-col-reverse grid-cols-1 my-8 md:my-32 items-center">
+    <div className="px-10 md:px-20 savings_cont grid md:grid-cols-2 flex-col-reverse grid-cols-1 my-8 md:my-32 items-center relative">
+      <div className="absolute -left-16 /z-40 -top-5 md:-top-20 animate-pulse/ duration-1000 text-neutral-100">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-40"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"
+          />
+        </svg>
+      </div>
       <div className="text-cont pr-4">
         <div className="flex items-center gap-x-3">
           <div className="register py-2 px-3 bg-base-color/5 text-base-color/80 rounded-full font-semibold flex items-center text-xs gap-2 cursor-pointer hover:bg-[#]">
@@ -47,13 +63,31 @@ export default function Savings() {
           advantage of our expert financial guidance and comprehensive
           solutions.
         </div>
-        <div className="flex mt-8 text-sm md:justify-start">
+        <div className="flex mt-8 text-sm gap-x-2 md:justify-start">
           {" "}
           <Link
             href={"/auth/login"}
             className="  px-6 py-4 rounded-full bg-base-color/80 font-bold text-white flex items-center gap-3 cursor-pointer hover:bg-[#]"
           >
             <p>Start Investing</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="w-5 h-5 block"
+            >
+              <path
+                fillRule="evenodd"
+                d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </Link>
+          <Link
+            href={"/auth/login"}
+            className=" bg-neutral-50 hidden hover:bg-neutral-100 transition-all lg:flex px-6 py-4 rounded-full font-bold text-neutral-600  items-center gap-3 cursor-pointer hover:bg-[#]"
+          >
+            <p>Create an Account</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"

@@ -15,21 +15,22 @@ import Navbar from "@/components/main/navbar/Navbar";
 
 export default function page() {
   return (
-    <div className="bg-[#E9EDF0]/ ">
+    <div className="">
       <Navbar />
-
-      <Hero />
-      <Discover />
-      <CardPage />
-      <Category />
-      <Flight />
-      <Wcu />
-      <Savings />
-      <ReasonPage />
-      <Testimonials />
-      <SupportContact />
-      <Footer />
-      <BTT />
+      <div className="/bg-[#E9EDF0] overflow-hidden max-w-[1440px] mx-auto ">
+        <Hero />
+        <Discover />
+        <CardPage />
+        <Category />
+        <Flight />
+        <Wcu />
+        <Savings />
+        <ReasonPage />
+        <Testimonials />
+        <SupportContact />
+        <Footer />
+        <BTT />
+      </div>
     </div>
   );
 }

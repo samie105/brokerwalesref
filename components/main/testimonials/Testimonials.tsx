@@ -1,8 +1,7 @@
-"use client";
 import { InfiniteMovingCards } from "@/components/ui/infiniteMovingCards";
-import { useColors } from "@/context/colorContext";
 import React from "react";
 import LottieLoader from "./LottieLoader";
+import Link from "next/link";
 
 export default function Testimonials() {
   type testimonialsType = {
@@ -51,19 +50,12 @@ export default function Testimonials() {
     },
   ];
 
-  const colors = useColors();
   return (
     <div>
       <div className="px-10 md:px-20 savings_cont grid md:grid-cols-2 grid-cols-1 mt-8 items-center">
         <div className="text-cont">
           <div className="flex items-center gap-x-3">
-            <div
-              className="register p-2 rounded-full font-bold flex items-center text-xs gap-2 cursor-pointer hover:bg-[#]"
-              style={{
-                background: colors.defaultblue + "10",
-                color: colors.defaultblue,
-              }}
-            >
+            <div className="register py-2 px-3 bg-base-color/5 text-base-color/80 rounded-full font-semibold flex items-center text-xs gap-2 cursor-pointer hover:bg-[#]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -93,10 +85,10 @@ export default function Testimonials() {
             <p>Investment</p>
           </div> */}
           </div>
-          <div className="large-text text-2xl mt-3 font-bold text-neutral-700">
+          <div className="large-text text-3xl md:text-5xl mt-3 font-semibold text-neutral-700">
             What people are saying about us
           </div>
-          <div className="small-text text-sm mt-1 font-medium text-neutral-500 text-balance">
+          <div className="small-text text-base mt-3 font-medium text-neutral-500 text-balance">
             Discover why our clients trust Wilson Bank for unparalleled savings
             and investment opportunities. Our commitment to your financial
             growth and security, coupled with expert guidance and comprehensive
@@ -104,9 +96,9 @@ export default function Testimonials() {
           </div>
           <div className="flex mt-5 text-sm lg:justify-start">
             {" "}
-            <div
-              className="  px-6 py-4 rounded-xl font-bold text-white flex items-center gap-3 cursor-pointer hover:bg-[#]"
-              style={{ background: colors.defaultblue }}
+            <Link
+              href={"auth/login"}
+              className="  px-6 py-4 rounded-full font-bold bg-base-color/80 text-white  flex items-center gap-3 cursor-pointer hover:bg-[#]"
             >
               <p>Create an account</p>
               <svg
@@ -121,7 +113,7 @@ export default function Testimonials() {
                   clipRule="evenodd"
                 />
               </svg>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="relative hidden md:block">

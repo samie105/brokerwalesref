@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useColors } from "@/context/colorContext";
-import { randomUUID } from "crypto";
 import { usePathname } from "next/navigation";
 import hero from "@/public/assets/hero-logo-blue.png";
 import {
@@ -44,13 +43,13 @@ export default function Navbar() {
       id: 1,
       name: "Home",
       path: "/",
-      className: "animate__animated animate__fadeInUp animate__delay-2s",
+      className: "animate__animated animate__fadeInUp ",
     },
     {
       id: 2,
       name: "Contacts",
       path: "/contact",
-      className: "animate__animated animate__fadeInUp animate__delay-3s",
+      className: "animate__animated animate__fadeInUp animate__delay",
     },
   ];
   const colors = useColors();
@@ -58,12 +57,12 @@ export default function Navbar() {
     <div
       className={`nav_cont transition-all z-50  ${
         showButton
-          ? "border-b bg-[#ffffffb2] backdrop-filter backdrop-blur-md "
-          : "bg-transparent border-0"
-      }  fixed top-0 w-full md:py-3 py-5 px-10 flex items-center text-sm justify-between `}
-      // style={{ background: colors.defaultblue }}
+          ? "border-b bg-white py-5  md:py-3 "
+          : "bg-gradient-to-b pb-12 pt-5 md:pt-3 from-white via-white to-transparent border-0"
+      }  fixed top-0 w-full px-10 flex justify-between md:grid items-center text-sm md:grid-cols-12 `}
+      // style={{ background: colors.defaultblu }}
     >
-      <div className="logo font-bold animate__animated animate__fadeInUp animate__delay">
+      <div className="logo col-span-1 font-bold animate__animated animate__fadeInUp animate__faster">
         <Image
           src={hero}
           alt=""
@@ -73,21 +72,16 @@ export default function Navbar() {
           style={{ color: colors.defaultblue }}
         />
       </div>
-      <div className="menu  hidden md:flex text-xs items-center">
+      <div className="menu col-span-9 justify-center  hidden md:flex text-xs items-center">
         <AnimatePresence>
           {nav.map((nav) => (
             <motion.div
               key={nav.path}
-              style={
-                nav.path === pathname
-                  ? { color: colors.defaultblue }
-                  : { color: colors.defaultblue + "94" }
-              }
               className={`${
                 nav.path === pathname
-                  ? `font-bold text-[#fff]   rounded-xl`
-                  : "text-white/80 font-bold  hover:opacity-100"
-              } cursor-pointer /overflow-hidden px-5 py-2 relative transition ${
+                  ? `font-bold text-neutral-700  rounded-full`
+                  : "text-neutral-500 hover:opacity-100 font-semibold"
+              } cursor-pointer /overflow-hidden text-sm px-5 py-2 relative transition ${
                 nav.className
               }`}
             >
@@ -96,7 +90,7 @@ export default function Navbar() {
                 {nav.path === pathname ? (
                   <motion.div
                     transition={{ type: "spring" }}
-                    style={{ backgroundColor: colors.defaultblue + "10" }}
+                    style={{ backgroundColor: colors.defaultblue + "06" }}
                     layoutId="underline"
                     className="absolute  mover bg-[#ffffff26] rounded-full top-0 left-0 w-full h-full z-10 "
                   ></motion.div>
@@ -108,18 +102,12 @@ export default function Navbar() {
       </div>
       <Link
         href={"/auth/login"}
-        className="cta hidden md:flex  items-center gap-5"
+        className="cta col-span-2 hidden md:flex  items-center gap-2"
       >
-        <div
-          style={{ color: colors.defaultblue }}
-          className=" font-bold text-white  cursor-pointer hover:opacity-90 transition-all"
-        >
+        <div className="text-nowrap font-bold text-neutral-500 px-5 py-3 rounded-full bg-neutral-100 cursor-pointer hover:opacity-90 transition-all">
           Sign-in
         </div>
-        <div
-          className=" px-5 py-3 rounded-full font-bold text-white cursor-pointer hover:opacity-90 transition-all"
-          style={{ background: colors.darkdefualtblue }}
-        >
+        <div className="text-nowrap px-5 py-3 rounded-full font-bold bg-base-color/80 text-white cursor-pointer hover:opacity-90 transition-all">
           Get Started
         </div>
       </Link>
