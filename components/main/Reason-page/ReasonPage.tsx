@@ -1,13 +1,9 @@
-"use client";
-import { useColors } from "@/context/colorContext";
 import React from "react";
 import Privacy from "./Pricacy";
 import Transparency from "./Transparency";
 import Update from "./Update";
 import Support from "./Support";
-import Line from "./Line";
 import Image from "next/image";
-import { StickyScroll } from "@/components/ui/sticky-scoll";
 import Link from "next/link";
 
 export default function ReasonPage() {
@@ -134,7 +130,6 @@ export default function ReasonPage() {
       ),
     },
   ];
-  const colors = useColors();
   return (
     <div className="mt-14  bg-/grid-black/5 /md:px-20 md:px-7 snap-start /bg-gray-100 py-8 relative">
       <div className="absolute top-0 left-0 /pacity-10 w-full -z-10 h-full">
@@ -155,22 +150,22 @@ export default function ReasonPage() {
           className="h-full/  w-80 h-80 opacity-15  parallax-image  /object-cover"
         />
       </div> */}
-      <div className="flex  flex-col md:flex-row item-center md:justify-between relative  w-full md:gap-10 gap-5 pb-8 px-10">
+      <div className="flex  flex-col md:flex-row item-center md:justify-between relative  w-full md:gap-4 lg:gap-10 gap-5 pb-8 md:px-5 lg:px-10 px-7">
         <div className="text-4xl font-semibold z-20 text-neutral-700 ">
-          Why <span style={{ color: colors.defaultblue + "96" }}>Choose</span>{" "}
-          <br /> us
+          Why <span className="text-base-color/80">Choose</span>{" "}
+          <br className="hidden md:block" /> us
         </div>
         <div className="text-wrap font-medium md:text-base /text-center md:px-5 text-sm text-neutral-500">
-          Wilson Bank Priotized security and other <br /> essential factor to
-          give users the feel of safety and trust <br /> with our ever-active
-          support system to tend to all your needs.
+          Wilson Bank Priotized security and other{" "}
+          <br className="lg:block hidden" /> essential factor to give users the
+          feel of safety and trust <br className="lg:block hidden" /> with our
+          ever-active support system to tend to all your needs.
         </div>{" "}
         <div className="md:flex hidden">
           {" "}
           <Link
             href="#"
-            style={{ background: colors.defaultblue }}
-            className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+            className="flex bg-base-color/80 h-12 items-center justify-center gap-x-2 text-nowrap rounded-full px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
           >
             <p>{"Create an account"}</p>{" "}
             <svg
@@ -188,13 +183,10 @@ export default function ReasonPage() {
           </Link>
         </div>
       </div>
-      <div className="px-5 md:px-0">
+      <div className="px-5 md:px-0 gap-3 mt-5 grid grid-cols-1 md:grid-cols-2">
         <Privacy />
-        <Line />
         <Transparency />
-        <Line />
         <Update />
-        <Line />
         <Support />
       </div>
       {/* <div className="pt-10">

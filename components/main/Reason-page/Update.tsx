@@ -1,13 +1,13 @@
-import { useColors } from "@/context/colorContext";
 import React from "react";
-import Image from "next/image";
 import LottieLoaderUpdate from "./LottieLoaderUpdate";
 import Link from "next/link";
 export default function Update() {
-  const colors = useColors();
   return (
-    <div className="mt-8 privacy items-center s/hadow-md bg-white shadow-lg shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /md:px-10 grid md:grid-cols-2">
-      <div className="text-cont order-last flex md:py-20 md:px-12 py-6 px-5 /items-center h-full">
+    <div className=" z-30 update bg-white shadow-sm border border-neutral-500/10 items-end md:items-center /bg-white gap-8 /px- shadow-lg/ rounded-lg overflow-hidden /mx-5 /shadow-md ">
+      <div className="text-cont py-8 px-8 /md:px-12 flex /items-center h-full order-last md:order-none relative">
+        <div className="absolute top-3 right-5">
+          <LottieLoaderUpdate />
+        </div>
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div> */}
         {/* <div
           className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"
@@ -19,18 +19,12 @@ export default function Update() {
         </div> */}
         <div>
           {" "}
-          <div
-            className="icon rounded-xl p-2 font-semibold text-sm inline-flex items-center gap-2"
-            style={{
-              background: colors.defaultblue + "10",
-              color: colors.defaultblue,
-            }}
-          >
+          <div className="icon rounded-full py-2 px-3 bg-cyan-500/5 text-cyan-500 font-semibold text-xs inline-flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="size-5"
+              className="size-4"
             >
               <path
                 fillRule="evenodd"
@@ -47,21 +41,13 @@ export default function Update() {
             At Wilson Investment Bank & Co, we are committed to innovation and
             continuous improvement. Our cutting-edge technology and digital
             solutions are constantly evolving to meet the changing needs of our
-            customers. From mobile banking enhancements to new security
-            features, we are dedicated to providing you with the latest tools
-            and technologies to enhance your banking experience. With Wilson
-            Investments bank & Co, you can expect ongoing innovation and a
-            forward thinking approach to banking services.
-            {/* From mobile banking enhancements to new security
-            features, we are dedicated to providing you with the latest tools
-            and technologies to enhance your banking experience. */}
+            customers.
           </div>
-          <div className="flex">
+          <div className="flex/ hidden">
             {" "}
             <Link
               href="#"
-              style={{ background: colors.defaultblue }}
-              className="flex h-12 items-center justify-center gap-x-2 mt-8 rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              className="flex h-12 items-center bg-base-color/80 justify-center gap-x-2 mt-8 rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
             >
               <p>{"Stay Updated"}</p>{" "}
               <svg
@@ -81,16 +67,16 @@ export default function Update() {
         </div>
       </div>
 
-      <div className="image order-first bg-blue-700/5 h-full md:order-none">
-        {/* <Image
+      {/* <div className="image order-first bg-blue-700/5 h-full md:order-none">
+        <Image
           src={"/assets/updatewcu.png"}
           alt=""
           width={1000}
           height={1000}
           className="w-full h-full /rounded-xl"
-        /> */}
+        />
         <LottieLoaderUpdate />
-      </div>
+      </div> */}
     </div>
   );
 }

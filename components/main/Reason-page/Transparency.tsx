@@ -1,12 +1,14 @@
+"use client";
 import { useColors } from "@/context/colorContext";
 import React from "react";
 import LottieloaderTransperency from "./LottieloaderTransparency";
-import Image from "next/image";
 import Link from "next/link";
 export default function Transparency() {
-  const colors = useColors();
   return (
-    <div className="mt-8 privacy items-center gap-x-8 shadow-lg bg-white shadow-gray-200 rounded-lg overflow-hidden /shadow-md md:mx-20 /px-2 /md:px-10 grid md:grid-cols-2">
+    <div className=" z-30 transparency bg-white shadow-sm border border-neutral-500/10 items-end md:items-center /bg-white gap-8 /px- shadow-lg/ rounded-lg overflow-hidden /mx-5 /shadow-md relative">
+      <div className="absolute top-3 right-5">
+        <LottieloaderTransperency />
+      </div>
       {/* <div className="flex h-full">
         <div
           className="count hidden md:block text-[7rem] font-black text-blue-100 font-sans mr-6"
@@ -18,23 +20,17 @@ export default function Transparency() {
         </div>
     
       </div> */}
-      <div className="text-cont order-last md:order-none md:py-20 md:px-16 py-6 px-5 flex /items-center h-full">
+      <div className="text-cont py-8 px-8 /md:px-12 flex /items-center h-full order-last md:order-none">
         {" "}
         {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div>{" "} */}
         <div>
           {" "}
-          <div
-            className="icon gap-x-2  p-2 inline-flex rounded-lg py-2 px-2 text-sm font-semibold items-center "
-            style={{
-              background: colors.defaultblue + "10",
-              color: colors.defaultblue,
-            }}
-          >
+          <div className="icon gap-x-2 bg-green-500/5 text-green-500 p-2 inline-flex rounded-full py-2 px-3 text-xs font-semibold items-center ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="size-5"
+              className="size-4"
             >
               <path d="M13.024 9.25c.47 0 .827-.433.637-.863a4 4 0 0 0-4.094-2.364c-.468.05-.665.576-.43.984l1.08 1.868a.75.75 0 0 0 .649.375h2.158ZM7.84 7.758c-.236-.408-.79-.5-1.068-.12A3.982 3.982 0 0 0 6 10c0 .884.287 1.7.772 2.363.278.38.832.287 1.068-.12l1.078-1.868a.75.75 0 0 0 0-.75L7.839 7.758ZM9.138 12.993c-.235.408-.039.934.43.984a4 4 0 0 0 4.094-2.364c.19-.43-.168-.863-.638-.863h-2.158a.75.75 0 0 0-.65.375l-1.078 1.868Z" />
               <path
@@ -54,16 +50,13 @@ export default function Transparency() {
             policies, ensuring you have full visibility into your banking
             experience. Additionally, our dedicated team of professionals is
             committed to providing honest and reliable assistance whenever you
-            need it. Count on Wilson Investment bank & Co for transparent
-            banking services that empower you to make informed financial
-            decisions with confidence.
+            need it.
           </div>
-          <div className="flex">
+          <div className="flex/ hidden">
             {" "}
             <Link
               href="#"
-              style={{ background: colors.defaultblue }}
-              className="flex h-12 items-center justify-center gap-x-2 mt-8 rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              className="flex h-12 items-center justify-center gap-x-2 mt-8 bg-base-color/80 rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
             >
               <p>{"Let's Sign"}</p>{" "}
               <svg
@@ -81,17 +74,17 @@ export default function Transparency() {
             </Link>
           </div>
         </div>
-      </div>{" "}
-      <div className="image order-first md:order-none h-full bg-blue-700/5">
-        {/* <Image
+      </div>
+      {/* <div className="image order-first md:order-none h-full bg-blue-700/5">
+         <Image
           src={"/assets/transparencywcu.png"}
           alt=""
           width={1000}
           height={1000}
           className="w-full h-full /rounded-xl"
-        /> */}{" "}
+        /> 
         <LottieloaderTransperency />
-      </div>{" "}
+      </div> */}
     </div>
   );
 }

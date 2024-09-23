@@ -43,13 +43,13 @@ export default function Navbar() {
       id: 1,
       name: "Home",
       path: "/",
-      className: "animate__animated animate__fadeInUp ",
+      className: " ",
     },
     {
       id: 2,
       name: "Contacts",
       path: "/contact",
-      className: "animate__animated animate__fadeInUp animate__delay",
+      className: "",
     },
   ];
   const colors = useColors();
@@ -62,7 +62,7 @@ export default function Navbar() {
       }  fixed top-0 w-full px-10 flex justify-between md:grid items-center text-sm md:grid-cols-12 `}
       // style={{ background: colors.defaultblu }}
     >
-      <div className="logo col-span-1 font-bold animate__animated animate__fadeInUp animate__faster">
+      <div className="logo col-span-1 font-bold ">
         <Image
           src={hero}
           alt=""
@@ -72,16 +72,16 @@ export default function Navbar() {
           style={{ color: colors.defaultblue }}
         />
       </div>
-      <div className="menu col-span-9 justify-center  hidden md:flex text-xs items-center">
+      <div className="menu lg:col-span-9 md:col-span-8 justify-center  hidden md:flex gap-x-2   items-center">
         <AnimatePresence>
           {nav.map((nav) => (
             <motion.div
               key={nav.path}
               className={`${
                 nav.path === pathname
-                  ? `font-bold text-neutral-700  rounded-full`
-                  : "text-neutral-500 hover:opacity-100 font-semibold"
-              } cursor-pointer /overflow-hidden text-sm px-5 py-2 relative transition ${
+                  ? `font-bold text-base-color/80 rounded-full`
+                  : " text-neutral-500 hover:opacity-100 font-semibold"
+              } cursor-pointer /overflow-hidden  text-sm py-2 pb-2 px-1 relative transition ${
                 nav.className
               }`}
             >
@@ -89,10 +89,9 @@ export default function Navbar() {
                 <motion.p className="z-30">{nav.name}</motion.p>
                 {nav.path === pathname ? (
                   <motion.div
-                    transition={{ type: "spring" }}
-                    style={{ backgroundColor: colors.defaultblue + "06" }}
+                    transition={{ type: "tween" }}
                     layoutId="underline"
-                    className="absolute  mover bg-[#ffffff26] rounded-full top-0 left-0 w-full h-full z-10 "
+                    className="absolute mover bg-base-color/50 hidden rounded-full bottom-0 left-1/4 -translate-x-1/2 w-1/2 h-0.5 z-10"
                   ></motion.div>
                 ) : null}
               </MotionLink>
@@ -102,7 +101,7 @@ export default function Navbar() {
       </div>
       <Link
         href={"/auth/login"}
-        className="cta col-span-2 hidden md:flex  items-center gap-2"
+        className="cta lg:col-span-2 md:col-span-2 hidden md:flex  items-center gap-2"
       >
         <div className="text-nowrap font-bold text-neutral-500 px-5 py-3 rounded-full bg-neutral-100 cursor-pointer hover:opacity-90 transition-all">
           Sign-in

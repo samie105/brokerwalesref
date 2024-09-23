@@ -9,10 +9,10 @@ export default function LottieLoaderPrivacy() {
     ssr: false,
   });
   return (
-    <div className=" /bg-blue-50/80 rounded-xl py-5 md:py-0 w-full flex items-center justify-center h-full">
+    <div className=" /bg-blue-50/80 rounded-xl py-5 md:py-0 w-full  flex items-center justify-center h-full">
       <Lottie
         animationData={animationData}
-        className="md:w-[80%] w-[60%] h-[15rem]  md:h-[15rem]"
+        className="size-20 grayscale opacity-20"
       />
     </div>
   );

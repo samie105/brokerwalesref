@@ -1,46 +1,21 @@
-import { useColors } from "@/context/colorContext";
 import React from "react";
-import LottieLoaderPrivacy from "./LottieLoaderPrivacy";
-import Image from "next/image";
 import Link from "next/link";
+import LottieLoaderPrivacy from "./LottieLoaderPrivacy";
 export default function Privacy() {
-  const colors = useColors();
   return (
-    <div className="mt-8 z-30 privacy bg-white items-end md:items-center /bg-white gap-8 /px- shadow-lg shadow-gray-200 rounded-lg overflow-hidden /mx-5 /shadow-md md:mx-20 /md:px-10 grid grid-cols-1 s/hadow-md md:grid-cols-2">
-      <div className="image bg-blue-700/5 h-full order-first md:order-none">
-        {/* <Image
-          src={"/assets/privacywcu.png"}
-          alt=""
-          width={1000}
-          height={1000}
-          className="w-full h-full /rounded-xl"
-        /> */}
+    <div className="z-30 privacy bg-white shadow-sm border border-neutral-500/10 items-end md:items-center /bg-white gap-8 /px- shadow-lg/ rounded-lg overflow-hidden /mx-5 /shadow-md relative">
+      <div className="absolute top-3 right-5">
         <LottieLoaderPrivacy />
-      </div>{" "}
-      <div className="text-cont md:py-20 py-6 px-8 md:px-12 flex /items-center h-full order-last md:order-none">
-        {/* <div className="h-2/6 w-4 mr-6 bg-blue-700 rounded-full overflow-hidden"></div> */}
-        {/* <div
-          className="count text-[7rem] font-black hidden md:block text-blue-100 font-sans md:mr-6 mr-3"
-          style={{
-            color: colors.defaultblue + "25",
-          }}
-        >
-          1
-        </div> */}
+      </div>
+      <div className="text-cont py-8 px-8 /md:px-12 flex /items-center h-full order-last md:order-none">
         <div>
           {" "}
-          <div
-            className="icon inline-flex rounded-lg py-2 px-2 text-sm font-semibold bg-green-500/10 text-green-600  items-center gap-x-2 /justify-center"
-            style={{
-              background: colors.defaultblue + "10",
-              color: colors.defaultblue,
-            }}
-          >
+          <div className="icon inline-flex rounded-full py-2 bg-base-color/5 text-base-color px-3 text-xs font-semibold   items-center gap-x-2 /justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="size-5"
+              className="size-4"
             >
               <path
                 fillRule="evenodd"
@@ -58,15 +33,13 @@ export default function Privacy() {
             top priorities. With state-of-the-art encryption technology,
             multi-factor authentication, and continuous monitoring, we ensure
             that your sensitive information and transactions are safeguarded at
-            every step. Rest assured, your financial data remains private and
-            protected, allowing you to bank with confidence and peace of mind.
+            every step.
           </div>
           <div className="flex">
             {" "}
             <Link
-              href="#"
-              style={{ background: colors.defaultblue }}
-              className="flex h-12 items-center justify-center gap-x-2 mt-8 rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              href="/auth/signup"
+              className="/flex rounded-full hidden bg-base-color/80 h-12 items-center justify-center gap-x-2 mt-8 px-8 text-sm /font-medium font-bold text-gray-50"
             >
               <p>{"Stay Secured"}</p>{" "}
               <svg

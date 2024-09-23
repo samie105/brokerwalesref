@@ -197,7 +197,7 @@ export default function Discover() {
             </Link>
           </div>
         </div>
-        <div className="discover_cards grid grid-cols-3 lg:mt-0 mt-3 gap-2 md:gap-3 md:px-8">
+        <div className="discover_cards grid grid-cols-2 md:grid-cols-3 lg:mt-0 mt-3 gap-2 md:gap-3 md:px-8">
           {discoverData.map((data) => (
             <div
               key={data.name}

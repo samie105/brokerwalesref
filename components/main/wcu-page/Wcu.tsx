@@ -201,7 +201,7 @@ export default function Wcu() {
     },
   ];
   return (
-    <div className="wcu_cont mt-14 md:px-20 px-10 relative">
+    <div className="mt-14  bg-/grid-black/5 /md:px-20 md:px-7 snap-start /bg-gray-100 py-8 px-7 relative">
       <div className="absolute top-0 left-0 /pacity-10 w-full -z-10 h-full">
         <Image
           src="/assets/gridlines.svg"
@@ -220,9 +220,10 @@ export default function Wcu() {
           className="h-full/  w-80 h-80 opacity-15  parallax-image  /object-cover"
         />
       </div> */}
-      <div className="flex flex-col md:flex-row item-center md:justify-between relative  w-full md:gap-10 gap-5 pb-8 /px-14">
+      <div className="flex  flex-col md:flex-row item-center md:justify-between relative  w-full md:gap-4 lg:gap-10 gap-5 pb-8 md:px-5 lg:px-10">
         <div className="text-4xl font-semibold z-20 text-neutral-700 ">
-          Why <span className="text-base-color/80">Choose</span> <br /> us
+          Why <span className="text-base-color/80">Choose</span>{" "}
+          <br className="md:block hidden" /> us
         </div>
         <div className="text-wrap font-medium md:text-base /text-center md:px-5 text-sm text-neutral-500">
           Wilson Bank Priotized security and other <br /> essential factor to
@@ -251,7 +252,7 @@ export default function Wcu() {
           </Link>
         </div>
       </div>
-      <div className="grid-data-cont grid grid-cols-1 lg:grid-cols-12 items-center">
+      <div className="grid-data-cont grid grid-cols-1 lg:grid-cols-12 items-center px-5 md:px-10">
         <div className="lg:col-span-2 w-full">
           <div className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-1 lg:gap-y-6 lg:justify-around gap-x-2 md:justify-center md:item-center">
             {" "}
