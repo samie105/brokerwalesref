@@ -252,9 +252,9 @@ export default function Wcu() {
           </Link>
         </div>
       </div>
-      <div className="grid-data-cont grid grid-cols-1 lg:grid-cols-12 items-center px-5 md:px-10">
+      <div className="grid-data-cont grid grid-cols-1 lg:grid-cols-12 items-center md:px-10">
         <div className="lg:col-span-2 w-full">
-          <div className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-1 lg:gap-y-6 lg:justify-around gap-x-2 md:justify-center md:item-center">
+          <div className="px-2 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-1 lg:gap-y-6 lg:justify-around gap-x-2 md:justify-center md:item-center">
             {" "}
             <LottieLoader />
             {wcu.map((data) => (

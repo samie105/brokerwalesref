@@ -99,7 +99,10 @@ export default function Hero() {
     },
   ];
   return (
-    <div className="cont h-screen b/g-gray-100 w-full overflow-hidden">
+    <div
+      className="cont h-screen b/g-gray-100 w-full overflow-hidden"
+      id="home"
+    >
       {/* <BackgroundBeams /> */}
       <div className="imageCont  relative w-full h-full">
         <div className="w-full h-full absolute top0">

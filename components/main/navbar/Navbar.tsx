@@ -81,7 +81,7 @@ export default function Navbar() {
                 nav.path === pathname
                   ? `font-bold text-base-color/80 rounded-full`
                   : " text-neutral-500 hover:opacity-100 font-semibold"
-              } cursor-pointer /overflow-hidden  text-sm py-2 pb-2 px-1 relative transition ${
+              } cursor-pointer /overflow-hidden  text-sm py-1 p px-1 relative transition ${
                 nav.className
               }`}
             >
@@ -91,8 +91,10 @@ export default function Navbar() {
                   <motion.div
                     transition={{ type: "tween" }}
                     layoutId="underline"
-                    className="absolute mover bg-base-color/50 hidden rounded-full bottom-0 left-1/4 -translate-x-1/2 w-1/2 h-0.5 z-10"
-                  ></motion.div>
+                    className="absolute mover flex justify-center items-end rounded-full top-0 left-0 w-full h-full z-10"
+                  >
+                    <motion.div className="inner bg-base-color/50 rounded-xl bottom-0 left-0 h-0.5 w-1/3 "></motion.div>
+                  </motion.div>
                 ) : null}
               </MotionLink>
             </motion.div>
@@ -132,14 +134,13 @@ export default function Navbar() {
             </div>
           </SheetTrigger>{" "}
           <SheetContent
-            className="border-none /relative text-white w-[80%]"
+            className="border-none /relative  w-[80%]"
             side={"left"}
-            style={{ background: colors.defaultblue }}
           >
             {" "}
             <SheetHeader>
               {" "}
-              <div className="logo flex justify-center text-white font-bold">
+              <div className="logo flex justify-center  font-bold">
                 <Image
                   src={hero}
                   alt=""
@@ -150,18 +151,16 @@ export default function Navbar() {
               </div>{" "}
             </SheetHeader>
             <div className="mt-20">
-              <p className="uppercase font-bold mb-5 text-white/80 /text-sm">
-                MENU
-              </p>
+              <p className="uppercase font-semibold mb-5 /80 text-sm">MENU</p>
               <AnimatePresence>
                 {nav.map((nav) => (
                   <motion.div
                     key={nav.path}
                     className={`${
                       nav.path === pathname
-                        ? `font-bold text-[#fff] rounded-xl`
-                        : "text-white font-bold opacity-70 hover:opacity-100"
-                    } cursor-pointer /overflow-hidden text-sm  px-5 py-4 relative transition`}
+                        ? `font-semibold text-base-color/80 rounded-xl`
+                        : "text-neutral-500 font-semibold"
+                    } cursor-pointer /overflow-hidden text-sm  px-5 py-3 relative transition`}
                   >
                     <MotionLink href={nav.path}>
                       <motion.p className="z-30">{nav.name}</motion.p>
@@ -169,30 +168,32 @@ export default function Navbar() {
                         <motion.div
                           transition={{ type: "spring" }}
                           layoutId="underline"
-                          className="absolute mover bg-[#ffffff26] rounded-xl top-0 left-0 w-full h-full z-10"
-                        ></motion.div>
+                          className="absolute mover flex items-center  rounded-xl/ top-0 left-0 w-full h-full z-10"
+                        >
+                          <motion.div className="inner bg-base-color/80 rounded-xl left-0 h-1/3 w-0.5 "></motion.div>
+                        </motion.div>
                       ) : null}
                     </MotionLink>
                   </motion.div>
                 ))}
               </AnimatePresence>
             </div>
-            <div className="cta absolute bottom-4 text-sm left-0 w-full px-5 text-center">
-              <p className=" line h-0.5 w-[20%] bg-white/30 rounded-full mx-auto mb-4"></p>
+            <div className="cta grid grid-cols-1  absolute bottom-4 text-sm left-0 w-full px-5 text-center">
               <Link
                 href={"/auth/login"}
                 // style={{ background: colors.defaultblue }}
 
-                className=" px-5 py-3 rounded-xl  font-semibold bg-white/10 /text-white cursor-pointer hover:opacity-90 transition-all"
+                className=" px-5 py-3 mb-/6 w-full  rounded-xl  font-semibold bg-neutral-100 text-neutral-500 /text-white cursor-pointer transition-all"
               >
                 Sign-in
               </Link>
-              <div
+              <Link
+                href={"/auth/signup"}
                 className="mt-2 px-5 py-3 rounded-xl font-semibold text-white cursor-pointer hover:opacity-90 transition-all"
                 style={{ background: colors.darkdefualtblue }}
               >
                 Get Started
-              </div>
+              </Link>
             </div>
           </SheetContent>
         </Sheet>

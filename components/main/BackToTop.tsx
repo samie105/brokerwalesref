@@ -1,14 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useColors } from "@/context/colorContext";
+import { Link as Lk } from "react-scroll";
 
 export default function BTT() {
-  const colors = useColors();
   const [showButton, setShowButton] = useState(false);
+  const [windowsValue, setWindowsValue] = useState(0);
 
   const handleScroll = () => {
     // Show button when the user scrolls beyond 100 pixels
-    if (window.pageYOffset > 150) {
+    setWindowsValue(window.scrollY);
+    if (window.scrollY > 150) {
       setShowButton(true);
     } else {
       setShowButton(false);
@@ -21,13 +22,22 @@ export default function BTT() {
   }, []);
 
   return (
-    <div
-      className={`fixed bottom-10 left-10 rounded-full z-50 ${
-        showButton ? "" : "hidden"
-      }`}
-      style={{ background: colors.defaultblue }}
+    <Lk
+      to={"home"}
+      spy={true}
+      smooth={true}
+      offset={-100}
+      duration={500}
+      className={`fixed bottom-10 animate__fadeInUp animate__faster animate__animated bg-base-color/80 left-10 rounded-full z-50 ${
+        showButton
+          ? "animate__animated animate__fadeInUp"
+          : windowsValue <= 160
+          ? "animate__animated animate__fadeOutDown"
+          : "hidden"
+      }
+        `}
     >
-      <div className="rounded-full cursor-pointer bg-blue-700/5 p-4">
+      <div className="rounded-full cursor-pointer p-5 md:p-4 bg-base-color/80">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -41,6 +51,6 @@ export default function BTT() {
           />
         </svg>
       </div>
-    </div>
+    </Lk>
   );
 }
