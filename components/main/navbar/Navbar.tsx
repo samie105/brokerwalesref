@@ -51,6 +51,30 @@ export default function Navbar() {
       path: "/contact",
       className: "",
     },
+    {
+      id: 3,
+      name: "About",
+      path: "#",
+      className: "",
+    },
+    {
+      id: 4,
+      name: "Resources",
+      path: "#",
+      className: "",
+    },
+    {
+      id: 5,
+      name: "Lending",
+      path: "#",
+      className: "",
+    },
+    {
+      id: 6,
+      name: "Help center",
+      path: "#",
+      className: "",
+    },
   ];
   const colors = useColors();
   return (

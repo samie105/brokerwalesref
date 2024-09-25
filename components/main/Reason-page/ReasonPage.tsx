@@ -183,7 +183,7 @@ export default function ReasonPage() {
           </Link>
         </div>
       </div>
-      <div className="px-5 md:px-0 gap-3 mt-5 grid grid-cols-1 md:grid-cols-2">
+      <div className="px-5 md:px-5 gap-3 mt-5 grid grid-cols-1 md:grid-cols-2">
         <Privacy />
         <Transparency />
         <Update />

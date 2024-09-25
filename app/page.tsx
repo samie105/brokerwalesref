@@ -20,12 +20,12 @@ export default function page() {
       <div className="/bg-[#E9EDF0] overflow-hidden max-w-[1440px] mx-auto ">
         <Hero />
         <Discover />
-        <CardPage />
-        <Category />
         <Flight />
+        <CardPage />
         <Wcu />
         <Savings />
         <ReasonPage />
+        <Category />
         <Testimonials />
         <SupportContact />
         <Footer />

@@ -56,7 +56,7 @@ export default function Savings() {
           Save & <span className="text-base-color/80/ fon/t-bold">Invest</span>{" "}
           with Us
         </div>
-        <div className="small-text text-base md:text-lg mt-3 leading-6 font-medium text-neutral-600 text-balance">
+        <div className="small-text text-base md:text-lg mt-3 leading-6 font-medium text-neutral-500 text-balance">
           Experience unparalleled savings and investment opportunities at{" "}
           <span className="font-semibold">Wilson Bank</span>, where your
           financial growth and security are our top priorities. Join us to take

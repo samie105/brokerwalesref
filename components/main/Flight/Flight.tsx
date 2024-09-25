@@ -6,28 +6,31 @@ import Link from "next/link";
 export default function Flight() {
   const colors = useColors();
   return (
-    <section
-      className=" py-12 md:px-28 px-5  md:py-24 lg:py-32 w-full h-full relative overflow-hidden"
-      style={{ background: colors.defaultblue + "10" }}
-    >
+    <section className=" py-12 md:px-12 lg:px-28 px-5  w-full h-full relative overflow-hidden">
+      <div className="overlay absolute top-0 left-0 bg-black opacity-95 md:opacity-100 md:bg-gradient-to-r md:from-black/50 md:via-black md:to-black opacity-80/ w-full h-full z-20"></div>
+      <div className="absolute z-30 right-0 top-0 md:top-5 text-neutral-800/60">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="size-28 md:size-40 -rotate-45"
+        >
+          <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+        </svg>
+      </div>
       <div className="absolute top-0 left-0 w-full h-full bg-fixed bg-repeat z-10 /opacity-10">
         <Image
-          src="/assets/flight.svg"
-          alt=""
-          width={1000}
-          height={1000}
-          className="h-full/ w-full /opacity-5  parallax-image  /object-cover"
+          src="/assets/flight.jpg"
+          width="1000"
+          height="1000"
+          alt="Flight booking"
+          className="mx-auto aspect-video overflow-hidden h-full w-full object-cover object-center sm:w-full z-20"
         />
       </div>
-      <div className="/container grid items-center gap-6 /py-6 z-30 /px-4 bg-white rounded-lg overflow-hidden lg:pl-6 lg:grid-cols-2 /lg:gap-10 shadow-md">
-        <div className="space-y-4 md:py-12 py-5 z-40 px-7 md:px-0">
-          <div
-            className=" rounded-lg inline-flex items-center gap-x-2  bg-gray-100 px-3 py-2 text-sm dark:bg-gray-800"
-            style={{
-              color: colors.defaultblue,
-              background: colors.defaultblue + "10",
-            }}
-          >
+      <div className=" grid md:grid-cols-2 items-center  /py-6 z-30 /px-4  overflow-hidden lg:gap-10">
+        <div className=""></div>{" "}
+        <div className="space-y-4 order-last md:py-12 py-5 z-40 md:pr-10/">
+          <div className=" rounded-full inline-flex items-center gap-x-2  bg-neutral-700/30 px-3 py-2 text-white text-xs ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -43,22 +46,21 @@ export default function Flight() {
             </svg>
             <p className="text-sm">Flight Booking</p>
           </div>
-          <h2 className="text-3xl font-bold">
+          <h2 className="text-3xl md:text-5xl font-semibold text-white/90">
             Pay for flights with your bank account
           </h2>
-          <p className="max-w-[600px] text-gray-500 md:text-sm/relaxed lg:text-sm/relaxed xl:text-sm/relaxed dark:text-gray-400">
+          <p className="max-w-[600px] text-neutral-400 font-medium md:text-base/relaxed lg:text-base/relaxed xl:text-base/relaxed ">
             Secure your flight reservations directly via the Wilson Bank
             platform and conveniently settle payments using your bank account.
             This streamlined process eliminates the need for credit cards or
             external payment services, ensuring a smoother transaction
             experience.
           </p>
-          <div className="flex">
+          <div className="flex mt-8 gap-x-2 items-center">
             {" "}
             <Link
-              href="#"
-              style={{ background: colors.defaultblue }}
-              className="flex h-12 items-center justify-center gap-x-2 mt-8 rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              href="/dashboard"
+              className=" bg-base-color/80 hover:bg-base-color/80 transition-all flex px-6 py-4 rounded-full font-bold text-white/90  items-center gap-3 cursor-pointer"
             >
               <p>Book a Flight</p>{" "}
               <svg
@@ -74,15 +76,26 @@ export default function Flight() {
                 />
               </svg>
             </Link>
+            <Link
+              href={"/auth/login"}
+              className=" bg-neutral-50/20 hidden hover:bg-neutral-100/20 transition-all lg:flex px-6 py-4 rounded-full font-bold text-white/90  items-center gap-3 cursor-pointer "
+            >
+              <p>Create an Account</p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="w-5 h-5 block"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
-        <Image
-          src="/assets/flight.jpg"
-          width="1000"
-          height="1000"
-          alt="Flight booking"
-          className="mx-auto aspect-video overflow-hidden h-full w-full object-cover object-center sm:w-full z-20"
-        />
       </div>
     </section>
   );

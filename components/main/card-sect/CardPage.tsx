@@ -10,7 +10,7 @@ export default function CardPage() {
   return (
     <div>
       <div className="px-10 md:px-20 h-full w-full savings_cont grid md:grid-cols-2 grid-cols-1 gap-x-10 mb-9 md:items-center /bg-neutral-400/10 py-10 overflow-hidden/ relative">
-        <div className="absolute -left-16 z-40 -top-4 animate-pulse/ duration-1000 text-neutral-100">
+        <div className="absolute -left-16 z-40 -top-0 animate-pulse/ duration-1000 text-neutral-100">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             strokeWidth={0.7}

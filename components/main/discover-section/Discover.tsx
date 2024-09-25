@@ -115,7 +115,7 @@ export default function Discover() {
     },
   ];
   return (
-    <div className="discover_cont w-full px-7 md:px-20 mt-12 pb-6 ">
+    <div className="discover_cont w-full px-7 md:px-20 mt-4  py-12 md:py-24 ">
       <div className="holder rounded-full grid lg:grid-cols-2 grid-cols-1 items-center">
         <div className="">
           {" "}
