@@ -9,7 +9,7 @@ import { useColors } from "@/context/colorContext";
 export default function Footer() {
   const colors = useColors();
   return (
-    <footer className="bg-[#02062d] text-white py-12 md:py-16">
+    <footer className="bg-neutral-100 text-white py-12 md:py-16">
       <div className="container mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
         <div className="flex flex-col items-start">
           <Image
@@ -21,25 +21,25 @@ export default function Footer() {
           />
         </div>
         <div className="grid gap-2">
-          <h4 className="text- font-semibold">Lending</h4>
+          <h4 className="text- font-bold text-neutral-700">Lending</h4>
           <div className="grid gap-1">
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               Small Businesses
             </Link>
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               Start ups
             </Link>
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               Enterprises
@@ -47,32 +47,32 @@ export default function Footer() {
           </div>
         </div>
         <div className="grid gap-2">
-          <h4 className="text- font-semibold">About</h4>
+          <h4 className="ext- font-bold text-neutral-700">About</h4>
           <div className="grid gap-1">
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               Our Story
             </Link>
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               Careers
             </Link>
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               News
             </Link>
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               Investors
@@ -80,39 +80,39 @@ export default function Footer() {
           </div>
         </div>
         <div className="grid gap-2">
-          <h4 className="text- font-semibold">Resources</h4>
+          <h4 className="ext- font-bold text-neutral-700">Resources</h4>
           <div className="grid gap-1">
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               Accessibility
             </Link>
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               Privacy Policy
             </Link>
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               Legal
             </Link>
             <Link
               href="#"
-              className="text-gray-300 hover:text-white text-sm"
+              className="text-gray-500 hover:underline text-sm"
               prefetch={false}
             >
               Help Center
             </Link>
             {/* <Link
               href="#"
-              className="text-gray-300 hover:text-white flex justify-center items-center gap-2"
+              className="text-gray-500 hover:underline flex justify-center items-center gap-2"
               prefetch={false}
             >
               Help Center
@@ -121,8 +121,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="grid gap-4 w-full">
-          <h4 className="text-lg font-semibold">Newsletter</h4>
-          <p className="text-gray-400 text-sm">
+          <h4 className="text-lg font-bold text-neutral-700">Newsletter</h4>
+          <p className="text-neutral-500 text-sm">
             Subscribe to our newsletter to stay up-to-date with the latest news
             and updates.
           </p>
@@ -130,7 +130,7 @@ export default function Footer() {
             <Input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 bg-white/10 /border-gray-700 text-white border-0"
+              className="flex-1 bg-neutral-200 border-neutral-500/10 border-none text-neutral-700"
             />
             <Button type="submit" style={{ background: colors.defaultblue }}>
               Subscribe
@@ -138,7 +138,7 @@ export default function Footer() {
           </form>
         </div>
       </div>
-      <div className="mt-8 border-t border-gray-700 pt-8 text-center text-sm text-gray-400">
+      <div className="mt-8 border-t border-neutral-500/10 pt-8 text-center text-sm text-neutral-500">
         &copy; 2024 Bank Inc. All rights reserved.
       </div>
     </footer>

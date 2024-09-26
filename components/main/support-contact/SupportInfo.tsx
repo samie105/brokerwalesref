@@ -37,14 +37,8 @@ export default function SupportInfo() {
       </div>
       <div className="contacts  mt-7">
         <div className="intText mt-3 font-semibold">Reach out to us</div>
-        <div className="email flex items-center gap-x-4 mt-3 border border-blue-700/20 rounded-xl p-3">
-          <div
-            className="p-3 rounded-xl"
-            style={{
-              background: colors.defaultblue + "10",
-              color: colors.defaultblue,
-            }}
-          >
+        <div className="email flex items-center gap-x-4 mt-3 bg-neutral-50 rounded-xl p-3">
+          <div className="p-3 rounded-xl bg-base-color/5 text-base-color/80">
             {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -61,19 +55,13 @@ export default function SupportInfo() {
             <div className="first font-semibold text-sm text-neutral-600">
               Email
             </div>
-            <div className="second  text-neutral-800 text-sm">
+            <div className="second  text-neutral-500 font-medium text-sm">
               Support@wilsonbank.com
             </div>
           </div>
         </div>{" "}
-        <div className="phone flex items-center gap-x-4 mt-5 border border-blue-700/20 rounded-xl p-3">
-          <div
-            className="p-3 rounded-xl bg-green-100 text-green-600"
-            style={{
-              background: colors.defaultblue + "10",
-              color: colors.defaultblue,
-            }}
-          >
+        <div className="phone flex items-center gap-x-4 mt-3 bg-neutral-50 rounded-xl p-3">
+          <div className="p-3 rounded-xl bg-base-color/5 text-base-color/80">
             {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -93,19 +81,13 @@ export default function SupportInfo() {
             <div className="first font-semibold text-sm text-neutral-600">
               Hotline
             </div>
-            <div className="second font-sans text-neutral-800 text-sm">
+            <div className="second font-sans text-neutral-500 font-medium text-sm">
               +1 (254) 5477
             </div>
           </div>
         </div>
-        <div className="phone flex items-center gap-x-4 mt-5 border border-blue-700/20 rounded-xl p-3">
-          <div
-            className="p-3 rounded-xl bg-cyan-100 text-cyan-600"
-            style={{
-              background: colors.defaultblue + "10",
-              color: colors.defaultblue,
-            }}
-          >
+        <div className="add flex items-center gap-x-4 mt-3 bg-neutral-50 rounded-xl p-3">
+          <div className="p-3 rounded-xl bg-base-color/5 text-base-color/80">
             {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +107,7 @@ export default function SupportInfo() {
             <div className="first font-semibold text-sm text-neutral-600">
               Address
             </div>
-            <div className="second font-sans text-neutral-800 text-sm">
+            <div className="second font-sans text-neutral-500 font-medium text-sm">
               11128 SE Stanley Ave, Milwaukie, OR 97222
             </div>
           </div>
