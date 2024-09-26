@@ -253,10 +253,16 @@ export default function Wcu() {
         </div>
       </div>
       <div className="grid-data-cont grid grid-cols-1 lg:grid-cols-12 items-center md:px-10">
-        <div className="lg:col-span-2 w-full">
-          <div className="px-2 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-1 lg:gap-y-6 lg:justify-around gap-x-2 md:justify-center md:item-center">
+        <div className="lg:col-span-2  w-full">
+          <div className="px-2  grid relative grid-cols-2 md:grid-cols-4 lg:grid-cols-1 lg:gap-y-6 lg:justify-around gap-x-2 md:justify-center md:item-center">
             {" "}
-            <LottieLoader />
+            <div className="absolute md:hidden -right-44 top-0">
+              <LottieLoader className={"md:hidden"} size="w-[70%] h-[17rem]" />
+            </div>
+            <LottieLoader
+              className={"hidden lg:block"}
+              size="w-[60%] h-[10rem]"
+            />
             {wcu.map((data) => (
               <div key={data.number} className="my-6">
                 <div className="number text-neutral-800 text-xl  font-bold">
