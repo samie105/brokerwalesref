@@ -7,7 +7,7 @@ export default function Flight() {
   const colors = useColors();
   return (
     <section className=" py-12 md:px-12 lg:px-28 px-5  w-full h-full relative overflow-hidden">
-      <div className="overlay absolute top-0 left-0 bg-black opacity-80 md:opacity-100 md:bg-gradient-to-r md:from-black/50 md:via-black md:to-black opacity-80/ w-full h-full z-20"></div>
+      <div className="overlay absolute top-0 left-0 bg-black/80 opacity-80/ md:bg-gradient-to-r md:from-black/50 md:via-black md:to-black opacity-80/ w-full h-full z-20"></div>
       <div className="absolute z-30 right-0 top-0 md:top-5 text-neutral-800/60">
         <svg
           xmlns="http://www.w3.org/2000/svg"
