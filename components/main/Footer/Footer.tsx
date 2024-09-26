@@ -120,7 +120,7 @@ export default function Footer() {
             </Link> */}
           </div>
         </div>
-        <div className="grid gap-4 w-full">
+        <div className="grid gap-4 w-full col-span-2">
           <h4 className="text-lg font-bold text-neutral-700">Newsletter</h4>
           <p className="text-neutral-500 text-sm">
             Subscribe to our newsletter to stay up-to-date with the latest news
