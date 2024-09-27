@@ -42,8 +42,8 @@ export default async function page({
           <div className="mt-1" />
           <AcctSectManager currentMode={currentMode} />{" "}
         </div>
-        <QuickLinkSect />
-        <TransactionMobileHistory
+        {/* <QuickLinkSect /> */}
+        <TransactionSummary
           currentMode={currentMode}
           transactionTab={transactionTab}
         />

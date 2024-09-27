@@ -104,7 +104,7 @@ export default function Navbar() {
               className={`${
                 nav.path === pathname
                   ? `font-bold text-base-color/80 rounded-full`
-                  : " text-neutral-500 hover:opacity-100 font-semibold"
+                  : " text-neutral-500 hover:opacity-100 font-medium"
               } cursor-pointer /overflow-hidden  text-sm py-1 p px-1 relative transition ${
                 nav.className
               }`}

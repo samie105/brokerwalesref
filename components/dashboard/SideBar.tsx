@@ -183,7 +183,7 @@ export default function SideBar() {
           </AnimatePresence>
         </div>
       </div>
-      <div className="bg-white w-full h-auto rounded-lg p-4">
+      <div className="bg-white w-full h-full rounded-lg p-4">
         <p className="font-semibold uppercase text-neutral-700 text-xs">
           {" "}
           quick controls

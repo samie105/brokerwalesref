@@ -38,6 +38,7 @@ import { createCard, DeleteCard } from "@/server/dashboard/cardActions";
 import { useAction } from "next-safe-action/hooks";
 import { useFetchInfo } from "@/lib/data/fetchPost";
 import Fixed from "./Fixed";
+import Link from "next/link";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -138,7 +139,7 @@ export default function AcctSectManager({
                         Checking account
                       </div>
                       <div
-                        className={`account-balance text-3xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
+                        className={`account-balance text-xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
                       >
                         <span className="text-sm">$</span>
                         {data.accountBalance.toLocaleString("en-US", {
@@ -178,23 +179,23 @@ export default function AcctSectManager({
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-x-2 mt-5">
+                  <Link
+                    href={"/dashboard/settings"}
+                    className="flex items-center gap-x-2 mt-5"
+                  >
                     <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
+                        viewBox="0 0 24 24"
                         fill="currentColor"
                         className="size-4"
                       >
-                        <path
-                          fillRule="evenodd"
-                          d="M9.638 1.093a.75.75 0 0 1 .724 0l2 1.104a.75.75 0 1 1-.724 1.313L10 2.607l-1.638.903a.75.75 0 1 1-.724-1.313l2-1.104ZM5.403 4.287a.75.75 0 0 1-.295 1.019l-.805.444.805.444a.75.75 0 0 1-.724 1.314L3.5 7.02v.73a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 1 .388-.657l1.996-1.1a.75.75 0 0 1 1.019.294Zm9.194 0a.75.75 0 0 1 1.02-.295l1.995 1.101A.75.75 0 0 1 18 5.75v2a.75.75 0 0 1-1.5 0v-.73l-.884.488a.75.75 0 1 1-.724-1.314l.806-.444-.806-.444a.75.75 0 0 1-.295-1.02ZM7.343 8.284a.75.75 0 0 1 1.02-.294L10 8.893l1.638-.903a.75.75 0 1 1 .724 1.313l-1.612.89v1.557a.75.75 0 0 1-1.5 0v-1.557l-1.612-.89a.75.75 0 0 1-.295-1.019ZM2.75 11.5a.75.75 0 0 1 .75.75v1.557l1.608.887a.75.75 0 0 1-.724 1.314l-1.996-1.101A.75.75 0 0 1 2 14.25v-2a.75.75 0 0 1 .75-.75Zm14.5 0a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-.388.657l-1.996 1.1a.75.75 0 1 1-.724-1.313l1.608-.887V12.25a.75.75 0 0 1 .75-.75Zm-7.25 4a.75.75 0 0 1 .75.75v.73l.888-.49a.75.75 0 0 1 .724 1.313l-2 1.104a.75.75 0 0 1-.724 0l-2-1.104a.75.75 0 1 1 .724-1.313l.888.49v-.73a.75.75 0 0 1 .75-.75Z"
-                          clipRule="evenodd"
-                        />
+                        <path d="M18.75 12.75h1.5a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5ZM12 6a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 12 6ZM12 18a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 12 18ZM3.75 6.75h1.5a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5ZM5.25 18.75h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 0 1.5ZM3 12a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 3 12ZM9 3.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM12.75 12a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0ZM9 15.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
                       </svg>
-                      <p>Fixed</p>
+
+                      <p>Settings</p>
                     </div>
-                    <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
+                    {/* <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
@@ -208,14 +209,14 @@ export default function AcctSectManager({
                         />
                       </svg>
                       <p>Cards</p>
-                    </div>
-                  </div>
+                    </div> */}
+                  </Link>
 
                   {/* <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div> */}
                 </div>
                 <div className="separator w-10 h-[3px] mt-4 rounded-full my-1 bg-black/10 mx-auto"></div>
 
-                <div className="acount-info mt-2 py-5 bg-white rounded-sm px-1">
+                <div className="acount-info py-5 bg-white rounded-sm px-1">
                   <h1 className="text-neutral-600 font-medium text-sm ">
                     Account Info
                   </h1>
@@ -227,16 +228,14 @@ export default function AcctSectManager({
                         <div className="icon-cont rounded-full relative justify-center items-center flex bg-base-color/5 /border text-base-color/80 border-base-color/10 p-4 ">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
                             viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="size-5"
+                            fill="currentColor"
+                            className="size-4"
                           >
                             <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
+                              fillRule="evenodd"
+                              d="M10.5 3.798v5.02a3 3 0 0 1-.879 2.121l-2.377 2.377a9.845 9.845 0 0 1 5.091 1.013 8.315 8.315 0 0 0 5.713.636l.285-.071-3.954-3.955a3 3 0 0 1-.879-2.121v-5.02a23.614 23.614 0 0 0-3 0Zm4.5.138a.75.75 0 0 0 .093-1.495A24.837 24.837 0 0 0 12 2.25a25.048 25.048 0 0 0-3.093.191A.75.75 0 0 0 9 3.936v4.882a1.5 1.5 0 0 1-.44 1.06l-6.293 6.294c-1.62 1.621-.903 4.475 1.471 4.88 2.686.46 5.447.698 8.262.698 2.816 0 5.576-.239 8.262-.697 2.373-.406 3.092-3.26 1.47-4.881L15.44 9.879A1.5 1.5 0 0 1 15 8.818V3.936Z"
+                              clipRule="evenodd"
                             />
                           </svg>
 
@@ -270,7 +269,7 @@ export default function AcctSectManager({
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="size-5"
+                            className="size-4"
                           >
                             <path
                               strokeLinecap="round"

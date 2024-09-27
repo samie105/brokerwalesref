@@ -105,7 +105,7 @@ export default async function Navbar() {
                   alt=""
                   width={1000}
                   height={1000}
-                  className="w-14 h-5 opacity-80"
+                  className="w-14 h-auto opacity-80"
                 />
               </div>
             </div>
