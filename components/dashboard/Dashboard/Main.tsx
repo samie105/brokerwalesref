@@ -181,7 +181,8 @@ export default function Dashboard() {
                     {" "}
                     <div className="">
                       <div className="account-type text-xs bg-white/5 border border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
-                        Checking account
+                        <span className="capitalize">{data.accountType}</span>{" "}
+                        account
                       </div>
                       <div
                         className={`account-balance text-3xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
@@ -224,7 +225,7 @@ export default function Dashboard() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-x-2 mt-5">
+                  {/*    <div className="flex items-center gap-x-2 mt-5">
                     <div className="bg-white/5 text-white text-sm rounded-md border font-semibold border-white/10 flex items-center  space-x-2 px-3 py-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -255,7 +256,7 @@ export default function Dashboard() {
                       </svg>
                       <p>Cards</p>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div>
 
                   <div className="acount-info">

@@ -129,19 +129,20 @@ export default function SideBar() {
   ];
   return (
     <div className="w-full h-screen overflow-scroll flex flex-col gap-y-1 /items-center j/ustify-center">
-      <div className="side-bar-cont bg-white w-full  rounded-md p-4">
-        <div className="">
+      <div className="side-bar-cont bg-white w-full  rounded-md px-4 py-2">
+        <div className="mt-2 w-full">
           {" "}
           <Image
             src={hero}
             alt=""
             width={1000}
             height={1000}
-            className="w-14 h-5 opacity-80"
+            quality={100}
+            className="w-14 /opacity-80 mx-auto"
             style={{ color: colors.defaultblue }}
           />
         </div>
-        <div className="space-y-3 mt-8">
+        <div className="space-y-3 mt-4">
           <p className="font-semibold uppercase text-neutral-700 text-xs">
             {" "}
             menu

@@ -84,7 +84,7 @@ export default async function Navbar() {
               </Link>
             </div>
             <div className="flex md:hidden items-center gap-x-2">
-              <div className="navbar  p-3 rounded-md text-neutral-500 /bg-base-color/5 ">
+              {/* <div className="navbar  p-3 rounded-md text-neutral-500 /bg-base-color/5 ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -97,15 +97,16 @@ export default async function Navbar() {
                     clipRule="evenodd"
                   />
                 </svg>
-              </div>
+              </div> */}
 
-              <div className="image">
+              <div className="image ml-4">
                 <Image
                   src={hero}
                   alt=""
                   width={1000}
                   height={1000}
-                  className="w-14 h-auto opacity-80"
+                  quality={100}
+                  className="w-14 /opacity-80 mx-auto/"
                 />
               </div>
             </div>

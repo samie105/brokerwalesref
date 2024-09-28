@@ -204,12 +204,20 @@ export default function TransactionSummary({
             </div>
           )}
           {sortedTransactions.length >= 1 && (
-            <Link
-              className="fixed-main-hist-link flex items-center justify-center text-sm gap-x-1 font-semibold text-base-color/80 border border-base-color/10 hover:bg-base-color/5 transition-all /bg-black/5 w-full rounded-md py-3"
-              href={`/dashboard/${transactionTab}`}
-            >
-              <p>View all history</p>
-            </Link>
+            <div className="flex justify-between gap-x-2 items-center">
+              <Link
+                className="fixed-main-hist-link flex items-center justify-center text-sm gap-x-1 font-semibold text-neutral-600 bg-neutral-50 border border-neutral-500/10  transition-all /bg-black/5 w-full rounded-md py-3"
+                href={`/dashboard/deposit`}
+              >
+                <p>View deposits</p>
+              </Link>
+              <Link
+                className="fixed-main-hist-link flex items-center justify-center text-sm gap-x-1 font-semibold text-neutral-600 bg-neutral-50 border border-neutral-500/10  transition-all /bg-black/5 w-full rounded-md py-3"
+                href={`/dashboard/transfers`}
+              >
+                <p>View transfers</p>
+              </Link>
+            </div>
           )}
         </div>
       </div>

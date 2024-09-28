@@ -136,7 +136,8 @@ export default function AcctSectManager({
                     {" "}
                     <div className="">
                       <div className="account-type text-xs bg-white/5 border border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
-                        Checking account
+                        <span className="capitalize">{data.accountType}</span>{" "}
+                        account
                       </div>
                       <div
                         className={`account-balance text-xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
@@ -179,7 +180,7 @@ export default function AcctSectManager({
                       </div>
                     </div>
                   </div>
-                  <Link
+                  {/* <Link
                     href={"/dashboard/settings"}
                     className="flex items-center gap-x-2 mt-5"
                   >
@@ -209,8 +210,7 @@ export default function AcctSectManager({
                         />
                       </svg>
                       <p>Cards</p>
-                    </div> */}
-                  </Link>
+                    </div>  </Link> */}
 
                   {/* <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div> */}
                 </div>

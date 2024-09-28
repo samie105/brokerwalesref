@@ -92,8 +92,8 @@ export default function Navbar() {
           alt=""
           width={1000}
           height={1000}
-          className="w-16 h-6 opacity-80"
-          style={{ color: colors.defaultblue }}
+          quality={100}
+          className="w-14 /opacity-80 mx-auto/"
         />
       </div>
       <div className="menu lg:col-span-9 md:col-span-8 justify-center  hidden md:flex gap-x-2   items-center">
