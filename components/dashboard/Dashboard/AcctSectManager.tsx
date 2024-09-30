@@ -135,7 +135,7 @@ export default function AcctSectManager({
                   <div className="flex items-center justify-between">
                     {" "}
                     <div className="">
-                      <div className="account-type text-xs bg-white/5 border border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
+                      <div className="account-type text-xs bg-white/5 border w-auto border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
                         <span className="capitalize">{data.accountType}</span>{" "}
                         account
                       </div>
@@ -150,7 +150,10 @@ export default function AcctSectManager({
                       </div>
                     </div>
                     <div className="actions flex items-center space-x-2">
-                      <div className="deposit-action rounded-md bg-white/5 borde/r border-white/10 p-3 text-white">
+                      <Link
+                        href={"/dashboard/deposit"}
+                        className="deposit-action rounded-md bg-white/5 borde/r border-white/10 p-3 text-white"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
@@ -163,8 +166,11 @@ export default function AcctSectManager({
                             clipRule="evenodd"
                           />
                         </svg>
-                      </div>
-                      <div className="transfer-action rounded-md bg-white/5 bord/er border-white/10 p-3 text-white">
+                      </Link>
+                      <Link
+                        href={"/dashboard/transfers"}
+                        className="transfer-action rounded-md bg-white/5 bord/er border-white/10 p-3 text-white"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
@@ -177,7 +183,7 @@ export default function AcctSectManager({
                             clipRule="evenodd"
                           />
                         </svg>
-                      </div>
+                      </Link>
                     </div>
                   </div>
                   {/* <Link
