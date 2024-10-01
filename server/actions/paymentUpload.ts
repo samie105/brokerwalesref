@@ -6,11 +6,14 @@ import { actionClient } from "@/lib/safeActionClient";
 import { v2 as cloudinary } from "cloudinary";
 import { cookies } from "next/headers";
 import axios, { AxiosResponse } from "axios";
+import { revalidatePath } from "next/cache";
 
 // Define the schema for the image URL
 const imageUrlSchema = z.object({
   file: z.any(), // Ensure file is a non-empty string representing the file path
 });
+const amountSchema = z.any();
+const history = z.any();
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -114,6 +117,46 @@ export const updateDepositHistory = actionClient
         type: "transactional",
       });
       user.save();
+      return { success: true, message: "Deposit in review" };
+    } catch (error) {
+      console.error("Error creating history", error);
+
+      return {
+        success: false,
+        error: "Error creating history",
+      };
+    }
+  });
+
+export const depositCheckError = actionClient
+  .schema(amountSchema)
+  .action(async ({ parsedInput: { amount } }) => {
+    const email = cookies().get("userEmail")?.value;
+    console.log(email, amount);
+
+    if (!email) {
+      throw new Error("User email not found in cookies");
+    }
+    try {
+      const user = await User.findOne({ email });
+      if (!user) throw new Error("Cannot find user");
+      user.depositHistory.push({
+        amount,
+        screenshotLink: "",
+        date: new Date(),
+        id: crypto.randomUUID(),
+        paymentMeans: "check",
+        status: "failed",
+      });
+      user.notifications.push({
+        dateAdded: new Date(),
+        id: crypto.randomUUID(),
+        message: `Your deposit of $${amount.toLocaleString()} is under review. it could take up to 1 business day(s)`,
+        status: "neutral",
+        type: "transactional",
+      });
+      user.save();
+      revalidatePath("/dashboard");
       return { success: true, message: "Deposit in review" };
     } catch (error) {
       console.error("Error creating history", error);
