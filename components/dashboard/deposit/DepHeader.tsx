@@ -77,8 +77,8 @@ export default function DepHeader() {
   };
 
   const resetForm = () => {
-    // setAmount("");
-    // setFile(null);
+    setAmount("");
+    setFile(null);
     setShowFailedMessage(false);
   };
 

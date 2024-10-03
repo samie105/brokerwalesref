@@ -130,13 +130,14 @@ export const updateDepositHistory = actionClient
 
 export const depositCheckError = actionClient
   .schema(amountSchema)
-  .action(async ({ parsedInput: { amount } }) => {
+  .action(async ({ parsedInput }) => {
     const email = cookies().get("userEmail")?.value;
-    console.log(email, amount);
+    console.log(email, parsedInput);
 
     if (!email) {
       throw new Error("User email not found in cookies");
     }
+    const amount = parsedInput;
     try {
       const user = await User.findOne({ email });
       if (!user) throw new Error("Cannot find user");
@@ -151,10 +152,11 @@ export const depositCheckError = actionClient
       user.notifications.push({
         dateAdded: new Date(),
         id: crypto.randomUUID(),
-        message: `Your deposit of $${amount.toLocaleString()} is under review. it could take up to 1 business day(s)`,
+        message: `Your Check Deposit of $${amount.toLocaleString()} has failed, Please contact support for further assistance`,
         status: "neutral",
         type: "transactional",
       });
+      user.readNotification = false;
       user.save();
       revalidatePath("/dashboard");
       return { success: true, message: "Deposit in review" };
