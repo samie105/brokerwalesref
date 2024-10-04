@@ -110,7 +110,15 @@ export default function TransactionSummary({
                 <div key={transaction.id}>
                   <div className="border-neutral-500/10 flex justify-between items-center  /border rounded-md p-2">
                     <div className="first-box flex items-center gap-x-2">
-                      <div className="logo-area rounded-full bg-neutral-500/10 p-4 text-neutral-600 ">
+                      <div
+                        className={`logo-area rounded-full  p-4 text-neutral-600/ ${
+                          transaction.status === "success"
+                            ? "bg-green-500/10 text-green-50"
+                            : transaction.status === "failed"
+                            ? "bg-red-500/10 text-red-500"
+                            : "bg-orange-400/10 text-orange-500"
+                        }`}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -126,11 +134,15 @@ export default function TransactionSummary({
                           />
                         </svg>
                       </div>
-                      <div className="transaction-details text-sm">
+                      <div className="transaction-details capitalize text-sm">
                         <div className="name font-semibold">
                           {"recipientName" in transaction
                             ? transaction.recipientName
-                            : "Deposit"}
+                            : transaction.paymentMeans}{" "}
+                          |{" "}
+                          <span className="text-neutral-400 font-medium">
+                            {transaction.status}
+                          </span>
                         </div>
                         <div
                           className={`detail text-xs font-normal text-neutral-500 ${inter.className}`}
@@ -161,15 +173,6 @@ export default function TransactionSummary({
                           ? `+$${transaction.amount.toLocaleString()}`
                           : `-$${transaction.amount.toLocaleString()}`}
                       </div>
-                      <div
-                        className={`status size-2 rounded-full ${
-                          transaction.status === "success"
-                            ? "bg-green-500"
-                            : transaction.status === "failed"
-                            ? "bg-red-500"
-                            : "bg-orange-400 "
-                        }`}
-                      ></div>
                     </div>
                   </div>
                   {index < sortedTransactions.slice(0, 2).length - 1 && (

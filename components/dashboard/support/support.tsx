@@ -42,7 +42,7 @@ export default function Support() {
       icon: (
         <FontAwesomeIcon icon={faTelegram} className="text-cyan-500 w-5 h-5" />
       ),
-      link: "https://t.me/yourusername",
+      link: "https://t.me/Wilsonbank_1",
       cta: "Chat on Telegram",
     },
     {
@@ -52,7 +52,7 @@ export default function Support() {
       icon: (
         <FontAwesomeIcon icon={faEnvelope} className="text-red-500 w-5 h-5" />
       ),
-      link: "mailto:support@example.com",
+      link: "mailto:wilsonGroup@usa.com",
       button: "bg-red-500",
       cta: "Send an email",
     },
@@ -63,7 +63,7 @@ export default function Support() {
       icon: (
         <FontAwesomeIcon icon={faFacebookF} className="text-blue-500 w-5 h-5" />
       ),
-      link: "https://facebook.com/yourpage",
+      link: "https://www.facebook.com/profile.php?id=100092344946573&mibextid=ZbWKwL",
       button: "bg-blue-500",
       cta: "Visit Facebook Page",
     },

@@ -16,10 +16,15 @@ import {
 } from "@tanstack/react-query";
 import { fetchDetails } from "@/server/actions/createUser";
 import Image from "next/image";
+import { logout } from "@/server/dashboard/navActions";
 
 export default async function Navbar() {
-  await dbConnect();
   const email = cookies().get("userEmail")?.value;
+  if (!email) {
+    logout();
+    return;
+  }
+  await dbConnect();
   const rawData = await User.findOne({ email });
   const data: IUser | null = JSON.parse(JSON.stringify(rawData));
 

@@ -342,7 +342,7 @@ export default function TransferHeaders() {
                       Recipient Account Number:
                     </span>{" "}
                     <span className={`${inter.className} text-neutral-500`}>
-                      ${transferDetails.recipientAccountNumber}
+                      {transferDetails.recipientAccountNumber}
                     </span>
                   </p>
                   <p className="bg-neutral-50 rounded-md p-3 font-medium">

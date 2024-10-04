@@ -156,13 +156,16 @@ export const createUser = actionClient
 
 // Function to fetch user details
 export const fetchDetails = async () => {
+  const email = cookies().get("userEmail")?.value;
+  if (!email) {
+    logout();
+    return;
+  }
   const headersList = headers();
   const pathname = headersList.get("x-invoke-path") || "";
   const isAuthPath = pathname.includes("auth");
   if (isAuthPath) return;
   await dbConnect();
-  const email = cookies().get("userEmail")?.value;
-  if (!email) logout();
   const data = await User.findOne({ email });
   if (!data) {
     logout();
