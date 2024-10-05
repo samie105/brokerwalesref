@@ -68,14 +68,14 @@ export default function Category() {
                   alt="Small Business"
                   className=" object-cover h-60 overflow-hidden w-full"
                 />{" "}
-                <div className="inline-block rounded-md bg-blue-50 mx-6 text-blue-500 font-medium px-3 py-2 text-xs dark:bg-gray-800">
+                <div className="inline-block rounded-md bg-blue-50 mx-6 text-blue-500 font-medium px-3 py-2 text-xs ">
                   <BriefcaseIcon className="w-4 h-4 mr-2 inline-block " />
                   Small Businesses
                 </div>
                 <h3 className="text- font-bold px-6">
                   Tailored for Your Growth
                 </h3>
-                <p className="text-gray-500 text-sm font-medium dark:text-gray-400 px-6 pb-4">
+                <p className="text-gray-500 text-sm font-medium xt-gray-400 px-6 pb-4">
                   Our specialized banking services are designed to support small
                   businesses like yours, helping you manage your finances and
                   achieve your goals.
@@ -112,12 +112,12 @@ export default function Category() {
                   alt="Large Enterprise"
                   className="rou/nded-lg object-cover w-full h-60 overflow-hidden"
                 />{" "}
-                <div className="inline-block rounded-md font-medium mx-6 text-green-500 bg-green-50 px-3 py-2 text-xs dark:bg-gray-800">
+                <div className="inline-block rounded-md font-medium mx-6 text-green-500 bg-green-50 px-3 py-2 text-xs /:bg-gray-800">
                   <BuildingIcon className="w-4 h-4 mr-2 inline-block text-sm" />
                   Large Enterprises
                 </div>{" "}
                 <h3 className="text- font-bold px-6">Powering Your Growth</h3>
-                <p className="text-gray-500 text-sm font-medium dark:text-gray-400 px-6 pb-4">
+                <p className="text-gray-500 text-sm font-medium /:text-gray-400 px-6 pb-4">
                   Our comprehensive banking solutions are tailored to meet the
                   complex needs of large enterprises, helping you manage your
                   finances and drive your business forward.
@@ -154,12 +154,12 @@ export default function Category() {
                   alt="Startup"
                   className=" object-cover w-full h-60 overflow-hidden"
                 />{" "}
-                <div className="inline-block rounded-md mx-6 font-medium bg-red-50 text-red-500 px-3 py-2 text-xs dark:bg-gray-800">
+                <div className="inline-block rounded-md mx-6 font-medium bg-red-50 text-red-500 px-3 py-2 text-xs /:bg-gray-800">
                   <RocketIcon className="w-4 h-4 mr-2 inline-block text-sm" />
                   Startups
                 </div>{" "}
                 <h3 className="text font-bold px-6">Fueling Your Innovation</h3>
-                <p className="text-gray-500 text-sm font-medium dark:text-gray-400 px-6 pb-4">
+                <p className="text-gray-500 text-sm font-medium /:text-gray-400 px-6 pb-4">
                   Our specialized banking services are designed to support
                   startups like yours, providing the financial tools and
                   expertise you need to turn your ideas into reality.

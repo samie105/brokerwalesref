@@ -31,8 +31,7 @@ export default function Headerstuffs() {
           {" "}
           <Link
             href="#"
-            style={{ background: colors.defaultblue }}
-            className="flex h-12 items-center justify-center gap-x-2 text-nowrap rounded-md px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+            className="flex h-12 bg-base-color/80 dark:bg-base-color/80  items-center justify-center gap-x-2 text-nowrap rounded-full px-8 text-sm /font-medium font-bold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 d dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
           >
             <p>{"Create an account"}</p>{" "}
             <svg

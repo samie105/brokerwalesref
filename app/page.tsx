@@ -15,7 +15,7 @@ import Navbar from "@/components/main/navbar/Navbar";
 
 export default function page() {
   return (
-    <div className="">
+    <div className="dark:bg-white">
       <Navbar />
       <div className="/bg-[#E9EDF0] overflow-hidden max-w-[1440px] mx-auto ">
         <Hero />

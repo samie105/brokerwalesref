@@ -83,7 +83,7 @@ export default function Navbar() {
         showButton
           ? "border-b bg-white py-5  md:py-3 "
           : "bg-gradient-to-b pb-12 pt-5 md:pt-3 from-white via-white to-transparent border-0"
-      }  fixed top-0 w-full px-10 flex justify-between md:grid items-center text-sm md:grid-cols-12 `}
+      }  fixed top-0 w-full dark:border-neutral-100 px-10 flex justify-between md:grid items-center text-sm md:grid-cols-12 `}
       // style={{ background: colors.defaultblu }}
     >
       <div className="logo col-span-1 font-bold ">
@@ -158,7 +158,7 @@ export default function Navbar() {
             </div>
           </SheetTrigger>{" "}
           <SheetContent
-            className="border-none /relative  w-[80%]"
+            className="border-none dark:bg-white /relative  w-[80%]"
             side={"left"}
           >
             {" "}

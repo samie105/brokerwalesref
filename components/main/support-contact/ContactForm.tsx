@@ -55,7 +55,7 @@ export default function ContactInfo() {
               </Label>
               <Input
                 id="first-name"
-                className="rounded-lg h-12 bg-neutral-50 border-neutral-500/10"
+                className="rounded-lg h-12 bg-neutral-50 dark:bg-neutral-50 border-neutral-500/10"
                 placeholder="John"
                 disabled={isLoading}
                 required
@@ -67,7 +67,7 @@ export default function ContactInfo() {
               </Label>
               <Input
                 id="last-name"
-                className="rounded-lg h-12 bg-neutral-50 border-neutral-500/10"
+                className="rounded-lg h-12 bg-neutral-50 dark:bg-neutral-50 border-neutral-500/10"
                 placeholder="Doe"
                 disabled={isLoading}
                 required
@@ -81,7 +81,7 @@ export default function ContactInfo() {
               </Label>
               <Input
                 id="email"
-                className="rounded-lg h-12 bg-neutral-50 border-neutral-500/10"
+                className="rounded-lg h-12 bg-neutral-50 dark:bg-neutral-50 border-neutral-500/10"
                 placeholder="You@example.com"
                 type="email"
                 disabled={isLoading}
@@ -94,7 +94,7 @@ export default function ContactInfo() {
               </Label>
               <Input
                 id="phone-number"
-                className="rounded-lg h-12 bg-neutral-50 border-neutral-500/10"
+                className="rounded-lg h-12 bg-neutral-50 dark:bg-neutral-50 border-neutral-500/10"
                 placeholder="+1 (xxx) xxxx"
                 type="tel"
                 disabled={isLoading}

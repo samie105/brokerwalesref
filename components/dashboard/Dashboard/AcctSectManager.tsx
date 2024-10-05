@@ -319,7 +319,18 @@ export default function AcctSectManager({
           >
             {data.card.cardNumber === "" && (
               <div className="image-cont absolute w-full h-full animate-spi top-0 left-0">
-                <Image alt="" src={"/assets/cards/no_card_bg.svg"} fill />
+                <Image
+                  alt=""
+                  className=" dark:hidden"
+                  src={"/assets/cards/no_card_bg.svg"}
+                  fill
+                />
+                <Image
+                  alt=""
+                  className=" hidden dark:block"
+                  src={"/assets/cards/no_card_bg_white.svg"}
+                  fill
+                />
               </div>
             )}
             {data.card.cardNumber !== "" && (
@@ -456,7 +467,7 @@ export default function AcctSectManager({
             {data.card.cardNumber === "" && (
               <>
                 <div className="flex /border items-center justify-center w-md min-h-80 md:h-full  rounded-md ">
-                  <div className="space-y-2 b/order p-4 bg-[#ffffff6a] backdrop-filter backdrop-blur-sm rounded-md text-center">
+                  <div className="space-y-2 b/order p-4 bg-[#ffffff6a] dark:bg-neutral-900/80 dark:bg-none backdrop-filter backdrop-blur-sm rounded-md text-center">
                     {" "}
                     <CreateCardForm setState={setState} />
                   </div>

@@ -130,7 +130,7 @@ export default function Footer() {
             <Input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 bg-neutral-200 border-neutral-500/10 border-none text-neutral-700"
+              className="flex-1 bg-neutral-200 dark:bg-neutral-200 border-neutral-500/10 border-none text-neutral-700"
             />
             <Button type="submit" style={{ background: colors.defaultblue }}>
               Subscribe
