@@ -31,10 +31,10 @@ export default function Fixed() {
   };
 
   return (
-    <div className="w-full border-none shadow-none rounded-md p-4 bg-white">
+    <div className="w-full border-none shadow-none rounded-md p-4 bg-white dark:bg-neutral-900">
       <div className="flex justify-between items-center">
         <div className="">
-          <div className="Fixed-type text-xs gap-x-1 bg-base-color/5 p-2 rounded-md inline-flex items-center font-semibold text-base-color/80">
+          <div className="Fixed-type text-xs gap-x-1 bg-base-color/5 dark:bg-blue-500/10 dark:text-blue-500 p-2 rounded-md inline-flex items-center font-semibold text-base-color/80">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -50,7 +50,7 @@ export default function Fixed() {
             <p> Fixed account</p>
           </div>
           <div
-            className={`Fixed-balance text-3xl mt-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
+            className={`Fixed-balance text-3xl dark:text-neutral-300 mt-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
           >
             <span className="text-sm">$</span>
             {data.fixedBalance.toLocaleString("en-US", {
@@ -67,7 +67,7 @@ export default function Fixed() {
           <FixedDialog text={false} />
           <Link
             href={"/dashboard/fixed"}
-            className="fixed-history-action rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80"
+            className="fixed-history-action rounded-sm bg-base-color/5 dark:bg-blue-500/10 dark:text-blue-500 /border /border-black/10 p-3 text-base-color/80"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +86,7 @@ export default function Fixed() {
       </div>
       <div className="separator w-20 h-0.5 mt-4 bg-black/10 mx-auto"></div>
       <div className="Fixed-info">
-        <h1 className="text-neutral-700 font-bold text-sm mt-5">
+        <h1 className="text-neutral-700 font-bold dark:text-neutral-400 text-sm mt-5">
           Fixed history
         </h1>
         <div className="Fixed-limit-info mt-5 space-y-6">
@@ -101,7 +101,7 @@ export default function Fixed() {
                     className="flex items-center justify-between"
                   >
                     <div className="flex items-center gap-x-2">
-                      <div className="icon-cont rounded-full relative justify-center items-center flex bg-neutral-500/10 /border text-neutral-500 /border-white/10 p-4 ">
+                      <div className="icon-cont rounded-full relative justify-center items-center dark:bg-blue-500/10 dark:text-blue-500 flex bg-neutral-500/10 /border text-neutral-500 /border-white/10 p-4 ">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
@@ -115,9 +115,9 @@ export default function Fixed() {
                           />
                         </svg>
                       </div>
-                      <div className="Fixed-limit capitalize text-neutral-800 font-semibold text-sm">
+                      <div className="Fixed-limit capitalize text-neutral-800 dark:text-neutral-200 font-semibold text-sm">
                         <div>{hist.name}</div>
-                        <div className="amount text-xs md:text-sm text-neutral-500 mt-1 font-medium /text-base">
+                        <div className="amount text-xs md:text-sm text-neutral-500 dark:text-neutral-400 mt-1 font-medium /text-base">
                           <p className={`${inter.className}`}>
                             ${hist.amount.toLocaleString()} | Due{" "}
                             {formatDate(hist.endDate)}
@@ -133,7 +133,7 @@ export default function Fixed() {
                           ? "secondary"
                           : "outline"
                       }
-                      className={`flex items-center capitalize gap-x-2  ${
+                      className={`flex dark:text-white items-center capitalize gap-x-2  ${
                         hist.status === "running"
                           ? "bg-yellow-500 hover:bg-yellow-500 cursor-pointer"
                           : hist.status === "completed"
@@ -174,14 +174,14 @@ export default function Fixed() {
                     </Badge>
                   </div>{" "}
                   {index < fixedHistory.slice(0, 2).length - 1 && (
-                    <div className="separator w-5/6 h-[1px] my-1 bg-black/10 mx-auto"></div>
+                    <div className="separator w-5/6 h-[1px] my-1 dark:bg-white/10 bg-black/10 mx-auto" />
                   )}
                 </>
               ))}
           {fixedHistory.length < 1 && (
             <div className="flex items-center min-h-44 h-full justify-center">
               <div className="inner-items /text-center">
-                <div className="icon flex justify-center text-neutral-600">
+                <div className="icon flex justify-center text-neutral-600 dark:text-neutral-500">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
@@ -195,7 +195,7 @@ export default function Fixed() {
                     />
                   </svg>
                 </div>
-                <div className="text text-neutral-500 text-sm font-semibold">
+                <div className="text text-neutral-500 dark:text-neutral-400 text-sm font-semibold">
                   No Fixed History
                 </div>
               </div>
@@ -203,7 +203,7 @@ export default function Fixed() {
           )}
           {fixedHistory.length >= 1 && (
             <Link
-              className="fixed-main-hist-link flex items-center justify-center text-sm gap-x-1 font-semibold text-base-color/80 border border-base-color/10 hover:bg-base-color/5 transition-all /bg-black/5 w-full rounded-md py-3"
+              className="fixed-main-hist-link flex items-center justify-center text-sm gap-x-1 font-semibold dark:border-blue-500/60 text-blue-500 text-base-color/80 border border-base-color/10 hover:bg-base-color/5 transition-all /bg-black/5 w-full rounded-md py-3"
               href={"/dashboard/fixed"}
             >
               <p>View all history</p>

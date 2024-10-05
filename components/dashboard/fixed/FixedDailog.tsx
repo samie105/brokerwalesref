@@ -124,7 +124,7 @@ export function FixedDialog({ text }: { text?: boolean }) {
     <Dialog>
       <DialogTrigger>
         <div
-          className={`add-fixed-action flex md:pr-4 text-sm font-semibold items-center lg:gap-x-2 rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80`}
+          className={`add-fixed-action dark:bg-blue-500/10 dark:text-blue-500 flex md:pr-4 text-sm font-semibold items-center lg:gap-x-2 rounded-md bg-base-color/5 /border /border-black/10 p-3 text-base-color/80`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ export function FixedDialog({ text }: { text?: boolean }) {
           <p className="hidd/en  text-sm hidden lg:block">Create Fixed</p>
         </div>
       </DialogTrigger>
-      <DialogContent className="w-[95%] rounded-md border-none">
+      <DialogContent className="w-[95%] rounded-md border-none dark:bg-neutral-900">
         <DialogHeader>
           <DialogTitle className="text-left">Fixed Cycle</DialogTitle>
           <DialogDescription className="text-left">
@@ -164,10 +164,10 @@ export function FixedDialog({ text }: { text?: boolean }) {
           <div className="grid gap-2">
             <Label htmlFor="duration">Duration</Label>
             <Select onValueChange={(value) => setDuration(Number(value))}>
-              <SelectTrigger>
+              <SelectTrigger className="dark:bg-neutral-800">
                 <SelectValue placeholder="Select duration" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-neutral-800">
                 <SelectItem value="1">1 month</SelectItem>
                 <SelectItem value="3">3 months</SelectItem>
                 <SelectItem value="6">6 months</SelectItem>
@@ -214,7 +214,7 @@ export function FixedDialog({ text }: { text?: boolean }) {
             type="submit"
             onClick={handleSubmit}
             disabled={!isFormValid}
-            className="w-full font-semibold text-sm text-white disabled:opacity-70 bg-base-color/80 rounded-sm py-3"
+            className="w-full font-semibold text-sm text-white disabled:opacity-70 bg-base-color/80 dark:bg-blue-600 rounded-sm py-3"
           >
             Create Fixed Cycle
           </DialogClose>

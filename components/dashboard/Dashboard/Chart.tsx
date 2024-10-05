@@ -57,9 +57,9 @@ export function Chart() {
     { data: "cards", Amount: data.cardBalance, fill: "#c8cfff" },
   ];
   return (
-    <Card className="flex flex-col border-none shadow-none border-black/5">
+    <Card className="flex flex-col border-none shadow-none dark:bg-neutral-900 border-black/5">
       <CardHeader className="items-start pl-12 pb-0">
-        <div className="text-lg font-bold text-neutral-600">
+        <div className="text-lg font-bold text-neutral-600 dark:text-neutral-300">
           Account Data Summary
         </div>
         <div className="font-medium text-sm">
@@ -140,7 +140,7 @@ export function Chart() {
         </div>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="leading-none text-muted-foreground">
+        <div className="leading-none text-muted-foreground dark:text-neutral-300">
           Showing data for the last 12 months
         </div>
       </CardFooter>

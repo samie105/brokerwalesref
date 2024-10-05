@@ -62,35 +62,35 @@ export default function TransactionSummary({
   );
 
   return (
-    <div className="w-full border-none shadow-none rounded-md p-4 bg-white">
+    <div className="w-full border-none shadow-none rounded-md p-4 bg-white dark:bg-neutral-900">
       <div className="flex justify-between items-center">
         <div className="">
-          <div className="Fixed-type w-full text-s gap-x-1 bg-base-color/5/ p-2 rounded-md inline-flex items-center font-semibold text-neutral-700 /text-base-color/80">
+          <div className="Fixed-type dark:text-neutral-400 w-full text-s gap-x-1 bg-base-color/5/ p-2 rounded-md inline-flex items-center font-semibold text-neutral-700 /text-base-color/80">
             <p>Recent Transactions</p>
           </div>
           <div className="flex w-full gap-x-2 justify-between items-center">
             <div
-              className={`transfer-balance bg-neutral-50 w-full rounded-md py-2 px-4 text-xl mt-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
+              className={`transfer-balance bg-neutral-50 dark:bg-neutral-800 dark:text-neutral-300 w-full rounded-md py-2 px-4 text-xl mt-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
             >
               <span className="text-sm">$</span>
               {totaldeposited.toLocaleString("en-US", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
-              <div className="text-xs text-neutral-500 font-medium mt-2">
+              <div className="text-xs text-neutral-500 dark:text-neutral-400 font-medium mt-2">
                 Total <span className="capitalize">Deposited</span>
               </div>
             </div>
 
             <div
-              className={`deposit-balance bg-neutral-50 w-full rounded-md py-2 px-4 text-xl mt-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
+              className={`deposit-balance bg-neutral-50 dark:bg-neutral-800 dark:text-neutral-300 w-full rounded-md py-2 px-4 text-xl mt-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
             >
               <span className="text-sm">$</span>
               {totalTransfered.toLocaleString("en-US", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
-              <div className="text-xs text-neutral-500 text-nowrap font-medium mt-2">
+              <div className="text-xs text-neutral-500 dark:text-neutral-400 text-nowrap font-medium mt-2">
                 Total Transferred
               </div>
             </div>
@@ -116,7 +116,7 @@ export default function TransactionSummary({
                             ? "bg-green-500/10 text-green-50"
                             : transaction.status === "failed"
                             ? "bg-red-500/10 text-red-500"
-                            : "bg-orange-400/10 text-orange-500"
+                            : "bg-orange-400/10 text-orange-500 dark:bg-orange-500/10 "
                         }`}
                       >
                         <svg
@@ -176,7 +176,7 @@ export default function TransactionSummary({
                     </div>
                   </div>
                   {index < sortedTransactions.slice(0, 2).length - 1 && (
-                    <div className="separator w-5/6 h-[1px] my-1 bg-black/10 mx-auto"></div>
+                    <div className="separator w-5/6 h-[1px] my-1 bg-black/10 dark:bg-white/10 mx-auto"></div>
                   )}
                 </div>
               ))}
@@ -186,7 +186,7 @@ export default function TransactionSummary({
           {sortedTransactions.length < 1 && (
             <div className="flex items-center min-h-44 h-full justify-center">
               <div className="inner-items /text-center">
-                <div className="icon flex justify-center text-neutral-600">
+                <div className="icon flex justify-center text-neutral-600 dark:text-neutral-400">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
@@ -200,7 +200,7 @@ export default function TransactionSummary({
                     />
                   </svg>
                 </div>
-                <div className="text text-neutral-500 text-sm font-semibold">
+                <div className="text text-neutral-500 dark:text-neutral-300 text-sm font-semibold">
                   No History Here
                 </div>
               </div>
@@ -209,13 +209,13 @@ export default function TransactionSummary({
           {sortedTransactions.length >= 1 && (
             <div className="flex justify-between gap-x-2 items-center">
               <Link
-                className="fixed-main-hist-link flex items-center justify-center text-sm gap-x-1 font-semibold text-neutral-600 bg-neutral-50 border border-neutral-500/10  transition-all /bg-black/5 w-full rounded-md py-3"
+                className="fixed-main-hist-link flex items-center justify-center dark:bg-transparent dark:border-blue-500/30 dark:text-blue-500 text-sm gap-x-1 font-semibold text-neutral-600 bg-neutral-50 border border-neutral-500/10  transition-all /bg-black/5 w-full rounded-md py-3"
                 href={`/dashboard/deposit`}
               >
                 <p>View deposits</p>
               </Link>
               <Link
-                className="fixed-main-hist-link flex items-center justify-center text-sm gap-x-1 font-semibold text-neutral-600 bg-neutral-50 border border-neutral-500/10  transition-all /bg-black/5 w-full rounded-md py-3"
+                className="fixed-main-hist-link flex items-center justify-center dark:bg-transparent dark:border-blue-500/30 dark:text-blue-500 text-sm gap-x-1 font-semibold text-neutral-600 bg-neutral-50 border border-neutral-500/10  transition-all /bg-black/5 w-full rounded-md py-3"
                 href={`/dashboard/transfers`}
               >
                 <p>View transfers</p>

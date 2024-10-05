@@ -355,7 +355,18 @@ export default function Dashboard() {
           >
             {data.card.cardNumber === "" && (
               <div className="image-cont absolute w-full h-full animate-spi top-0 left-0">
-                <Image alt="" src={"/assets/cards/no_card_bg.svg"} fill />
+                <Image
+                  alt=""
+                  className=" dark:hidden"
+                  src={"/assets/cards/no_card_bg.svg"}
+                  fill
+                />
+                <Image
+                  alt=""
+                  className=" hidden dark:block"
+                  src={"/assets/cards/no_card_bg_white.svg"}
+                  fill
+                />
               </div>
             )}
             {data.card.cardNumber !== "" && (
@@ -492,7 +503,7 @@ export default function Dashboard() {
             {data.card.cardNumber === "" && (
               <>
                 <div className="flex /border items-center justify-center w-md min-h-80 md:h-full  rounded-md ">
-                  <div className="space-y-2 b/order p-4 bg-[#ffffff6a] dark:bg-none backdrop-filter backdrop-blur-sm rounded-md text-center">
+                  <div className="space-y-2 b/order p-4 bg-[#ffffff6a] dark:bg-neutral-900/80 dark:bg-none backdrop-filter backdrop-blur-sm rounded-md text-center">
                     {" "}
                     <CreateCardForm setState={setState} />
                   </div>
@@ -719,7 +730,7 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
       </div>
       <Dialog>
         <DialogTrigger className="flex w-full justify-center">
-          <div className="btn py-3 px-6 mt-3 text-sm font-bold flex justify-center items-center space-x-2 rounded-sm bg-base-color dark:bg-blue-500 text-white">
+          <div className="btn py-3 px-6 mt-3 text-sm font-bold flex justify-center items-center space-x-2 rounded-sm bg-base-color dark:bg-blue-600 text-white">
             <p>Order</p>{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -786,7 +797,7 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
                   placeholder="Select a card provider"
                 />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-neutral-800">
                 {cardProviders.map((_) => (
                   <SelectItem
                     key={_.initials}

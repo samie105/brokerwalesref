@@ -43,7 +43,7 @@ const chartConfig = {
 
 export default function Transaction_Chart() {
   return (
-    <Card className="shadow-none border-none">
+    <Card className="shadow-none border-none dark:bg-neutral-900">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">
           Recent Transactions

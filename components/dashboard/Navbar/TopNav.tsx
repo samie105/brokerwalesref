@@ -96,7 +96,7 @@ export default function TopNav({
     <>
       <div className="greeting mb-1 textsm m">
         {" "}
-        <span className="font-medium text-neutral-600">
+        <span className="font-medium dark:text-neutral-200 text-neutral-600">
           <span className="text-lg">👋</span> {greeting}{" "}
           <span className="capitalize font-semibold">{data.lastName} </span>
         </span>
@@ -110,8 +110,8 @@ export default function TopNav({
             key={nav.name}
             className={`py-2 px-2 capitalize cursor-pointer flex item-center gap-x-2 rounded-sm   text-sm  ${
               currentMode === nav.name
-                ? "text-base-color/60 font-semibold bg-whit/e /border bg-[#0013BB06] /border-base-color/40"
-                : "text-neutral-600 font-medium bg-neutral-50/80"
+                ? "text-base-color/60 dark:text-blue-500 dark:bg-blue-500/10 font-semibold bg-whit/e /border bg-[#0013BB06] /border-base-color/40"
+                : "text-neutral-600 font-medium bg-neutral-50/80 dark:bg-neutral-900 dark:text-neutral-400"
             } `}
           >
             {" "}

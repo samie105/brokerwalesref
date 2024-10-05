@@ -220,10 +220,10 @@ export default function AcctSectManager({
 
                   {/* <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div> */}
                 </div>
-                <div className="separator w-10 h-[3px] mt-4 rounded-full my-1 bg-black/10 mx-auto"></div>
+                <div className="separator w-10 h-[3px] mt-4 dark:mt-3 dark:mb-3 rounded-full my-1 bg-black/10 mx-auto dark:bg-white/30"></div>
 
-                <div className="acount-info py-5 bg-white rounded-sm px-1">
-                  <h1 className="text-neutral-600 font-medium text-sm ">
+                <div className="acount-info py-5 bg-white dark:bg-neutral-900 rounded-sm px-1 dark:px-3">
+                  <h1 className="text-neutral-600 dark:text-neutral-400 font-medium text-sm ">
                     Account Info
                   </h1>
                   {/* <div className="separator w-10 h-[3px] rounded-full my-1 bg-black/10 mx-auto"></div> */}
@@ -231,7 +231,7 @@ export default function AcctSectManager({
                   <div className="account-limit-info mt-5 py-3 px-2 rounded-md bg-[#0013BB04]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-x-2">
-                        <div className="icon-cont rounded-full relative justify-center items-center flex bg-base-color/5 /border text-base-color/80 border-base-color/10 p-4 ">
+                        <div className="icon-cont rounded-full relative justify-center items-center flex bg-base-color/5 /border dark:text-blue-500 dark:bg-blue-500/10 text-base-color/80 border-base-color/10 p-4 ">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -247,9 +247,9 @@ export default function AcctSectManager({
 
                           <div className="liner hidden absolute h-5 w-[1px] bg-neutral-500/10 z-0 -bottom-5"></div>
                         </div>
-                        <div className="account-limit text-neutral-500/80 font-medium text-sm">
+                        <div className="account-limit dark:text-neutral-300 text-neutral-500/80 font-medium text-sm">
                           <div>Account limit</div>
-                          <div className="amount text-neutral-700 font-semibold /text-base">
+                          <div className="amount text-neutral-700 dark:text-neutral-200 font-semibold /text-base">
                             <p className={`${inter.className}`}>
                               ${data.accountLimit.toLocaleString()}
                             </p>
@@ -263,12 +263,12 @@ export default function AcctSectManager({
                       </div> */}
                     </div>
                   </div>
-                  <div className="separator w-52 h-[1px] hidden my-1 bg-black/10 mx-auto"></div>
+                  <div className="separator w-52 h-[1px] hidden my-1 bg-black/10 dark:bg-white/30 mx-auto"></div>
 
                   <div className="opening-deposit-info mt-2 py-3 px-2 rounded-md bg-[#0013BB04]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-x-2">
-                        <div className="icon-cont rounded-full bg-base-color/5 border/ text-base-color/80 border-base-color/10 p-4 ">
+                        <div className="icon-cont rounded-full dark:text-blue-500 dark:bg-blue-500/10 bg-base-color/5 border/ text-base-color/80 border-base-color/10 p-4 ">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -284,9 +284,9 @@ export default function AcctSectManager({
                             />
                           </svg>
                         </div>
-                        <div className="account-dep-ver text-neutral-500/80 font-medium text-sm">
+                        <div className="account-dep-ver dark:text-neutral-300 text-neutral-500/80 font-medium text-sm">
                           <div>Opening deposit</div>
-                          <div className="amount text-neutral-700 font-semibold /text-base">
+                          <div className="amount text-neutral-700 dark:text-neutral-200 font-semibold /text-base">
                             <p className={`${inter.className}`}>$50</p>
                           </div>
                         </div>

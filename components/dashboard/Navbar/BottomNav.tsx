@@ -101,7 +101,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="bg-white border-t border-neutral=500/20 shadow-[0px_5px_15px_0px_#00000009] w-full py-3 justify-center px-3 grid grid-cols-5 gap-x-1">
+    <div className="bg-white dark:bg-neutral-900 border-t dark:border-neutral-800 border-neutral-500/20 shadow-[0px_5px_15px_0px_#00000009] w-full py-3 justify-center px-3 grid grid-cols-5 gap-x-1">
       <AnimatePresence>
         {nav.map((_) => (
           <motion.div key={_.id}>
@@ -114,8 +114,8 @@ export default function BottomNav() {
                 <motion.div
                   className={`space-y-1 rounded-md relative py-2 px-4 flex flex-col justify-center items-center /pl-0.5 ${
                     pathName === _.path
-                      ? "text-base-color/80 font-semibold"
-                      : "text-neutral-400"
+                      ? "text-base-color/80 dark:text-blue-500 font-semibold"
+                      : "text-neutral-400 dark:text-neutral-500"
                   }`}
                 >
                   <motion.div className="bottomnavs flex items-center justify-center">
@@ -131,7 +131,7 @@ export default function BottomNav() {
                       <motion.div
                         transition={{ type: "tween" }}
                         layoutId="linear"
-                        className="absolute mover bg-base-color/5 rounded-md top-0 left-0 w-full h-full /z-50 "
+                        className="absolute mover bg-base-color/5 dark:bg-blue-500/10 rounded-md top-0 left-0 w-full h-full /z-50 "
                       ></motion.div>
                     ) : null}
                   </motion.div>
