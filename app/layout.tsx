@@ -6,6 +6,7 @@ import { ColorProvider } from "@/context/colorContext";
 import { SignUpProvider } from "@/context/signUpFormContext";
 import { LoginProvider } from "@/context/loginFormContext";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Raleway({
   subsets: ["latin"],
@@ -29,7 +30,14 @@ export default async function RootLayout({
           <LoginProvider>
             <ColorProvider>
               <Toaster richColors position="top-center" />
-              {children}
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="light"
+                enableSystem
+                disableTransitionOnChange
+              >
+                {children}
+              </ThemeProvider>
             </ColorProvider>
           </LoginProvider>
         </SignUpProvider>

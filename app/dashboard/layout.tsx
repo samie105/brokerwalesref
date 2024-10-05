@@ -24,7 +24,7 @@ export default async function Layout({
   return (
     <Providers>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <div className="grid gap-x-1. bg-neutral-100/80 md:bg-neutral-100 md:grid-cols-12 relative w-screen h-screen overflow-hidden ">
+        <div className="grid gap-x-1. bg-neutral-100/80 md:bg-neutral-100 dark:bg-neutral-950 md:grid-cols-12 relative w-screen h-screen overflow-hidden ">
           <div className="lg:col-span-2 pl-2 py-2 hidden md:block md:col-span-3">
             <SideBar />
           </div>

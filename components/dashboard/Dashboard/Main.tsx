@@ -351,7 +351,7 @@ export default function Dashboard() {
             </div>
           </div>
           <Card
-            className={`card b/order relative shadow-none h-full bg-white m-0 border-none rounded-md md:p-3 pt-2 md:pt-0 /border w-full min-h-48 pb-3 md:pb:0 /border-dashed border-neutral-600 `}
+            className={`card b/order relative shadow-none h-full bg-white dark:bg-neutral-900 m-0 border-none rounded-md md:p-3 pt-2 md:pt-0 /border w-full min-h-48 pb-3 md:pb:0 /border-dashed border-neutral-600 `}
           >
             {data.card.cardNumber === "" && (
               <div className="image-cont absolute w-full h-full animate-spi top-0 left-0">
@@ -383,11 +383,11 @@ export default function Dashboard() {
                       className="card-balance space-y-1 /px-4 py-1 rounded-md"
                       // style={{ background: colors.defaultblue + "09" }}
                     >
-                      <div className="text-xs font-semibold text-neutral-500">
+                      <div className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">
                         Card balance
                       </div>
                       <div
-                        className={`text-xl font-bold text-neutral-700 ${inter.className}`}
+                        className={`text-xl font-bold text-neutral-700 dark:text-neutral-300 ${inter.className}`}
                       >
                         $
                         {data.cardBalance.toLocaleString("en-US", {
@@ -398,10 +398,7 @@ export default function Dashboard() {
                     </div>
 
                     <div className="actions flex items-center gap-x-2">
-                      <div
-                        className="topup cursor-pointer rounded-md b/order text-base-color/80 border-black/10 p-3"
-                        style={{ background: colors.defaultblue + "09" }}
-                      >
+                      <div className="topup cursor-pointer rounded-md b/order bg-[#0013BB06] text-base-color/80 dark:text-blue-500 dark:bg-blue-500/10 border-black/10 p-3">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
@@ -420,8 +417,7 @@ export default function Dashboard() {
                         disabled={status === "executing"}
                         name="cvc"
                         onClick={showCvc}
-                        className="showcvc disabled:opacity-25 cursor-pointer rounded-md b/order text-base-color/80 border-black/10 p-3"
-                        style={{ background: colors.defaultblue + "09" }}
+                        className="showcvc disabled:opacity-25 cursor-pointer rounded-md b/order bg-base-color/5 dark:bg-blue-500/10 dark:text-blue-500 text-base-color/80 border-black/10 p-3"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -437,7 +433,7 @@ export default function Dashboard() {
                           disabled={status === "executing"}
                           className="disabled:opacity-25"
                         >
-                          <div className="deleteCard cursor-pointer rounded-md b/order text-red-600 disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-pointer border-red-600/10 bg-red-600/10 p-3">
+                          <div className="deleteCard cursor-pointer rounded-md b/order text-red-600 dark:bg-red-500/10 dark:disabled:bg-neutral-600 dark:disabled:text-neutral-300 disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-pointer border-red-600/10 bg-red-600/10 p-3">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 20 20"
@@ -452,22 +448,22 @@ export default function Dashboard() {
                             </svg>
                           </div>
                         </DialogTrigger>
-                        <DialogContent className="w-[90%]">
-                          <DialogTitle className="text-neutral-600">
+                        <DialogContent className="w-[90%] dark:bg-neutral-900">
+                          <DialogTitle className="text-neutral-600 dark:text-neutral-300">
                             Delete Credit Card
                           </DialogTitle>
-                          <DialogDescription className="text-neutral-600">
+                          <DialogDescription className="text-neutral-600 dark:text-neutral-400">
                             Please note that this action is irreversible, please
                             review and be sure of this action
                           </DialogDescription>
 
                           <div className="actions flex justify-between items-center">
-                            <SheetClose className="py-3 px-5 rounded-sm cursor-pointer border bg-neutral-100 text-neutral-600">
+                            <DialogClose className="py-3 px-5 rounded-sm cursor-pointer border bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-200 dark:border-neutral-600 text-neutral-600">
                               <div className="cancel font-semibold ">
                                 Cancel
                               </div>
-                            </SheetClose>
-                            <SheetClose
+                            </DialogClose>
+                            <DialogClose
                               onClick={handleCardDeletion}
                               className="p-3 rounded-sm cursor-pointer flex items-center space-x-2 bg-red-600 text-white font-semibold"
                             >
@@ -484,7 +480,7 @@ export default function Dashboard() {
                                   clipRule="evenodd"
                                 />
                               </svg>
-                            </SheetClose>
+                            </DialogClose>
                           </div>
                         </DialogContent>
                       </Dialog>
@@ -496,7 +492,7 @@ export default function Dashboard() {
             {data.card.cardNumber === "" && (
               <>
                 <div className="flex /border items-center justify-center w-md min-h-80 md:h-full  rounded-md ">
-                  <div className="space-y-2 b/order p-4 bg-[#ffffff6a] backdrop-filter backdrop-blur-sm rounded-md text-center">
+                  <div className="space-y-2 b/order p-4 bg-[#ffffff6a] dark:bg-none backdrop-filter backdrop-blur-sm rounded-md text-center">
                     {" "}
                     <CreateCardForm setState={setState} />
                   </div>
@@ -696,7 +692,7 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
   return (
     <>
       {" "}
-      <div className="icon text-neutral-500/ text-base-color/80 flex justify-center">
+      <div className="icon text-neutral-500/  text-base-color/80 dark:text-blue-500 flex justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -711,16 +707,19 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
           />
         </svg>
       </div>
-      <div className="text font-semibold text-neutral-800/ text-base-color/80">
-        Get a <span className="text-base-color/80 font-bold">card</span>
+      <div className="text font-semibold text-neutral-800/ text-base-color/80 dark:text-blue-500">
+        Get a{" "}
+        <span className="text-base-color/80 dark:text-blue-500 font-bold">
+          card
+        </span>
       </div>
-      <div className="text-sm note font-medium text-balance ">
+      <div className="text-sm dark:text-neutral-300 note font-medium text-balance ">
         Get a credit card for your day to day
         <br /> purchases from us
       </div>
       <Dialog>
         <DialogTrigger className="flex w-full justify-center">
-          <div className="btn py-3 px-6 mt-3 text-sm font-bold flex justify-center items-center space-x-2 rounded-sm bg-base-color text-white">
+          <div className="btn py-3 px-6 mt-3 text-sm font-bold flex justify-center items-center space-x-2 rounded-sm bg-base-color dark:bg-blue-500 text-white">
             <p>Order</p>{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -736,9 +735,9 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
             </svg>
           </div>
         </DialogTrigger>
-        <DialogContent className="rounded-md w-[90%] transition-all">
+        <DialogContent className="rounded-md w-[90%] transition-all dark:border dark:border-neutral-800 dark:bg-neutral-900">
           <div className="text-base flex items-center gap-x-2 text-neutral-700/">
-            <div className="font-semibold flex items-center gap-x-2 bg-[#0013BB08] p-2 /inline rounded-sm text-base-color/90">
+            <div className="font-semibold flex items-center gap-x-2 bg-[#0013BB08] dark:bg-blue-500/10 p-2 /inline rounded-sm dark:text-blue-500 text-base-color/90">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -755,7 +754,7 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
               <p>Get a Credit card</p>
             </div>
           </div>
-          <DialogDescription className="text-sm fontme text-neutral-500">
+          <DialogDescription className="text-sm fontme dark:text-neutral-300 text-neutral-500">
             Get a card for day to day activity, online purchases and any payment
             related activity
           </DialogDescription>
@@ -777,11 +776,11 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
           </div>
 
           <div className="card-select mt-4">
-            <div className="tt text-neutral-600 font-medium text-sm">
+            <div className="tt text-neutral-600 dark:text-neutral-400 font-medium text-sm">
               Select a provider
             </div>
             <Select onValueChange={(val) => setCardType(val)}>
-              <SelectTrigger className="mt-2 font-semibold items-center">
+              <SelectTrigger className="mt-2 dark:text-neutral-300 dark:bg-neutral-800 font-semibold items-center">
                 <SelectValue
                   className="placeholder:text-neutral-300"
                   placeholder="Select a card provider"
@@ -805,7 +804,7 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
                           className="aspect-auto"
                         />
                       </div>
-                      <div className="text-sm font-semibold text-neutral-600 capitalize">
+                      <div className="text-sm font-semibold dark:text-neutral-300 text-neutral-600 capitalize">
                         {_.name} ({_.initials})
                       </div>
                     </div>
@@ -816,14 +815,14 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
           </div>
           <div className="billing-address-form">
             <div className="billing-form">
-              <div className="tt text-neutral-600 font-medium text-sm">
+              <div className="tt text-neutral-600 dark:text-neutral-400 font-medium text-sm">
                 Billing address
               </div>
               <Input
                 type="text"
                 value={cardBillingAddress}
                 onChange={handlecardBillingAddressChange}
-                className="mt-2 h/-11 placeholder:text-neutral-400"
+                className="mt-2 h/-11 placeholder:text-neutral-400 dark:bg-neutral-800"
                 placeholder="Street address, city, state"
               />
             </div>
@@ -835,7 +834,7 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
           </div>
           <div className="zip-code">
             <div className="zip-code-form">
-              <div className="tt text-neutral-600 font-medium text-sm">
+              <div className="tt text-neutral-600 dark:text-neutral-400 font-medium text-sm">
                 Zip code
               </div>
               <Input
@@ -860,7 +859,7 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
             <Button
               onClick={handleCreateCard}
               disabled={!isFormValid || status === "executing"}
-              className="text-white bg-base-color/90 h-11 w-full"
+              className="text-white bg-base-color/90 dark:bg-blue-500 h-11 w-full"
             >
               Create card
             </Button>
@@ -893,7 +892,7 @@ export function CreditCardDetails({
           disabled={status === "executing"}
           className="disabled:opacity-25"
         >
-          <div className="card-details cursor-pointer rounded-md /border text-base-color/80 border-black/10 p-3 bg-base-color/5">
+          <div className="card-details cursor-pointer rounded-md /border dark:bg-blue-500/10 dark:text-blue-500 text-base-color/80 border-black/10 p-3 bg-base-color/5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"

@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Switch } from "../ui/switch";
+import ControlCenter from "./controlCenter";
 
 type navItems = {
   id: number;
@@ -129,7 +130,7 @@ export default function SideBar() {
   ];
   return (
     <div className="w-full h-screen overflow-scroll flex flex-col gap-y-1 /items-center j/ustify-center">
-      <div className="side-bar-cont bg-white w-full  rounded-md px-4 py-2">
+      <div className="side-bar-cont bg-white dark:bg-neutral-900 w-full  rounded-md px-4 py-2">
         <div className="mt-2 w-full">
           {" "}
           <Image
@@ -143,7 +144,7 @@ export default function SideBar() {
           />
         </div>
         <div className="space-y-3 mt-4">
-          <p className="font-semibold uppercase text-neutral-700 text-xs">
+          <p className="font-semibold uppercase dark:text-neutral-400 text-neutral-700 text-xs">
             {" "}
             menu
           </p>
@@ -160,8 +161,8 @@ export default function SideBar() {
                   // }
                   className={`${
                     nav.path === pathname
-                      ? `text-base-color/70  font-semibold rounded-md`
-                      : " text-neutral-700/80 font-medium hover:bg-gray-100  hover:opacity-100"
+                      ? `text-base-color/70 dark:text-blue-500 font-semibold rounded-md`
+                      : " text-neutral-700/80 font-medium hover:bg-neutral-100 dark:hover:bg-neutral-700/60 dark:text-neutral-400   hover:opacity-100"
                   } cursor-pointer block /overflow-hidden rounded-md text-sm px-3 py-3 relative transition`}
                 >
                   <motion.div>
@@ -172,9 +173,8 @@ export default function SideBar() {
                     {nav.path === pathname ? (
                       <motion.div
                         transition={{ type: "tween" }}
-                        style={{ backgroundColor: colors.defaultblue + "09" }}
                         layoutId="underline"
-                        className="absolute mover bg-[#ffffff26] rounded-md top-0 left-0 w-full h-full z-10 "
+                        className="absolute mover bg-[#0013BB06] dark:bg-blue-500/10 rounded-md top-0 left-0 w-full h-full z-10 "
                       ></motion.div>
                     ) : null}
                   </motion.div>
@@ -184,51 +184,12 @@ export default function SideBar() {
           </AnimatePresence>
         </div>
       </div>
-      <div className="bg-white w-full h-full rounded-lg p-4">
-        <p className="font-semibold uppercase text-neutral-700 text-xs">
+      <div className="bg-white dark:bg-neutral-900 w-full h-full rounded-lg p-4">
+        <p className="font-semibold uppercase mb-2 text-neutral-700 dark:text-neutral-400 text-xs">
           {" "}
           quick controls
         </p>
-        <div
-          style={{ background: colors.defaultblue + "09" }}
-          className="darkmode  flex py-4 px-2 rounded-md mt-2 justify-between items-center"
-        >
-          <div className="flex items-center gap-x-2 text-neutral-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="size-4"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 2a6 6 0 0 0-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 0 0 .515 1.076 32.91 32.91 0 0 0 3.256.508 3.5 3.5 0 0 0 6.972 0 32.903 32.903 0 0 0 3.256-.508.75.75 0 0 0 .515-1.076A11.448 11.448 0 0 1 16 8a6 6 0 0 0-6-6ZM8.05 14.943a33.54 33.54 0 0 0 3.9 0 2 2 0 0 1-3.9 0Z"
-                clipRule="evenodd"
-              />
-            </svg>
-
-            <p className="  text-sm font-medium">Notifications</p>
-          </div>{" "}
-          <Switch className="h-4 w-7" />
-        </div>
-        <div
-          style={{ background: colors.defaultblue + "09" }}
-          className="darkmode  flex py-4 px-2 rounded-md mt-2 justify-between items-center"
-        >
-          <div className="flex items-center gap-x-2 text-neutral-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="size-5"
-            >
-              <path d="M10 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 2ZM10 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 15ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM15.657 5.404a.75.75 0 1 0-1.06-1.06l-1.061 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM6.464 14.596a.75.75 0 1 0-1.06-1.06l-1.06 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM18 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 18 10ZM5 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 5 10ZM14.596 15.657a.75.75 0 0 0 1.06-1.06l-1.06-1.061a.75.75 0 1 0-1.06 1.06l1.06 1.06ZM5.404 6.464a.75.75 0 0 0 1.06-1.06l-1.06-1.06a.75.75 0 1 0-1.061 1.06l1.06 1.06Z" />
-            </svg>
-
-            <p className="  text-sm font-medium">Dark mode</p>
-          </div>{" "}
-          <Switch className="h-4 w-7" />
-        </div>
+        <ControlCenter />
       </div>
     </div>
   );

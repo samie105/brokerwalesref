@@ -67,13 +67,13 @@ export default function Notification() {
           onClick={readNotification}
         >
           <div
-            className={`notification transition-all md:bg-base-color/5 md:p-3 cursor-pointer rounded-md  `}
+            className={`notification transition-all md:bg-base-color/5 md:p-3 md:dark:bg-blue-500/10 cursor-pointer rounded-md  `}
             // style={{ backgroundColor: colors.darkdefualtblue + "08" }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
-              className="size-5 md:size-4 text-base-color/80 "
+              className="size-5 md:size-4 text-base-color/80 dark:text-blue-500"
               fill="currentColor"
             >
               <path
@@ -89,11 +89,11 @@ export default function Notification() {
             )}
           </div>
         </PopoverTrigger>
-        <PopoverContent className="border-base-color/5 w-[350px] mr-3 overflow-hidden md:mr-0 rounded-md md:w-[380px] /h-[400px] max-h-[400px] overflow-y-scroll /shadow-md">
-          <div className="title text-sm font-semibold text-neutral-500">
+        <PopoverContent className="border-base-color/5 w-[350px] dark:border dark:border-neutral-800 dark:bg-neutral-900 mr-3 overflow-hidden md:mr-0 rounded-md md:w-[380px] /h-[400px] max-h-[400px] overflow-y-scroll /shadow-md">
+          <div className="title text-sm font-semibold text-neutral-500 dark:text-neutral-300">
             Notifications
           </div>
-          <div className="separator w-12 h-0.5 my-4 bg-black/10 mx-auto"></div>
+          <div className="separator w-12 h-0.5 my-4 bg-black/10 dark:bg-neutral-800 mx-auto"></div>
           {notifications.length > 0 && (
             <div className="space-y-3">
               {" "}
@@ -102,7 +102,7 @@ export default function Notification() {
                   <div className="flex justify-between  items-center">
                     <div className="message&icon relative  flex items-start gap-x-4">
                       <div
-                        className={`icon p-3 bg-base-color/5 text-base-color/80 /border relative flex z-20 justify-center rounded-full `}
+                        className={`icon p-3 bg-base-color/5 dark:bg-blue-500/10 text-base-color/80 dark:text-blue-500 /border relative flex z-20 justify-center rounded-full `}
                       >
                         {/* ${
                         notification.status === "success"
@@ -161,9 +161,9 @@ export default function Notification() {
                           ></div>
                         )} */}
                       </div>
-                      <div className="message pb-2 pr-7 text-[13px] text-black fon/t-medium">
+                      <div className="message pb-2 pr-7 text-[13px] text-black dark:text-neutral-300 fon/t-medium">
                         {notification.message}
-                        <div className="date mt-1 font-medium /text-base-color/80">
+                        <div className="date mt-1 dark:text-neutral-500 font-medium /text-base-color/80">
                           {formatDistance(notification.dateAdded, new Date(), {
                             addSuffix: true,
                           })
@@ -180,7 +180,7 @@ export default function Notification() {
                     <button
                       disabled={notification.id && status === "executing"}
                       onClick={() => deleteNotificationFn(notification.id)}
-                      className="disabled:opacity-15 hover:bg-red-50 p-1 transition-all rounded delete-notification  /bg-red-500/5 /p-3 text-red-500"
+                      className="disabled:opacity-15 hover:bg-red-50 dark:hover:bg-red-500/10 p-1 transition-all rounded delete-notification  /bg-red-500/5 /p-3 text-red-500"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -198,7 +198,7 @@ export default function Notification() {
                     </button>
                   </div>
                   {index < notifications.length - 1 && (
-                    <div className="separator w-full h-[1px] bg-black/5 mx-auto"></div>
+                    <div className="separator w-full h-[1px] bg-black/5 dark:bg-neutral-800 mx-auto"></div>
                   )}
                 </div>
               ))}

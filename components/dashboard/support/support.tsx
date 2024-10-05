@@ -74,7 +74,7 @@ export default function Support() {
       icon: (
         <FontAwesomeIcon icon={faTwitter} className="text-sky-500 w-5 h-5" />
       ),
-      link: "https://twitter.com/yourhandle",
+      link: "https://x.com/WilsonBank_",
       button: "bg-sky-500",
       cta: "Follow on Twitter",
     },

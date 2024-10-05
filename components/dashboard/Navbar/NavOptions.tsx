@@ -12,6 +12,7 @@ import { Inter } from "next/font/google";
 import { toast } from "sonner";
 import { IUser } from "@/server/userSchema";
 import { logout } from "@/server/dashboard/navActions";
+import ControlCenter from "../controlCenter";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -94,32 +95,32 @@ export default function NavOptions({ data }: { data: IUser }) {
         <PopoverTrigger>
           {" "}
           <div
-            className="navoptions transition-all md:bg-base-color/5 p-3 cursor-pointer rounded-md"
+            className="navoptions transition-all md:bg-base-color/5 md:dark:bg-blue-500/10 p-3 cursor-pointer rounded-md"
             // style={{ backgroundColor: colors.darkdefualtblue + "08" }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="size-5 md:size-4 text-base-color/80 "
+              className="size-5 md:size-4 text-base-color/80 dark:text-blue-500"
             >
               <path d="M17 2.75a.75.75 0 0 0-1.5 0v5.5a.75.75 0 0 0 1.5 0v-5.5ZM17 15.75a.75.75 0 0 0-1.5 0v1.5a.75.75 0 0 0 1.5 0v-1.5ZM3.75 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 .75-.75ZM4.5 2.75a.75.75 0 0 0-1.5 0v5.5a.75.75 0 0 0 1.5 0v-5.5ZM10 11a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0v-5.5A.75.75 0 0 1 10 11ZM10.75 2.75a.75.75 0 0 0-1.5 0v1.5a.75.75 0 0 0 1.5 0v-1.5ZM10 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM3.75 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM16.25 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" />
             </svg>
           </div>
         </PopoverTrigger>
-        <PopoverContent className="w-[300px] mr-2 md:mr-0">
-          <div className="account-section transition-all  cursor-pointer hover:bg-[#0013BB02] p-2 rounded-md flex /pl-1 items-center space-x-2/ justify-between">
+        <PopoverContent className="w-[300px] mr-2 md:mr-0 dark:bg-neutral-900 transition-all">
+          <div className="account-section transition-all  cursor-pointer hover:bg-[#0013BB02] dark:hover:bg-neutral-800 p-2 rounded-md flex /pl-1 items-center space-x-2/ justify-between">
             <div className="flex space-x-1">
               <Avatar>
                 {<AvatarImage src={data.profilePictureLink} />}
-                <AvatarFallback className="font-bold text-sm border border-base-color/30 text-base-color/80 bg-base-color/5">
+                <AvatarFallback className="font-bold text-sm border border-base-color/30 text-base-color/80 bg-base-color/5 dark:text-blue-500 dark:bg-blue-500/5 dark:border-blue-500/30">
                   {data.firstName.charAt(0).toUpperCase()}
                   {data.lastName.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div className="pl-1">
                 {" "}
-                <div className="name  text-sm text-neutral-500 font-semibold">
+                <div className="name  text-sm text-neutral-500 dark:text-neutral-300 font-semibold">
                   {data.firstName} {data.lastName}
                 </div>
                 <div className="account-type mt-0.5 text-xs font-medium text-neutral-400">
@@ -129,7 +130,7 @@ export default function NavOptions({ data }: { data: IUser }) {
             </div>
             <div className="veification-status pl-3 font-medium text-sm">
               <div
-                className={`badge bg-red-50 border border-red-50 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500 flex items-center space-x-1`}
+                className={`badge bg-red-50 border border-red-50 dark:bg-red-400/10 dark:border-red-400/10 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500 flex items-center space-x-1`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +150,7 @@ export default function NavOptions({ data }: { data: IUser }) {
           <div className="separator w-14 h-[1px] my-4 bg-black/10 mx-auto"></div>
 
           <div className="account-deets mt-1 space-y-2">
-            <div className="accountnumber flex justify-between items-center bg-[#0013BB06] p-3 rounded-sm">
+            <div className="accountnumber flex justify-between items-center bg-[#0013BB06] dark:bg-neutral-800 p-3 rounded-sm">
               <div className="account&icon flex items-center gap-x-2">
                 {/* <div className="icon  text-base-color/80">
                   <svg
@@ -167,11 +168,11 @@ export default function NavOptions({ data }: { data: IUser }) {
                   </svg>
                 </div> */}
                 <div className="info">
-                  <div className="text-neutral-500 font-med/ium text-xs">
+                  <div className="text-neutral-500 dark:text-neutral-300 font-med/ium text-xs">
                     Account number
                   </div>
                   <code
-                    className={`accountno text-neutral-500/  f/ont-medium text-neutral-600 text-sm /${inter.className}`}
+                    className={`accountno text-neutral-500/ dark:text-neutral-400   f/ont-medium text-neutral-600 text-sm /${inter.className}`}
                   >
                     {data.bankAccountNumber}
                   </code>
@@ -179,7 +180,7 @@ export default function NavOptions({ data }: { data: IUser }) {
               </div>
               <div
                 onClick={() => handleAccountCopy(data.bankAccountNumber)}
-                className="copy cursor-pointer text-base-color/80 p-2 rounded-md bg-base-color/5"
+                className="copy cursor-pointer text-base-color/80 dark:text-blue-500 dark:bg-blue-500/10 p-2 rounded-md bg-base-color/5"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +198,7 @@ export default function NavOptions({ data }: { data: IUser }) {
                 </svg>
               </div>
             </div>
-            <div className="routingtnumber flex justify-between items-center bg-[#0013BB06] p-3 rounded-sm">
+            <div className="routingtnumber flex justify-between items-center bg-[#0013BB06] dark:bg-neutral-800  p-3 rounded-sm">
               <div className="routing&icon flex items-center gap-x-2">
                 {/* <div className="icon  text-base-color/80">
                   <svg
@@ -215,11 +216,11 @@ export default function NavOptions({ data }: { data: IUser }) {
                   </svg>
                 </div> */}
                 <div className="info">
-                  <div className="text-neutral-600 font-me/dium text-xs">
+                  <div className="text-neutral-600  dark:text-neutral-300  font-me/dium text-xs">
                     Routing number
                   </div>
                   <code
-                    className={`accountno text-neutral-500/  /font-medium text-neutral-600 text-sm /${inter.className}`}
+                    className={`accountno text-neutral-500/  dark:text-neutral-400   /font-medium text-neutral-600 text-sm /${inter.className}`}
                   >
                     {data.bankRoutingNumber}
                   </code>
@@ -227,7 +228,7 @@ export default function NavOptions({ data }: { data: IUser }) {
               </div>
               <div
                 onClick={() => handleAccountCopy(data.bankRoutingNumber)}
-                className="copy cursor-pointer text-base-color/80 p-2 rounded-md bg-base-color/5"
+                className="copy cursor-pointer text-base-color/80 p-2 dark:text-blue-500 dark:bg-blue-500/10 rounded-md bg-base-color/5"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -248,7 +249,7 @@ export default function NavOptions({ data }: { data: IUser }) {
           </div>
           {/* <div className="separator w-14 h-[1px] my-4 bg-black/10 mx-auto"></div> */}
 
-          <div className="tt font-medium mt-4 text-sm text-neutral-600">
+          <div className="tt font-medium mt-4 text-sm text-neutral-600 dark:text-neutral-400">
             Quick <span className="/text-base-color/80">links</span>
           </div>
           <div className="account-info grid grid-cols-4 gap-1 mt-2">
@@ -256,7 +257,7 @@ export default function NavOptions({ data }: { data: IUser }) {
               <Link
                 href={data.path}
                 key={data.path}
-                className="flex items-center justify-center hover:bg-base-color/5 transition-all gap-2 p-3 bg-[#0013BB06] text-neutral-500 rounded-md"
+                className="flex items-center justify-center hover:bg-base-color/5 transition-all gap-2 p-3 bg-[#0013BB06] dark:bg-neutral-800 text-neutral-500 rounded-md"
               >
                 <div className="text-neutral-500">{data.icon}</div>{" "}
                 {/* <p className="text-sm font-medium">{data.name}</p> */}
@@ -265,49 +266,14 @@ export default function NavOptions({ data }: { data: IUser }) {
           </div>
 
           <div className="control-center">
-            <div className="tt font-medium mt-2 text-sm text-neutral-600">
+            <div className="tt font-medium mt-2 text-sm mb-3 text-neutral-600 dark:text-neutral-400">
               Control <span className="/text-base-color/80">center</span>
             </div>
-            <div className="notifications bg-[#0013BB06] flex py-4 px-4 rounded-md mt-2 justify-between items-center">
-              <div className="flex items-center gap-x-2 text-neutral-600">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="size-5 text-base-color/80"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-
-                <p className="  text-sm font-medium">Notifications</p>
-              </div>{" "}
-              <Switch className="h-4 w-7" />
-            </div>
-            {/* <div className="separator w-8 h-[1px] bg-black/10 mx-auto"></div> */}
-
-            <div className="darkmode bg-[#0013BB06] flex py-4 px-4 rounded-md mt-2 justify-between items-center">
-              <div className="flex items-center gap-x-2 text-neutral-600">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="size-5 text-base-color/80 animate-spin"
-                >
-                  <path d="M10 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 2ZM10 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 15ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM15.657 5.404a.75.75 0 1 0-1.06-1.06l-1.061 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM6.464 14.596a.75.75 0 1 0-1.06-1.06l-1.06 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM18 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 18 10ZM5 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 5 10ZM14.596 15.657a.75.75 0 0 0 1.06-1.06l-1.06-1.061a.75.75 0 1 0-1.06 1.06l1.06 1.06ZM5.404 6.464a.75.75 0 0 0 1.06-1.06l-1.06-1.06a.75.75 0 1 0-1.061 1.06l1.06 1.06Z" />
-                </svg>
-
-                <p className="text-sm font-medium">Dark mode</p>
-              </div>{" "}
-              <Switch className="h-4 w-7" />
-            </div>
+            <ControlCenter />
           </div>
           <div className="separator w-14 h-[1px] my-4 bg-black/10 mx-auto"></div>
 
-          <div className="w-full md:block hidden border-base-color/40 border text-center font-bold text-base-color/80 rounded-sm mt-1 text-sm p-2">
+          <div className="w-full md:block hidden border-base-color/40 dark:border-blue-500/40 border text-center font-bold text-base-color/80 dark:text-blue-500 rounded-sm mt-1 text-sm p-2">
             <Link href={"/dashboard/settings"}>Go to settings</Link>
           </div>
           <div className="w-full md:hidden  bg-red-500/10 py-3 cursor-pointer border border-red-500/20 text-center font-semibold text-red-500/80 rounded-sm mt-1 text-sm p-2">

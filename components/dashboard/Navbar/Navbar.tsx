@@ -37,22 +37,22 @@ export default async function Navbar() {
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className=" relative w-full ">
-          <div className="bg-white /border-b md:border-0 mx-auto md:rounded-md w-full flex justify-between items-center absolute px-3 md:px-2 py-3 md:py-2 ">
+          <div className="bg-white transition-all dark:bg-neutral-900 /border-b md:border-0 mx-auto md:rounded-md w-full flex justify-between items-center absolute px-3 md:px-2 py-3 md:py-2 ">
             <div className="account-info hidden md:block">
               <Link
                 href={"/dashboard/settings"}
-                className="account-section transition-all cursor-pointer hover:bg-[#0013BB09] p-2 rounded-md flex /pl-1 items-center space-x-2"
+                className="account-section transition-all  cursor-pointer hover:bg-[#0013BB02] dark:hover:bg-neutral-800 p-2 rounded-md flex /pl-1 items-center space-x-2/ justify-between"
               >
                 <Avatar>
                   {<AvatarImage src={data.profilePictureLink} />}
-                  <AvatarFallback className="font-bold border border-base-color/30 text-sm text-base-color/80 bg-base-color/5">
+                  <AvatarFallback className="font-bold text-sm border border-base-color/30 text-base-color/80 bg-base-color/5 dark:text-blue-500 dark:bg-blue-500/5 dark:border-blue-500/30">
                     {data.firstName.charAt(0).toUpperCase()}
                     {data.lastName.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div className="pl-1">
                   {" "}
-                  <div className="name  text-sm text-neutral-500 font-semibold">
+                  <div className="name  text-sm text-neutral-500 dark:text-neutral-300 font-semibold">
                     <span className="font-medium">Hello, </span>
                     {data.lastName}
                   </div>
@@ -68,7 +68,7 @@ export default async function Navbar() {
                 </div>
                 <div className="veification-status pl-3 font-medium text-sm">
                   <div
-                    className={`badge bg-red-50/60 border border-red-50 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500 flex items-center space-x-1`}
+                    className={`badge bg-red-50/60 border dark:bg-red-400/10 dark:border-red-400/10 border-red-50 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500  flex items-center space-x-1`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
