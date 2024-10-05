@@ -220,7 +220,7 @@ export default function AcctSectManager({
 
                   {/* <div className="separator w-20 h-0.5 mt-4 bg-white/10 mx-auto"></div> */}
                 </div>
-                <div className="separator w-10 h-[3px] mt-4 dark:mt-3 dark:mb-3 rounded-full my-1 bg-black/10 mx-auto dark:bg-white/30"></div>
+                <div className="separator w-10 h-[3px] mt-4 rounded-full my-1 bg-black/10 mx-auto dark:bg-white/30"></div>
 
                 <div className="acount-info py-5 bg-white dark:bg-neutral-900 rounded-sm px-1 dark:px-3">
                   <h1 className="text-neutral-600 dark:text-neutral-400 font-medium text-sm ">
@@ -228,7 +228,7 @@ export default function AcctSectManager({
                   </h1>
                   {/* <div className="separator w-10 h-[3px] rounded-full my-1 bg-black/10 mx-auto"></div> */}
 
-                  <div className="account-limit-info mt-5 py-3 px-2 rounded-md bg-[#0013BB04]">
+                  <div className="account-limit-info mt-5 py-3 px-2 rounded-md dark:bg-neutral-800 bg-[#0013BB04]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-x-2">
                         <div className="icon-cont rounded-full relative justify-center items-center flex bg-base-color/5 /border dark:text-blue-500 dark:bg-blue-500/10 text-base-color/80 border-base-color/10 p-4 ">
@@ -265,7 +265,7 @@ export default function AcctSectManager({
                   </div>
                   <div className="separator w-52 h-[1px] hidden my-1 bg-black/10 dark:bg-white/30 mx-auto"></div>
 
-                  <div className="opening-deposit-info mt-2 py-3 px-2 rounded-md bg-[#0013BB04]">
+                  <div className="opening-deposit-info mt-2 py-3 px-2 rounded-md bg-[#0013BB04] dark:bg-neutral-800">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-x-2">
                         <div className="icon-cont rounded-full dark:text-blue-500 dark:bg-blue-500/10 bg-base-color/5 border/ text-base-color/80 border-base-color/10 p-4 ">
@@ -315,7 +315,7 @@ export default function AcctSectManager({
       {currentMode === "cards" && (
         <div>
           <Card
-            className={`card b/order relative shadow-none  border-none rounded-md md:p-3 pt-2 md:pt-0 /border w-full inset-1 min-h-48 pb-3 md:pb:0 /border-dashed border-neutral-600 `}
+            className={`card b/order relative shadow-none dark:bg-neutral-900  border-none rounded-md md:p-3 pt-2 md:pt-0 /border w-full inset-1 min-h-48 pb-3 md:pb:0 /border-dashed border-neutral-600 `}
           >
             {data.card.cardNumber === "" && (
               <div className="image-cont absolute w-full h-full animate-spi top-0 left-0">
@@ -347,11 +347,11 @@ export default function AcctSectManager({
                       className="card-balance space-y-1 /px-4 py-1 rounded-md"
                       // style={{ background: colors.defaultblue + "09" }}
                     >
-                      <div className="text-xs font-semibold text-neutral-500">
+                      <div className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">
                         Card balance
                       </div>
                       <div
-                        className={`text-xl font-bold text-neutral-700 ${inter.className}`}
+                        className={`text-xl font-bold text-neutral-700 dark:text-neutral-300 ${inter.className}`}
                       >
                         $
                         {data.cardBalance.toLocaleString("en-US", {
@@ -362,10 +362,7 @@ export default function AcctSectManager({
                     </div>
 
                     <div className="actions flex items-center gap-x-2">
-                      <div
-                        className="topup cursor-pointer rounded-md b/order text-base-color/80 border-black/10 p-3"
-                        style={{ background: colors.defaultblue + "09" }}
-                      >
+                      <div className="topup cursor-pointer rounded-md b/order bg-[#0013BB06] text-base-color/80 dark:text-blue-500 dark:bg-blue-500/10 border-black/10 p-3">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
@@ -384,8 +381,7 @@ export default function AcctSectManager({
                         disabled={status === "executing"}
                         name="cvc"
                         onClick={showCvc}
-                        className="showcvc disabled:opacity-25 cursor-pointer rounded-md b/order text-base-color/80 border-black/10 p-3"
-                        style={{ background: colors.defaultblue + "09" }}
+                        className="showcvc disabled:opacity-25 cursor-pointer rounded-md b/order bg-base-color/5 dark:bg-blue-500/10 dark:text-blue-500 text-base-color/80 border-black/10 p-3"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -401,7 +397,7 @@ export default function AcctSectManager({
                           disabled={status === "executing"}
                           className="disabled:opacity-25"
                         >
-                          <div className="deleteCard cursor-pointer rounded-md b/order text-red-600 disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-pointer border-red-600/10 bg-red-600/10 p-3">
+                          <div className="deleteCard cursor-pointer rounded-md b/order text-red-600 dark:bg-red-500/10 dark:disabled:bg-neutral-600 dark:disabled:text-neutral-300 disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-pointer border-red-600/10 bg-red-600/10 p-3">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 20 20"
@@ -416,22 +412,22 @@ export default function AcctSectManager({
                             </svg>
                           </div>
                         </DialogTrigger>
-                        <DialogContent className="w-[90%]">
-                          <DialogTitle className="text-neutral-600">
+                        <DialogContent className="w-[90%] rounded-md dark:border-neutral-800 dark:bg-neutral-900">
+                          <DialogTitle className="text-neutral-600 dark:text-neutral-300">
                             Delete Credit Card
                           </DialogTitle>
-                          <DialogDescription className="text-neutral-600">
+                          <DialogDescription className="text-neutral-600 dark:text-neutral-400">
                             Please note that this action is irreversible, please
                             review and be sure of this action
                           </DialogDescription>
 
                           <div className="actions flex justify-between items-center">
-                            <SheetClose className="py-3 px-5 rounded-sm cursor-pointer border bg-neutral-100 text-neutral-600">
+                            <DialogClose className="py-3 px-5 rounded-sm cursor-pointer border bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-200 dark:border-neutral-600 text-neutral-600">
                               <div className="cancel font-semibold ">
                                 Cancel
                               </div>
-                            </SheetClose>
-                            <SheetClose
+                            </DialogClose>
+                            <DialogClose
                               onClick={handleCardDeletion}
                               className="p-3 rounded-sm cursor-pointer flex items-center space-x-2 bg-red-600 text-white font-semibold"
                             >
@@ -448,7 +444,7 @@ export default function AcctSectManager({
                                   clipRule="evenodd"
                                 />
                               </svg>
-                            </SheetClose>
+                            </DialogClose>
                           </div>
                         </DialogContent>
                       </Dialog>
@@ -859,7 +855,7 @@ export function CreditCardDetails({
           disabled={status === "executing"}
           className="disabled:opacity-25"
         >
-          <div className="card-details cursor-pointer rounded-md /border text-base-color/80 border-black/10 p-3 bg-base-color/5">
+          <div className="card-details cursor-pointer rounded-md /border dark:bg-blue-500/10 dark:text-blue-500 text-base-color/80 border-black/10 p-3 bg-base-color/5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"

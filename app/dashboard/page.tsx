@@ -37,7 +37,7 @@ export default async function page({
         </div>
       </div>
       <div className="h-[calc(100vh-5.5rem)] overflow-y-scroll pb-[4.5rem]  md:hidden overflow-x-hidden rounded-md">
-        <div className="bg-white dark:bg-neutral-950 p-3 dark:p-0 dark:py-3">
+        <div className="bg-white dark:bg-neutral-900 dark:mb-2 rounded-md p-3 ">
           <TopNav currentMode={currentMode} transactionTab={transactionTab} />
           <div className="mt-1" />
           <AcctSectManager currentMode={currentMode} />{" "}
