@@ -24,24 +24,27 @@ export default function AccountLimit() {
   const { data: deets } = useFetchInfo();
   const data = deets!.data;
   return (
-    <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+    <Card className="mb-2 rounded-sm border-none bg-neutral-50 dark:bg-neutral-800 p-0">
       <div className="p-4">
-        <div className="text-base text-neutral-700 font-semibold py-1">
+        <div className="text-base text-neutral-700 dark:text-neutral-400 font-semibold py-1">
           Account Limit
         </div>
-        <div className="mt- text-sm text-neutral-500 font-medium">
+        <div className="mt- text-sm text-neutral-500 dark:text-neutral-300 font-medium">
           Manage your account limits
         </div>
       </div>
-      <CardContent className="p-4">
+      <CardContent className="p-4 dark:bg-neutral-800 mb-2">
         <div className="grid grid-cols-1 gap-4">
           <div className="relative">
-            <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 rounded-sm ">
+            <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 dark:bg-neutral-700/30 rounded-sm ">
               <div className="name_pin">
-                <div className="name text-xs font-medium text-neutral-500">
+                <div className="name text-xs font-medium text-neutral-500 dark:text-neutral-300">
                   Account Limit
                 </div>
-                <div className={`limit text-neutral-700 font-bold text-lg `}>
+                <div
+                  className={`limit text-neutral-700 dark:text-neutral-200 font-bold text-lg `}
+                >
+                  {" "}
                   <span className="text-xs font-semibold ">$</span>
                   <span className={`${inter.className}`}>
                     {data.accountLimit.toLocaleString("en-US", {
@@ -55,19 +58,19 @@ export default function AccountLimit() {
           </div>
           <Dialog>
             <DialogTrigger className="w-full py-0">
-              <div className="w-full py-[0.6rem] font-semibold bg-base-color/70 text-white text-sm rounded-sm">
+              <div className="w-full py-[0.6rem] font-semibold dark:bg-blue-500 bg-base-color/70 text-white text-sm rounded-sm">
                 Increase Limit
               </div>
             </DialogTrigger>
             <DialogContent className="w-[90%]">
-              <DialogTitle className="text-neutral-600 text-base">
+              <DialogTitle className="text-neutral-600 dark:text-neutral-400 text-base">
                 {" "}
                 Account Limit Upgrade
               </DialogTitle>
-              <DialogDescription className="text-neutral-500 text-sm">
+              <DialogDescription className="text-neutral-500 dark:text-neutral-300 text-sm">
                 Increase your account limit to perform more heavy transactions{" "}
               </DialogDescription>
-              <div className="message p-3 text-sm bg-neutral-50 border border-neutral-500/10 rounded-sm ">
+              <div className="message p-3 text-sm bg-neutral-50 dark:bg-neutral-700/30 dark:text-neutral-400 border border-neutral-500/10 rounded-sm ">
                 {" "}
                 To upgrade your account please{" "}
                 <strong>verify your account.</strong>{" "}
@@ -76,12 +79,12 @@ export default function AccountLimit() {
                 }
               </div>
               <div className="flex justify-between w-full">
-                <DialogClose className="bg-base-color/5 /border border-base-color/10 text-base-color/80 px-5 text-sm rounded-md py-3 font-semibold">
+                <DialogClose className="bg-base-color/5 /border border-base-color/10 dark:bg-blue-500/10 dark:text-blue-500 text-base-color/80 px-5 text-sm rounded-md py-3 font-semibold">
                   Close
                 </DialogClose>
                 <Link
                   href={"/dashboard/support"}
-                  className="bg-base-color/80 /border border-base-color/10 text-white flex items-center gap-x-2 px-5 text-sm rounded-md py-3 font-semibold"
+                  className="bg-base-color/80  dark:bg-blue-500 /border border-base-color/10 text-white flex items-center gap-x-2 px-5 text-sm rounded-md py-3 font-semibold"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

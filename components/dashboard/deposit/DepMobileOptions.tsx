@@ -180,9 +180,9 @@ export default function DepMobileOptions() {
     exec({ amount, url });
   };
   return (
-    <div className="bg-white rounded-sm p-1.5">
+    <div className="bg-white dark:bg-neutral-900 rounded-sm p-1.5">
       <Dialog>
-        <div className="text-lg md:px-4 py-3 text-neutral-600 font-semibold pt-4 pb-2">
+        <div className="text-lg md:px-4 py-3 text-neutral-600 dark:text-neutral-300 font-semibold pt-4 pb-2">
           Deposit using mobile
         </div>
         <div className="cont grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -195,8 +195,8 @@ export default function DepMobileOptions() {
               <div
                 className={`font-semibold disabled:opacity-25 md:py-5 py-4 px-3 cursor-pointer flex items-center text-sm md:text-base text-right rounded-sm ${
                   method.name === selectedPaymentMethod
-                    ? "bg-base-color/10 text- border-base-color/10 border"
-                    : "bg-neutral-500/5 text-neutral-700 hover:bg-neutral-500/10"
+                    ? "bg-base-color/10 dark:bg-blue-500/10 text- border-base-color/10 border"
+                    : "bg-neutral-500/5 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-400 hover:bg-neutral-500/10"
                 }`}
                 onClick={() => setSelectedPaymentMethod(method.name)}
               >
@@ -222,8 +222,8 @@ export default function DepMobileOptions() {
                 key={method.name}
                 className={`font-semibold text-sm md:text-base disabled:opacity-25 md:py-5 py-4 px-3 cursor-pointer flex items-center  text-right rounded-sm ${
                   method.name === selectedPaymentMethod
-                    ? "bg-neutral-50 border border-neutral-500/10"
-                    : "bg-neutral-50 text-neutral-700 hover:bg-neutral-500/10"
+                    ? "bg-base-color/10 dark:bg-blue-500/10 text- border-base-color/10 border"
+                    : "bg-neutral-500/5 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-400 hover:bg-neutral-500/10"
                 }`}
                 onClick={() => setSelectedPaymentMethod(method.name)}
               >
@@ -242,7 +242,7 @@ export default function DepMobileOptions() {
           ))}{" "}
         </div>
 
-        <DialogContent className="w-[90%] flex flex-col rounded-md">
+        <DialogContent className="w-[90%] dark:bg-neutral-900 flex flex-col rounded-md">
           {selectedMethod && (
             <div className="flex flex-col items-center space-y-4">
               <div className="flex items-center justify-center gap-x-2">
@@ -265,7 +265,7 @@ export default function DepMobileOptions() {
                     >
                       Deposit amount ($)
                     </label>
-                    <div className="bg-neutral-50 mt-1 text-sm rounded-md flex items-center justify-between p-2">
+                    <div className="bg-neutral-50 dark:bg-neutral-800 mt-1 text-sm rounded-md flex items-center justify-between p-2">
                       <Input
                         className="w-full focus-within:outline-none focus:outline-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-neutral-50 ring-0 focus-within:ring-0 focus:ring-0"
                         value={amount}
@@ -284,7 +284,7 @@ export default function DepMobileOptions() {
                         selectedMethod.name.slice(1)}{" "}
                       ID
                     </label>
-                    <div className="bg-neutral-50 mt-1 text-sm rounded-md flex items-center justify-between py-2 px-2">
+                    <div className="bg-neutral-50 dark:bg-neutral-800 mt-1 text-sm rounded-md flex items-center justify-between py-2 px-2">
                       <Input
                         className="w-5/6 focus-within:outline-none focus:outline-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-neutral-50 ring-0 focus-within:ring-0 focus:ring-0"
                         value={selectedMethod.address}
@@ -308,7 +308,7 @@ export default function DepMobileOptions() {
                     </div>
                   </div>
                   <div className="payment-checker">
-                    <div className="notes text-xs bg-neutral-100 text-neutral-600 font-medium/ rounded-md p-3">
+                    <div className="notes text-xs dark:bg-neutral-800 dark:text-neutral-500 bg-neutral-100 text-neutral-600 font-medium/ rounded-md p-3">
                       Copy the payment id and make the transaction. When done,
                       click on the button below to proceed. Be sure to have made
                       the transaction before proceeding as the payment id is
@@ -316,7 +316,7 @@ export default function DepMobileOptions() {
                     </div>
                     <Button
                       disabled={!amount || isNaN(amount)}
-                      className="btn w-full h-12 text-sm gap-x-2 mt-3 bg-base-color/80"
+                      className="btn w-full h-12 text-sm gap-x-2 mt-3 bg-base-color/80 dark:bg-blue-500 text-white"
                       onClick={() => {
                         setPaid(true);
                       }}
@@ -341,7 +341,7 @@ export default function DepMobileOptions() {
               )}
               {paid && (
                 <div className="w-full">
-                  <Label className="block pb-4 text-sm font-medium text-gray-700">
+                  <Label className="block pb-4 text-sm font-medium text-gray-700 dark:text-neutral-400">
                     Upload Payment Screenshot of{" "}
                     <span className="font-semibold">
                       ${amount?.toLocaleString()}
@@ -349,17 +349,17 @@ export default function DepMobileOptions() {
                   </Label>
                   <div
                     {...getRootProps()}
-                    className="mt-1 flex items-center justify-between p-4 border border-dashed rounded-md cursor-pointer"
+                    className="mt-1 flex items-center justify-between p-4 border border-dashed dark:border-neutral-700 rounded-md cursor-pointer"
                   >
                     <Input {...getInputProps()} />
-                    <div className="text-gray-500 text-sm w-full">
+                    <div className="text-neutral-500 dark:text-neutral-300 text-sm w-full">
                       {uploadedFile === null ? (
                         <div className="flex-col flex font-medium w-full items-center justify-center gap-3">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            className="size-12 opacity-20"
+                            className="size-12 opacity-20 dark:text-neutral-300"
                           >
                             <path
                               fillRule="evenodd"
@@ -377,7 +377,7 @@ export default function DepMobileOptions() {
                     </div>
                   </div>
                   {uploadedFile && (
-                    <div className="mt-4 bg-neutral-100 text-sm p-4 rounded-md flex items-center justify-between">
+                    <div className="mt-4 bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-300 text-sm p-4 rounded-md flex items-center justify-between">
                       <span>{uploadedFile.name}</span>
                       <button
                         className="text-red-600 hover:text-red-900"
@@ -401,7 +401,7 @@ export default function DepMobileOptions() {
                     </div>
                   )}
                   <div className="payment-checker mt-2">
-                    <div className="notes text-sm bg-neutral-100 text-neutral-600 font-medium/ rounded-sm p-2">
+                    <div className="notes text-sm dark:bg-neutral-800 dark:text-neutral-400 bg-neutral-100 text-neutral-600 font-medium/ rounded-sm p-2">
                       Upload the payment transaction screenshot as a means of
                       verifying the payemnt. Note the process of verification is
                       automated so do well to provide accurate payment proof to
@@ -413,7 +413,7 @@ export default function DepMobileOptions() {
                         disabled={
                           uploadedFile === null || status === "executing"
                         }
-                        className="btn w-full h-12 text-sm gap-x-2 mt-3 bg-base-color/80 disabled:cursor-not-allowed"
+                        className="btn w-full h-12 text-sm gap-x-2 mt-3 bg-base-color/80 dark:bg-blue-500 dark:text-white disabled:cursor-not-allowed"
                       >
                         {" "}
                         <p>Verify Payment</p>

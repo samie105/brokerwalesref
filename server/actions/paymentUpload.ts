@@ -158,7 +158,7 @@ export const depositCheckError = actionClient
       });
       user.readNotification = false;
       user.save();
-      revalidatePath("/dashboard");
+      revalidatePath("/");
       return { success: true, message: "Deposit in review" };
     } catch (error) {
       console.error("Error creating history", error);

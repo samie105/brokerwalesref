@@ -53,14 +53,14 @@ export default function FixedHistory({ tab }: { tab: string }) {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:bg-neutral-900">
       <div className=" mx-auto py-4">
-        <div className="title text-neutral-800 mb-4 font-semibold">
+        <div className="title text-neutral-800 dark:text-neutral-200 mb-4 font-semibold">
           Fixed Transaction History
         </div>
         <div className="md:flex md:justify-between md:items-center grid grid-cols-1  mb-4">
           <Tabs value={tab || "all"} className="md:w-[400px] w-full">
-            <TabsList className="bg-neutral-50 text-sm text-neutral-500">
+            <TabsList className="bg-neutral-50 dark:bg-neutral-800 text-sm text-neutral-500">
               <Link href={"?tab=all"}>
                 <TabsTrigger value="all" className="text-nuetral-500">
                   All
@@ -118,7 +118,7 @@ export default function FixedHistory({ tab }: { tab: string }) {
                             ? "secondary"
                             : "outline"
                         }
-                        className={`flex items-center capitalize gap-x-2  ${
+                        className={`flex items-center dark:text-white capitalize gap-x-2  ${
                           item.status === "running"
                             ? "bg-yellow-500 hover:bg-yellow-500 cursor-pointer"
                             : item.status === "completed"

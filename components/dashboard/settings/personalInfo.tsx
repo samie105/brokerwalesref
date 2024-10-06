@@ -84,14 +84,14 @@ export default function PersonalInformation() {
   };
 
   return (
-    <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+    <Card className="mb-2 rounded-sm border-none bg-neutral-50 dark:bg-neutral-900 p-0">
       <div className="p-4">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-3 items-center">
           <div>
-            <div className="text-base text-neutral-700 font-semibold py-1">
+            <div className="text-base text-neutral-700 dark:text-neutral-300 font-semibold py-1">
               Personal Information
             </div>
-            <div className="mt- text-sm text-neutral-500 font-medium md:text-balance">
+            <div className="mt- text-sm text-neutral-500 dark:text-neutral-400 font-medium md:text-balance">
               These are your account information with us, which are securely
               stored and protected from unauthorized access.
             </div>
@@ -101,7 +101,7 @@ export default function PersonalInformation() {
               <DialogTrigger asChild>
                 <Button
                   variant="outline"
-                  className="font-medium items-center inline-flex gap-x-2 bg-neutral-100 p-3 rounded-md text-neutral-600"
+                  className="font-medium items-center inline-flex gap-x-2 dark:bg-neutral-800 dark:text-neutral-200 dark:border-neutral-500 bg-neutral-100 p-3 rounded-md text-neutral-600"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -194,10 +194,10 @@ export default function PersonalInformation() {
                 >
                   {item.label}
                 </Label>
-                <div className="flex items-center bg-neutral-100 py-2 px-3 rounded-md">
+                <div className="flex items-center bg-neutral-100 dark:pb-2 dark:bg-neutral-800 py-2 px-3 rounded-md">
                   <div
                     id={`info-${index}`}
-                    className="bg-neutral-100 capitalize p-2 text-sm rounded-md flex-grow mr-2"
+                    className="bg-neutral-100 dark:bg-neutral-800 capitalize p-2 text-sm rounded-md flex-grow mr-2"
                   >
                     {item.value}
                   </div>

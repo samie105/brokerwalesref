@@ -8,11 +8,10 @@ export const ToggleVisibility = ({
 }: {
   show: boolean;
   onToggle: () => void;
-  ariaLabel?: string;
 }) => (
   <Button
     type="button"
-    className="bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+    className="bg-neutral-100 text-neutral-600 dark:bg-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-600/50 hover:bg-neutral-200"
     size="icon"
     onClick={onToggle}
   >
@@ -23,7 +22,6 @@ export const ToggleVisibility = ({
     )}
   </Button>
 );
-
 export const formatCurrency = (amount: number): string => {
   return new Intl.NumberFormat("en-US", {
     style: "currency",

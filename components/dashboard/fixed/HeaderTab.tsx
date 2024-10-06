@@ -17,7 +17,7 @@ export default function HeaderTab() {
       {" "}
       <div className="flex justify-between items-center">
         <div className="">
-          <div className="Fixed-type text-xs gap-x-1 bg-neutral-500/5 p-2 md:px-4 rounded-md inline-flex items-center font-semibold text-neutral-500">
+          <div className="Fixed-type text-xs gap-x-1 dark:bg-blue-500/10 dark:text-blue-500 bg-neutral-500/5 p-2 md:px-4 rounded-md inline-flex items-center font-semibold text-neutral-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -33,7 +33,7 @@ export default function HeaderTab() {
             <p> Fixed account</p>
           </div>
           <div
-            className={`Fixed-balance text-3xl mt-2  pl-3 /blur-md font-bold text-neutral-600 ${inter.className}`}
+            className={`Fixed-balance text-3xl mt-2 dark:text-neutral-300 pl-3 /blur-md font-bold text-neutral-600 ${inter.className}`}
           >
             <span className="text-sm">$</span>
             {data.fixedBalance.toLocaleString("en-US", {
@@ -41,7 +41,7 @@ export default function HeaderTab() {
               maximumFractionDigits: 2,
             })}
           </div>{" "}
-          <p className="text-neutral-400 text-xs mt-1 font-medium pl-3 ">
+          <p className="text-neutral-400 dark:text-neutral-500 text-xs mt-1 font-medium pl-3 ">
             Available Balance
           </p>
         </div>

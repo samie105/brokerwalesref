@@ -42,16 +42,16 @@ export default function ProfilePicture() {
   };
 
   return (
-    <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+    <Card className=" rounded-sm border-none bg-neutral-50 dark:bg-neutral-800 p-0">
       <div className="p-4">
-        <div className="text-base text-neutral-700 font-semibold py-1">
+        <div className="text-base text-neutral-700 dark:text-neutral-400 font-semibold py-1">
           Profile Picture
         </div>
-        <div className="mt- text-sm text-neutral-500 font-medium">
+        <div className="mt- text-sm text-neutral-500 dark:text-neutral-300 font-medium">
           Update your profile picture
         </div>
       </div>
-      <CardContent className="flex w-full justify-center items-center p-4 space-x-2">
+      <CardContent className="flex w-full justify-center dark:bg-neutral-800 items-center p-4 space-x-2">
         <button
           disabled={isUploading}
           className="relative  disabled:opacity-30 mx-auto rounded-full size-28 cursor-pointer overflow-hidden"
@@ -67,7 +67,7 @@ export default function ProfilePicture() {
               alt="Profile picture"
               className="border-neutral-500/10"
             />
-            <AvatarFallback className="font-bold text-2xl border border-base-color/30 text-base-color/80 bg-base-color/5">
+            <AvatarFallback className="font-bold text-2xl border border-base-color/30 text-base-color/80 bg-base-color/5 dark:text-blue-500 dark:bg-blue-500/5 dark:border-blue-500/30">
               {data.firstName.charAt(0).toUpperCase()}
               {data.lastName.charAt(0).toUpperCase()}
             </AvatarFallback>
@@ -93,7 +93,7 @@ export default function ProfilePicture() {
           <button
             onClick={triggerFileInput}
             disabled={isUploading}
-            className="rounded-sm font-semibold py-2 px-4 text-sm disabled:opacity-35 bg-neutral-100 text-neutral-600"
+            className="rounded-sm font-semibold py-2 px-4 text-sm disabled:opacity-35 bg-neutral-100 text-neutral-600 dark:bg-blue-500/10 dark:text-blue-500"
           >
             {isUploading ? "Changing ..." : "Change Picture"}
           </button>

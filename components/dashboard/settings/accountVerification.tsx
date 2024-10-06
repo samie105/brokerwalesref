@@ -66,23 +66,23 @@ export default function AccountVerification() {
   ];
 
   return (
-    <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+    <Card className="mb-2 rounded-sm border-none bg-neutral-50 dark:bg-neutral-800 p-0">
       <div className="p-4">
-        <div className="text-base text-neutral-700 font-semibold py-1">
+        <div className="text-base text-neutral-700 dark:text-neutral-400 font-semibold py-1">
           Account Verification
         </div>
-        <div className="mt- text-sm text-neutral-500 font-medium">
+        <div className="mt- text-sm text-neutral-500 dark:text-neutral-300 font-medium">
           Manage your account verification
         </div>
       </div>
-      <CardContent className="p-4">
+      <CardContent className="p-4 dark:bg-neutral-800 mb-2/">
         <div className="grid grid-cols-1 gap-4">
           <div className="relative">
-            <div className="account-section transition-all  cursor-pointer bg-neutral-100 p-2 rounded-md flex items-center justify-between">
+            <div className="account-section transition-all  cursor-pointer bg-neutral-100 dark:bg-neutral-700/30 p-2 rounded-md flex items-center justify-between">
               <div className="flex space-x-1">
                 <Avatar>
                   {<AvatarImage src={data.profilePictureLink} />}
-                  <AvatarFallback className="font-bold text-sm border border-base-color/30 text-base-color/80 bg-base-color/5">
+                  <AvatarFallback className="font-bold text-sm border border-base-color/30 text-base-color/80 bg-base-color/5 dark:text-blue-500 dark:bg-blue-500/5 dark:border-blue-500/30">
                     {data.firstName.charAt(0).toUpperCase()}
                     {data.lastName.charAt(0).toUpperCase()}
                   </AvatarFallback>
@@ -98,11 +98,7 @@ export default function AccountVerification() {
               </div>
               <div className="veification-status pl-3 font-medium text-sm">
                 <div
-                  className={`badge ${
-                    data.accountVerified
-                      ? "bg-green-500/10 border-green-50 text-green-500"
-                      : "bg-red-500/10 border-red-50 text-red-500"
-                  } border px-2 py-1.5 text-xs rounded-md font-semibold flex items-center space-x-1`}
+                  className={`badge bg-red-50/60 border dark:bg-red-400/10 dark:border-red-400/10 border-red-50 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500  flex items-center space-x-1`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -112,14 +108,12 @@ export default function AccountVerification() {
                   >
                     <path
                       fillRule="evenodd"
-                      d={
-                        data.accountVerified
-                          ? "M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                          : "M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
-                      }
+                      d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
                       clipRule="evenodd"
                     />
                   </svg>
+
+                  <p className="hidden md:blo/ck">Not Verified</p>
                 </div>
               </div>
             </div>
@@ -127,7 +121,7 @@ export default function AccountVerification() {
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button
-                className="w-full disabled:bg-neutral-400 font-semibold bg-base-color/70 text-white rounded-sm"
+                className="w-full disabled:bg-neutral-400 font-semibold bg-base-color/70 dark:bg-blue-500 text-white rounded-sm"
                 disabled={data.accountVerified}
               >
                 {data.accountVerified ? "Account Verified" : "Verify Account"}
@@ -145,7 +139,7 @@ export default function AccountVerification() {
                   </DialogDescription>
                 </DialogHeader>
                 {data.verificationDetails.status === "pending" && (
-                  <div className="application-progress p-3 rounded-md flex gap-x-4 bg-yellow-50 text-yellow-600 justify-between/ items-center ">
+                  <div className="application-progress p-3 rounded-md flex gap-x-4 bg-yellow-50 dark:bg-yellow-500/5 text-yellow-600 justify-between/ items-center ">
                     <div className=" p-3 rounded-full bg-yellow-500/10 text-yellow-600">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +157,7 @@ export default function AccountVerification() {
                     </div>
                     <div className="message">
                       <div className="font-semibold">Application Pending</div>
-                      <div className="font-medium text-yellow-600/60 mt-1 text-sm">
+                      <div className="font-medium text-yellow-600/60 dark:text-yellow-500/70  mt-1 text-sm">
                         Your last appplication is still under review, please
                         wait for a feedback before reapplication
                       </div>
@@ -171,7 +165,7 @@ export default function AccountVerification() {
                   </div>
                 )}
                 {data.verificationDetails.status === "failed" && (
-                  <div className="application-progress p-3 rounded-md flex gap-x-4 bg-red-50 text-red-600 justify-between/ items-center ">
+                  <div className="application-progress p-3 rounded-md flex gap-x-4 bg-red-50 text-red-600 dark:bg-red-500/5 justify-between/ items-center ">
                     <div className=" p-3 rounded-full bg-red-500/10 text-red-600">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +182,7 @@ export default function AccountVerification() {
                     </div>
                     <div className="message">
                       <div className="font-semibold">Application Failed</div>
-                      <div className="font-medium text-red-600/60 mt-1 text-sm">
+                      <div className="font-medium text-red-600/60 dark:text-red-500/80 mt-1 text-sm">
                         Your last appplication failed for some verification
                         reasons, please apply again
                       </div>
@@ -209,10 +203,10 @@ export default function AccountVerification() {
                           data.verificationDetails.status === "pending"
                         }
                       >
-                        <SelectTrigger className="col-span-3">
+                        <SelectTrigger className="col-span-3 dark:bg-neutral-800">
                           <SelectValue placeholder="Select ID type" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="dark:bg-neutral-800">
                           {idTypes.map((type) => (
                             <SelectItem key={type} value={type}>
                               {type}
@@ -274,7 +268,7 @@ export default function AccountVerification() {
               </DialogContent>
             ) : (
               <DialogContent className="w-[94%]">
-                <div className="application-progress p-3 rounded-md flex gap-x-4 bg-green-50 text-green-600 justify-between/ items-center ">
+                <div className="application-progress p-3 rounded-md flex gap-x-4 bg-green-50 dark:bg-green-500/5 text-green-600 justify-between/ items-center ">
                   <div className=" p-3 rounded-full bg-green-500/10 text-green-600">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -292,7 +286,7 @@ export default function AccountVerification() {
                   </div>
                   <div className="message">
                     <div className="font-semibold">Application Approved</div>
-                    <div className="font-medium text-green-600/60 mt-1 text-sm">
+                    <div className="font-medium text-green-600/60 mt-1 text-sm dark:text-green-500/80">
                       Your account has been successfully verified
                     </div>
                   </div>

@@ -47,11 +47,11 @@ export default function DepositHistory() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "success":
-        return "bg-green-500 text-white";
+        return "bg-green-500 dark:bg-green-600 text-white";
       case "failed":
-        return "bg-red-500 text-white";
+        return "bg-red-500 dark:bg-red-600 text-white";
       case "pending":
-        return "bg-yellow-500 text-white";
+        return "bg-yellow-500 dark:bg-yellow-600 text-white";
       default:
         return "bg-neutral-200 text-neutral-800";
     }
@@ -73,30 +73,42 @@ export default function DepositHistory() {
   };
 
   return (
-    <Card className="w-full px-0 border-none shadow-none">
+    <Card className="w-full px-0 border-none shadow-none dark:mt-1 dark:rounded-md">
       <div>
-        <div className="text-lg px-6 pt-4 pb-2 font-semibold text-neutral-600">
+        <div className="text-lg px-6 pt-4 pb-2 font-semibold dark:rounded-tr-md dark:rounded-tl-md dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300">
           Deposit History
         </div>
       </div>
-      <CardContent className="px-3">
+      <CardContent className="px-3 dark:bg-neutral-900">
         <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <Tabs
             value={activeTab}
             onValueChange={(value) => setActiveTab(value as DepositStatus)}
             className="w-full sm:w-auto"
           >
-            <TabsList className="w-full sm:w-auto bg-neutral-50">
-              <TabsTrigger value="all" className="flex-1 sm:flex-none">
+            <TabsList className="w-full sm:w-auto bg-neutral-50 dark:bg-neutral-800">
+              <TabsTrigger
+                value="all"
+                className="flex-1 sm:flex-none dark:text-neutral-400"
+              >
                 All
               </TabsTrigger>
-              <TabsTrigger value="success" className="flex-1 sm:flex-none">
+              <TabsTrigger
+                value="success"
+                className="flex-1 sm:flex-none dark:text-neutral-400"
+              >
                 Success
               </TabsTrigger>
-              <TabsTrigger value="pending" className="flex-1 sm:flex-none">
+              <TabsTrigger
+                value="pending"
+                className="flex-1 sm:flex-none dark:text-neutral-400"
+              >
                 Pending
               </TabsTrigger>
-              <TabsTrigger value="failed" className="flex-1 sm:flex-none">
+              <TabsTrigger
+                value="failed"
+                className="flex-1 sm:flex-none dark:text-neutral-400"
+              >
                 Failed
               </TabsTrigger>
             </TabsList>

@@ -24,7 +24,7 @@ export default function TransferInfo() {
   }) => (
     <Button
       type="button"
-      className="bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+      className="bg-neutral-100 text-neutral-600 dark:bg-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-600/50 hover:bg-neutral-200"
       size="icon"
       onClick={onToggle}
     >
@@ -38,24 +38,26 @@ export default function TransferInfo() {
   return (
     <div className="grid md:grid-cols-3 mt-5 gap-x-2 grid-cols-1">
       {" "}
-      <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+      <Card className="mb-2 rounded-sm border-none bg-neutral-50 dark:bg-neutral-800 p-0">
         <div className="p-4">
-          <div className="text-base text-neutral-700 font-semibold py-1">
+          <div className="text-base text-neutral-700 dark:text-neutral-400 font-semibold py-1">
             Account Balance
           </div>
-          <div className="mt- text-sm text-neutral-500 font-medium">
+          <div className="mt- text-sm text-neutral-500 dark:text-neutral-300 font-medium">
             {"This is your total tranferable balance "}
           </div>
         </div>
-        <CardContent className="p-4">
+        <CardContent className="p-4 dark:bg-neutral-800">
           <div className="grid grid-cols-1 gap-4">
             <div className="relative">
-              <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 rounded-sm ">
+              <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 dark:bg-neutral-700 rounded-sm ">
                 <div className="name_pin">
-                  <div className="name text-xs font-medium text-neutral-500">
+                  <div className="name text-xs font-medium text-neutral-500 dark:text-neutral-300">
                     Account Balance
                   </div>
-                  <div className={`limit text-neutral-700 font-bold text-lg `}>
+                  <div
+                    className={`limit text-neutral-700 dark:text-neutral-200 font-bold text-lg `}
+                  >
                     <span className="text-xs font-semibold ">$</span>
                     <span className={`${inter.className}`}>
                       {data.accountBalance.toLocaleString("en-US", {
@@ -73,27 +75,27 @@ export default function TransferInfo() {
           </div>
         </CardContent>{" "}
       </Card>
-      <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+      <Card className="mb-2 rounded-sm border-none bg-neutral-50 dark:bg-neutral-800 p-0">
         <div className="p-4">
-          <div className="text-base text-neutral-700 font-semibold py-1">
+          <div className="text-base text-neutral-700 dark:text-neutral-400 font-semibold py-1">
             Transaction Pin
           </div>
-          <div className="mt- text-sm text-neutral-500 font-medium">
+          <div className="mt- text-sm text-neutral-500 dark:text-neutral-300 font-medium">
             This is your transaction security pin
           </div>
         </div>
-        <CardContent className="p-4">
+        <CardContent className="p-4 dark:bg-neutral-800 mb-2">
           <div className="grid grid-cols-1 gap-4">
             <div className="relative">
-              <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 rounded-sm ">
+              <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 dark:bg-neutral-700 rounded-sm ">
                 <div className="name_pin">
-                  <div className="name text-xs font-medium text-neutral-500">
+                  <div className="name text-xs font-medium text-neutral-500 dark:text-neutral-300">
                     Transaction Pin
                   </div>
                   <div
                     className={`${inter.className} transition-all ${
                       showTransactionPin ? "blur-md" : ""
-                    } text-neutral-700 mt-1 font-bold text-lg`}
+                    } text-neutral-700 mt-1 font-bold text-lg dark:text-neutral-200`}
                   >
                     {data.transactionPin}
                   </div>
@@ -113,24 +115,26 @@ export default function TransferInfo() {
           </div>
         </CardContent>{" "}
       </Card>
-      <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+      <Card className="mb-2 rounded-sm border-none bg-neutral-50 dark:bg-neutral-800 p-0">
         <div className="p-4">
-          <div className="text-base text-neutral-700 font-semibold py-1">
+          <div className="text-base text-neutral-700 dark:text-neutral-400 font-semibold py-1">
             Account Limit
           </div>
-          <div className="mt- text-sm text-neutral-500 font-medium">
+          <div className="mt- text-sm text-neutral-500 dark:text-neutral-300 font-medium">
             {"You can't transfer above this amount"}
           </div>
         </div>
-        <CardContent className="p-4">
+        <CardContent className="p-4 dark:bg-neutral-800 mb-2">
           <div className="grid grid-cols-1 gap-4">
             <div className="relative">
-              <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 rounded-sm ">
+              <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 dark:bg-neutral-700 rounded-sm ">
                 <div className="name_pin">
-                  <div className="name text-xs font-medium text-neutral-500">
+                  <div className="name text-xs font-medium text-neutral-500 dark:text-neutral-300">
                     Account Limit
                   </div>
-                  <div className={`limit text-neutral-700 font-bold text-lg `}>
+                  <div
+                    className={`limit text-neutral-700 dark:text-neutral-200 font-bold text-lg `}
+                  >
                     <span className="text-xs font-semibold ">$</span>
                     <span className={`${inter.className}`}>
                       {data.accountLimit.toLocaleString("en-US", {

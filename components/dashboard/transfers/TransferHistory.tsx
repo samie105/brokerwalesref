@@ -72,9 +72,9 @@ export default function TransferHistory() {
         <Tabs
           defaultValue="all"
           onValueChange={(value) => setActiveTab(value as typeof activeTab)}
-          className="/w-full /sm:w-auto bg-neutral-50 rounded-md"
+          className="/w-full /sm:w-auto bg-neutral-50 border-none rounded-md"
         >
-          <TabsList className="grid w-full/ bg-neutral-50 grid-cols-4 rounded-md">
+          <TabsList className="grid w-full/ bg-neutral-50 dark:bg-neutral-800 grid-cols-4 rounded-md">
             <TabsTrigger value="all">All</TabsTrigger>
             <TabsTrigger value="success">Success</TabsTrigger>
             <TabsTrigger value="failed">Failed</TabsTrigger>
@@ -112,12 +112,12 @@ export default function TransferHistory() {
               {filteredTransfers.map((transfer) => (
                 <TableRow key={transfer.id} className="border-none">
                   <TableCell
-                    className={` whitespace-nowrap  text-neutral-500 font-medium ${inter.className}`}
+                    className={` whitespace-nowrap  text-neutral-500 dark:text-neutral-300 font-medium ${inter.className}`}
                   >
                     {formatCurrency(transfer.amount)}
                   </TableCell>
                   <TableCell
-                    className={`whitespace-nowrap text-neutral-500 text-sm ${inter.className}`}
+                    className={`whitespace-nowrap text-neutral-500 dark:text-neutral-300 text-sm ${inter.className}`}
                   >
                     {formatDate(transfer.date)}
                   </TableCell>

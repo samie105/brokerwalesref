@@ -35,7 +35,13 @@ export default function TransferHeaders() {
   const data = deets!.data;
   const correctTransactionPin = data.transactionPin; // Set the correct
   const defaultAmount = data.accountBalance; // Set your default amount here
-
+  const successfulTransfers = data.transferHistory.filter(
+    (transfer) => transfer.status === "success"
+  );
+  const totalSuccessfulAmount = successfulTransfers.reduce(
+    (acc, transfer) => acc + transfer.amount,
+    0
+  );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogPage, setDialogPage] = useState<
     "form" | "processing" | "pending"
@@ -127,7 +133,7 @@ export default function TransferHeaders() {
   return (
     <div className="flex justify-between items-center">
       <div className="">
-        <div className="Fixed-type text-xs gap-x-1 bg-neutral-500/5 p-2 md:px-4 rounded-md inline-flex items-center font-semibold text-neutral-500">
+        <div className="dep-type text-xs gap-x-1 bg-neutral-500/5 p-2 md:px-4 rounded-md inline-flex items-center font-semibold dark:bg-blue-500/10 dark:text-blue-500 text-neutral-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -139,10 +145,10 @@ export default function TransferHeaders() {
           <p> Transfers</p>
         </div>
         <div
-          className={`Fixed-balance text-3xl mt-2 pl-3 font-bold text-neutral-600 ${inter.className}`}
+          className={`Fixed-balance text-3xl mt-2 pl-3 font-bold text-neutral-600 dark:text-neutral-300 ${inter.className}`}
         >
           <span className="text-sm">$</span>
-          {defaultAmount.toFixed(2)}
+          {totalSuccessfulAmount.toFixed(2)}
         </div>{" "}
         <p className="text-neutral-400 text-xs mt-1 font-medium pl-3 ">
           Total successful transfers
@@ -151,7 +157,7 @@ export default function TransferHeaders() {
       <div className="flex gap-x-2">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger>
-            <div className="create-new cursor-pointer hover:bg-base-color/10 transition-all flex items-center md:gap-x-2 bg-base-color/5 text-base-color/80 px-3 py-3 rounded-sm font-medium">
+            <div className="create-new cursor-pointer hover:bg-base-color/10 dark:bg-blue-500/10 dark:text-blue-500 dark:hover:bg-blue-500/10 transition-all flex items-center md:gap-x-2 bg-base-color/5 text-base-color/80 px-3 py-3 rounded-sm font-medium">
               <div className="text-sm font-semibold hidden md:block">
                 Make a Transfer
               </div>{" "}
@@ -293,7 +299,7 @@ export default function TransferHeaders() {
                 <Button
                   disabled={status === "executing"}
                   type="submit"
-                  className="w-full disabled:opacity-50"
+                  className="w-full dark:text-white disabled:opacity-50"
                 >
                   Initiate Transfer
                 </Button>
@@ -320,39 +326,45 @@ export default function TransferHeaders() {
                   Your transfer is pending and will be processed within 1-3
                   business days.
                 </p>
-                <div className="w-full space-y-2 text-sm rounded-md bg-neutral-50 p-2">
-                  <p className="bg-neutral-50 rounded-md p-3  font-medium">
-                    <span className="font-semibold text-neutral-700">
+                <div className="w-full space-y-2 text-sm rounded-md dark:bg-neutral-800 bg-neutral-50 p-2">
+                  <p className="bg-neutral-50 dark:bg-neutral-800 rounded-md p-3  font-medium">
+                    <span className="font-semibold text-neutral-700 dark:text-neutral-500">
                       Amount:
                     </span>{" "}
-                    <span className={`${inter.className} text-neutral-500`}>
+                    <span
+                      className={`${inter.className} text-neutral-500 dark:text-neutral-300`}
+                    >
                       ${transferDetails.amount}
                     </span>
                   </p>
-                  <p className="bg-neutral-50 rounded-md p-3  font-medium">
-                    <span className="font-semibold text-neutral-700">
+                  <p className="bg-neutral-50 dark:bg-neutral-700/30 rounded-md p-3  font-medium">
+                    <span className="font-semibold text-neutral-700 dark:text-neutral-500">
                       Recipient Routing Number:
                     </span>{" "}
-                    <span className={`${inter.className} text-neutral-500`}>
+                    <span
+                      className={`${inter.className} text-neutral-500 dark:text-neutral-300`}
+                    >
                       {transferDetails.recipientRoutingNumber}
                     </span>
                   </p>
-                  <p className="bg-neutral-50 rounded-md p-3  font-medium">
-                    <span className="font-semibold text-neutral-700">
+                  <p className="bg-neutral-50 dark:bg-neutral-700/30 rounded-md p-3  font-medium">
+                    <span className="font-semibold text-neutral-700 dark:text-neutral-500">
                       Recipient Account Number:
                     </span>{" "}
-                    <span className={`${inter.className} text-neutral-500`}>
+                    <span
+                      className={`${inter.className} text-neutral-500 dark:text-neutral-300`}
+                    >
                       {transferDetails.recipientAccountNumber}
                     </span>
                   </p>
-                  <p className="bg-neutral-50 rounded-md p-3 font-medium">
-                    <span className="font-semibold text-neutral-700">
+                  <p className="bg-neutral-50 dark:bg-neutral-700/30 rounded-md p-3 font-medium">
+                    <span className="font-semibold text-neutral-700 dark:text-neutral-500">
                       Recipient Bank:
                     </span>{" "}
                     <span className="">{transferDetails.bankName}</span>
                   </p>
-                  <p className="bg-neutral-50 rounded-md p-3 font-medium">
-                    <span className="font-semibold text-neutral-700">
+                  <p className="bg-neutral-50 dark:bg-neutral-700/30 rounded-md p-3 font-medium">
+                    <span className="font-semibold text-neutral-700 dark:text-neutral-500">
                       Recipient Name:
                     </span>{" "}
                     {transferDetails.recipientName}
@@ -360,7 +372,7 @@ export default function TransferHeaders() {
                 </div>
                 <Button
                   onClick={closeDialog}
-                  className="mt-4 bg-base-color/5 hover:bg-base-color/5 text-base-color/80 rounded-sm font-bold"
+                  className="mt-4 bg-base-color/5 hover:bg-base-color/5 text-base-color/80 dark:bg-blue-500/10 text-blue-500 rounded-sm font-bold"
                 >
                   Acknowledged
                 </Button>

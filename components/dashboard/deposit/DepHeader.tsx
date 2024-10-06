@@ -84,10 +84,10 @@ export default function DepHeader() {
 
   return (
     <div className="grid md:grid-cols-3 grid-cols-1 gap-y-2 md:gap-y-0">
-      <div className="md:bg-white py-4 px-2 rounded-sm">
+      <div className="md:bg-white  dark:md:rounded-none dark:bg-neutral-900 py-4 px-2 rounded-sm">
         <div className="flex justify-between items-center">
           <div>
-            <div className="Fixed-type text-xs gap-x-1 bg-neutral-500/5 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold text-neutral-500">
+            <div className="dep-type text-xs gap-x-1 bg-neutral-500/5 dark:bg-blue-500/10 dark:text-blue-500 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold text-neutral-500">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -103,20 +103,20 @@ export default function DepHeader() {
               <p>Deposits</p>
             </div>
             <div
-              className={`Fixed-balance text-3xl mt-2 pl-2 font-bold text-neutral-600 ${inter.className}`}
+              className={`Fixed-balance text-3xl mt-2 pl-2 font-bold text-neutral-600 dark:text-neutral-400 ${inter.className}`}
             >
               <span className="text-sm">$</span>
               {data.depositHistory
                 .filter((deposit) => deposit.status === "success")
                 .reduce((acc, deposit) => acc + deposit.amount, 0)}
             </div>
-            <p className="text-neutral-400 text-xs mt-1 font-medium pl-2">
+            <p className="text-neutral-400 dark:text-neutral-300 text-xs mt-1 font-medium pl-2">
               Total successful deposit
             </p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger>
-              <div className="cont p-3 rounded-full cursor-pointer bg-base-color/5 text-base-color/80">
+              <div className="cont p-3 rounded-full cursor-pointer bg-base-color/5 text-base-color/80 dark:bg-blue-500/10 dark:text-blue-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -224,10 +224,10 @@ export default function DepHeader() {
           </Dialog>
         </div>
       </div>
-      <div className="md:bg-white bg-neutral-50/70 py-4 px-2 rounded border-l border-r border-neutral-500/10">
+      <div className="md:bg-white bg-neutral-50/70 dark:md:rounded-none dark:bg-neutral-900 py-4 px-2 rounded border-l border-r border-neutral-500/10">
         <div className="flex justify-between items-center">
           <div>
-            <div className="Fixed-type text-xs gap-x-1 bg-base-color/5 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold text-base-color/80">
+            <div className="dep-type text-xs gap-x-1 bg-base-color/5 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold dark:text-blue-500 dark:bg-blue-500/10 text-base-color/80">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -243,7 +243,7 @@ export default function DepHeader() {
               <p>Account Info</p>
             </div>
             <div
-              className={`Fixed-balance text-xl mt-2 pl-2 font-bold text-neutral-600 ${inter.className}`}
+              className={`Fixed-balance text-xl mt-2 pl-2 font-bold text-neutral-600 dark:text-neutral-400 ${inter.className}`}
             >
               {data.bankRoutingNumber}
             </div>
@@ -253,7 +253,7 @@ export default function DepHeader() {
           </div>
           <div className="copy-icon">
             <div
-              className="cont p-3 rounded-full cursor-pointer bg-base-color/5 text-base-color/80"
+              className="cont p-3 rounded-full cursor-pointer bg-base-color/5 dark:bg-blue-500/10 dark:text-blue-500 text-base-color/80"
               onClick={() => {
                 toast.success("Copied");
                 navigator.clipboard.writeText(data.bankRoutingNumber);
@@ -275,10 +275,10 @@ export default function DepHeader() {
           </div>
         </div>
       </div>
-      <div className="md:bg-white bg-neutral-50/70 py-4 px-2 rounded-sm border-l border-r md:border-none border-neutral-500/10">
+      <div className="md:bg-white bg-neutral-50/70 dark:bg-neutral-900 py-4 px-2 rounded-sm dark:md:rounded-none border-l border-r md:border-none border-neutral-500/10">
         <div className="flex justify-between items-center">
           <div>
-            <div className="Fixed-type text-xs gap-x-1 bg-base-color/5 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold text-base-color/80">
+            <div className="dep-type text-xs gap-x-1 bg-base-color/5 p-2 md:px-4 rounded-sm inline-flex items-center font-semibold dark:bg-blue-500/10 dark:text-blue-500 text-base-color/80">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -294,7 +294,7 @@ export default function DepHeader() {
               <p>Account Info</p>
             </div>
             <div
-              className={`Fixed-balance text-xl mt-2 pl-2 font-bold text-neutral-700 ${inter.className}`}
+              className={`Fixed-balance text-xl mt-2 pl-2 font-bold dark:text-neutral-400 text-neutral-700 ${inter.className}`}
             >
               {data.bankAccountNumber}
             </div>
@@ -304,7 +304,7 @@ export default function DepHeader() {
           </div>
           <div className="copy-icon">
             <div
-              className="cont p-3 rounded-full cursor-pointer bg-base-color/5 text-base-color/80"
+              className="cont p-3 rounded-full cursor-pointer bg-base-color/5 dark:bg-blue-500/10 dark:text-blue-500 text-base-color/80"
               onClick={() => {
                 toast.success("Copied");
                 navigator.clipboard.writeText(data.bankAccountNumber);

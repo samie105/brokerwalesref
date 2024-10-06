@@ -72,32 +72,33 @@ export default function TransactionPin() {
   };
 
   return (
-    <Card className="mb-2 rounded-sm border-none bg-neutral-50 p-0">
+    <Card className=" rounded-sm border-none bg-neutral-50 dark:bg-neutral-800 p-0">
       <div className="p-4">
-        <div className="text-base text-neutral-700 font-semibold py-1">
+        <div className="text-base text-neutral-700 dark:text-neutral-400 font-semibold py-1">
           Transaction
         </div>
-        <div className="mt- text-sm text-neutral-500 font-medium">
+        <div className="mt- text-sm text-neutral-500 dark:text-neutral-300 font-medium">
           Manage your transaction pin
         </div>
       </div>
-      <CardContent className="p-4">
+      <CardContent className="p-4 dark:bg-neutral-800 mb-2">
         <div className="grid grid-cols-1 gap-4">
           <div className="relative">
-            <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 rounded-sm ">
+            <div className="py-2 px-3 flex items-center justify-between bg-neutral-100 dark:bg-neutral-700/30 rounded-sm ">
               <div className="name_pin">
-                <div className="name text-xs font-medium text-neutral-500">
+                <div className="name text-xs font-medium text-neutral-500 dark:text-neutral-300">
                   Transaction Pin
                 </div>
                 <div
                   className={`${inter.className} transition-all ${
                     showTransactionPin ? "blur-md" : ""
-                  } text-neutral-700 mt-1 font-bold text-xl`}
+                  } text-neutral-700 mt-1 font-bold text-lg dark:text-neutral-200`}
                 >
                   {data.transactionPin}
                 </div>
               </div>
               <div className="ctrls flex items-center gap-x-1">
+                {" "}
                 <ToggleVisibility
                   show={showTransactionPin}
                   onToggle={() => setShowTransactionPin(!showTransactionPin)}
@@ -107,7 +108,7 @@ export default function TransactionPin() {
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="w-full font-semibold bg-base-color/70 text-white rounded-sm">
+              <Button className="w-full font-semibold dark:bg-blue-500 bg-base-color/70 text-white rounded-sm">
                 Change pin
               </Button>
             </DialogTrigger>
