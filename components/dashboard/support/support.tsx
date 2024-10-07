@@ -121,7 +121,7 @@ export default function Support() {
                 {handle.icon}
                 {handle.name}
               </h2>
-              <div className="desc text-sm my-2 mt-4 text-neutral-500 text-medium">
+              <div className="desc text-sm my-2 mt-4 dark:text-neutral-300 text-neutral-500 text-medium">
                 {handle.desc}
               </div>
               <Button
@@ -139,13 +139,13 @@ export default function Support() {
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 bg-neutral-50/50 p-4 rounded-md"
+        className="space-y-4 bg-neutral-50/50 dark:bg-neutral-900 p-4 rounded-md"
       >
         <div className="heading pb-6">
-          <div className="text-xl font-semibold text-neutral-600">
+          <div className="text-xl font-semibold text-neutral-600 dark:text-neutral-300">
             {"What's your message?"}
           </div>
-          <div className="text-neutral-500 text-sm font-medium">
+          <div className="text-neutral-500 text-sm font-medium dark:text-neutral-400">
             {
               "Leave a message in the box below to reach out to our support team, "
             }
@@ -204,7 +204,7 @@ export default function Support() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={6}
-            className="w-full bg-neutral-100"
+            className="w-full bg-neutral-100 dark:bg-neutral-800 dark:border-neutral-800"
           />
         </div>
 
