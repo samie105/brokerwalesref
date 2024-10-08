@@ -1,9 +1,5 @@
 "use client";
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/xjpGuKvWaIE
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -91,7 +87,7 @@ export default function Login() {
   };
 
   return (
-    <div className="grid min-h-[100dvh] w-full grid-cols-1 lg:grid-cols-2">
+    <div className="grid min-h-[100dvh] bg-white w-full grid-cols-1 lg:grid-cols-2">
       <div className="hidden lg:block /border relative overflow-hidden">
         <Image
           src={hero}
@@ -104,7 +100,9 @@ export default function Login() {
       <div className="flex items-center justify-center mt-9 p-6 lg:p-10">
         <div className="mx-auto w-full max-w-[400px] space-y-6">
           <div className="/space-y-2 /text-center">
-            <h1 className="text-2xl font-bold">Welcome Back</h1>
+            <h1 className="text-2xl font-bold dark:text-neutral-700">
+              Welcome Back
+            </h1>
             <p className="text-gray-500 /text-sm dark:text-gray-400">
               Enter your email and password to sign in
             </p>
@@ -114,15 +112,17 @@ export default function Login() {
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2 text-sm">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="dark:text-neutral-400">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="m@example.com"
                 {...register("email")}
-                className={
+                className={`${
                   errors.email ? "border-red-500 lowercase" : "lowercase"
-                }
+                } dark:bg-neutral-100 border-neutral-200 dark:text-neutral-600`}
               />
               {errors.email && (
                 <p className="text-red-500 text-xs mt-1">
@@ -131,12 +131,16 @@ export default function Login() {
               )}
             </div>
             <div className="space-y-2 text-sm">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="dark:text-neutral-400">
+                Password
+              </Label>
               <Input
                 id="password"
                 type="password"
                 {...register("password")}
-                className={errors.password ? "border-red-500" : ""}
+                className={`${
+                  errors.password ? "border-red-500 lowercase" : "lowercase"
+                } dark:bg-neutral-100 border-neutral-200 dark:text-neutral-600`}
               />
               {errors.password && (
                 <p className="text-red-500 text-xs mt-1">
@@ -175,16 +179,16 @@ export default function Login() {
           <div className="flex items-center justify-center">
             <Link
               href="/"
-              className="text-sm font-medium text-gray-900 hidden hover:underline dark:text-gray-50"
+              className="text-sm font-medium text-gray-900 hidden hover:underline"
               prefetch={false}
             >
               Back to Home
             </Link>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
+            <div className="text-sm text-gray-500 /dark:text-gray-400">
               Don&apos;t have an account?{" "}
               <Link
                 href="/auth/signup"
-                className="font-medium text-gray-900 hover:underline dark:text-gray-50"
+                className="font-medium text-gray-900 hover:underline "
                 prefetch={false}
               >
                 Create an account

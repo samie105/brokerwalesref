@@ -6,10 +6,8 @@ export default async function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <Signout /> {children}
-      </body>
-    </html>
+    <div className="dark:bg-white">
+      <Signout /> {children}
+    </div>
   );
 }

@@ -154,11 +154,13 @@ export default function PaymentSection() {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md dark:bg-white dark:border-neutral-100">
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
-            <CardTitle className="text-xl">Payment</CardTitle>
-            <CardDescription className="text-sm">
+            <CardTitle className="text-xl dark:text-neutral-600">
+              Payment
+            </CardTitle>
+            <CardDescription className="text-sm ">
               Select your payment method
             </CardDescription>
           </div>
@@ -166,7 +168,7 @@ export default function PaymentSection() {
             <p>$50</p>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 dark:bg-white">
           <div className="grid grid-cols-2 gap-4">
             {paymentMethods.slice(0, 4).map((method) => (
               <Button
@@ -193,7 +195,7 @@ export default function PaymentSection() {
               </Button>
             ))}
           </div>
-          <Separator />
+          <Separator className="" />
           <div className="grid grid-cols-2 gap-4">
             {paymentMethods.slice(4).map((method) => (
               <Button
@@ -241,7 +243,7 @@ export default function PaymentSection() {
                 />
               </svg>
             </DialogTrigger>
-            <DialogContent className="w-[90%] flex flex-col rounded-md">
+            <DialogContent className="w-[90%] dark:border-neutral-100 dark:bg-white dark:text-neutral-100  flex flex-col rounded-md">
               {selectedMethod && (
                 <div className="flex flex-col items-center space-y-4">
                   <div className="flex items-center justify-center gap-x-2">
@@ -276,7 +278,7 @@ export default function PaymentSection() {
                         </label>
                         <div className="bg-gray-100 mt-1 text-sm rounded-md flex items-center justify-between p-4">
                           <Input
-                            className="w-5/6 focus-within:outline-none focus:outline-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-gray-100 ring-0 focus-within:ring-0 focus:ring-0"
+                            className="w-5/6 dark:bg-gray-100 dark:text-neutral-600 focus-within:outline-none focus:outline-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-gray-100 ring-0 focus-within:ring-0 focus:ring-0"
                             value={selectedMethod.address}
                             readOnly
                           />
@@ -336,7 +338,7 @@ export default function PaymentSection() {
                       </Label>
                       <div
                         {...getRootProps()}
-                        className="mt-1 flex items-center justify-between p-4 bg-gray-100 rounded-md cursor-pointer"
+                        className="mt-1 flex items-center justify-between p-4 dark:text-neutral-600 bg-gray-100 rounded-md cursor-pointer"
                       >
                         <Input {...getInputProps()} />
                         <p className="text-gray-500 text-sm">
@@ -350,7 +352,7 @@ export default function PaymentSection() {
                         </p>
                       </div>
                       {uploadedFile && (
-                        <div className="mt-4 bg-gray-100 text-sm p-4 rounded-md flex items-center justify-between">
+                        <div className="mt-4 bg-gray-100 dark:text-neutral-600 text-sm p-4 rounded-md flex items-center justify-between">
                           <span>{uploadedFile.name}</span>
                           <button
                             className="text-red-600 hover:text-red-900"

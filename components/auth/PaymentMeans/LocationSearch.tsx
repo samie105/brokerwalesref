@@ -112,10 +112,10 @@ export default function LocationSearch() {
         {!loading && !showNotFound && (
           <>
             <div className="text-cen/ter mb-6 form-page">
-              <h2 className="text-xl font-bold">
+              <h2 className="text-xl font-bold dark:text-neutral-700">
                 Fill in the fields to discover our <br /> branches close to you
               </h2>
-              <p className="text-muted-foreground text-sm py-2">
+              <p className="text-muted-foreground text-sm py-2 dark:text-neutral-600">
                 Find your nearest branch for in-person deposits. Locate
                 convenient branch locations and experience personalized service.
               </p>
@@ -124,11 +124,15 @@ export default function LocationSearch() {
               <div className="space-y-2">
                 <Label htmlFor="state">State</Label>
                 <Select onValueChange={(value) => setState(value)}>
-                  <SelectTrigger id="state" aria-label="State">
+                  <SelectTrigger
+                    id="state"
+                    aria-label="State"
+                    className="dark:bg-neutral-100 dark:border-neutral-200 dark:text-neutral-700"
+                  >
                     <SelectValue placeholder="Select a state" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <ScrollArea className="h-[250px]">
+                  <SelectContent className="dark:text-neutral-700 dark:bg-white dark:border-neutral-200">
+                    <ScrollArea className="h-[250px] dark:bg-white dark:text-neutral-300">
                       {US_STATES.map((state) => (
                         <SelectItem
                           value={state.name}
@@ -149,6 +153,7 @@ export default function LocationSearch() {
                   maxLength={6}
                   placeholder="10001"
                   value={zipcode}
+                  className="dark:bg-neutral-100 dark:border-neutral-200 dark:text-neutral-600"
                   onChange={handlezipchange}
                 />
               </div>

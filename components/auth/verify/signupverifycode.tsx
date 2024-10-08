@@ -224,13 +224,13 @@ export default function SignupVerifyOTP({
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background">
-      <Card className="w-full max-w-md">
+    <div className="flex min-h-screen dark:bg-white flex-col items-center justify-center bg-background">
+      <Card className="w-full max-w-md dark:bg-white dark:border-neutral-300">
         <div className="flex justify-center">
           <Lottie animationData={animationData} className="w-[90%] h-[13rem]" />
         </div>
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-xl font-bold">
+          <CardTitle className="text-xl font-bold dark:text-neutral-800">
             {type.includes("signup") ? "Verify your email" : "Verify it's you"}
           </CardTitle>
           {codeSent && (
@@ -254,7 +254,7 @@ export default function SignupVerifyOTP({
             </div>
           )}
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 dark:bg-white">
           {!codeSent && (
             <>
               <Button
@@ -292,13 +292,31 @@ export default function SignupVerifyOTP({
                   pattern="^[0-9]+$"
                   onChange={(val) => setValue(val)}
                 >
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
+                  <InputOTPGroup className="dark:border-neutral-400">
+                    <InputOTPSlot
+                      index={0}
+                      className="dark:border-neutral-300 dark:text-neutral-700"
+                    />
+                    <InputOTPSlot
+                      index={1}
+                      className="dark:border-neutral-300 dark:text-neutral-700"
+                    />
+                    <InputOTPSlot
+                      index={2}
+                      className="dark:border-neutral-300 dark:text-neutral-700"
+                    />
+                    <InputOTPSlot
+                      index={3}
+                      className="dark:border-neutral-300 dark:text-neutral-700"
+                    />
+                    <InputOTPSlot
+                      index={4}
+                      className="dark:border-neutral-300 dark:text-neutral-700"
+                    />
+                    <InputOTPSlot
+                      index={5}
+                      className="dark:border-neutral-300 dark:text-neutral-700"
+                    />
                   </InputOTPGroup>
                 </InputOTP>
               </div>

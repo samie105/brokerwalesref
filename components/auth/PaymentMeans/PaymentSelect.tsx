@@ -11,16 +11,18 @@ export default function PaymentSelect() {
     <div className="container mx-auto  max-w-md px-4 py-12">
       <div className="space-y-6">
         <div className="text-/">
-          <h1 className="text-2xl font-bold">Choose Your Deposit Method</h1>
+          <h1 className="text-2xl font-bold dark:text-neutral-700">
+            Choose Your Deposit Method
+          </h1>
           <p className="text-muted-foreground text-sm mt-2 font-medium">
             An account opening deposit of{" "}
             <span className="font-semibold">$50</span> is required. Select your
             preferred way to pay
           </p>
         </div>
-        <RadioGroup defaultValue="branch" className="space-y-4">
-          <div className="flex cursor-pointer bg-white items-start gap-4 rounded-lg border p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
+        <RadioGroup defaultValue="branch" className="space-y-4 dark:bg-white">
+          <div className="flex cursor-pointer bg-white dark:border-neutral-200 dark:bg-white items-start gap-4 rounded-lg border p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted dark:bg-neutral-100 text-muted-foreground">
               <BuildingIcon className="h-6 w-6" />
             </div>
             <div className="flex-1 space-y-2">
@@ -43,7 +45,7 @@ export default function PaymentSelect() {
               </p>
               <Link
                 href="/auth/payment-means/location-search"
-                className="inline-flex h-12 items-center gap-2 font-bold  rounded-md bg-primary px-4 py-2 text-sm fo/nt-medium text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                className="inline-flex h-12 dark:text-white items-center gap-2 font-bold  rounded-md bg-primary px-4 py-2 text-sm fo/nt-medium text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 prefetch={false}
                 style={{ backgroundColor: colors.defaultblue }}
               >
@@ -51,8 +53,8 @@ export default function PaymentSelect() {
               </Link>
             </div>
           </div>
-          <div className="flex cursor-pointer bg-white items-start gap-4 rounded-lg border p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
+          <div className="flex cursor-pointer bg-white dark:bg-white dark:border-neutral-200 items-start gap-4 rounded-lg border p-4 hover:bg-muted/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground">
+            <div className="flex h-12 w-12 items-center dark:bg-neutral-100 dark:border-neutral-200 justify-center rounded-full bg-muted text-muted-foreground">
               <CreditCardIcon className="h-6 w-6" />
             </div>
             <div className="flex-1 space-y-2 ">
@@ -68,7 +70,7 @@ export default function PaymentSelect() {
               <Link
                 style={{ backgroundColor: colors.defaultblue }}
                 href="/auth/payment-means/mobile-deposit"
-                className="inline-flex h-12 mt-20 items-center gap-2 font-bold rounded-md bg-primary px-4 py-2 text-sm f/ont-medium text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                className="inline-flex h-12 dark:text-white mt-20 items-center gap-2 font-bold rounded-md bg-primary px-4 py-2 text-sm f/ont-medium text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 prefetch={false}
               >
                 Mobile Deposit <ArrowRightIcon className="h-4 w-4" />
