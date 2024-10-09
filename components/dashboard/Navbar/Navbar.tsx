@@ -67,24 +67,46 @@ export default async function Navbar() {
                   </div>
                 </div>
                 <div className="veification-status pl-3 font-medium text-sm">
-                  <div
-                    className={`badge bg-red-50/60 border dark:bg-red-400/10 dark:border-red-400/10 border-red-50 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500  flex items-center space-x-1`}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="size-4"
+                  {!data.accountVerified && (
+                    <div
+                      className={`badge bg-red-50/60 border dark:bg-red-400/10 dark:border-red-400/10 border-red-50 px-2 py-1.5 text-xs rounded-md font-semibold text-red-500  flex items-center space-x-1`}
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        className="size-4"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
 
-                    <p className="hidden md:block">Not Verified</p>
-                  </div>
+                      <p className="hidden md:block">Not Verified</p>
+                    </div>
+                  )}
+                  {data.accountVerified && (
+                    <div
+                      className={`badge bg-red-green/60 border dark:bg-green-400/10 dark:border-green-400/10 border-green-50 px-2 py-1.5 text-xs rounded-md font-semibold text-green-500  flex items-center space-x-1`}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-4"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+
+                      <p className="hidden md:block">Verified</p>
+                    </div>
+                  )}
                 </div>
               </Link>
             </div>

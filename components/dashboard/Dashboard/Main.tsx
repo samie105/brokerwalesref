@@ -918,10 +918,10 @@ export function CreditCardDetails({
             </svg>
           </div>
         </DialogTrigger>
-        <DialogContent className="w-[90%]">
+        <DialogContent className="w-[90%] dark:bg-neutral-900 dark:border-neutral-800">
           <DialogTitle className="tt text-lg text-neutral-700 font-medium">
             <div className="text-base flex items-center gap-x-2 text-neutral-700/">
-              <div className="font-semibold flex items-center gap-x-2 bg-[#0013BB08] p-2 /inline rounded-sm text-base-color/90">
+              <div className="font-semibold flex items-center gap-x-2 bg-[#0013BB08] p-2 /inline rounded-sm dark:bg-blue-/10 dark:text-blue-500 text-base-color/90">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -934,20 +934,22 @@ export function CreditCardDetails({
               </div>
             </div>
           </DialogTitle>
-          <div className="separator w-20 h-0.5 mt-1 bg-black/10 mx-auto"></div>
+          <div className="separator w-20 h-0.5 mt-1 bg-black/10 mx-auto dark:bg-white/10"></div>
 
           <div className="space-y-1 mt-4">
-            <div className="tt billing font-medium">Billing Info</div>
+            <div className="tt billing font-medium dark:text-neutral-400">
+              Billing Info
+            </div>
             {data.map((_) => (
               <div key={_[0]}>
                 {_[0] != "focus" && (
                   <div className="flex bg-/neutral-50 rounded-md py-3 px-2 items-center justify-between">
                     <div>
-                      <div className="capitalize text-neutral-500 font-medium text-sm /font-semibold">
+                      <div className="capitalize text-neutral-500 dark:text-neutral-300 font-medium text-sm /font-semibold">
                         Card {_[0]}
                       </div>
                       <div
-                        className={`${inter.className} text-neutral-600 font-medium /text-sm  f/ont-light`}
+                        className={`${inter.className} text-neutral-600 dark:text-neutral-200 font-medium /text-sm  f/ont-light`}
                       >
                         {_[1]}
                       </div>
@@ -959,7 +961,7 @@ export function CreditCardDetails({
                           `Card ${_[0].toUpperCase()} copied`.toUpperCase()
                         );
                       }}
-                      className="icon cursor-pointer hover:bg-base-color/10 transition-all bg-base-color/5 hover:text-base-color/80 text-base-color/50 p-2 rounded-sm"
+                      className="icon cursor-pointer dark:text-blue-500 hover:dark:bg-blue-500/10 hover:bg-base-color/10 transition-all bg-base-color/5 hover:text-base-color/80 text-base-color/50 p-2 rounded-sm"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -986,17 +988,17 @@ export function CreditCardDetails({
           </div>
 
           <div className="billing-address">
-            <div className="tt text-neutral-500/ font-medium">
+            <div className="tt text-neutral-500/ dark:text-neutral-400 font-medium">
               Billing Address
             </div>
             <div>
               <div className="flex bg-/neutral-50 rounded-md py-3 px-2 items-center justify-between">
                 <div>
-                  <div className="capitalize text-neutral-500 font-medium text-sm /font-semibold">
+                  <div className="capitalize text-neutral-500 dark:text-neutral-300 font-medium text-sm /font-semibold">
                     Card Billing Address
                   </div>
                   <div
-                    className={`${inter.className} text-neutral-600 font-medium /text-sm  f/ont-light`}
+                    className={`${inter.className} text-neutral-600 dark:text-neutral-200 font-medium /text-sm  f/ont-light`}
                   >
                     {cardInfo.cardBillingAddress}
                   </div>
@@ -1006,7 +1008,7 @@ export function CreditCardDetails({
                     navigator.clipboard.writeText(cardInfo.cardBillingAddress);
                     toast.success(`Card Billing Address copied`.toUpperCase());
                   }}
-                  className="icon cursor-pointer hover:bg-base-color/10 transition-all bg-base-color/5 hover:text-base-color/80 text-base-color/50 p-2 rounded-sm"
+                  className="icon cursor-pointer hover:bg-base-color/10 transition-all dark:text-blue-500 hover:dark:bg-blue-500/10 bg-base-color/5 hover:text-base-color/80 text-base-color/50 p-2 rounded-sm"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -1031,11 +1033,11 @@ export function CreditCardDetails({
             <div>
               <div className="flex bg-/neutral-50 rounded-md py-3 px-2 items-center justify-between">
                 <div>
-                  <div className="capitalize text-neutral-500 font-medium text-sm /font-semibold">
+                  <div className="capitalize text-neutral-500 dark:text-neutral-300 font-medium text-sm /font-semibold">
                     Card Zip Code
                   </div>
                   <div
-                    className={`${inter.className} text-neutral-600 font-medium /text-sm  f/ont-light`}
+                    className={`${inter.className} text-neutral-600 dark:text-neutral-300 font-medium /text-sm  f/ont-light`}
                   >
                     {cardInfo.cardZipCode}
                   </div>
@@ -1045,7 +1047,7 @@ export function CreditCardDetails({
                     navigator.clipboard.writeText(cardInfo.cardZipCode);
                     toast.success(`Card Zip Code copied`.toUpperCase());
                   }}
-                  className="icon cursor-pointer hover:bg-base-color/10 transition-all bg-base-color/5 hover:text-base-color/80 text-base-color/50 p-2 rounded-sm"
+                  className="icon cursor-pointer hover:bg-base-color/10 dark:text-blue-500 hover:dark:bg-blue-500/10 transition-all bg-base-color/5 hover:text-base-color/80 text-base-color/50 p-2 rounded-sm"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
