@@ -50,21 +50,21 @@ const excludedFields = [
   "_id",
 ];
 
-export default function UserEdit({ data }: { data: IUser }) {
+export default function UserEdit({ data }: { data: any }) {
   const [formData, setFormData] = useState(data);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
-    setFormData((prev) => ({
+    setFormData((prev: any) => ({
       ...prev,
       [name]: type === "number" ? parseFloat(value) : value,
     }));
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData((prev) => ({
+    setFormData((prev: any) => ({
       ...prev,
       [name]: value === "Yes",
     }));
