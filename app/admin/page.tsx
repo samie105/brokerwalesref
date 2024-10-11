@@ -6,9 +6,10 @@ export default async function page() {
   const rawData = await User.find();
   const data: IUser | null = JSON.parse(JSON.stringify(rawData));
 
-  if (data)
+  return (
     <div className="w-full h-screen bg-white dark:bg-neutral-950">
       {" "}
-      <Admin initialData={data} />
-    </div>;
+      {data && <Admin initialData={data} />}
+    </div>
+  );
 }
