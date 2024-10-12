@@ -44,6 +44,7 @@ export function FixedDialog({ text }: { text?: boolean }) {
   const { data: deets } = useFetchInfo();
   const data = deets!.data;
   let toastId: any;
+  const accountBal = data.accountBalance;
   const fixedDeposit = data.fixedHistory.reverse();
   const router = useRouter();
   router.prefetch("/dashboard/deposit");
@@ -92,7 +93,12 @@ export function FixedDialog({ text }: { text?: boolean }) {
     (item) => item.name.toLowerCase() === name.toLowerCase()
   );
   const isFormValid =
-    name && duration && amount && status !== "executing" && !nameExists;
+    name &&
+    duration &&
+    amount &&
+    status !== "executing" &&
+    !nameExists &&
+    amount < accountBal;
 
   const handleSubmit = () => {
     // if (amount! > data.accountBalance)
@@ -192,6 +198,12 @@ export function FixedDialog({ text }: { text?: boolean }) {
                 {" "}
                 <span className="font-semibold">$100</span> is the Minimum
                 amount
+              </div>
+            )}
+            {amount !== null && amount > accountBal && (
+              <div className="error-message bg-red-400/10 p-2 rounded-sm text-red-500 text-sm">
+                {" "}
+                Amount used is more than your account balance
               </div>
             )}
           </div>

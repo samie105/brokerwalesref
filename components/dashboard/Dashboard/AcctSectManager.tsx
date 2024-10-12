@@ -39,6 +39,7 @@ import { useAction } from "next-safe-action/hooks";
 import { useFetchInfo } from "@/lib/data/fetchPost";
 import Fixed from "./Fixed";
 import Link from "next/link";
+import StatusIndicator from "./StatusIndicator";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -291,19 +292,7 @@ export default function AcctSectManager({
                           </div>
                         </div>
                       </div>
-                      {!data.isPaidOpeningDeposit ? (
-                        <div
-                          className={`text-yellow-500 bg-yellow-500/5 rounded py-1 px-2 border-yellow-500/20 border text-xs font-semibold `}
-                        >
-                          Pending
-                        </div>
-                      ) : (
-                        <div
-                          className={`text-green-500 bg-green-500/5 rounded py-1 px-2 border-green-500/20 border text-xs font-semibold `}
-                        >
-                          Verified
-                        </div>
-                      )}
+                      <StatusIndicator data={data} />
                     </div>
                   </div>
                 </div>

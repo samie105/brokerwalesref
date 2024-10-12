@@ -37,6 +37,7 @@ import { createCard, DeleteCard } from "@/server/dashboard/cardActions";
 import { useAction } from "next-safe-action/hooks";
 import { useFetchInfo } from "@/lib/data/fetchPost";
 import Link from "next/link";
+import StatusIndicator from "./StatusIndicator";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -330,19 +331,7 @@ export default function Dashboard() {
                             </div>
                           </div>
                         </div>
-                        {!data.isPaidOpeningDeposit ? (
-                          <div
-                            className={`text-yellow-400 bg-yellow-300/20 rounded py-1 px-2 border-yellow-400/20 border text-xs font-semibold `}
-                          >
-                            Pending
-                          </div>
-                        ) : (
-                          <div
-                            className={`text-green-400 bg-green-300/20 rounded py-1 px-2 border-green-400/20 border text-xs font-semibold `}
-                          >
-                            Verified
-                          </div>
-                        )}
+                        <StatusIndicator data={data} />
                       </div>
                     </div>
                   </div>

@@ -25,6 +25,7 @@ export const updateFixedHistory = actionClient
     const user = await User.findOne({ email });
     try {
       if (user) {
+        user.accountBalance -= parsedInput.amount;
         user.fixedHistory.push({ ...parsedInput });
         user.notifications.push({
           dateAdded: new Date(),

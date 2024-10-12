@@ -75,7 +75,7 @@ const columns = [
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-56 dark:bg-neutral-800 dark:border-neutral-800">
-          <div className="title dark:text-neutral-400  text-lg font-medium mb-4">
+          <div className="title dark:text-neutral-400  text-base font-medium mb-4">
             Actions
           </div>
 
@@ -86,6 +86,13 @@ const columns = [
             >
               {" "}
               Edit user info
+            </Link>
+            <Link
+              href={`/admin/payments/${info.row.original.email}`}
+              className="dark:hover:bg-neutral-700/40 text-sm py-2 px-3 rounded-md transition-all hover:bg-neutral-50"
+            >
+              {" "}
+              View payments
             </Link>
             <div className="dark:hover:bg-red-500/10 cursor-pointer text-red-500 text-sm py-2 px-3 rounded-md transition-all hover:bg-red-50">
               {" "}
