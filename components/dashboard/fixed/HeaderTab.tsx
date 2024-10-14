@@ -36,10 +36,13 @@ export default function HeaderTab() {
             className={`Fixed-balance text-3xl mt-2 dark:text-neutral-300 pl-3 /blur-md font-bold text-neutral-600 ${inter.className}`}
           >
             <span className="text-sm">$</span>
-            {data.fixedBalance.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
+            {data.fixedHistory
+              .filter((hist) => hist.status === "running")
+              .reduce((acc, curr) => acc + curr.amount, 0)
+              .toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
           </div>{" "}
           <p className="text-neutral-400 dark:text-neutral-500 text-xs mt-1 font-medium pl-3 ">
             Available Balance

@@ -94,7 +94,10 @@ export default function FixedPage({ data }: { data: IUser }) {
                 <TableCell>{investment.status}</TableCell>
                 <TableCell>
                   <Popover>
-                    <PopoverTrigger asChild>
+                    <PopoverTrigger
+                      asChild
+                      disabled={investment.status === "completed"}
+                    >
                       <Button className="dark:border-neutral-800 dark:hover:bg-neutral-800 bg-neutral-800">
                         {loadingInvestmentId === investment.id ? (
                           <Loader2 className="h-4 w-4 animate-spin" />
