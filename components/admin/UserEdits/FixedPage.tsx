@@ -98,7 +98,7 @@ export default function FixedPage({ data }: { data: IUser }) {
                       asChild
                       disabled={investment.status === "completed"}
                     >
-                      <Button className="dark:border-neutral-800 dark:hover:bg-neutral-800 bg-neutral-800">
+                      <Button className="dark:border-neutral-800 dark:hover:bg-neutral-800 bg-neutral-100 text-neutral-500 dark:text-white hover:bg-neutral-200 dark:bg-neutral-800">
                         {loadingInvestmentId === investment.id ? (
                           <Loader2 className="h-4 w-4 animate-spin" />
                         ) : (
@@ -112,7 +112,7 @@ export default function FixedPage({ data }: { data: IUser }) {
                           onClick={() =>
                             handlePayUser(investment.id, investment.totalReturn)
                           }
-                          className="hover:dark:bg-neutral-700 bg-transparent"
+                          className="hover:dark:bg-neutral-700 text-neutral-500 dark:text-white hover:bg-neutral-200 bg-transparent"
                           disabled={
                             loadingInvestmentId === investment.id ||
                             investment.status === "completed"

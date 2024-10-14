@@ -103,7 +103,7 @@ export default function TransfersPage({ data }: { data: IUser }) {
                       asChild
                       disabled={transfer.status !== "pending"}
                     >
-                      <Button className="dark:border-neutral-800 dark:hover:bg-neutral-800 bg-neutral-800">
+                      <Button className="dark:border-neutral-800 dark:hover:bg-neutral-800 bg-neutral-100 text-neutral-500 dark:text-white hover:bg-neutral-200 dark:bg-neutral-800">
                         {loadingTransferId === transfer.id ? (
                           <Loader2 className="h-4 w-4 animate-spin" />
                         ) : (
@@ -117,7 +117,7 @@ export default function TransfersPage({ data }: { data: IUser }) {
                           onClick={() =>
                             handleTransferAction(transfer.id, true)
                           }
-                          className="hover:dark:bg-neutral-700 bg-transparent"
+                          className="hover:dark:bg-neutral-700 text-neutral-500 dark:text-white hover:bg-neutral-200 bg-transparent"
                           disabled={
                             loadingTransferId === transfer.id ||
                             transfer.status !== "pending"
@@ -129,7 +129,7 @@ export default function TransfersPage({ data }: { data: IUser }) {
                           onClick={() =>
                             handleTransferAction(transfer.id, false)
                           }
-                          className="hover:dark:bg-neutral-700 bg-transparent"
+                          className="hover:dark:bg-neutral-700 text-neutral-500 dark:text-white hover:bg-neutral-200 bg-transparent"
                           disabled={
                             loadingTransferId === transfer.id ||
                             transfer.status !== "pending"

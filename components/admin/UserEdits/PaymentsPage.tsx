@@ -174,7 +174,7 @@ export default function PaymentsPage({ data }: { data: IUser }) {
                           deposit.status === "failed"
                         }
                       >
-                        <Button className="dark:border-neutral-800 dark:hover:bg-neutral-800 bg-neutral-800">
+                        <Button className="dark:border-neutral-800 dark:hover:bg-neutral-800 bg-neutral-100 text-neutral-500 dark:text-white hover:bg-neutral-200 dark:bg-neutral-800">
                           {loadingDepositId === deposit.id ? (
                             <Loader2 className="h-4 w-4 animate-spin" />
                           ) : (
@@ -188,7 +188,7 @@ export default function PaymentsPage({ data }: { data: IUser }) {
                             onClick={() =>
                               handleDepositAction(deposit.id, true)
                             }
-                            className="hover:dark:bg-neutral-700 bg-transparent"
+                            className="hover:dark:bg-neutral-700 text-neutral-500 dark:text-white hover:bg-neutral-200 bg-transparent"
                             disabled={loadingDepositId === deposit.id}
                           >
                             Approve
@@ -197,7 +197,7 @@ export default function PaymentsPage({ data }: { data: IUser }) {
                             onClick={() =>
                               handleDepositAction(deposit.id, false)
                             }
-                            className="hover:dark:bg-neutral-700 bg-transparent"
+                            className="hover:dark:bg-neutral-700 text-neutral-500 dark:text-white hover:bg-neutral-200 bg-transparent"
                             disabled={loadingDepositId === deposit.id}
                           >
                             Decline
