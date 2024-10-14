@@ -37,13 +37,13 @@ export default function AccountNotFound() {
         </CardHeader>
         <CardContent>
           <p className="text-center mb-4">
-            We're sorry, but we couldn't find your account. This may be due to
-            one of the following reasons:
+            {"We're"} sorry, but we {"couldn't"} find your account. This may be
+            due to one of the following reasons:
           </p>
           <ul className="list-disc list-inside space-y-2 mb-4">
             <li>Your account has been temporarily suspended</li>
             <li>Your account has been permanently deleted</li>
-            <li>There's a technical issue on our end</li>
+            <li>{"There's"} a technical issue on our end</li>
           </ul>
           <p className="text-center font-semibold">
             Please contact our support team for further assistance.

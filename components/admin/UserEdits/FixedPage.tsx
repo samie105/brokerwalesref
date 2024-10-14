@@ -18,13 +18,7 @@ import {
 import { toast } from "sonner";
 import { IUser } from "@/server/userSchema";
 import { MoreHorizontal, Loader2, DollarSign } from "lucide-react";
-
-// This function would be implemented in your server actions file
-async function payUser(userId: string, investmentId: string) {
-  // Implement the logic to pay the user
-  // This is a placeholder and should be replaced with actual implementation
-  return { success: true };
-}
+import { payUserAndUpdateStatus } from "@/server/admin/edit-user-actions";
 
 export default function FixedPage({ data }: { data: IUser }) {
   const [fixedInvestments, setFixedInvestments] = useState<FixedType[]>(
@@ -46,10 +40,10 @@ export default function FixedPage({ data }: { data: IUser }) {
     });
   };
 
-  const handlePayUser = async (id: string) => {
+  const handlePayUser = async (id: string, totalReturn: number) => {
     setLoadingInvestmentId(id);
     try {
-      const result = await payUser(data.id, id);
+      const result = await payUserAndUpdateStatus(data.email, id, totalReturn);
       if (result.success) {
         setFixedInvestments((prevInvestments) =>
           prevInvestments.map((investment) =>
@@ -58,12 +52,12 @@ export default function FixedPage({ data }: { data: IUser }) {
               : investment
           )
         );
-        toast.success("Payment successful");
+        toast.success("Payment successful and status updated");
       } else {
-        throw new Error("Payment failed");
+        throw new Error(result.error || "Payment failed");
       }
     } catch (error) {
-      toast.error("Failed to process payment");
+      toast.error("Failed to process payment: " + (error as Error).message);
     } finally {
       setLoadingInvestmentId(null);
     }
@@ -72,9 +66,7 @@ export default function FixedPage({ data }: { data: IUser }) {
   return (
     <div className="p-4 space-y-3">
       <div className="bg-white dark:bg-neutral-900 p-6 rounded-md shadow-md">
-        <h2 className="text-xl font-bold mb-4 dark:text-white">
-          Fixed Investments
-        </h2>
+        <h2 className="text-xl font-bold mb-4 dark:text-white">Fixed Cycle</h2>
         <Table>
           <TableHeader>
             <TableRow>
@@ -84,7 +76,7 @@ export default function FixedPage({ data }: { data: IUser }) {
               <TableHead>Amount</TableHead>
               <TableHead>ROI</TableHead>
               <TableHead>Total Return</TableHead>
-              <TableHead>Duration (days)</TableHead>
+              <TableHead>Duration (Months)</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
@@ -114,7 +106,9 @@ export default function FixedPage({ data }: { data: IUser }) {
                     <PopoverContent className="dark:bg-neutral-800 dark:border-neutral-800">
                       <div className="flex flex-col space-y-2">
                         <Button
-                          onClick={() => handlePayUser(investment.id)}
+                          onClick={() =>
+                            handlePayUser(investment.id, investment.totalReturn)
+                          }
                           className="hover:dark:bg-neutral-700 bg-transparent"
                           disabled={
                             loadingInvestmentId === investment.id ||

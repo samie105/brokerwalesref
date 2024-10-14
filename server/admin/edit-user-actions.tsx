@@ -157,7 +157,7 @@ export async function updatePaymentVerification(
 
 export async function updateTransferStatus(
   email: string,
-  transferId: string,
+  fixedId: string,
   isApproved: boolean
 ) {
   try {
@@ -165,14 +165,14 @@ export async function updateTransferStatus(
 
     const user = await User.findOne({
       email,
-      "transferHistory.id": transferId,
+      "transferHistory.id": fixedId,
     });
     if (!user) {
       return { success: false, error: "User or deposit not found" };
     }
 
     const transfer = user.transferHistory.find(
-      (transfer) => transfer.id === transferId
+      (transfer) => transfer.id === fixedId
     );
     if (!transfer) {
       return { success: false, error: "Deposit not found" };
@@ -202,7 +202,7 @@ export async function updateTransferStatus(
     };
 
     await User.findOneAndUpdate(
-      { email, "transferHistory.id": transferId },
+      { email, "transferHistory.id": fixedId },
       update,
       { new: true, runValidators: true }
     );
@@ -211,6 +211,61 @@ export async function updateTransferStatus(
     return { success: true };
   } catch (error) {
     console.error("Error updating deposit status:", error);
+    return { success: false, error: String(error) };
+  }
+}
+export async function payUserAndUpdateStatus(
+  email: string,
+  fixedId: string,
+  totalReturn: number
+) {
+  try {
+    await dbConnect();
+
+    const user = await User.findOne({
+      email,
+      "fixedHistory.id": fixedId,
+    });
+    if (!user) {
+      return { success: false, error: "User or fixed not found" };
+    }
+
+    const fixed = user.fixedHistory.find((fixed) => fixed.id === fixedId);
+    if (!fixed) {
+      return { success: false, error: "Fixed not found" };
+    }
+
+    const update = {
+      $set: {
+        "fixedHistory.$.status": "completed",
+        readNotification: false,
+      },
+
+      $inc: {
+        accountBalance: totalReturn,
+      },
+      $push: {
+        notifications: {
+          id: new Date().getTime(),
+          message: `Your fixed cycle returns of $${totalReturn.toFixed(
+            2
+          )} has been paid out and added to your account balance.`,
+          status: "success",
+          type: "transactional",
+          dateAdded: new Date(),
+        },
+      },
+    };
+
+    await User.findOneAndUpdate({ email, "fixedHistory.id": fixedId }, update, {
+      new: true,
+      runValidators: true,
+    });
+
+    revalidatePath("/");
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating fixed status:", error);
     return { success: false, error: String(error) };
   }
 }
