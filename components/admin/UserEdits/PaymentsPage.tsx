@@ -142,63 +142,72 @@ export default function PaymentsPage({ data }: { data: IUser }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {depositHistory.reverse().map((deposit) => (
-              <TableRow key={deposit.id}>
-                <TableCell>
-                  <Image
-                    src={deposit.screenshotLink}
-                    alt="Deposit Screenshot"
-                    width={50}
-                    height={50}
-                    className="cursor-pointer rounded-sm"
-                    onClick={() => setZoomedImage(deposit.screenshotLink)}
-                  />
-                </TableCell>
-                <TableCell>${deposit.amount.toFixed(2)}</TableCell>
-                <TableCell>{deposit.paymentMeans}</TableCell>
-                <TableCell>{deposit.status}</TableCell>
-                <TableCell>
-                  {new Date(deposit.date).toLocaleDateString()}
-                </TableCell>
-                <TableCell>
-                  <Popover>
-                    <PopoverTrigger
-                      asChild
-                      disabled={
-                        deposit.status === "success" ||
-                        deposit.status === "failed"
-                      }
-                    >
-                      <Button className="dark:border-neutral-800 dark:hover:bg-neutral-800 bg-neutral-800">
-                        {loadingDepositId === deposit.id ? (
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                        ) : (
-                          <MoreHorizontal className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="dark:bg-neutral-800 dark:border-neutral-800">
-                      <div className="flex flex-col space-y-2">
-                        <Button
-                          onClick={() => handleDepositAction(deposit.id, true)}
-                          className="hover:dark:bg-neutral-700 bg-transparent"
-                          disabled={loadingDepositId === deposit.id}
-                        >
-                          Approve
+            {depositHistory
+              .sort(
+                (a, b) =>
+                  new Date(b.date).getTime() - new Date(a.date).getTime()
+              )
+              .map((deposit) => (
+                <TableRow key={deposit.id}>
+                  <TableCell>
+                    <Image
+                      src={deposit.screenshotLink}
+                      alt="Deposit Screenshot"
+                      width={50}
+                      height={50}
+                      className="cursor-pointer rounded-sm"
+                      onClick={() => setZoomedImage(deposit.screenshotLink)}
+                    />
+                  </TableCell>
+                  <TableCell>${deposit.amount.toFixed(2)}</TableCell>
+                  <TableCell>{deposit.paymentMeans}</TableCell>
+                  <TableCell>{deposit.status}</TableCell>
+                  <TableCell>
+                    {new Date(deposit.date).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <Popover>
+                      <PopoverTrigger
+                        asChild
+                        disabled={
+                          deposit.status === "success" ||
+                          deposit.status === "failed"
+                        }
+                      >
+                        <Button className="dark:border-neutral-800 dark:hover:bg-neutral-800 bg-neutral-800">
+                          {loadingDepositId === deposit.id ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <MoreHorizontal className="h-4 w-4" />
+                          )}
                         </Button>
-                        <Button
-                          onClick={() => handleDepositAction(deposit.id, false)}
-                          className="hover:dark:bg-neutral-700 bg-transparent"
-                          disabled={loadingDepositId === deposit.id}
-                        >
-                          Decline
-                        </Button>
-                      </div>
-                    </PopoverContent>
-                  </Popover>
-                </TableCell>
-              </TableRow>
-            ))}
+                      </PopoverTrigger>
+                      <PopoverContent className="dark:bg-neutral-800 dark:border-neutral-800">
+                        <div className="flex flex-col space-y-2">
+                          <Button
+                            onClick={() =>
+                              handleDepositAction(deposit.id, true)
+                            }
+                            className="hover:dark:bg-neutral-700 bg-transparent"
+                            disabled={loadingDepositId === deposit.id}
+                          >
+                            Approve
+                          </Button>
+                          <Button
+                            onClick={() =>
+                              handleDepositAction(deposit.id, false)
+                            }
+                            className="hover:dark:bg-neutral-700 bg-transparent"
+                            disabled={loadingDepositId === deposit.id}
+                          >
+                            Decline
+                          </Button>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </div>

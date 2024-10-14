@@ -29,8 +29,6 @@ type Deposits = {
   screenshotLink: string;
 };
 
-type Transaction = Transfers | Deposits;
-
 export default function TransactionSummary({
   currentMode,
   transactionTab,
@@ -52,12 +50,12 @@ export default function TransactionSummary({
 
   const totalTransfered = data.transferHistory.reduce(
     (acc, current) =>
-      current.status === "success" ? acc + current.amount : acc,
+      current.status == "success" ? acc + current.amount : acc,
     0
   );
   const totaldeposited = data.depositHistory.reduce(
     (acc, current) =>
-      current.status === "success" ? acc + current.amount : acc,
+      current.status == "success" ? acc + current.amount : acc,
     0
   );
 

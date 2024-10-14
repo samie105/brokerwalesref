@@ -154,3 +154,63 @@ export async function updatePaymentVerification(
 //     return { success: false, error: "Failed to mark notifications as read" };
 //   }
 // }
+
+export async function updateTransferStatus(
+  email: string,
+  transferId: string,
+  isApproved: boolean
+) {
+  try {
+    await dbConnect();
+
+    const user = await User.findOne({
+      email,
+      "transferHistory.id": transferId,
+    });
+    if (!user) {
+      return { success: false, error: "User or deposit not found" };
+    }
+
+    const transfer = user.transferHistory.find(
+      (transfer) => transfer.id === transferId
+    );
+    if (!transfer) {
+      return { success: false, error: "Deposit not found" };
+    }
+
+    const update = {
+      $set: {
+        "transferHistory.$.status": isApproved ? "success" : "failed",
+        readNotification: false,
+      },
+      ...(isApproved && {
+        $inc: {
+          accountBalance: -transfer.amount,
+        },
+      }),
+      $push: {
+        notifications: {
+          id: new Date().getTime(),
+          message: isApproved
+            ? `Your ${transfer.receipientBankName} transfer of $${transfer.amount} to ${transfer.recipientName} is successful.`
+            : `Your ${transfer.receipientBankName} transfer of $${transfer.amount} to ${transfer.recipientName} failed.`,
+          status: isApproved ? "success" : "failed",
+          type: "transactional",
+          dateAdded: new Date(),
+        },
+      },
+    };
+
+    await User.findOneAndUpdate(
+      { email, "transferHistory.id": transferId },
+      update,
+      { new: true, runValidators: true }
+    );
+
+    revalidatePath("/");
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating deposit status:", error);
+    return { success: false, error: String(error) };
+  }
+}

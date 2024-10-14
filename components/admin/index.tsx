@@ -25,7 +25,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { MoreHorizontal, ChevronLeft, ChevronRight } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
 interface IUser {
@@ -86,6 +86,20 @@ const columns = [
             >
               {" "}
               Edit user info
+            </Link>
+            <Link
+              href={`/admin/fixed/${info.row.original.email}`}
+              className="dark:hover:bg-neutral-700/40 text-sm py-2 px-3 rounded-md transition-all hover:bg-neutral-50"
+            >
+              {" "}
+              View fixeds
+            </Link>
+            <Link
+              href={`/admin/transfers/${info.row.original.email}`}
+              className="dark:hover:bg-neutral-700/40 text-sm py-2 px-3 rounded-md transition-all hover:bg-neutral-50"
+            >
+              {" "}
+              View transfers
             </Link>
             <Link
               href={`/admin/payments/${info.row.original.email}`}

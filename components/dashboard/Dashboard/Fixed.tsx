@@ -53,13 +53,16 @@ export default function Fixed() {
             className={`Fixed-balance text-3xl dark:text-neutral-300 mt-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
           >
             <span className="text-sm">$</span>
-            {data.fixedBalance.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
+            {data.fixedHistory
+              .filter((hist) => hist.status === "running")
+              .reduce((acc, curr) => acc + curr.amount, 0)
+              .toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
           </div>{" "}
           <p className="text-neutral-400 text-xs mt-1 font-medium">
-            Total available
+            Total running
           </p>
         </div>
         <div className="icons flex gap-x-2">
