@@ -1,9 +1,9 @@
-import PaymentSection from "@/components/auth/signup/PaymentSection";
+import React from "react";
+import AddressEdit from "@/components/admin/UserEdits/AddresssEdit";
 import dbConnect from "@/server";
 import Address, { PaymentAddress } from "@/server/addressSchema";
-import React from "react";
 
-export default async function page() {
+export default async function Page() {
   await dbConnect();
 
   const rawData = await Address.findOne({ name: "wilsonbank" });
@@ -12,7 +12,7 @@ export default async function page() {
 
   return (
     <div>
-      <PaymentSection data={data} />
+      <AddressEdit data={data} />
     </div>
   );
 }

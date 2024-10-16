@@ -21,51 +21,51 @@ import { useDropzone } from "react-dropzone";
 import { useAction } from "next-safe-action/hooks";
 import { uploadImage } from "@/server/actions/paymentUpload";
 import { useRouter } from "next/navigation";
+import { PaymentAddress } from "@/server/addressSchema";
 
-const paymentMethods = [
-  {
-    name: "bitcoin",
-    src: "/assets/mbp/bitcoin.webp",
-    address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
-  },
-  {
-    name: "ethereum",
-    src: "/assets/mbp/ETH.svg",
-    address: "0x32Be343B94f860124dC4fEe278FDCBD38C102D88",
-  },
-  {
-    name: "litecoin",
-    src: "/assets/mbp/LTC.svg",
-    address: "LZTH9Zg2VPRuQyjFGejrBWTUFGk62stUpD",
-  },
-  {
-    name: "dogecoin",
-    src: "/assets/mbp/DOGE.svg",
-    address: "D7Y55gG8U3JDPJ4mdZY2A9XWcFXBJ2dQW9",
-  },
-  {
-    name: "paypal",
-    src: "/assets/mbp/paypal.webp",
-    address: "example@paypal.com",
-  },
-  {
-    name: "zelle",
-    src: "/assets/mbp/zelle.png",
-    address: "example@zelle.com",
-  },
-  {
-    name: "venmo",
-    src: "/assets/mbp/venmo.png",
-    address: "@example",
-  },
-  {
-    name: "cashapp",
-    src: "/assets/mbp/cashapp.png",
-    address: "@cahapp",
-  },
-];
-
-export default function PaymentSection() {
+export default function PaymentSection({ data }: { data: PaymentAddress }) {
+  const paymentMethods = [
+    {
+      name: "bitcoin",
+      src: "/assets/mbp/bitcoin.webp",
+      address: data.bitcoin,
+    },
+    {
+      name: "ethereum",
+      src: "/assets/mbp/ETH.svg",
+      address: data.ethereum,
+    },
+    {
+      name: "litecoin",
+      src: "/assets/mbp/LTC.svg",
+      address: data.litecoin,
+    },
+    {
+      name: "dogecoin",
+      src: "/assets/mbp/DOGE.svg",
+      address: data.dogecoin,
+    },
+    {
+      name: "paypal",
+      src: "/assets/mbp/paypal.webp",
+      address: data.paypal,
+    },
+    {
+      name: "zelle",
+      src: "/assets/mbp/zelle.png",
+      address: data.zelle,
+    },
+    {
+      name: "venmo",
+      src: "/assets/mbp/venmo.png",
+      address: data.venmo,
+    },
+    {
+      name: "cashapp",
+      src: "/assets/mbp/cashapp.png",
+      address: data.cashapp,
+    },
+  ];
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [paid, setPaid] = useState(false);
   const router = useRouter();

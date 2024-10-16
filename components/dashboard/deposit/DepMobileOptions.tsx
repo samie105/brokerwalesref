@@ -18,48 +18,49 @@ import {
   updateDepositHistory,
   uploadImageUserDeposit,
 } from "@/server/actions/paymentUpload";
+import { PaymentAddress } from "@/server/addressSchema";
 
-export default function DepMobileOptions() {
+export default function DepMobileOptions({ data }: { data: PaymentAddress }) {
   const paymentMethods = [
     {
       name: "bitcoin",
       src: "/assets/mbp/bitcoin.webp",
-      address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+      address: data.bitcoin,
     },
     {
       name: "ethereum",
       src: "/assets/mbp/ETH.svg",
-      address: "0x32Be343B94f860124dC4fEe278FDCBD38C102D88",
+      address: data.ethereum,
     },
     {
       name: "litecoin",
       src: "/assets/mbp/LTC.svg",
-      address: "LZTH9Zg2VPRuQyjFGejrBWTUFGk62stUpD",
+      address: data.litecoin,
     },
     {
       name: "dogecoin",
       src: "/assets/mbp/DOGE.svg",
-      address: "D7Y55gG8U3JDPJ4mdZY2A9XWcFXBJ2dQW9",
+      address: data.dogecoin,
     },
     {
       name: "paypal",
       src: "/assets/mbp/paypal.webp",
-      address: "example@paypal.com",
+      address: data.paypal,
     },
     {
       name: "zelle",
       src: "/assets/mbp/zelle.png",
-      address: "example@zelle.com",
+      address: data.zelle,
     },
     {
       name: "venmo",
       src: "/assets/mbp/venmo.png",
-      address: "@example",
+      address: data.venmo,
     },
     {
       name: "cashapp",
       src: "/assets/mbp/cashapp.png",
-      address: "@cahapp",
+      address: data.cashapp,
     },
   ];
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);

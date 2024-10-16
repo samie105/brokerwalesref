@@ -164,6 +164,12 @@ export default function Admin({ initialData }: { initialData: any }) {
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div> */}
+        <Button
+          asChild
+          className="dark:bg-neutral-800 text-sm dark:border-neutral-700 dark:text-white text-neutral-600 bg-neutral-50"
+        >
+          <Link href={"/admin/address"}>Edit address</Link>
+        </Button>
       </div>
       <div className="rounded-md border">
         <Table>
