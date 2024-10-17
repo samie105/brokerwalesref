@@ -23,6 +23,9 @@ import {
   updatePaymentVerification,
   updateDepositStatus,
 } from "@/server/admin/edit-user-actions";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { DialogContent } from "@radix-ui/react-dialog";
+import CreateDepositHistory from "./CreateDepositHistory";
 
 export default function PaymentsPage({ data }: { data: IUser }) {
   const [paymentVerification, setPaymentVerification] = useState(
@@ -127,9 +130,13 @@ export default function PaymentsPage({ data }: { data: IUser }) {
       </div>
 
       <div className="bg-white dark:bg-neutral-900 p-6 rounded-md shadow-md">
-        <h2 className="text-xl font-bold mb-4 dark:text-white">
-          Deposit History
-        </h2>
+        <div className="flex justify-between">
+          {" "}
+          <h2 className="text-xl font-bold mb-4 dark:text-white">
+            Deposit History
+          </h2>{" "}
+          <CreateDepositHistory email={data.email} />
+        </div>
         <Table>
           <TableHeader>
             <TableRow>

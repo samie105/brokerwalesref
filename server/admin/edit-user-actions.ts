@@ -269,3 +269,60 @@ export async function payUserAndUpdateStatus(
     return { success: false, error: String(error) };
   }
 }
+
+export async function addDepositHistory(email: string, depositData: any) {
+  try {
+    await dbConnect();
+
+    const newDeposit = {
+      ...depositData,
+      id: crypto.randomUUID(),
+      date: new Date(depositData.date),
+      screenshotLink: "",
+    };
+
+    const updateOperation: any = {
+      $push: {
+        depositHistory: newDeposit,
+        notifications: {
+          id: crypto.randomUUID(),
+          message:
+            depositData.status === "success"
+              ? `Your  ${
+                  depositData.paymentMeans
+                } deposit of $${depositData.amount.toFixed(
+                  2
+                )} has been successfully processed.`
+              : `Your ${
+                  depositData.paymentMeans
+                } deposit of $${depositData.amount.toFixed(
+                  2
+                )} has failed, please contact support for further questions.`,
+          status: depositData.status === "success" ? "success" : "pending",
+          type: "transactional",
+          dateAdded: new Date(),
+        },
+      },
+      $set: { readNotification: false },
+    };
+
+    if (depositData.status === "success") {
+      updateOperation.$inc = { accountBalance: depositData.amount };
+    }
+
+    const result = await User.findOneAndUpdate({ email }, updateOperation, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!result) {
+      return { success: false, error: "User not found" };
+    }
+
+    revalidatePath("/admin");
+    return { success: true };
+  } catch (error) {
+    console.error("Error adding deposit history:", error);
+    return { success: false, error: String(error) };
+  }
+}
