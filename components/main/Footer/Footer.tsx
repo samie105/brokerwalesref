@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import hero from "@/public/assets/hero-logo.png";
+import hero from "@/public/assets/hero-logo-blue.png";
 import { useColors } from "@/context/colorContext";
 
 export default function Footer() {
@@ -17,7 +17,7 @@ export default function Footer() {
             alt=""
             width={1000}
             height={1000}
-            className="w-16 h-6"
+            className="w-16 h-6/"
           />
         </div>
         <div className="grid gap-2">

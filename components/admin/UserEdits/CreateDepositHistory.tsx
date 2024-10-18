@@ -17,7 +17,7 @@ import { addDepositHistory } from "@/server/admin/edit-user-actions";
 
 type DepositFormData = {
   amount: number;
-  paymentMeans: "mobile deposit" | "check" | "transfer";
+  paymentMeans: "mobile deposit" | "check" | "wire deposit" | "ACH";
   status: "failed" | "success";
   date: string;
 };
@@ -80,9 +80,9 @@ export default function CreateDepositHistory({ email }: { email: string }) {
             <Label htmlFor="paymentMeans">Payment Means</Label>
             <Select
               value={formData.paymentMeans}
-              onValueChange={(value: "mobile deposit" | "check" | "transfer") =>
-                setFormData({ ...formData, paymentMeans: value })
-              }
+              onValueChange={(
+                value: "mobile deposit" | "check" | "wire deposit" | "ACH"
+              ) => setFormData({ ...formData, paymentMeans: value })}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select payment means" />
@@ -90,7 +90,8 @@ export default function CreateDepositHistory({ email }: { email: string }) {
               <SelectContent>
                 <SelectItem value="mobile deposit">Mobile Deposit</SelectItem>
                 <SelectItem value="check">Check</SelectItem>
-                <SelectItem value="transfer">Transfer</SelectItem>
+                <SelectItem value="wire deposit">Wire Deposit</SelectItem>
+                <SelectItem value="ACH">ACH</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -148,7 +148,10 @@ export default function TransferHeaders() {
           className={`Fixed-balance text-3xl mt-2 pl-3 font-bold text-neutral-600 dark:text-neutral-300 ${inter.className}`}
         >
           <span className="text-sm">$</span>
-          {totalSuccessfulAmount.toFixed(2)}
+          {totalSuccessfulAmount.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
         </div>{" "}
         <p className="text-neutral-400 text-xs mt-1 font-medium pl-3 ">
           Total successful transfers

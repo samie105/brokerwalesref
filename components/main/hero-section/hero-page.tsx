@@ -120,7 +120,10 @@ export default function Hero() {
               <div className="large-text font-bold text-2xl sm:text-3xl md:text-5xl md:pr-40 lg:pr-0 text-balance text-black/80">
                 Start your
                 {/* <br className="hidden" />{" "} */}
-                <FlipWords words={words} className="text-base-color/80" />{" "}
+                <FlipWords
+                  words={words}
+                  className="text-base-color/80 dark:text-base-color/80"
+                />{" "}
                 <br className="" /> Journey with exceptional service
               </div>
               <div className="sub-text /text-sm  rounded-md text-neutral-600 md:text-base text-sm/ pr-20 md:pr-40 lg:pr-0 font-medium md:mt-5 mt-3  text-balance ">

@@ -108,10 +108,11 @@ export default function DepHeader() {
               <span className="text-sm">$</span>
               {data.depositHistory
                 .filter((deposit) => deposit.status === "success")
-                .reduce((acc, deposit) => acc + deposit.amount, 0)}
+                .reduce((acc, deposit) => acc + deposit.amount, 0)
+                .toLocaleString()}
             </div>
             <p className="text-neutral-400 dark:text-neutral-300 text-xs mt-1 font-medium pl-2">
-              Total successful deposit
+              Total successful deposits
             </p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

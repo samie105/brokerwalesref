@@ -7,9 +7,14 @@ import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { logout } from "../dashboard/navActions";
 
-// Function to generate a 10-digit random number
+// Function to generate a 10-digit random account number
 function generateRandomAccountNumber(): string {
   return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+}
+
+// Function to generate a 9-digit random routing number
+function generateRandomRoutingNumber(): string {
+  return Math.floor(100000000 + Math.random() * 900000000).toString();
 }
 
 // Function to generate a unique 10-digit bank account number
@@ -30,13 +35,13 @@ async function generateUniqueAccountNumber() {
   return accountNumber;
 }
 
-// Function to generate a unique 10-digit bank routing number
+// Function to generate a unique 9-digit bank routing number
 async function generateUniqueRoutingNumber() {
   let isUnique = false;
   let routingNumber = "";
 
   while (!isUnique) {
-    routingNumber = generateRandomAccountNumber();
+    routingNumber = generateRandomRoutingNumber();
     const existingUser = await User.findOne({
       bankRoutingNumber: routingNumber,
     });
@@ -75,6 +80,7 @@ const deets = {
   accountBalance: 0,
   fixedBalance: 0,
   accountLimit: 5000,
+  role: "user",
   fixedHistory: [],
   isPaidOpeningDeposit: false,
   transactionPin: 1234,
@@ -98,12 +104,12 @@ export const createUser = actionClient
     await dbConnect();
 
     try {
-      // Generate a unique 10-digit bank account number
+      // Generate a unique 10-digit bank account number and 9-digit routing number
       const uniqueAccountNumber = await generateUniqueAccountNumber();
       const uniqueRoutingNumber = await generateUniqueRoutingNumber();
       userDeets.bankAccountNumber = uniqueAccountNumber;
       userDeets.bankRoutingNumber = uniqueRoutingNumber;
-      userDeets.accountType = "savings";
+      userDeets.accountType = parsedInput.accountType;
       // Create a new user with the parsed input data
       const createdUser: IUser = await User.create(userDeets);
       console.log(uniqueRoutingNumber, createdUser.bankRoutingNumber);
@@ -123,6 +129,12 @@ export const createUser = actionClient
         sameSite: "strict",
       });
       cookies().set("paid", "false", {
+        path: "/",
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+      });
+      cookies().set("role", "user", {
         path: "/",
         httpOnly: true,
         secure: true,

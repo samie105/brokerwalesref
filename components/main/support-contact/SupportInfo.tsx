@@ -82,7 +82,7 @@ export default function SupportInfo() {
               Hotline
             </div>
             <div className="second font-sans text-neutral-500 font-medium text-sm">
-              +1 (254) 5477
+              +1(678)7192288
             </div>
           </div>
         </div>
@@ -108,7 +108,7 @@ export default function SupportInfo() {
               Address
             </div>
             <div className="second font-sans text-neutral-500 font-medium text-sm">
-              11128 SE Stanley Ave, Milwaukie, OR 97222
+              9101 SE Clinton ST Portland OR 97266-1439
             </div>
           </div>
         </div>

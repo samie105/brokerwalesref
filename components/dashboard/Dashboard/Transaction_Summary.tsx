@@ -111,7 +111,7 @@ export default function TransactionSummary({
                       <div
                         className={`logo-area rounded-full  p-4 text-neutral-600/ ${
                           transaction.status === "success"
-                            ? "bg-green-500/10 text-green-50"
+                            ? "bg-green-500/10 text-green-500"
                             : transaction.status === "failed"
                             ? "bg-red-500/10 text-red-500"
                             : "bg-orange-400/10 text-orange-500 dark:bg-orange-500/10 "

@@ -70,6 +70,13 @@ export const loginUser = actionClient
             sameSite: "strict",
             maxAge: 4 * 24 * 60 * 60,
           });
+          cookies().set("role", user.role, {
+            path: "/",
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict",
+            maxAge: 4 * 24 * 60 * 60,
+          });
           return {
             success: true,
             message: "Logged in successfully, redirecting...",

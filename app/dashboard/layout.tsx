@@ -32,7 +32,7 @@ export default async function Layout({
 
   return (
     <>
-      {data ? (
+      {data && email ? (
         <Providers>
           <HydrationBoundary state={dehydrate(queryClient)}>
             <div className="grid gap-x-1. bg-neutral-100/80 md:bg-neutral-100 dark:bg-neutral-950 md:grid-cols-12 relative w-screen h-screen overflow-hidden ">

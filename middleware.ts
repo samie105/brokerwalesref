@@ -7,18 +7,27 @@ export function middleware(request: NextRequest) {
   const verified = request.cookies.get("verified")?.value;
   const email = request.cookies.get("userEmail")?.value;
   const paid = request.cookies.get("paid")?.value;
+  const role = request.cookies.get("role")?.value;
 
-  // Redirect logic
+  // If the user is not an admin and tries to access an admin route, redirect to dashboard
+  if (role !== "admin" && pathname.startsWith("/admin")) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  // If the role is admin, allow access to all routes
+  if (role === "admin") {
+    return NextResponse.next();
+  }
+
+  // Existing redirect logic for non-admin users
   if (pathname === "/auth") {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
   if (pathname.startsWith("/auth/verify")) {
-    // If no email, redirect to login
     if (!email) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
-    // If already verified, redirect to dashboard
     if (verified === "true") {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
@@ -28,35 +37,29 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/auth/login") ||
     pathname.startsWith("/auth/signup")
   ) {
-    // If email exists, redirect to dashboard
     if (email) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
   }
 
   if (pathname.startsWith("/dashboard")) {
-    // If no email, redirect to login
     if (!email) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
-    // If email exists but not verified, redirect to login-verification
     if (verified === "false") {
       return NextResponse.redirect(
         new URL("/auth/verify/login-verification", request.url)
       );
     }
-    // If verified but not paid, redirect to payment-means
     if (verified === "true" && paid === "false") {
       return NextResponse.redirect(new URL("/auth/payment-means", request.url));
     }
   }
 
   if (pathname.startsWith("/auth/payment-means")) {
-    // If no email, redirect to login
     if (!email) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
-    // If email exists but not verified, redirect to login-verification
     if (verified === "false") {
       return NextResponse.redirect(
         new URL("/auth/verify/login-verification", request.url)
@@ -78,5 +81,6 @@ export const config = {
     "/dashboard",
     "/auth/verify/login-verification",
     "/auth/payment-means",
+    "/admin/:path*",
   ],
 };

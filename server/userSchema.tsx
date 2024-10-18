@@ -31,6 +31,7 @@ export interface IUser extends Document {
   accountLimit: number;
   isPaidOpeningDeposit: boolean;
   fixedHistory: FixedType[];
+  role: string;
   accountType: "savings" | "checking";
   depositHistory: Deposits[];
   transferHistory: Transfers[];
@@ -61,6 +62,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   accountBalance: { type: Number },
   fixedBalance: { type: Number },
   accountLimit: { type: Number },
+  role: { type: String },
   isPaidOpeningDeposit: { type: Boolean },
   accountType: { type: String },
   fixedHistory: [Object],

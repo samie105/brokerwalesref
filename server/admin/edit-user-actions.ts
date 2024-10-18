@@ -326,3 +326,21 @@ export async function addDepositHistory(email: string, depositData: any) {
     return { success: false, error: String(error) };
   }
 }
+
+export async function deleteUser(email: string) {
+  try {
+    await dbConnect();
+
+    const result = await User.findOneAndDelete({ email });
+
+    if (!result) {
+      return { success: false, error: "User not found" };
+    }
+
+    revalidatePath("/");
+    return { success: true, message: "User successfully deleted" };
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return { success: false, error: String(error) };
+  }
+}

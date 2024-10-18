@@ -155,14 +155,19 @@ export default function DepositHistory() {
                     {deposit.paymentMeans}
                   </TableCell>
                   <TableCell>
-                    <Badge
-                      variant="secondary"
-                      className={`${getStatusColor(
-                        deposit.status
-                      )} capitalize p-1 px-2`}
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-semibold
+                      ${
+                        deposit.status === "success"
+                          ? "bg-green-100 text-green-800"
+                          : deposit.status === "failed"
+                          ? "bg-red-100 text-red-800"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
                     >
-                      {deposit.status}
-                    </Badge>
+                      {deposit.status.charAt(0).toUpperCase() +
+                        deposit.status.slice(1)}
+                    </span>
                   </TableCell>
                   <TableCell className="text-right text-nowrap">
                     {formatDate(deposit.date)}

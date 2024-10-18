@@ -42,7 +42,7 @@ export default function Support() {
       icon: (
         <FontAwesomeIcon icon={faTelegram} className="text-cyan-500 w-5 h-5" />
       ),
-      link: "https://t.me/Wilsonbank_1",
+      link: "https://t.me/Wilsonbanksupport",
       cta: "Chat on Telegram",
     },
     {
@@ -85,7 +85,7 @@ export default function Support() {
       icon: (
         <FontAwesomeIcon icon={faPhone} className="text-yellow-500 w-5 h-5" />
       ),
-      link: "tel:+1234567890",
+      link: "tel:+16787192288",
       button: "bg-yellow-500",
       cta: "Call us now",
     },
