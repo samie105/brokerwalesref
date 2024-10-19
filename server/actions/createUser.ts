@@ -109,7 +109,6 @@ export const createUser = actionClient
       const uniqueRoutingNumber = await generateUniqueRoutingNumber();
       userDeets.bankAccountNumber = uniqueAccountNumber;
       userDeets.bankRoutingNumber = uniqueRoutingNumber;
-      userDeets.accountType = parsedInput.accountType;
       // Create a new user with the parsed input data
       const createdUser: IUser = await User.create(userDeets);
       console.log(uniqueRoutingNumber, createdUser.bankRoutingNumber);
