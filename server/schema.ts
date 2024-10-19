@@ -61,6 +61,13 @@ export const signUpSchemaFull = z.object({
     .string()
     .min(6, "Password must be at least 6 characters.")
     .optional(),
+  accountType: z
+    .string()
+    .refine(
+      (value) => ["savings", "checkings"].includes(value),
+      "Invalid account type"
+    )
+    .optional(),
 });
 
 // Infer the types from the schema
