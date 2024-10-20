@@ -5,9 +5,7 @@ import Dashboard from "@/components/dashboard/Dashboard/Main";
 import TopNav from "@/components/dashboard/Navbar/TopNav";
 import AcctSectManager from "@/components/dashboard/Dashboard/AcctSectManager";
 import TransactionSummary from "@/components/dashboard/Dashboard/Transaction_Summary";
-import QuickLinkSect from "@/components/dashboard/Dashboard/QuickLinkSect";
 import Transaction_Chart from "@/components/dashboard/Dashboard/Transaction_Chart";
-import TransactionMobileHistory from "@/components/dashboard/Dashboard/TransactionMobileHistory";
 import LiveSupport from "@/components/dashboard/LiveSupport";
 
 export default async function page({
