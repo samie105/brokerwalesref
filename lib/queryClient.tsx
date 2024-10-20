@@ -10,14 +10,14 @@ import {
 
 function makeQueryClient() {
   return new QueryClient({
-    // defaultOptions: {
-    //   queries: {
-    //     // With SSR, we usually want to set some default staleTime
-    //     // above 0 to avoid refetching immediately on the client
-    //     staleTime: 40 * 1000,
-    //     // refetchInterval: 40 * 1000,
-    //   },
-    // },
+    defaultOptions: {
+      queries: {
+        //     // With SSR, we usually want to set some default staleTime
+        //     // above 0 to avoid refetching immediately on the client
+        staleTime: 3 * 1000,
+        refetchInterval: 3 * 1000,
+      },
+    },
   });
 }
 

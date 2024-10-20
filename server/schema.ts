@@ -64,7 +64,7 @@ export const signUpSchemaFull = z.object({
   accountType: z
     .string()
     .refine(
-      (value) => ["savings", "checkings"].includes(value),
+      (value) => ["savings", "checking"].includes(value),
       "Invalid account type"
     )
     .optional(),

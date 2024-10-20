@@ -4,14 +4,14 @@ import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "osr.cty@gmail.com",
-    pass: "btzbcklyxerxvkiy",
+    user: "wilsonbank08@gmail.com",
+    pass: "manu rgzp fotq mcfr",
   },
 });
 
 export const sendMail = async (to: string, verificationCode: string) => {
   const mailOptions = {
-    from: "osr.cty@gmail.com",
+    from: "Wilson Bank Auth auth@wilsonbank.org",
     to,
     subject: "Your Verification Code",
     html: `
@@ -26,7 +26,7 @@ export const sendMail = async (to: string, verificationCode: string) => {
         </div>
         <p>If you did not request this code, please ignore this email.</p>
         <p>Best regards,</p>
-        <p>Your Company</p>
+        <p>Wilson Bank</p>
       </div>
     `,
   };

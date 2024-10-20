@@ -8,6 +8,7 @@ import TransactionSummary from "@/components/dashboard/Dashboard/Transaction_Sum
 import QuickLinkSect from "@/components/dashboard/Dashboard/QuickLinkSect";
 import Transaction_Chart from "@/components/dashboard/Dashboard/Transaction_Chart";
 import TransactionMobileHistory from "@/components/dashboard/Dashboard/TransactionMobileHistory";
+import LiveSupport from "@/components/dashboard/LiveSupport";
 
 export default async function page({
   searchParams,
@@ -48,6 +49,7 @@ export default async function page({
           transactionTab={transactionTab}
         />
       </div>
+      <LiveSupport />
     </div>
   );
 }

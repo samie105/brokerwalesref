@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Inter } from "next/font/google";
@@ -31,13 +31,27 @@ export default function TransactionPin() {
   let toastId: any;
   const data = deets!.data;
 
-  const [showTransactionPin, setShowTransactionPin] = useState(true);
+  const [showTransactionPin, setShowTransactionPin] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("showTransactionPin");
+      return saved !== null ? JSON.parse(saved) : true;
+    }
+    return true;
+  });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newPin, setNewPin] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem(
+      "showTransactionPin",
+      JSON.stringify(showTransactionPin)
+    );
+  }, [showTransactionPin]);
 
   const handlePinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewPin(e.target.value);
   };
+
   const { execute, status } = useAction(changeTransactionPin, {
     onSuccess() {
       toast.success("Pin changed successfully", { id: toastId });
@@ -63,12 +77,17 @@ export default function TransactionPin() {
       toast.dismiss(toastId);
     },
   });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("New PIN:", newPin);
     execute({ transactionPin: parseInt(newPin) });
     setNewPin("");
     setIsDialogOpen(false);
+  };
+
+  const handleToggleTransactionPin = () => {
+    setShowTransactionPin((prev: any) => !prev);
   };
 
   return (
@@ -101,7 +120,7 @@ export default function TransactionPin() {
                 {" "}
                 <ToggleVisibility
                   show={showTransactionPin}
-                  onToggle={() => setShowTransactionPin(!showTransactionPin)}
+                  onToggle={handleToggleTransactionPin}
                 />
               </div>
             </div>

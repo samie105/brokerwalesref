@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Inter } from "next/font/google";
 import { useFetchInfo } from "@/lib/data/fetchPost";
@@ -15,7 +15,21 @@ export default function SocialSecurity() {
   const { data: deets } = useFetchInfo();
   const data = deets!.data;
 
-  const [showSSN, setShowSSN] = useState(false);
+  const [showSSN, setShowSSN] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("showSSN");
+      return saved !== null ? JSON.parse(saved) : false;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("showSSN", JSON.stringify(showSSN));
+  }, [showSSN]);
+
+  const handleToggleSSN = () => {
+    setShowSSN((prev: any) => !prev);
+  };
 
   return (
     <Card className="mb-2 rounded-sm border-none bg-neutral-50 dark:bg-neutral-800 p-0">
@@ -44,10 +58,7 @@ export default function SocialSecurity() {
                 </div>
               </div>
               <div className="ctrls flex items-center gap-x-1">
-                <ToggleVisibility
-                  show={showSSN}
-                  onToggle={() => setShowSSN(!showSSN)}
-                />
+                <ToggleVisibility show={showSSN} onToggle={handleToggleSSN} />
               </div>
             </div>
           </div>
