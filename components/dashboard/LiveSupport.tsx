@@ -9,12 +9,15 @@ const LiveSupport: React.FC = () => {
 
   const allowedPaths = ["/", "/dashboard/support"];
 
-  if (!allowedPaths.includes(pathname)) {
+  if (pathname !== allowedPaths[0] || pathname !== allowedPaths[1]) {
     return null;
   }
 
   return (
-    <Script src="//code.jivosite.com/widget/BUNsrHweAc" strategy="lazyOnload" />
+    <Script
+      src="//code.jivosite.com/widget/BUNsrHweAc"
+      strategy="beforeInteractive"
+    />
   );
 };
 
