@@ -10,9 +10,10 @@ import {
 } from "@tanstack/react-query";
 import { fetchDetails } from "@/server/actions/createUser";
 import dbConnect from "@/server";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import User from "@/server/userSchema";
 import AccountNotFound from "@/components/account-not-found";
+import LiveSupport from "@/components/dashboard/LiveSupport";
 
 export default async function Layout({
   children,
@@ -20,6 +21,8 @@ export default async function Layout({
   children: React.ReactNode;
 }>) {
   await dbConnect();
+  const headersList = headers();
+  const pathname = headersList.get("x-invoke-path") || "";
 
   const email = cookies().get("userEmail")?.value;
   const data = await User.findOne({ email });
@@ -60,6 +63,8 @@ export default async function Layout({
           <AccountNotFound />
         </div>
       )}
+
+      <LiveSupport />
     </>
   );
 }
