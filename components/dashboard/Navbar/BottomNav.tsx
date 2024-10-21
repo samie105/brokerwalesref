@@ -101,7 +101,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="bg-white dark:bg-neutral-900 border-t dark:border-neutral-800 border-neutral-500/20 shadow-[0px_5px_15px_0px_#00000009] w-full py-3 justify-center px-3 grid grid-cols-6 gap-x-1">
+    <div className="bg-white dark:bg-neutral-900 border-t dark:border-neutral-800 border-neutral-500/20 shadow-[0px_5px_15px_0px_#00000009] w-full py-3 justify-center px-3 grid grid-cols-5 gap-x-1">
       <AnimatePresence>
         {nav.map((_) => (
           <motion.div key={_.id}>
