@@ -98,12 +98,6 @@ export default function BottomNav() {
         </svg>
       ),
     },
-    {
-      id: 7,
-      name: "",
-      path: "",
-      icon: <></>,
-    },
   ];
 
   return (
