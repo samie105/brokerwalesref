@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Inter } from "next/font/google";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
@@ -13,7 +13,20 @@ const inter = Inter({
 export default function TransferInfo() {
   const { data: deets } = useFetchInfo();
   const data = deets!.data;
-  const [showTransactionPin, setShowTransactionPin] = useState(false);
+  const [showTransactionPin, setShowTransactionPin] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("showTransactionPin");
+      return saved !== null ? JSON.parse(saved) : true;
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      "showTransactionPin",
+      JSON.stringify(showTransactionPin)
+    );
+  }, [showTransactionPin]);
 
   const ToggleVisibility = ({
     show,

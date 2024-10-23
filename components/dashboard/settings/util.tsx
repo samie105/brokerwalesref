@@ -12,7 +12,7 @@ export const ToggleVisibility = ({
 }) => (
   <Button
     type="button"
-    className="bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+    className="bg-neutral-100 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700 text-neutral-600 hover:bg-neutral-200"
     size="icon"
     onClick={onToggle}
   >

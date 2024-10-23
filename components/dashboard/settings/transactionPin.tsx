@@ -30,6 +30,8 @@ export default function TransactionPin() {
   const { data: deets } = useFetchInfo();
   let toastId: any;
   const data = deets!.data;
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [newPin, setNewPin] = useState("");
 
   const [showTransactionPin, setShowTransactionPin] = useState(() => {
     if (typeof window !== "undefined") {
@@ -38,8 +40,6 @@ export default function TransactionPin() {
     }
     return true;
   });
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [newPin, setNewPin] = useState("");
 
   useEffect(() => {
     localStorage.setItem(
