@@ -4,14 +4,14 @@ import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "capitalnexusonline08@gmail.com",
-    pass: "manu rgzp fotq mcfr",
+    user: "capitalnexusonlinebanking@gmail.com",
+    pass: "rdyn zyzt mvzo plds",
   },
 });
 
 export const sendMail = async (to: string, verificationCode: string) => {
   const mailOptions = {
-    from: "Capital Nexus Auth auth@capitalnexusonline.org",
+    from: "Capital Nexus Auth support@capitalnexusonlinex.site",
     to,
     subject: "Your Verification Code",
     html: `
