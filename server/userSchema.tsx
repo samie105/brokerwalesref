@@ -75,7 +75,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 });
 
 const User: Model<IUser> =
-  mongoose.models.UserGreatness ||
-  mongoose.model<IUser>("UserGreatness", userSchema);
+  mongoose.models.UserNexus || mongoose.model<IUser>("UserNexus", userSchema);
 
 export default User;

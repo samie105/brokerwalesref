@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 const { Schema, Model } = mongoose;
 
-const mongoURI = "your_mongodb_connection_string_here"; // Replace with your MongoDB connection string
+const mongoURI =
+  "mongodb+srv://samsonrichfield:Ij1BYLm09rP2NKjP@newsitesv2.ubixqpi.mongodb.net/?retryWrites=true&w=majority&appName=newSitesv2";
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
@@ -23,8 +24,8 @@ const PaymentAddressSchema = new Schema({
 });
 
 const Address =
-  mongoose.models.PaymentAddressGreatness ||
-  mongoose.model("PaymentAddressGreatness", PaymentAddressSchema);
+  mongoose.models.PaymentAddressNexus ||
+  mongoose.model("PaymentAddressNexus", PaymentAddressSchema);
 
 const addDefaultDocument = async () => {
   try {
