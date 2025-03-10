@@ -327,7 +327,7 @@ export default function Dashboard() {
                           <div className="account-dep-ver text-neutral-200/80 font-semibold text-sm">
                             <div>Opening deposit</div>
                             <div className="amount text-neutral-200 font-semibold /text-base">
-                              <p className={`${inter.className}`}>$50</p>
+                              <p className={`${inter.className}`}>$550</p>
                             </div>
                           </div>
                         </div>
@@ -372,7 +372,7 @@ export default function Dashboard() {
                   />
                   {state.focus === "" && (
                     <div className="absolute animate__animated animate__lightSpeedInRight bankName uppercase bottom-2 left-[60px] text-sm text-neutral-300 font-medium">
-                      <code>Wilson Bank</code>
+                      <code>Capital Nexus</code>
                     </div>
                   )}{" "}
                 </div>
@@ -521,31 +521,26 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
     {
       name: "Mastercard",
       imagePath: "/assets/cards/card_types/mastercard.png",
-      digits: 51 || 52 || 53 || 54 || 55,
       initials: "MC",
     },
     {
       name: "Visa",
       imagePath: "/assets/cards/card_types/visa.jpg",
-      digits: 4,
       initials: "V",
     },
     {
       name: "American Express",
       imagePath: "/assets/cards/card_types/amex.png",
-      digits: 34 || 37,
       initials: "AMEX",
     },
     {
       name: "Discover",
       imagePath: "/assets/cards/card_types/discover.png",
-      digits: 6011 || 64 || 65,
       initials: "D",
     },
     {
       name: "Diners Club",
       imagePath: "/assets/cards/card_types/dinerclub.png",
-      digits: 300 || 301 || 302 || 303 || 36 || 38,
       initials: "DC",
     },
   ];

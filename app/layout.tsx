@@ -14,7 +14,7 @@ const inter = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "Wilson bank | Best Digital Banking Platform",
+  title: "Capital Nexus | Best Digital Banking Platform",
   description:
     "Experience cutting-edge banking with our innovative financial service.",
 };

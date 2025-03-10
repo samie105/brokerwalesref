@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useColors } from "@/context/colorContext";
 import { usePathname } from "next/navigation";
-import hero from "@/public/assets/hero-logo-blue.png";
+import hero from "@/public/assets/capital-logo-light.svg";
 import {
   Sheet,
   SheetContent,
@@ -93,7 +93,7 @@ export default function Navbar() {
           width={1000}
           height={1000}
           quality={100}
-          className="w-14 /opacity-80 mx-auto/"
+          className="w-full /opacity-80 /mx-auto/"
         />
       </div>
       <div className="menu lg:col-span-9 md:col-span-8 justify-center  hidden md:flex gap-x-2   items-center">
@@ -170,7 +170,7 @@ export default function Navbar() {
                   alt=""
                   width={1000}
                   height={1000}
-                  className="w-16 h-6"
+                  className="w-4/6 "
                 />{" "}
               </div>{" "}
             </SheetHeader>

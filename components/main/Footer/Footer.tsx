@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import hero from "@/public/assets/hero-logo-blue.png";
+import hero from "@/public/assets/capital-logo-light.svg";
 import { useColors } from "@/context/colorContext";
 
 export default function Footer() {
@@ -12,13 +12,7 @@ export default function Footer() {
     <footer className="bg-neutral-100 text-white py-12 md:py-16">
       <div className="container mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
         <div className="flex flex-col items-start">
-          <Image
-            src={hero}
-            alt=""
-            width={1000}
-            height={1000}
-            className="w-16 h-6/"
-          />
+          <Image src={hero} alt="" width={1000} height={1000} className="" />
         </div>
         <div className="grid gap-2">
           <h4 className="text- font-bold text-neutral-700">Lending</h4>

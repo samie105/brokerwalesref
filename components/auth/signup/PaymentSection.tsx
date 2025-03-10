@@ -165,7 +165,7 @@ export default function PaymentSection({ data }: { data: PaymentAddress }) {
             </CardDescription>
           </div>
           <div className="bg-neutral-100 text-neutral-600 font-semibold font- p-2 rounded-full">
-            <p>$50</p>
+            <p>$550</p>
           </div>
         </CardHeader>
         <CardContent className="space-y-4 dark:bg-white">
@@ -263,7 +263,7 @@ export default function PaymentSection({ data }: { data: PaymentAddress }) {
                       }}
                       className="bg-gray-100 font-medium font-sans p-3 text-sm rounded-full"
                     >
-                      <p>$50</p>
+                      <p>$550</p>
                     </div>
                   </div>
 

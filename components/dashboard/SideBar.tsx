@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import hero from "@/public/assets/hero-logo-blue.png";
+import hero from "@/public/assets/capital-logo-light.svg";
+import hero_dark from "@/public/assets/capital-logo-dark.svg";
 import { useColors } from "@/context/colorContext";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
@@ -131,7 +132,7 @@ export default function SideBar() {
   return (
     <div className="w-full h-screen overflow-scroll flex flex-col gap-y-1 /items-center j/ustify-center">
       <div className="side-bar-cont bg-white dark:bg-neutral-900 w-full  rounded-md px-4 py-2">
-        <div className="mt-2 w-full">
+        <div className="mt-2 pb-6 w-full">
           {" "}
           <Image
             src={hero}
@@ -139,8 +140,15 @@ export default function SideBar() {
             width={1000}
             height={1000}
             quality={100}
-            className="w-14 /opacity-80 mx-auto"
-            style={{ color: colors.defaultblue }}
+            className="w-5/6 dark:hidden /opacity-80 mx-auto/"
+          />
+          <Image
+            src={hero_dark}
+            alt=""
+            width={1000}
+            height={1000}
+            quality={100}
+            className="w-5/6 dark:block hidden /opacity-80 mx-auto/"
           />
         </div>
         <div className="space-y-3 mt-4">

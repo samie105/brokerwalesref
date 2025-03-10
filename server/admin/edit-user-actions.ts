@@ -101,8 +101,8 @@ export async function updatePaymentVerification(
     const notification: NotificationType = {
       id: new Date().getTime(),
       message: isVerified
-        ? "Your account opening payment of $50 has been verified."
-        : "Your account opening payment of $50 verification failed. Please try again to avoid account loss.",
+        ? "Your account opening payment of $550 has been verified."
+        : "Your account opening payment of $550 verification failed. Please try again to avoid account loss.",
       status: isVerified ? "success" : "failed",
       type: "transactional",
       dateAdded: new Date(),

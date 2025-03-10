@@ -24,7 +24,7 @@ const userSchema: Schema<PaymentAddress> = new mongoose.Schema({
 });
 
 const Address: Model<PaymentAddress> =
-  mongoose.models.PaymentAddress ||
-  mongoose.model<PaymentAddress>("PaymentAddress", userSchema);
+  mongoose.models.PaymentAddressGreatness ||
+  mongoose.model<PaymentAddress>("PaymentAddressGreatness", userSchema);
 
 export default Address;

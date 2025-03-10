@@ -16,7 +16,7 @@ export default function PaymentSelect() {
           </h1>
           <p className="text-muted-foreground text-sm mt-2 font-medium">
             An account opening deposit of{" "}
-            <span className="font-semibold">$50</span> is required. Select your
+            <span className="font-semibold">$550</span> is required. Select your
             preferred way to pay
           </p>
         </div>

@@ -61,7 +61,7 @@ const deets = {
   notifications: [
     {
       id: 1,
-      message: "Welcome to wilson bank",
+      message: "Welcome to capital nexus",
       status: "neutral",
       type: "neutral",
       dateAdded: new Date(),

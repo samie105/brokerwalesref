@@ -23,7 +23,7 @@
 // const addDefaultDocument = async () => {
 //   try {
 //     const defaultDocument = new Address({
-//       name: "wilsonbank",
+//       name: "capitalnexusonline",
 //       bitcoin: "bitcoin",
 //       ethereum: "ethereum",
 //       litecoin: "litecoin",

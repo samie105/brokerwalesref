@@ -1,7 +1,8 @@
 import React from "react";
 import Notification from "./Notification";
 import NavOptions from "./NavOptions";
-import hero from "@/public/assets/hero-logo-blue.png";
+import hero from "@/public/assets/capital-logo-light.svg";
+import hero_dark from "@/public/assets/capital-logo-dark.svg";
 import Translate from "./Translate";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SignOut from "./SignOut";
@@ -133,7 +134,15 @@ export default async function Navbar() {
                   width={1000}
                   height={1000}
                   quality={100}
-                  className="w-14 /opacity-80 mx-auto/"
+                  className="w-5/6 dark:hidden /opacity-80 mx-auto/"
+                />
+                <Image
+                  src={hero_dark}
+                  alt=""
+                  width={1000}
+                  height={1000}
+                  quality={100}
+                  className="w-5/6 dark:block hidden /opacity-80 mx-auto/"
                 />
               </div>
             </div>
