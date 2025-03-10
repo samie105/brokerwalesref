@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "context/colorContext.js"
+    "context/colorContext.js",
+    "server/migration/address_migration.js"
   ],
   "exclude": ["node_modules"]
 }
