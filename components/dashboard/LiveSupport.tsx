@@ -12,7 +12,7 @@ declare global {
 export default function LiveSupport() {
   useEffect(() => {
     window._smartsupp = window._smartsupp || {};
-    window._smartsupp.key = "a38d213cd564b01abc95113ea19843d71ad204d5";
+    window._smartsupp.key = "6ee0bd2232ffd2436b089aaec1b5cb7e59a0b5fc";
     window.smartsupp =
       window.smartsupp ||
       function () {
