@@ -14,6 +14,12 @@ const nextConfig = {
       },
     ],
   },
+  // Disable all caching in the application
+  serverRuntimeConfig: {
+    cache: false,
+  },
+  // Force dynamic rendering for all pages
+  staticPageGenerationTimeout: 0,
 };
 
 export default nextConfig;

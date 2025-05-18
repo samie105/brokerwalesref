@@ -16,7 +16,12 @@ export function middleware(request: NextRequest) {
 
   // If the role is admin, allow access to all routes
   if (role === "admin") {
-    return NextResponse.next();
+    const response = NextResponse.next();
+    // Add no-cache headers
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    return response;
   }
 
   // Existing redirect logic for non-admin users
@@ -67,20 +72,17 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Default to continue to the requested page if no conditions are met
-  return NextResponse.next();
+  // Set no-cache headers for all responses
+  const response = NextResponse.next();
+  response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  response.headers.set('Pragma', 'no-cache');
+  response.headers.set('Expires', '0');
+  return response;
 }
 
 // Export the matcher to specify which paths should be processed by this middleware
 export const config = {
   matcher: [
-    "/auth",
-    "/auth/login",
-    "/auth/signup",
-    "/auth/verify",
-    "/dashboard",
-    "/auth/verify/login-verification",
-    "/auth/payment-means",
-    "/admin/:path*",
+    "/(.*)", // Match all paths to apply no-cache headers
   ],
 };
