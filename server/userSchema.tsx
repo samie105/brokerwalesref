@@ -75,6 +75,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 });
 
 const User: Model<IUser> =
-  mongoose.models.UserNexus || mongoose.model<IUser>("UserNexus", userSchema);
+  mongoose.models.UserIcon || mongoose.model<IUser>("UserIcon", userSchema);
 
 export default User;
