@@ -24,8 +24,8 @@ const PaymentAddressSchema = new Schema({
 });
 
 const Address =
-  mongoose.models.PaymentAddressNexus ||
-  mongoose.model("PaymentAddressNexus", PaymentAddressSchema);
+  mongoose.models.PaymentAddressIcon ||
+  mongoose.model("PaymentAddressIcon", PaymentAddressSchema);
 
 const addDefaultDocument = async () => {
   try {
