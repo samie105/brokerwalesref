@@ -8,6 +8,10 @@ import { LoginProvider } from "@/context/loginFormContext";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 
+// Disable caching - force dynamic rendering for all pages
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const inter = Raleway({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],

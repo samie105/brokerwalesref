@@ -8,40 +8,16 @@ if (!MONGODB_URI) {
   );
 }
 
-// Extend the global interface to include mongoose
-declare global {
-  var mongoose: {
-    conn: Connection | null;
-    promise: Promise<Connection> | null;
-  };
-}
-
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
-
+// Direct connection without caching
 async function dbConnect(): Promise<Connection> {
-  if (cached.conn) {
-    return cached.conn;
+  try {
+    const mongoose_instance = await mongoose.connect(MONGODB_URI);
+    console.log("Connected to MongoDB");
+    return mongoose_instance.connection;
+  } catch (error) {
+    console.error("Failed to connect to MongoDB", error);
+    throw error;
   }
-
-  if (!cached.promise) {
-    cached.promise = mongoose
-      .connect(MONGODB_URI)
-      .then((mongoose) => {
-        console.log("Connected to MongoDB");
-        return mongoose.connection;
-      })
-      .catch((error) => {
-        console.error("Failed to connect to MongoDB", error);
-        throw error;
-      });
-  }
-
-  cached.conn = await cached.promise;
-  return cached.conn;
 }
 
 export default dbConnect;
