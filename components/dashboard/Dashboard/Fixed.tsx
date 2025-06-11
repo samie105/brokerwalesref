@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useFetchInfo } from "@/lib/data/fetchPost";
 import { Badge } from "@/components/ui/badge";
 import { FixedDialog } from "../fixed/FixedDailog";
+import { safeUserData } from "@/lib/hooks/useUserData";
+
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -12,8 +14,17 @@ const inter = Inter({
 
 export default function Fixed() {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
-  const fixedHistory = data.fixedHistory;
+  // Use safeUserData to prevent TypeScript errors
+  const safeData = deets?.data ? {
+    firstName: deets.data.firstName || "",
+    lastName: deets.data.lastName || "",
+    accountType: deets.data.accountType || "Checking",
+    accountBalance: deets.data.accountBalance || 0,
+    fixedHistory: deets.data.fixedHistory || [],
+    // Add other properties as needed
+  } : null;
+  const data = safeData;
+  const fixedHistory = data?.fixedHistory || [];
 
   const formatDate = (date: string | Date | null | undefined) => {
     if (!date) {
@@ -29,6 +40,15 @@ export default function Fixed() {
       year: "numeric",
     });
   };
+
+  // Early return for loading state
+  if (!data) {
+    return (
+      <div className="w-full border-none shadow-none rounded-md p-4 bg-white dark:bg-neutral-900 animate-pulse">
+        <div className="h-32 bg-gray-200 dark:bg-gray-800 rounded-md"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full border-none shadow-none rounded-md p-4 bg-white dark:bg-neutral-900">
@@ -53,7 +73,7 @@ export default function Fixed() {
             className={`Fixed-balance text-3xl dark:text-neutral-300 mt-2 /blur-md font-bold text-neutral-600 ${inter.className}`}
           >
             <span className="text-sm">$</span>
-            {data.fixedHistory
+            {fixedHistory
               .filter((hist) => hist.status === "running")
               .reduce((acc, curr) => acc + curr.amount, 0)
               .toLocaleString("en-US", {

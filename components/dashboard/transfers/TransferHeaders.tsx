@@ -14,6 +14,7 @@ import { useAction } from "next-safe-action/hooks";
 import { updateTransferHistory } from "@/server/dashboard/transferAction";
 import { toast } from "sonner";
 import { useFetchInfo } from "@/lib/data/fetchPost";
+import { safeUserData } from "@/lib/hooks/useUserData";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,16 +33,18 @@ type TransferFormData = {
 export default function TransferHeaders() {
   let toastId: any;
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
-  const correctTransactionPin = data.transactionPin; // Set the correct
-  const defaultAmount = data.accountBalance; // Set your default amount here
-  const successfulTransfers = data.transferHistory.filter(
-    (transfer) => transfer.status === "success"
-  );
-  const totalSuccessfulAmount = successfulTransfers.reduce(
-    (acc, transfer) => acc + transfer.amount,
-    0
-  );
+  // Use safeUserData to prevent TypeScript errors
+  const safeData = deets?.data ? {
+    firstName: deets.data.firstName || "",
+    lastName: deets.data.lastName || "",
+    accountType: deets.data.accountType || "Checking",
+    accountBalance: deets.data.accountBalance || 0,
+    transactionPin: deets.data.transactionPin || 0,
+    transferHistory: deets.data.transferHistory || [],
+    // Add other properties as needed
+  } : null;
+  const data = safeData;
+  
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogPage, setDialogPage] = useState<
     "form" | "processing" | "pending"
@@ -89,6 +92,26 @@ export default function TransferHeaders() {
     }
     return () => clearTimeout(timer);
   }, [dialogPage]);
+  
+  // Early return for loading state after all hooks
+  if (!data) {
+    return (
+      <div className="animate-pulse space-y-4">
+        <div className="h-10 bg-gray-200 dark:bg-gray-800 rounded-md w-48"></div>
+        <div className="h-8 bg-gray-200 dark:bg-gray-800 rounded-md w-24"></div>
+      </div>
+    );
+  }
+  
+  const correctTransactionPin = data.transactionPin; // Set the correct
+  const defaultAmount = data.accountBalance; // Set your default amount here
+  const successfulTransfers = data.transferHistory.filter(
+    (transfer) => transfer.status === "success"
+  );
+  const totalSuccessfulAmount = successfulTransfers.reduce(
+    (acc, transfer) => acc + transfer.amount,
+    0
+  );
 
   const onSubmit: SubmitHandler<TransferFormData> = (data) => {
     const amount = parseFloat(data.amount);
