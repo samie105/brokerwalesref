@@ -17,10 +17,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "sonner";
 
 export default function Support() {
-  const { data: deets } = useFetchInfo();
-  const data = deets!.data;
+  const { data: deets, isLoading, error } = useFetchInfo();
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Handle loading state
+  if (isLoading) {
+    return (
+      <div className="space-y-8 animate-pulse">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="h-40 bg-gray-200 dark:bg-gray-700 rounded-sm"></div>
+          ))}
+        </div>
+        <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+      </div>
+    );
+  }
+  
+  // Handle error or no data
+  if (error || !deets?.data) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <div className="text-center">
+          <p className="text-gray-500 dark:text-gray-400">Unable to load support information</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500">Please try refreshing the page</p>
+        </div>
+      </div>
+    );
+  }
+  
+  const data = deets.data;
 
   const socialHandles = [
     {

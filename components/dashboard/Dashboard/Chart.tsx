@@ -49,7 +49,12 @@ const inter = Inter({
 
 export function Chart() {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
+  const data = deets?.data;
+  
+  if (!data) {
+    return <div className="h-[300px] bg-gray-100 dark:bg-gray-800 rounded animate-pulse"></div>;
+  }
+  
   const chartData = [
     { data: "transfers", Amount: 27095, fill: "#200cf7" },
     { data: "fixed", Amount: data.fixedBalance, fill: "#150f90" },

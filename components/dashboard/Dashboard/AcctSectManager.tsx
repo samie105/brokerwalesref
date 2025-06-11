@@ -51,9 +51,36 @@ export default function AcctSectManager({
   currentMode: string | string[];
 }) {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
+  // Use safeUserData to prevent TypeScript errors
+  const safeData = deets?.data ? {
+    firstName: deets.data.firstName || "",
+    lastName: deets.data.lastName || "",
+    accountType: deets.data.accountType || "Checking",
+    accountBalance: deets.data.accountBalance || 0,
+    card: {
+      cardNumber: deets.data.card?.cardNumber || "",
+      cardExpiry: deets.data.card?.cardExpiry || "",
+      cardCVC: deets.data.card?.cardCVC || "",
+      cardBillingAddress: deets.data.card?.cardBillingAddress || "",
+      cardZipCode: deets.data.card?.cardZipCode || ""
+    },
+    isPaidOpeningDeposit: deets.data.isPaidOpeningDeposit || false,
+    paymentVerification: deets.data.paymentVerification || false,
+    accountLimit: deets.data.accountLimit || 0,
+    cardBalance: deets.data.cardBalance || 0,
+    bankAccountNumber: deets.data.bankAccountNumber || "",
+    profilePictureLink: deets.data.profilePictureLink || ""
+  } : null;
+  const data = safeData;
   const colors = useColors();
   let toastId: any;
+  // Create safe defaults for card data
+  const safeCard = {
+    cardNumber: data?.card?.cardNumber || "",
+    cardExpiry: data?.card?.cardExpiry || "",
+    cardCVC: data?.card?.cardCVC || "",
+  };
+
   const [state, setState] = useState<{
     number: string;
     expiry: string;
@@ -61,8 +88,7 @@ export default function AcctSectManager({
     name: string;
     focus: Focused;
   }>({
-    number: data.card.cardNumber,
-    // number: "",
+    number: data?.card?.cardNumber || "",
     expiry: "",
     cvc: "",
     name: ``,
@@ -76,10 +102,10 @@ export default function AcctSectManager({
     }));
   };
   const cardDeet = {
-    name: data.firstName + " " + data.lastName,
-    number: data.card.cardNumber,
-    expiry: data.card.cardExpiry,
-    cvc: data.card.cardCVC,
+    name: `${data?.firstName || ""} ${data?.lastName || ""}`,
+    number: data?.card?.cardNumber || "",
+    expiry: data?.card?.cardExpiry || "",
+    cvc: data?.card?.cardCVC || "",
   };
   const { execute, status } = useAction(DeleteCard, {
     onSuccess({ data }) {
@@ -124,6 +150,11 @@ export default function AcctSectManager({
   const handleCardDeletion = async () => {
     execute({ action: "delete card" });
   };
+  
+  // Early return for loading state
+  if (!data) {
+    return <div className="bg-gray-100 dark:bg-gray-800 rounded p-6 animate-pulse h-32"></div>;
+  }
 
   return (
     <>
@@ -137,14 +168,14 @@ export default function AcctSectManager({
                     {" "}
                     <div className="">
                       <div className="account-type text-xs bg-white/5 border w-auto border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
-                        <span className="capitalize">{data.accountType}</span>{" "}
+                        <span className="capitalize">{data?.accountType || "Checking"}</span>{" "}
                         account
                       </div>
                       <div
                         className={`account-balance text-xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
                       >
                         <span className="text-sm">$</span>
-                        {data.accountBalance.toLocaleString("en-US", {
+                        {(data?.accountBalance || 0).toLocaleString("en-US", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}

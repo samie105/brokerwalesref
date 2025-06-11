@@ -10,7 +10,11 @@ const inter = Inter({
 
 export default function HeaderTab() {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
+  const data = deets?.data;
+  
+  if (!data) {
+    return <div className="bg-gray-100 dark:bg-gray-800 rounded p-4 animate-pulse h-16"></div>;
+  }
 
   return (
     <div>

@@ -51,3 +51,22 @@ export function revalidatePathNoCache(path: string) {
       : `${path}?_t=${Date.now()}`
   };
 }
+
+/**
+ * Type guard to safely access user data
+ * Since fetchDetails now always returns a data structure, this provides type safety
+ */
+export function safeUserData<T>(data: T | null | undefined): data is T {
+  return data !== null && data !== undefined;
+}
+
+/**
+ * Safely get user data with fallback
+ */
+export function getUserData(deets: any) {
+  if (!deets?.data) {
+    console.warn('User data not available, using fallback');
+    return null;
+  }
+  return deets.data;
+}

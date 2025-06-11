@@ -20,15 +20,16 @@ const inter = Inter({
 
 export default function TransferHistory() {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
-  const transfers = data.transferHistory;
-  const sortedTransfer = transfers.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
   const [activeTab, setActiveTab] = useState<
     "all" | "success" | "failed" | "pending"
   >("all");
   const [searchTerm, setSearchTerm] = useState("");
+  
+  const data = deets?.data;
+  const transfers = data?.transferHistory || [];
+  const sortedTransfer = transfers.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   const filteredTransfers = useMemo(() => {
     return sortedTransfer.filter(
@@ -40,7 +41,11 @@ export default function TransferHistory() {
           transfer.receipientAccountNumber.toString().includes(searchTerm) ||
           transfer.receipientRoutingNumber.toString().includes(searchTerm))
     );
-  }, [transfers, activeTab, searchTerm]);
+  }, [sortedTransfer, activeTab, searchTerm]);
+  
+  if (!data) {
+    return <div className="bg-gray-100 dark:bg-gray-800 rounded p-4 animate-pulse h-64"></div>;
+  }
 
   const formatDate = (date: string | Date | null | undefined) => {
     if (!date) {

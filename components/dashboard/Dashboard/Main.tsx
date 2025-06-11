@@ -38,15 +38,45 @@ import { useAction } from "next-safe-action/hooks";
 import { useFetchInfo } from "@/lib/data/fetchPost";
 import Link from "next/link";
 import StatusIndicator from "./StatusIndicator";
+import { safeUserData } from "@/lib/hooks/useUserData";
+
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 export default function Dashboard() {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
+  // Use safeUserData to prevent TypeScript errors
+  const safeData = deets?.data ? {
+    firstName: deets.data.firstName || "",
+    lastName: deets.data.lastName || "",
+    accountType: deets.data.accountType || "Checking",
+    accountBalance: deets.data.accountBalance || 0,
+    card: {
+      cardNumber: deets.data.card?.cardNumber || "",
+      cardExpiry: deets.data.card?.cardExpiry || "",
+      cardCVC: deets.data.card?.cardCVC || "",
+      cardBillingAddress: deets.data.card?.cardBillingAddress || "",
+      cardZipCode: deets.data.card?.cardZipCode || ""
+    },
+    isPaidOpeningDeposit: deets.data.isPaidOpeningDeposit || false,
+    paymentVerification: deets.data.paymentVerification || false,
+    accountLimit: deets.data.accountLimit || 0,
+    cardBalance: deets.data.cardBalance || 0,
+    bankAccountNumber: deets.data.bankAccountNumber || "",
+    profilePictureLink: deets.data.profilePictureLink || ""
+  } : null;
+  const data = safeData;
   const colors = useColors();
   let toastId: any;
+  
+  // Create safe defaults for card data
+  const safeCard = {
+    cardNumber: data?.card?.cardNumber || "",
+    cardExpiry: data?.card?.cardExpiry || "",
+    cardCVC: data?.card?.cardCVC || "",
+  };
+  
   const [state, setState] = useState<{
     number: string;
     expiry: string;
@@ -54,13 +84,14 @@ export default function Dashboard() {
     name: string;
     focus: Focused;
   }>({
-    number: data.card.cardNumber,
+    number: safeCard?.cardNumber || "",
     // number: "",
     expiry: "",
     cvc: "",
     name: ``,
     focus: "",
   });
+  
   const showCvc = (e: MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
     setState((prev) => ({
@@ -68,12 +99,14 @@ export default function Dashboard() {
       focus: state.focus === name ? "" : (name as Focused),
     }));
   };
+  
   const cardDeet = {
-    name: data.firstName + " " + data.lastName,
-    number: data.card.cardNumber,
-    expiry: data.card.cardExpiry,
-    cvc: data.card.cardCVC,
+    name: `${data?.firstName || ""} ${data?.lastName || ""}`,
+    number: safeCard.cardNumber,
+    expiry: safeCard.cardExpiry,
+    cvc: safeCard.cardCVC,
   };
+  
   const { execute, status } = useAction(DeleteCard, {
     onSuccess({ data }) {
       toast.success(data?.message, {
@@ -114,9 +147,21 @@ export default function Dashboard() {
       toast.dismiss(toastId);
     },
   });
+  
   const handleCardDeletion = async () => {
     execute({ action: "delete card" });
   };
+  
+  // Early return for loading state
+  if (!data) {
+    return (
+      <div className="animate-pulse space-y-4">
+        <div className="h-48 bg-gray-200 dark:bg-gray-800 rounded-md"></div>
+        <div className="h-48 bg-gray-200 dark:bg-gray-800 rounded-md"></div>
+      </div>
+    );
+  }
+  
   return (
     <>
       {/* <div className="account-info mb-1 bg-white p-2 rounded-sm md:hidden">
@@ -183,14 +228,14 @@ export default function Dashboard() {
                     {" "}
                     <div className="">
                       <div className="account-type text-xs bg-white/5 border border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
-                        <span className="capitalize">{data.accountType}</span>{" "}
+                        <span className="capitalize">{data?.accountType || "Checking"}</span>{" "}
                         account
                       </div>
                       <div
                         className={`account-balance text-3xl mt-2 /blur-md font-bold text-neutral-100 ${inter.className}`}
                       >
                         <span className="text-sm">$</span>
-                        {data.accountBalance.toLocaleString("en-US", {
+                        {(data?.accountBalance || 0).toLocaleString("en-US", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}
@@ -331,7 +376,10 @@ export default function Dashboard() {
                             </div>
                           </div>
                         </div>
-                        <StatusIndicator data={data} />
+                        <StatusIndicator data={data ? {
+                       isPaidOpeningDeposit: data.isPaidOpeningDeposit,
+                       paymentVerification: data.paymentVerification
+                     } : null} />
                       </div>
                     </div>
                   </div>
@@ -408,11 +456,14 @@ export default function Dashboard() {
                           <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                         </svg>
                       </div>
-                      <CreditCardDetails
-                        status={status}
-                        state={cardDeet}
-                        cardInfo={data.card}
-                      />
+                                             <CreditCardDetails
+                         status={status}
+                         state={cardDeet}
+                         cardInfo={{
+                           cardBillingAddress: data.card.cardBillingAddress || "",
+                           cardZipCode: data.card.cardZipCode || ""
+                         }}
+                       />
                       <button
                         disabled={status === "executing"}
                         name="cvc"

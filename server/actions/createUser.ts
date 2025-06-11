@@ -170,21 +170,24 @@ export const fetchDetails = async () => {
   const email = cookies().get("userEmail")?.value;
   if (!email) {
     logout();
-    return;
+    return { data: null };
   }
   const headersList = headers();
   const pathname = headersList.get("x-invoke-path") || "";
   const isAuthPath = pathname.includes("auth");
-  if (isAuthPath) return;
-  await dbConnect();
-  const data = await User.findOne({ email });
-  if (!data) {
-    logout();
-    return;
-  }
-  if (data) {
+  if (isAuthPath) return { data: null };
+  
+  try {
+    await dbConnect();
+    const data = await User.findOne({ email });
+    if (!data) {
+      logout();
+      return { data: null };
+    }
     const cleanData: IUser = JSON.parse(JSON.stringify(data));
     return { data: cleanData };
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    return { data: null };
   }
-  revalidatePath("/");
 };

@@ -12,7 +12,6 @@ const inter = Inter({
 
 export default function TransferInfo() {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
   const [showTransactionPin, setShowTransactionPin] = useState(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("showTransactionPin");
@@ -27,6 +26,12 @@ export default function TransferInfo() {
       JSON.stringify(showTransactionPin)
     );
   }, [showTransactionPin]);
+
+  const data = deets?.data;
+  
+  if (!data) {
+    return <div className="bg-gray-100 dark:bg-gray-800 rounded p-4 animate-pulse h-32"></div>;
+  }
 
   const ToggleVisibility = ({
     show,

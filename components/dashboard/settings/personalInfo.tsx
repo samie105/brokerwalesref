@@ -26,7 +26,7 @@ type PersonalInfoItem = {
 
 export default function PersonalInformation() {
   const { data: deets, refetch } = useFetchInfo();
-  const data = deets!.data;
+  const data = deets?.data;
 
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -34,6 +34,15 @@ export default function PersonalInformation() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+
+  // Early return if no data to prevent runtime errors
+  if (!data) {
+    return (
+      <div className="bg-gray-100 dark:bg-gray-800 rounded p-6 animate-pulse">
+        <div className="text-center text-gray-500">Loading personal information...</div>
+      </div>
+    );
+  }
 
   const personalInfo: PersonalInfoItem[] = [
     { label: "First Name", value: data.firstName },

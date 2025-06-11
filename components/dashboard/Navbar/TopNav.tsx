@@ -75,7 +75,11 @@ export default function TopNav({
     },
   ];
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
+  const data = deets?.data;
+  
+  if (!data) {
+    return <div className="h-16 bg-gray-100 dark:bg-gray-800 animate-pulse"></div>;
+  }
   const currentTime = new Date();
   const hours = currentTime.getHours();
   let greeting = "";

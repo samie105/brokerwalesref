@@ -12,11 +12,11 @@ if (!MONGODB_URI) {
 async function dbConnect(): Promise<Connection> {
   try {
     const mongoose_instance = await mongoose.connect(MONGODB_URI);
-    console.log("Connected to MongoDB");
+        console.log("Connected to MongoDB");
     return mongoose_instance.connection;
   } catch (error) {
-    console.error("Failed to connect to MongoDB", error);
-    throw error;
+        console.error("Failed to connect to MongoDB", error);
+        throw error;
   }
 }
 
