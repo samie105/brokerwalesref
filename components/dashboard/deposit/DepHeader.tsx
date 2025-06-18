@@ -17,7 +17,7 @@ const inter = Inter({
 
 export default function DepHeader() {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data || {};
+  const data = deets!.data;
   const [amount, setAmount] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -106,7 +106,7 @@ export default function DepHeader() {
               className={`Fixed-balance text-3xl mt-2 pl-2 font-bold text-neutral-600 dark:text-neutral-400 ${inter.className}`}
             >
               <span className="text-sm">$</span>
-              {data.depositHistory
+              {data!.depositHistory
                 .filter((deposit: any) => deposit.status === "success")
                 .reduce((acc: any, deposit: any) => acc + deposit.amount, 0)
                 .toLocaleString()}
