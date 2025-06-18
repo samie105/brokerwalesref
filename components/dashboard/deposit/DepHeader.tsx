@@ -257,7 +257,7 @@ export default function DepHeader() {
               className="cont p-3 rounded-full cursor-pointer bg-base-color/5 dark:bg-blue-500/10 dark:text-blue-500 text-base-color/80"
               onClick={() => {
                 toast.success("Copied");
-                navigator.clipboard.writeText(data.bankRoutingNumber);
+                navigator.clipboard.writeText(data!.bankRoutingNumber);
               }}
             >
               <svg
@@ -308,7 +308,7 @@ export default function DepHeader() {
               className="cont p-3 rounded-full cursor-pointer bg-base-color/5 dark:bg-blue-500/10 dark:text-blue-500 text-base-color/80"
               onClick={() => {
                 toast.success("Copied");
-                navigator.clipboard.writeText(data.bankAccountNumber);
+                navigator.clipboard.writeText(data!.bankAccountNumber);
               }}
             >
               <svg
