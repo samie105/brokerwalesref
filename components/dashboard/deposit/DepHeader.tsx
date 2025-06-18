@@ -246,7 +246,7 @@ export default function DepHeader() {
             <div
               className={`Fixed-balance text-xl mt-2 pl-2 font-bold text-neutral-600 dark:text-neutral-400 ${inter.className}`}
             >
-              {data.bankRoutingNumber}
+              {data!.bankRoutingNumber}
             </div>
             <p className="text-neutral-400 text-xs mt-1 font-medium pl-2">
               Bank routing number
@@ -297,7 +297,7 @@ export default function DepHeader() {
             <div
               className={`Fixed-balance text-xl mt-2 pl-2 font-bold dark:text-neutral-400 text-neutral-700 ${inter.className}`}
             >
-              {data.bankAccountNumber}
+              {data!.bankAccountNumber}
             </div>
             <p className="text-neutral-400 text-xs mt-1 font-medium pl-2">
               Bank account number
