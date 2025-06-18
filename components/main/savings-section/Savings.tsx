@@ -58,9 +58,9 @@ export default function Savings() {
         </div>
         <div className="small-text text-base md:text-lg mt-3 leading-6 font-medium text-neutral-500 text-balance">
           Experience unparalleled savings and investment opportunities at{" "}
-          <span className="font-semibold">Capital Nexus</span>, where your
-          financial growth and security are our top priorities. Join us to take
-          advantage of our expert financial guidance and comprehensive
+          <span className="font-semibold">Prime Heritage Global</span>, where
+          your financial growth and security are our top priorities. Join us to
+          take advantage of our expert financial guidance and comprehensive
           solutions.
         </div>
         <div className="flex mt-8 text-sm gap-x-2 md:justify-start">

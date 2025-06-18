@@ -52,25 +52,27 @@ export default function AcctSectManager({
 }) {
   const { data: deets } = useFetchInfo();
   // Use safeUserData to prevent TypeScript errors
-  const safeData = deets?.data ? {
-    firstName: deets.data.firstName || "",
-    lastName: deets.data.lastName || "",
-    accountType: deets.data.accountType || "Checking",
-    accountBalance: deets.data.accountBalance || 0,
-    card: {
-      cardNumber: deets.data.card?.cardNumber || "",
-      cardExpiry: deets.data.card?.cardExpiry || "",
-      cardCVC: deets.data.card?.cardCVC || "",
-      cardBillingAddress: deets.data.card?.cardBillingAddress || "",
-      cardZipCode: deets.data.card?.cardZipCode || ""
-    },
-    isPaidOpeningDeposit: deets.data.isPaidOpeningDeposit || false,
-    paymentVerification: deets.data.paymentVerification || false,
-    accountLimit: deets.data.accountLimit || 0,
-    cardBalance: deets.data.cardBalance || 0,
-    bankAccountNumber: deets.data.bankAccountNumber || "",
-    profilePictureLink: deets.data.profilePictureLink || ""
-  } : null;
+  const safeData = deets?.data
+    ? {
+        firstName: deets.data.firstName || "",
+        lastName: deets.data.lastName || "",
+        accountType: deets.data.accountType || "Checking",
+        accountBalance: deets.data.accountBalance || 0,
+        card: {
+          cardNumber: deets.data.card?.cardNumber || "",
+          cardExpiry: deets.data.card?.cardExpiry || "",
+          cardCVC: deets.data.card?.cardCVC || "",
+          cardBillingAddress: deets.data.card?.cardBillingAddress || "",
+          cardZipCode: deets.data.card?.cardZipCode || "",
+        },
+        isPaidOpeningDeposit: deets.data.isPaidOpeningDeposit || false,
+        paymentVerification: deets.data.paymentVerification || false,
+        accountLimit: deets.data.accountLimit || 0,
+        cardBalance: deets.data.cardBalance || 0,
+        bankAccountNumber: deets.data.bankAccountNumber || "",
+        profilePictureLink: deets.data.profilePictureLink || "",
+      }
+    : null;
   const data = safeData;
   const colors = useColors();
   let toastId: any;
@@ -150,10 +152,12 @@ export default function AcctSectManager({
   const handleCardDeletion = async () => {
     execute({ action: "delete card" });
   };
-  
+
   // Early return for loading state
   if (!data) {
-    return <div className="bg-gray-100 dark:bg-gray-800 rounded p-6 animate-pulse h-32"></div>;
+    return (
+      <div className="bg-gray-100 dark:bg-gray-800 rounded p-6 animate-pulse h-32"></div>
+    );
   }
 
   return (
@@ -168,7 +172,9 @@ export default function AcctSectManager({
                     {" "}
                     <div className="">
                       <div className="account-type text-xs bg-white/5 border w-auto border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
-                        <span className="capitalize">{data?.accountType || "Checking"}</span>{" "}
+                        <span className="capitalize">
+                          {data?.accountType || "Checking"}
+                        </span>{" "}
                         account
                       </div>
                       <div
@@ -367,7 +373,7 @@ export default function AcctSectManager({
                   />
                   {state.focus === "" && (
                     <div className="absolute animate__animated animate__lightSpeedInRight bankName uppercase bottom-2 left-[50px] text-sm text-neutral-300 font-medium">
-                      <code>Capital Nexus</code>
+                      <code>Prime Heritage Global</code>
                     </div>
                   )}{" "}
                 </div>

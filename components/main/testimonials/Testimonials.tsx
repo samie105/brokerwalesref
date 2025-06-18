@@ -89,9 +89,9 @@ export default function Testimonials() {
             What people are saying about us
           </div>
           <div className="small-text text-base mt-3 font-medium text-neutral-500 text-balance">
-            Discover why our clients trust Capital Nexus for unparalleled
-            savings and investment opportunities. Our commitment to your
-            financial growth and security, coupled with expert guidance and
+            Discover why our clients trust Prime Heritage Global for
+            unparalleled savings and investment opportunities. Our commitment to
+            your financial growth and security, coupled with expert guidance and
             comprehensive solutions, sets us apart.
           </div>
           <div className="flex mt-5 text-sm lg:justify-start">

@@ -47,36 +47,38 @@ const inter = Inter({
 export default function Dashboard() {
   const { data: deets } = useFetchInfo();
   // Use safeUserData to prevent TypeScript errors
-  const safeData = deets?.data ? {
-    firstName: deets.data.firstName || "",
-    lastName: deets.data.lastName || "",
-    accountType: deets.data.accountType || "Checking",
-    accountBalance: deets.data.accountBalance || 0,
-    card: {
-      cardNumber: deets.data.card?.cardNumber || "",
-      cardExpiry: deets.data.card?.cardExpiry || "",
-      cardCVC: deets.data.card?.cardCVC || "",
-      cardBillingAddress: deets.data.card?.cardBillingAddress || "",
-      cardZipCode: deets.data.card?.cardZipCode || ""
-    },
-    isPaidOpeningDeposit: deets.data.isPaidOpeningDeposit || false,
-    paymentVerification: deets.data.paymentVerification || false,
-    accountLimit: deets.data.accountLimit || 0,
-    cardBalance: deets.data.cardBalance || 0,
-    bankAccountNumber: deets.data.bankAccountNumber || "",
-    profilePictureLink: deets.data.profilePictureLink || ""
-  } : null;
+  const safeData = deets?.data
+    ? {
+        firstName: deets.data.firstName || "",
+        lastName: deets.data.lastName || "",
+        accountType: deets.data.accountType || "Checking",
+        accountBalance: deets.data.accountBalance || 0,
+        card: {
+          cardNumber: deets.data.card?.cardNumber || "",
+          cardExpiry: deets.data.card?.cardExpiry || "",
+          cardCVC: deets.data.card?.cardCVC || "",
+          cardBillingAddress: deets.data.card?.cardBillingAddress || "",
+          cardZipCode: deets.data.card?.cardZipCode || "",
+        },
+        isPaidOpeningDeposit: deets.data.isPaidOpeningDeposit || false,
+        paymentVerification: deets.data.paymentVerification || false,
+        accountLimit: deets.data.accountLimit || 0,
+        cardBalance: deets.data.cardBalance || 0,
+        bankAccountNumber: deets.data.bankAccountNumber || "",
+        profilePictureLink: deets.data.profilePictureLink || "",
+      }
+    : null;
   const data = safeData;
   const colors = useColors();
   let toastId: any;
-  
+
   // Create safe defaults for card data
   const safeCard = {
     cardNumber: data?.card?.cardNumber || "",
     cardExpiry: data?.card?.cardExpiry || "",
     cardCVC: data?.card?.cardCVC || "",
   };
-  
+
   const [state, setState] = useState<{
     number: string;
     expiry: string;
@@ -91,7 +93,7 @@ export default function Dashboard() {
     name: ``,
     focus: "",
   });
-  
+
   const showCvc = (e: MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
     setState((prev) => ({
@@ -99,14 +101,14 @@ export default function Dashboard() {
       focus: state.focus === name ? "" : (name as Focused),
     }));
   };
-  
+
   const cardDeet = {
     name: `${data?.firstName || ""} ${data?.lastName || ""}`,
     number: safeCard.cardNumber,
     expiry: safeCard.cardExpiry,
     cvc: safeCard.cardCVC,
   };
-  
+
   const { execute, status } = useAction(DeleteCard, {
     onSuccess({ data }) {
       toast.success(data?.message, {
@@ -147,11 +149,11 @@ export default function Dashboard() {
       toast.dismiss(toastId);
     },
   });
-  
+
   const handleCardDeletion = async () => {
     execute({ action: "delete card" });
   };
-  
+
   // Early return for loading state
   if (!data) {
     return (
@@ -161,7 +163,7 @@ export default function Dashboard() {
       </div>
     );
   }
-  
+
   return (
     <>
       {/* <div className="account-info mb-1 bg-white p-2 rounded-sm md:hidden">
@@ -228,7 +230,9 @@ export default function Dashboard() {
                     {" "}
                     <div className="">
                       <div className="account-type text-xs bg-white/5 border border-white/10 p-1.5 rounded-sm font-medium text-neutral-300">
-                        <span className="capitalize">{data?.accountType || "Checking"}</span>{" "}
+                        <span className="capitalize">
+                          {data?.accountType || "Checking"}
+                        </span>{" "}
                         account
                       </div>
                       <div
@@ -376,10 +380,17 @@ export default function Dashboard() {
                             </div>
                           </div>
                         </div>
-                        <StatusIndicator data={data ? {
-                       isPaidOpeningDeposit: data.isPaidOpeningDeposit,
-                       paymentVerification: data.paymentVerification
-                     } : null} />
+                        <StatusIndicator
+                          data={
+                            data
+                              ? {
+                                  isPaidOpeningDeposit:
+                                    data.isPaidOpeningDeposit,
+                                  paymentVerification: data.paymentVerification,
+                                }
+                              : null
+                          }
+                        />
                       </div>
                     </div>
                   </div>
@@ -420,7 +431,7 @@ export default function Dashboard() {
                   />
                   {state.focus === "" && (
                     <div className="absolute animate__animated animate__lightSpeedInRight bankName uppercase bottom-2 left-[60px] text-sm text-neutral-300 font-medium">
-                      <code>Capital Nexus</code>
+                      <code>Prime Heritage Global</code>
                     </div>
                   )}{" "}
                 </div>
@@ -456,14 +467,15 @@ export default function Dashboard() {
                           <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                         </svg>
                       </div>
-                                             <CreditCardDetails
-                         status={status}
-                         state={cardDeet}
-                         cardInfo={{
-                           cardBillingAddress: data.card.cardBillingAddress || "",
-                           cardZipCode: data.card.cardZipCode || ""
-                         }}
-                       />
+                      <CreditCardDetails
+                        status={status}
+                        state={cardDeet}
+                        cardInfo={{
+                          cardBillingAddress:
+                            data.card.cardBillingAddress || "",
+                          cardZipCode: data.card.cardZipCode || "",
+                        }}
+                      />
                       <button
                         disabled={status === "executing"}
                         name="cvc"

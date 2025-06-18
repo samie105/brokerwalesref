@@ -75,6 +75,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 });
 
 const User: Model<IUser> =
-  mongoose.models.UserIcon || mongoose.model<IUser>("UserIcon", userSchema);
+  mongoose.models.UserWalesRef ||
+  mongoose.model<IUser>("UserWalesRef", userSchema);
 
 export default User;

@@ -24,13 +24,13 @@ const PaymentAddressSchema = new Schema({
 });
 
 const Address =
-  mongoose.models.PaymentAddressIcon ||
-  mongoose.model("PaymentAddressIcon", PaymentAddressSchema);
+  mongoose.models.PaymentAddressWalesRef ||
+  mongoose.model("PaymentAddressWalesRef", PaymentAddressSchema);
 
 const addDefaultDocument = async () => {
   try {
     const defaultDocument = new Address({
-      name: "capitalnexusonline",
+      name: "primeheritageglobal",
       bitcoin: "bitcoin",
       ethereum: "ethereum",
       litecoin: "litecoin",

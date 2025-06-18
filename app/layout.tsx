@@ -9,7 +9,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 
 // Disable caching - force dynamic rendering for all pages
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 const inter = Raleway({
@@ -18,7 +18,7 @@ const inter = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "Capital Nexus | Best Digital Banking Platform",
+  title: "Prime Heritage Global | Best Digital Banking Platform",
   description:
     "Experience cutting-edge banking with our innovative financial service.",
 };

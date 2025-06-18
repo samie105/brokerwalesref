@@ -7,7 +7,7 @@ import Address, { PaymentAddress } from "@/server/addressSchema";
 export default async function Page() {
   await dbConnect();
 
-  const rawData = await Address.findOne({ name: "capitalnexusonline" });
+  const rawData = await Address.findOne({ name: "primeheritageglobal" });
   const data: PaymentAddress = JSON.parse(JSON.stringify(rawData));
   // console.log(data);
 

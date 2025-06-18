@@ -61,7 +61,7 @@ const deets = {
   notifications: [
     {
       id: 1,
-      message: "Welcome to capital nexus",
+      message: "Welcome to Prime Heritage Global",
       status: "neutral",
       type: "neutral",
       dateAdded: new Date(),
@@ -176,7 +176,7 @@ export const fetchDetails = async () => {
   const pathname = headersList.get("x-invoke-path") || "";
   const isAuthPath = pathname.includes("auth");
   if (isAuthPath) return { data: null };
-  
+
   try {
     await dbConnect();
     const data = await User.findOne({ email });
