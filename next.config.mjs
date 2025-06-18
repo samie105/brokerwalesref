@@ -13,7 +13,6 @@ const nextConfig = {
         port: "",
       },
     ],
-    minimumCacheTTL: 0, // Disable image caching
   },
   // Disable all caching in the application
   serverRuntimeConfig: {
