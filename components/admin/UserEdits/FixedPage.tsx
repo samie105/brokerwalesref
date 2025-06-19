@@ -16,7 +16,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { toast } from "sonner";
-import { IUser } from "@/server/userSchema";
+import { IUser, FixedType } from "@/server/userSchema";
 import { MoreHorizontal, Loader2, DollarSign } from "lucide-react";
 import { payUserAndUpdateStatus } from "@/server/admin/edit-user-actions";
 
@@ -32,7 +32,7 @@ export default function FixedPage({ data }: { data: IUser }) {
     (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
   );
 
-  const formatDate = (date: Date) => {
+  const formatDate = (date: string | Date) => {
     return new Date(date).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
