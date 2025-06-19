@@ -28,10 +28,10 @@ export interface Deposits {
   amount: number;
   date: string | Date;
   method: string;
-  status: string;
+  status: "failed" | "success" | "pending";
   reference: string;
   screenshotLink: string;
-  paymentMeans: string;
+  paymentMeans: "mobile deposit" | "check" | string;
 }
 
 export interface Transfers {

@@ -3,31 +3,13 @@ import React from "react";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import { useFetchInfo } from "@/lib/data/fetchPost";
+import { safeUserData } from "@/lib/hooks/useUserData";
+import { Transfers, Deposits } from "@/server/userSchema";
 
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
-
-type Transfers = {
-  id: any;
-  recipientName: string;
-  amount: number;
-  date: Date;
-  receipientAccountNumber: number;
-  receipientRoutingNumber: number;
-  status: "success" | "failed" | "pending";
-  receipientBankName: string;
-};
-
-type Deposits = {
-  id: any;
-  amount: number;
-  paymentMeans: "mobile deposit" | "check";
-  status: "failed" | "success" | "pending";
-  date: Date;
-  screenshotLink: string;
-};
 
 export default function TransactionSummary({
   currentMode,
@@ -37,29 +19,37 @@ export default function TransactionSummary({
   transactionTab: string | string[];
 }) {
   const { data: deets } = useFetchInfo();
-  const data = deets?.data;
-  
+  const data = safeUserData(deets);
+
   if (!data) {
-    return <div className="bg-gray-100 dark:bg-gray-800 rounded p-4 animate-pulse h-24"></div>;
+    return (
+      <div className="bg-gray-100 dark:bg-gray-800 rounded p-4 animate-pulse h-24"></div>
+    );
   }
 
   const allTransactions = [
-    ...data.transferHistory.map((t: Transfers) => ({ ...t, type: "transfer" })),
-    ...data.depositHistory.map((d: Deposits) => ({ ...d, type: "deposit" })),
+    ...(data.transferHistory || []).map((t: Transfers) => ({
+      ...t,
+      type: "transfer",
+    })),
+    ...(data.depositHistory || []).map((d: Deposits) => ({
+      ...d,
+      type: "deposit",
+    })),
   ];
 
   const sortedTransactions = allTransactions.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  const totalTransfered = data.transferHistory.reduce(
+  const totalTransfered = (data.transferHistory || []).reduce(
     (acc, current) =>
-      current.status == "success" ? acc + current.amount : acc,
+      current.status === "success" ? acc + current.amount : acc,
     0
   );
-  const totaldeposited = data.depositHistory.reduce(
+  const totaldeposited = (data.depositHistory || []).reduce(
     (acc, current) =>
-      current.status == "success" ? acc + current.amount : acc,
+      current.status === "success" ? acc + current.amount : acc,
     0
   );
 
