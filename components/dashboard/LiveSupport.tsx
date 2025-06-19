@@ -32,5 +32,5 @@ export default function LiveSupport() {
   //   };
   // }, []);
 
-  return <Script src="http://code.jivosite.com/widget/5LyZp2781C" strategy="afterInteractive"></Script>;
+  return <Script src="//code.jivosite.com/widget/fnPCGY2Vau" async></Script>;
 }

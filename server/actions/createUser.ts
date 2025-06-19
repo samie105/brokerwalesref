@@ -98,8 +98,11 @@ const deets = {
 export const createUser = actionClient
   .schema(signUpSchemaFull)
   .action(async ({ parsedInput }) => {
-    parsedInput.email = parsedInput.email.toLowerCase();
-    const userDeets: IUser = { ...parsedInput, ...deets };
+    if (!parsedInput.email) {
+      throw new Error("Email is required.");
+    }
+    parsedInput.email = parsedInput.email.toLowerCase() as string;
+    const userDeets = { ...parsedInput, ...deets } as unknown as IUser;
 
     await dbConnect();
 
