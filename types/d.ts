@@ -52,3 +52,28 @@ declare module "@hookform/resolvers/zod" {
 
   export function zodResolver(schema: ZodSchema): any;
 }
+
+// Next.js modules
+declare module "next/font/google" {
+  interface FontOptions {
+    subsets?: string[];
+    weight?: string[];
+  }
+
+  export function Inter(options: FontOptions): {
+    className: string;
+    style: any;
+  };
+}
+
+declare module "next/link" {
+  import React from "react";
+
+  interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    href: string;
+    prefetch?: boolean;
+  }
+
+  const Link: React.FC<LinkProps>;
+  export default Link;
+}

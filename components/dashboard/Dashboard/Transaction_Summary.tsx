@@ -11,6 +11,21 @@ const inter = Inter({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
+// Update the TransactionWithType interface to work with the status types
+interface TransactionWithType {
+  type: "transfer" | "deposit";
+  amount: number;
+  date: string | Date;
+  status: "success" | "failed" | "pending";
+  id: string;
+  recipientName?: string;
+  paymentMeans?: string;
+  screenshotLink?: string;
+  receipientAccountNumber?: number;
+  receipientRoutingNumber?: number;
+  receipientBankName?: string;
+}
+
 export default function TransactionSummary({
   currentMode,
   transactionTab,
@@ -27,28 +42,41 @@ export default function TransactionSummary({
     );
   }
 
-  const allTransactions = [
-    ...(data.transferHistory || []).map((t: Transfers) => ({
+  const transferTransactions: TransactionWithType[] = (
+    data.transferHistory || []
+  ).map(
+    (t: Transfers): TransactionWithType => ({
       ...t,
       type: "transfer",
-    })),
-    ...(data.depositHistory || []).map((d: Deposits) => ({
+    })
+  );
+
+  const depositTransactions: TransactionWithType[] = (
+    data.depositHistory || []
+  ).map(
+    (d: Deposits): TransactionWithType => ({
       ...d,
       type: "deposit",
-    })),
+    })
+  );
+
+  const allTransactions: TransactionWithType[] = [
+    ...transferTransactions,
+    ...depositTransactions,
   ];
 
   const sortedTransactions = allTransactions.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  const totalTransfered = (data.transferHistory || []).reduce(
-    (acc, current) =>
+  const totalTransfered: number = (data.transferHistory || []).reduce(
+    (acc: number, current: Transfers): number =>
       current.status === "success" ? acc + current.amount : acc,
     0
   );
-  const totaldeposited = (data.depositHistory || []).reduce(
-    (acc, current) =>
+
+  const totaldeposited: number = (data.depositHistory || []).reduce(
+    (acc: number, current: Deposits): number =>
       current.status === "success" ? acc + current.amount : acc,
     0
   );

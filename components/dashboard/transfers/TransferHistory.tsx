@@ -12,6 +12,8 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Inter } from "next/font/google";
 import { useFetchInfo } from "@/lib/data/fetchPost";
+import { safeUserData } from "@/lib/hooks/useUserData";
+import { Transfers } from "@/server/userSchema";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,27 +26,30 @@ export default function TransferHistory() {
     "all" | "success" | "failed" | "pending"
   >("all");
   const [searchTerm, setSearchTerm] = useState("");
-  
-  const data = deets?.data;
-  const transfers = data?.transferHistory || [];
+
+  const data = safeUserData(deets);
+  const transfers = data.transferHistory || [];
   const sortedTransfer = transfers.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
   const filteredTransfers = useMemo(() => {
     return sortedTransfer.filter(
-      (transfer) =>
+      (transfer: Transfers) =>
         (activeTab === "all" || transfer.status === activeTab) &&
         (transfer.receipientBankName
+          ?.toString()
           .toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
-          transfer.receipientAccountNumber.toString().includes(searchTerm) ||
-          transfer.receipientRoutingNumber.toString().includes(searchTerm))
+          transfer.receipientAccountNumber?.toString().includes(searchTerm) ||
+          transfer.receipientRoutingNumber?.toString().includes(searchTerm))
     );
   }, [sortedTransfer, activeTab, searchTerm]);
-  
+
   if (!data) {
-    return <div className="bg-gray-100 dark:bg-gray-800 rounded p-4 animate-pulse h-64"></div>;
+    return (
+      <div className="bg-gray-100 dark:bg-gray-800 rounded p-4 animate-pulse h-64"></div>
+    );
   }
 
   const formatDate = (date: string | Date | null | undefined) => {
