@@ -75,10 +75,6 @@ export default function SignupVerifyOTP({
     },
 
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error sending code", {
-          id: codeToastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: codeToastId,
@@ -120,10 +116,6 @@ export default function SignupVerifyOTP({
       },
 
       onError(error) {
-        if (error.error.fetchError)
-          toast.error("Error resending code", {
-            id: codeToastId,
-          });
         if (error.error.serverError)
           toast.error("Error connecting to servers", {
             id: codeToastId,
@@ -173,10 +165,6 @@ export default function SignupVerifyOTP({
     verifyCode,
     {
       onError(error) {
-        if (error.error.fetchError)
-          toast.error("Error verifying code", {
-            id: codeToastId,
-          });
         if (error.error.serverError)
           toast.error("Error verifying code, Please resend code.", {
             id: codeToastId,

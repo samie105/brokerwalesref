@@ -73,10 +73,6 @@ export default function DepMobileOptions({ data }: { data: PaymentAddress }) {
   let toastId: any;
   const { execute, status } = useAction(uploadImageUserDeposit, {
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error Initiating transaction", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,
@@ -114,10 +110,6 @@ export default function DepMobileOptions({ data }: { data: PaymentAddress }) {
     updateDepositHistory,
     {
       onError(error) {
-        if (error.error.fetchError)
-          toast.error("Error initiating transaction", {
-            id: toastId,
-          });
         if (error.error.serverError)
           toast.error("Error connecting to servers", {
             id: toastId,

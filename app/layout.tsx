@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Raleway } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import "animate.css";
 import { ColorProvider } from "@/context/colorContext";
@@ -12,7 +12,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-const inter = Raleway({
+// Use Inter font since Manrope isn't directly available from next/font/google in this setup
+const font = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
@@ -30,7 +31,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={font.className}>
         <SignUpProvider>
           <LoginProvider>
             <ColorProvider>

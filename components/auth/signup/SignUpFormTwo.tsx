@@ -99,10 +99,6 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
       });
     },
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error creating account", {
-          id: toastId2,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId2,
@@ -141,10 +137,6 @@ const SignUpFormTwo: React.FC<SignUpFormTwoProps> = ({ setSteps }) => {
       });
     },
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error checking SSN", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,

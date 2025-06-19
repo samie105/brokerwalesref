@@ -115,10 +115,6 @@ export default function PaymentSection({ data }: { data: PaymentAddress }) {
   };
   const { execute, status } = useAction(uploadImage, {
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error Fetching Upload Server", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,

@@ -17,7 +17,7 @@ import { useFetchInfo } from "@/lib/data/fetchPost";
 export default function Notification() {
   const { data, isLoading, error } = useFetchInfo();
   let toastId: string = "";
-  
+
   const { status, execute } = useAction(deleteNotification, {
     onSuccess({ data }) {
       toast.success("Notification deleted succesfully", {
@@ -33,10 +33,6 @@ export default function Notification() {
     },
 
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error communicating with providers", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,
@@ -71,7 +67,7 @@ export default function Notification() {
       </div>
     );
   }
-  
+
   // Handle error or no data
   if (error || !data?.data) {
     return (
@@ -93,14 +89,14 @@ export default function Notification() {
       </div>
     );
   }
-  
+
   const notifications = [...(data.data.notifications || [])].reverse();
   const readNotifs = data.data.readNotification;
-  
+
   const deleteNotificationFn = (id: any) => {
     execute({ id });
   };
-  
+
   const readNotification = async () => {
     if (readNotifs) return;
     await readNotifications();

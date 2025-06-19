@@ -71,18 +71,23 @@ export default function Login() {
     },
 
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error authenticating this email", {
-          id: toastId,
-        });
-      if (error.error.serverError)
+      // Check if error contains specific error types
+      const { serverError, validationErrors } = error.error || {};
+
+      if (serverError) {
         toast.error("Error connecting to servers", {
           id: toastId,
         });
-      if (error.error.validationErrors)
+      } else if (validationErrors) {
         toast.error("Please check your details", {
           id: toastId,
         });
+      } else {
+        // Generic error for other cases
+        toast.error("Error authenticating. Please try again.", {
+          id: toastId,
+        });
+      }
 
       toast.dismiss(toastId);
     },

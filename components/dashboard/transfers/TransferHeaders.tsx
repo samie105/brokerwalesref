@@ -34,17 +34,19 @@ export default function TransferHeaders() {
   let toastId: any;
   const { data: deets } = useFetchInfo();
   // Use safeUserData to prevent TypeScript errors
-  const safeData = deets?.data ? {
-    firstName: deets.data.firstName || "",
-    lastName: deets.data.lastName || "",
-    accountType: deets.data.accountType || "Checking",
-    accountBalance: deets.data.accountBalance || 0,
-    transactionPin: deets.data.transactionPin || 0,
-    transferHistory: deets.data.transferHistory || [],
-    // Add other properties as needed
-  } : null;
+  const safeData = deets?.data
+    ? {
+        firstName: deets.data.firstName || "",
+        lastName: deets.data.lastName || "",
+        accountType: deets.data.accountType || "Checking",
+        accountBalance: deets.data.accountBalance || 0,
+        transactionPin: deets.data.transactionPin || 0,
+        transferHistory: deets.data.transferHistory || [],
+        // Add other properties as needed
+      }
+    : null;
   const data = safeData;
-  
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogPage, setDialogPage] = useState<
     "form" | "processing" | "pending"
@@ -62,10 +64,6 @@ export default function TransferHeaders() {
 
   const { execute, status } = useAction(updateTransferHistory, {
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error communicating with server", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,
@@ -92,7 +90,7 @@ export default function TransferHeaders() {
     }
     return () => clearTimeout(timer);
   }, [dialogPage]);
-  
+
   // Early return for loading state after all hooks
   if (!data) {
     return (
@@ -102,7 +100,7 @@ export default function TransferHeaders() {
       </div>
     );
   }
-  
+
   const correctTransactionPin = data.transactionPin; // Set the correct
   const defaultAmount = data.accountBalance; // Set your default amount here
   const successfulTransfers = data.transferHistory.filter(

@@ -75,10 +75,6 @@ export default function SignUpForm({ setSteps }: { setSteps: any }) {
       });
     },
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error checking credentials", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,

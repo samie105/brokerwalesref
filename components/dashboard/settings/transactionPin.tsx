@@ -62,10 +62,6 @@ export default function TransactionPin() {
       toast.loading("Changing pin, please wait...", { id: toastId });
     },
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error communicating with server", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,

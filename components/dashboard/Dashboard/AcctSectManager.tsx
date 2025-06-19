@@ -133,10 +133,6 @@ export default function AcctSectManager({
     },
 
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error communicating with providers", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,
@@ -657,10 +653,6 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
     },
 
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error communicating with providers", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,

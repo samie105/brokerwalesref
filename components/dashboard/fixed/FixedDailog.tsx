@@ -73,10 +73,6 @@ export function FixedDialog({ text }: { text?: boolean }) {
       });
     },
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error communicating with server", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,
@@ -157,7 +153,7 @@ export function FixedDialog({ text }: { text?: boolean }) {
             <Input
               id="name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e: any) => setName(e.target.value)}
               placeholder="Enter fixed name"
               className={`${nameExists ? "border-red-500 border " : ""} `}
             />
@@ -170,7 +166,7 @@ export function FixedDialog({ text }: { text?: boolean }) {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="duration">Duration</Label>
-            <Select onValueChange={(value) => setDuration(Number(value))}>
+            <Select onValueChange={(value: any) => setDuration(Number(value))}>
               <SelectTrigger className="dark:bg-neutral-800">
                 <SelectValue placeholder="Select duration" />
               </SelectTrigger>
@@ -190,7 +186,7 @@ export function FixedDialog({ text }: { text?: boolean }) {
               id="amount"
               type="number"
               value={amount || ""}
-              onChange={(e) => setAmount(Number(e.target.value))}
+              onChange={(e: any) => setAmount(Number(e.target.value))}
               placeholder="Enter investment amount"
             />
 

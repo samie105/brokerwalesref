@@ -3,13 +3,13 @@ import React, { useState, useEffect } from "react";
 import { Inter } from "next/font/google";
 import { useFetchInfo } from "@/lib/data/fetchPost";
 import { safeUserData } from "@/lib/hooks/useUserData";
-import { toast } from "sonner";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { depositCheckError } from "@/server/actions/paymentUpload";
 import { useAction } from "next-safe-action/hooks";
+import { toast } from "sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,10 +29,6 @@ export default function DepHeader() {
 
   const { execute, status } = useAction(depositCheckError, {
     onError(error) {
-      if (error.error.fetchError)
-        toast.error("Error communicating with server", {
-          id: toastId,
-        });
       if (error.error.serverError)
         toast.error("Error connecting to servers", {
           id: toastId,
