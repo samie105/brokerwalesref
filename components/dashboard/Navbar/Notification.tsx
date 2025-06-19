@@ -220,8 +220,10 @@ export default function Notification() {
                       </div>
                     </div>
                     <button
-                      disabled={notification.id && status === "executing"}
-                      onClick={() => deleteNotificationFn(notification.id)}
+                      disabled={status === "executing"}
+                      onClick={() =>
+                        notification.id && deleteNotificationFn(notification.id)
+                      }
                       className="disabled:opacity-15 hover:bg-red-50 dark:hover:bg-red-500/10 p-1 transition-all rounded delete-notification  /bg-red-500/5 /p-3 text-red-500"
                     >
                       <svg
