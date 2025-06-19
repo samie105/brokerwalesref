@@ -45,12 +45,14 @@ export const createCard = actionClient
             cardBillingAddress,
             cardZipCode,
           };
+          user.cardBalance = 0;
 
           user.notifications.push({
-            dateAdded: new Date(),
+            date: new Date(),
             id: crypto.randomUUID(),
-            status: "success",
+            read: false,
             type: "card",
+            title: "Card Creation",
             message: `Your ${cardType} credit card has been created and issues`,
           });
           user.readNotification = false;
@@ -86,10 +88,11 @@ export const DeleteCard = actionClient.action(async () => {
         cardZipCode: "",
       };
       user.notifications.push({
-        dateAdded: new Date(),
-        id: crypto.randomUUID(),
-        status: "success",
+        date: new Date(),
         type: "card",
+        read: false,
+        title: "Card Deletion",
+        id: crypto.randomUUID(),
         message: `Your credit card has been revoked and deleted`,
       });
       user.readNotification = false;

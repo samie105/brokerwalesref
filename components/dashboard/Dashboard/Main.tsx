@@ -147,7 +147,7 @@ export default function Dashboard() {
   });
 
   const handleCardDeletion = async () => {
-    execute({ action: "delete card" });
+    execute();
   };
 
   // Early return for loading state
@@ -695,7 +695,7 @@ export function CreateCardForm({ setState }: CreateCardFormProps) {
         id: toastId,
         duration: 3000,
       });
-      setState((prev) => {
+      setState((prev: any) => {
         return {
           ...prev,
           number: data?.data.cardNumber,
