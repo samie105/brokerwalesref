@@ -32,6 +32,8 @@ const nextConfig = {
   experimental: {
     // Disable all experimental caching features
   },
+  // Use Babel instead of SWC
+  swcMinify: false,
 };
 
 export default nextConfig;

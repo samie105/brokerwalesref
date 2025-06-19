@@ -30,6 +30,8 @@ export interface Deposits {
   method: string;
   status: string;
   reference: string;
+  screenshotLink: string;
+  paymentMeans: string;
 }
 
 export interface Transfers {
@@ -37,8 +39,12 @@ export interface Transfers {
   amount: number;
   date: string | Date;
   recipient: string;
-  status: string;
+  status: "success" | "failed" | "pending";
   reference: string;
+  recipientName: string;
+  receipientAccountNumber: number;
+  receipientRoutingNumber: number;
+  receipientBankName: string;
 }
 
 export interface verificationDetails {

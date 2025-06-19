@@ -16,24 +16,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { toast } from "sonner";
-import { IUser } from "@/server/userSchema";
+import { IUser, Transfers } from "@/server/userSchema";
 import { MoreHorizontal, Loader2 } from "lucide-react";
 import { updateTransferStatus } from "@/server/admin/edit-user-actions";
 
-interface Transfer {
-  id: any;
-  recipientName: string;
-  amount: number;
-  date: Date;
-  receipientAccountNumber: number;
-  receipientRoutingNumber: number;
-  status: "success" | "failed" | "pending";
-  receipientBankName: string;
-}
-
 export default function TransfersPage({ data }: { data: IUser }) {
-  const [transferHistory, setTransferHistory] = useState<Transfer[]>(
-    data.transferHistory
+  const [transferHistory, setTransferHistory] = useState<Transfers[]>(
+    data.transferHistory || []
   );
   const [loadingTransferId, setLoadingTransferId] = useState<string | null>(
     null
