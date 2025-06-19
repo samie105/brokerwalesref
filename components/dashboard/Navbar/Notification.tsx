@@ -206,12 +206,12 @@ export default function Notification() {
                       <div className="message pb-2 pr-7 text-[13px] text-black dark:text-neutral-300 fon/t-medium">
                         {notification.message}
                         <div className="date mt-1 dark:text-neutral-500 font-medium /text-base-color/80">
-                          {formatDistance(notification.date, new Date(), {
+                          {formatDistance(notification.dateAdded, new Date(), {
                             addSuffix: true,
                           })
                             .charAt(0)
                             .toUpperCase() +
-                            formatDistance(notification.date, new Date(), {
+                            formatDistance(notification.dateAdded, new Date(), {
                               addSuffix: true,
                             })
                               .slice(1)

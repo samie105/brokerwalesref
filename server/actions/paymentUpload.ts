@@ -113,8 +113,8 @@ export const updateDepositHistory = actionClient
         dateAdded: new Date(),
         id: crypto.randomUUID(),
         message: `Your deposit of $${amount.toLocaleString()} is under review. it could take up to 1 business day(s)`,
-        status: "neutral",
         type: "transactional",
+        status: "neutral",
       });
       user.save();
       return { success: true, message: "Deposit in review" };
@@ -153,10 +153,9 @@ export const depositCheckError = actionClient
         dateAdded: new Date(),
         id: crypto.randomUUID(),
         message: `Your Check Deposit of $${amount.toLocaleString()} has failed, Please contact support for further assistance`,
-        status: "neutral",
         type: "transactional",
+        status: "failed",
       });
-      user.readNotification = false;
       user.save();
       revalidatePath("/");
       return { success: true, message: "Deposit in review" };

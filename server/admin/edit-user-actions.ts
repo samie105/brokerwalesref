@@ -4,14 +4,6 @@ import User, { IUser } from "@/server/userSchema";
 import { revalidatePath } from "next/cache";
 import dbConnect from "..";
 
-type NotificationType = {
-  id: any;
-  message: string;
-  status: "success" | "failed" | "neutral" | "warning";
-  type: "transactional" | "card" | "neutral";
-  dateAdded: Date;
-};
-
 export async function updateUser(userData: Partial<IUser>) {
   const { email, ...updateData } = userData;
 
@@ -103,8 +95,8 @@ export async function updatePaymentVerification(
       message: isVerified
         ? "Your account opening payment of $550 has been verified."
         : "Your account opening payment of $550 verification failed. Please try again to avoid account loss.",
-      status: isVerified ? "success" : "failed",
       type: "transactional",
+      status: isVerified ? "success" : "failed",
       dateAdded: new Date(),
     };
 

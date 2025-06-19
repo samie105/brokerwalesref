@@ -8,7 +8,6 @@ import TransactionSummary from "@/components/dashboard/Dashboard/Transaction_Sum
 import Transaction_Chart from "@/components/dashboard/Dashboard/Transaction_Chart";
 import LiveSupport from "@/components/dashboard/LiveSupport";
 import { unstable_noStore as noStore } from "next/cache";
-import { disableCacheInServerComponent } from "@/lib/disable-cache";
 
 // Ensure dynamic content and no caching at the page level as well
 export const dynamic = "force-dynamic";
@@ -20,7 +19,6 @@ export default async function page({
   searchParams: { [key: string]: string | undefined };
 }) {
   // Use both methods to ensure no caching
-  disableCacheInServerComponent();
   noStore();
 
   const currentMode = searchParams.mode || "account";

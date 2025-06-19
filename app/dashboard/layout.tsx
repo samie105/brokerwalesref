@@ -14,7 +14,6 @@ import { cookies, headers } from "next/headers";
 import User from "@/server/userSchema";
 import AccountNotFound from "@/components/account-not-found";
 import LiveSupport from "@/components/dashboard/LiveSupport";
-import { disableCacheInServerComponent } from "@/lib/disable-cache";
 import { unstable_noStore as noStore } from "next/cache";
 
 export const dynamic = "force-dynamic";
@@ -26,7 +25,6 @@ export default async function Layout({
   children: React.ReactNode;
 }>) {
   // Disable all caching for this layout and all children
-  disableCacheInServerComponent();
   noStore();
 
   await dbConnect();

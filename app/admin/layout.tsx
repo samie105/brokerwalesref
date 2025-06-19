@@ -1,5 +1,4 @@
 import React from "react";
-import { disableCacheInServerComponent } from "@/lib/disable-cache";
 import { unstable_noStore as noStore } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -14,7 +13,6 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   // Disable all caching for this layout and all children
-  disableCacheInServerComponent();
   noStore();
 
   // Check if user is an admin

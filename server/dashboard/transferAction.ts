@@ -37,13 +37,13 @@ export const updateTransferHistory = actionClient
 
       user.transferHistory.push({ ...parsedInput });
       user.notifications.push({
-        dateAdded: new Date(),
         id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         message: `Your transfer of $${parsedInput.amount.toLocaleString()} to ${
           parsedInput.recipientName
         } is ${parsedInput.status}`,
-        status: "warning",
-        type: "transactional",
+        status: "neutral",
+        type: "neutral",
+        dateAdded: new Date(),
       });
       user.readNotification = false;
 

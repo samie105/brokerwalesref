@@ -3,47 +3,42 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 
 // Define missing interfaces
 export interface FixedType {
-  id: string;
-  name: string;
-  amount: number;
-  status: string;
-  duration: number;
+  id: any;
   roi: number;
   totalReturn: number;
-  startDate: string | Date;
-  endDate: string | Date;
+  name: string;
+  startDate: Date;
+  endDate: Date;
+  amount: number;
+  duration: number;
+  status: "completed" | "running";
 }
 
 export interface NotificationType {
-  id: string;
-  title: string;
+  id: any;
   message: string;
-  type: string;
-  date: string | Date;
-  read: boolean;
+  status: "success" | "failed" | "neutral" | "warning";
+  type: "transactional" | "card" | "neutral";
+  dateAdded: Date;
 }
 
 export interface Deposits {
-  id: string;
+  id: any;
   amount: number;
-  date: string | Date;
-  method: string;
+  paymentMeans: "mobile deposit" | "check";
   status: "failed" | "success" | "pending";
-  reference: string;
+  date: Date;
   screenshotLink: string;
-  paymentMeans: "mobile deposit" | "check" | string;
 }
 
 export interface Transfers {
-  id: string;
-  amount: number;
-  date: string | Date;
-  recipient: string;
-  status: "success" | "failed" | "pending";
-  reference: string;
+  id: any;
   recipientName: string;
+  amount: number;
+  date: Date;
   receipientAccountNumber: number;
   receipientRoutingNumber: number;
+  status: "success" | "failed" | "pending";
   receipientBankName: string;
 }
 
@@ -108,7 +103,18 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   paymentImageLink: { type: String, required: true },
   bankAccountNumber: { type: String, required: true, unique: true },
   bankRoutingNumber: { type: String, required: true, unique: true },
-  notifications: [Object],
+  notifications: [
+    {
+      id: { type: Schema.Types.Mixed },
+      message: { type: String },
+      status: {
+        type: String,
+        enum: ["success", "failed", "neutral", "warning"],
+      },
+      type: { type: String, enum: ["transactional", "card", "neutral"] },
+      dateAdded: { type: Date },
+    },
+  ],
   readNotification: { type: Boolean, default: false },
   card: Object,
   cardBalance: { type: Number },
@@ -118,9 +124,41 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   role: { type: String },
   isPaidOpeningDeposit: { type: Boolean },
   accountType: { type: String },
-  fixedHistory: [Object],
-  depositHistory: [Object],
-  transferHistory: [Object],
+  fixedHistory: [
+    {
+      id: { type: Schema.Types.Mixed },
+      roi: { type: Number },
+      totalReturn: { type: Number },
+      name: { type: String },
+      startDate: { type: Date },
+      endDate: { type: Date },
+      amount: { type: Number },
+      duration: { type: Number },
+      status: { type: String, enum: ["completed", "running"] },
+    },
+  ],
+  depositHistory: [
+    {
+      id: { type: Schema.Types.Mixed },
+      amount: { type: Number },
+      paymentMeans: { type: String, enum: ["mobile deposit", "check"] },
+      status: { type: String, enum: ["failed", "success", "pending"] },
+      date: { type: Date },
+      screenshotLink: { type: String },
+    },
+  ],
+  transferHistory: [
+    {
+      id: { type: Schema.Types.Mixed },
+      recipientName: { type: String },
+      amount: { type: Number },
+      date: { type: Date },
+      receipientAccountNumber: { type: Number },
+      receipientRoutingNumber: { type: Number },
+      status: { type: String, enum: ["success", "failed", "pending"] },
+      receipientBankName: { type: String },
+    },
+  ],
   transactionPin: { type: Number },
   profilePictureLink: { type: String },
   verificationDetails: { type: Object },

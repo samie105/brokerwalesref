@@ -15,7 +15,7 @@ const updateFixedHistorySchema = z.object({
   endDate: z.date(),
   amount: z.number(),
   duration: z.number(),
-  status: z.enum(["running", "completed"]),
+  status: z.enum(["completed", "running"]),
 });
 export const updateFixedHistory = actionClient
   .schema(updateFixedHistorySchema)
@@ -26,13 +26,23 @@ export const updateFixedHistory = actionClient
     try {
       if (user) {
         user.accountBalance -= parsedInput.amount;
-        user.fixedHistory.push({ ...parsedInput });
+        user.fixedHistory.push({
+          id: parsedInput.id,
+          roi: parsedInput.roi,
+          totalReturn: parsedInput.totalReturn,
+          name: parsedInput.name,
+          startDate: parsedInput.startDate,
+          endDate: parsedInput.endDate,
+          amount: parsedInput.amount,
+          duration: parsedInput.duration,
+          status: parsedInput.status,
+        });
         user.notifications.push({
-          dateAdded: new Date(),
           id: Date.now() + Math.random(),
           message: `Your ${parsedInput.name} fixed cycle of $${parsedInput.amount} is ongoing`,
-          status: "success",
-          type: "transactional",
+          status: "neutral",
+          type: "neutral",
+          dateAdded: new Date(),
         });
         user.readNotification = false;
         revalidatePath("/");

@@ -88,11 +88,11 @@ export const changeTransactionPin = actionClient
 
       user.transactionPin = transactionPin;
       user.notifications.push({
-        dateAdded: new Date(),
         id: crypto.randomUUID(),
         message: "You have successfully changed your transaction PIN",
-        status: "success",
+        status: "neutral",
         type: "neutral",
+        dateAdded: new Date(),
       });
       user.readNotification = false;
       await user.save();
