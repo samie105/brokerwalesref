@@ -47,7 +47,13 @@ export default function Login() {
           id: toastId,
           duration: 3000,
         });
-        router.push("/dashboard");
+
+        // Check if user is admin and redirect accordingly
+        if (data.role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/dashboard");
+        }
       }
       if (!data?.success) {
         toast.error(data?.message, {

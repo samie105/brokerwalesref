@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Inter } from "next/font/google";
 import { useFetchInfo } from "@/lib/data/fetchPost";
+import { safeUserData } from "@/lib/hooks/useUserData";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -17,7 +18,7 @@ const inter = Inter({
 
 export default function DepHeader() {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
+  const data = safeUserData(deets);
   const [amount, setAmount] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);

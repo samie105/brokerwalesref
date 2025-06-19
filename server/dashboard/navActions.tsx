@@ -27,7 +27,7 @@ export const deleteNotification = actionClient
       const user = await User.findOne({ email });
       if (user) {
         user.notifications = user.notifications.filter(
-          (notification) => notification.id !== id
+          (notification: any) => notification.id !== id
         );
         revalidatePath("/dashboard");
         user.save();

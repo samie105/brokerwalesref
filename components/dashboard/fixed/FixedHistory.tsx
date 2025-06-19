@@ -12,23 +12,40 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useFetchInfo } from "@/lib/data/fetchPost";
 import { useState } from "react";
+import { safeUserData } from "@/lib/hooks/useUserData";
 
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
+
+// Define the interface for fixed deposit items
+interface FixedDepositItem {
+  id: string;
+  name: string;
+  amount: number;
+  status: string;
+  duration: number;
+  roi: number;
+  totalReturn: number;
+  startDate: string | Date;
+  endDate: string | Date;
+}
+
 export default function FixedHistory({ tab }: { tab: string }) {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
-  const fixedHistory = data.fixedHistory.reverse();
+  const data = safeUserData(deets);
+  const fixedDeposit = data.fixedHistory || [];
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredData = fixedHistory.filter(
-    (item) =>
-      (tab === "all" || item.status === tab) &&
-      (item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const filteredData = fixedDeposit
+    .reverse()
+    .filter(
+      (item: FixedDepositItem) =>
+        (tab === "all" || item.status === tab) &&
+        (item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.status.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -101,7 +118,7 @@ export default function FixedHistory({ tab }: { tab: string }) {
             </TableHeader>
             <TableBody>
               {filteredData.length >= 1 &&
-                filteredData.map((item) => (
+                filteredData.map((item: FixedDepositItem) => (
                   <TableRow className="border-none" key={item.id}>
                     <TableCell className="font-medium text-nowrap">
                       {item.name}

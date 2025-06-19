@@ -43,3 +43,12 @@ type verificationDetails = {
   verificationImageLinkBack: string;
   status: "pending" | "success" | "failed" | "none";
 };
+
+// Declaration file for modules without TypeScript definitions
+
+// For @hookform/resolvers/zod
+declare module "@hookform/resolvers/zod" {
+  import { ZodSchema } from "zod";
+
+  export function zodResolver(schema: ZodSchema): any;
+}

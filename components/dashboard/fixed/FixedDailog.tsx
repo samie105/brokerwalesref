@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useFetchInfo } from "@/lib/data/fetchPost";
+import { safeUserData } from "@/lib/hooks/useUserData";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useAction } from "next-safe-action/hooks";
@@ -42,10 +43,10 @@ export function FixedDialog({ text }: { text?: boolean }) {
   const [roi, setRoi] = useState(0);
   const [totalReturn, setTotalReturn] = useState(0);
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
+  const data = safeUserData(deets);
   let toastId: any;
   const accountBal = data.accountBalance;
-  const fixedDeposit = data.fixedHistory.reverse();
+  const fixedDeposit = data.fixedHistory?.reverse() || [];
   const router = useRouter();
   router.prefetch("/dashboard/deposit");
 
@@ -90,7 +91,7 @@ export function FixedDialog({ text }: { text?: boolean }) {
     },
   });
   const nameExists = fixedDeposit.some(
-    (item) => item.name.toLowerCase() === name.toLowerCase()
+    (item: any) => item.name.toLowerCase() === name.toLowerCase()
   );
   const isFormValid =
     name &&

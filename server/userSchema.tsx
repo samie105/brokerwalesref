@@ -1,6 +1,53 @@
 // userModel.ts
 import mongoose, { Schema, Document, Model } from "mongoose";
 
+// Define missing interfaces
+export interface FixedType {
+  id: string;
+  name: string;
+  amount: number;
+  status: string;
+  duration: number;
+  roi: number;
+  totalReturn: number;
+  startDate: string | Date;
+  endDate: string | Date;
+}
+
+export interface NotificationType {
+  id: string;
+  title: string;
+  message: string;
+  type: string;
+  date: string | Date;
+  read: boolean;
+}
+
+export interface Deposits {
+  id: string;
+  amount: number;
+  date: string | Date;
+  method: string;
+  status: string;
+  reference: string;
+}
+
+export interface Transfers {
+  id: string;
+  amount: number;
+  date: string | Date;
+  recipient: string;
+  status: string;
+  reference: string;
+}
+
+export interface verificationDetails {
+  documentType: string;
+  documentNumber: string;
+  verificationDate: string | Date;
+  verified: boolean;
+}
+
 export interface IUser extends Document {
   firstName: string;
   lastName: string;

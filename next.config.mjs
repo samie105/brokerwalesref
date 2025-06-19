@@ -31,7 +31,6 @@ const nextConfig = {
   // Force revalidation on each request
   experimental: {
     // Disable all experimental caching features
-    isrMemoryCacheSize: 0,
   },
 };
 

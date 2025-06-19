@@ -20,6 +20,7 @@ import { Label } from "@/components/ui/label";
 import { useAction } from "next-safe-action/hooks";
 import { changeTransactionPin } from "@/server/dashboard/settingActions";
 import { toast } from "sonner";
+import { safeUserData } from "@/lib/hooks/useUserData";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,7 +30,7 @@ const inter = Inter({
 export default function TransactionPin() {
   const { data: deets } = useFetchInfo();
   let toastId: any;
-  const data = deets!.data;
+  const data = safeUserData(deets);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newPin, setNewPin] = useState("");
 

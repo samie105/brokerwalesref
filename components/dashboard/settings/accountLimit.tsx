@@ -14,6 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
+import { safeUserData } from "@/lib/hooks/useUserData";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,7 +23,7 @@ const inter = Inter({
 
 export default function AccountLimit() {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
+  const data = safeUserData(deets);
   return (
     <Card className="mb-2 rounded-sm border-none bg-neutral-50 dark:bg-neutral-800 p-0">
       <div className="p-4">

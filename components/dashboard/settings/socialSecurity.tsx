@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Inter } from "next/font/google";
 import { useFetchInfo } from "@/lib/data/fetchPost";
 import { ToggleVisibility } from "./util";
+import { safeUserData } from "@/lib/hooks/useUserData";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,7 +14,7 @@ const inter = Inter({
 
 export default function SocialSecurity() {
   const { data: deets } = useFetchInfo();
-  const data = deets!.data;
+  const data = safeUserData(deets);
 
   const [showSSN, setShowSSN] = useState(() => {
     if (typeof window !== "undefined") {

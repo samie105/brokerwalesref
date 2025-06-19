@@ -7,13 +7,22 @@ import AcctSectManager from "@/components/dashboard/Dashboard/AcctSectManager";
 import TransactionSummary from "@/components/dashboard/Dashboard/Transaction_Summary";
 import Transaction_Chart from "@/components/dashboard/Dashboard/Transaction_Chart";
 import LiveSupport from "@/components/dashboard/LiveSupport";
-import { usePathname } from "next/navigation";
+import { unstable_noStore as noStore } from "next/cache";
+import { disableCacheInServerComponent } from "@/lib/disable-cache";
+
+// Ensure dynamic content and no caching at the page level as well
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function page({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
 }) {
+  // Use both methods to ensure no caching
+  disableCacheInServerComponent();
+  noStore();
+
   const currentMode = searchParams.mode || "account";
   const transactionTab = searchParams.tab || "transfers";
 
