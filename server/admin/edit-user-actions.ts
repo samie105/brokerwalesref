@@ -336,3 +336,121 @@ export async function deleteUser(email: string) {
     return { success: false, error: String(error) };
   }
 }
+
+export async function updateDepositDate(
+  email: string,
+  depositId: string,
+  newDate: string
+) {
+  try {
+    await dbConnect();
+
+    const user = await User.findOne({ email, "depositHistory.id": depositId });
+    if (!user) {
+      return { success: false, error: "User or deposit not found" };
+    }
+
+    const update = {
+      $set: {
+        "depositHistory.$.date": new Date(newDate),
+      },
+    };
+
+    await User.findOneAndUpdate(
+      { email, "depositHistory.id": depositId },
+      update,
+      { new: true, runValidators: true }
+    );
+
+    revalidatePath("/admin");
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating deposit date:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+export async function updateTransferDate(
+  email: string,
+  transferId: string,
+  newDate: string
+) {
+  try {
+    await dbConnect();
+
+    const user = await User.findOne({ email, "transferHistory.id": transferId });
+    if (!user) {
+      return { success: false, error: "User or transfer not found" };
+    }
+
+    const update = {
+      $set: {
+        "transferHistory.$.date": new Date(newDate),
+      },
+    };
+
+    await User.findOneAndUpdate(
+      { email, "transferHistory.id": transferId },
+      update,
+      { new: true, runValidators: true }
+    );
+
+    revalidatePath("/admin");
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating transfer date:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+export async function addTransferHistory(email: string, transferData: any) {
+  try {
+    await dbConnect();
+
+    const newTransfer = {
+      ...transferData,
+      id: crypto.randomUUID(),
+      date: new Date(transferData.date),
+    };
+
+    const updateOperation: any = {
+      $push: {
+        transferHistory: newTransfer,
+        notifications: {
+          id: crypto.randomUUID(),
+          message:
+            transferData.status === "success"
+              ? `Your ${transferData.receipientBankName} transfer of $${transferData.amount.toFixed(
+                  2
+                )} to ${transferData.recipientName} is successful.`
+              : `Your ${transferData.receipientBankName} transfer of $${transferData.amount.toFixed(
+                  2
+                )} to ${transferData.recipientName} failed.`,
+          status: transferData.status === "success" ? "success" : "pending",
+          type: "transactional",
+          dateAdded: new Date(),
+        },
+      },
+      $set: { readNotification: false },
+    };
+
+    if (transferData.status === "success") {
+      updateOperation.$inc = { accountBalance: -transferData.amount };
+    }
+
+    const result = await User.findOneAndUpdate({ email }, updateOperation, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!result) {
+      return { success: false, error: "User not found" };
+    }
+
+    revalidatePath("/admin");
+    return { success: true };
+  } catch (error) {
+    console.error("Error adding transfer history:", error);
+    return { success: false, error: String(error) };
+  }
+}

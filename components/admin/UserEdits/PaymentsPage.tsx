@@ -26,6 +26,7 @@ import {
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { DialogContent } from "@radix-ui/react-dialog";
 import CreateDepositHistory from "./CreateDepositHistory";
+import EditHistoryDate from "./EditHistoryDate";
 
 export default function PaymentsPage({ data }: { data: IUser }) {
   const [paymentVerification, setPaymentVerification] = useState(
@@ -170,7 +171,16 @@ export default function PaymentsPage({ data }: { data: IUser }) {
                   <TableCell>{deposit.paymentMeans}</TableCell>
                   <TableCell>{deposit.status}</TableCell>
                   <TableCell>
-                    {new Date(deposit.date).toLocaleDateString()}
+                    <div className="flex items-center gap-2">
+                      {new Date(deposit.date).toLocaleDateString()}
+                      <EditHistoryDate
+                        email={data.email}
+                        itemId={deposit.id}
+                        currentDate={deposit.date}
+                        type="deposit"
+                        onDateUpdated={() => window.location.reload()}
+                      />
+                    </div>
                   </TableCell>
                   <TableCell>
                     <Popover>

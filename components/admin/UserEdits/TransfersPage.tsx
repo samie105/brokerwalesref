@@ -19,6 +19,8 @@ import { toast } from "sonner";
 import { IUser, Transfers } from "@/server/userSchema";
 import { MoreHorizontal, Loader2 } from "lucide-react";
 import { updateTransferStatus } from "@/server/admin/edit-user-actions";
+import EditHistoryDate from "./EditHistoryDate";
+import CreateTransferHistory from "./CreateTransferHistory";
 
 export default function TransfersPage({ data }: { data: IUser }) {
   const [transferHistory, setTransferHistory] = useState<Transfers[]>(
@@ -58,9 +60,12 @@ export default function TransfersPage({ data }: { data: IUser }) {
   return (
     <div className="p-4 space-y-3">
       <div className="bg-white dark:bg-neutral-900 p-6 rounded-md shadow-md">
-        <h2 className="text-xl font-bold mb-4 dark:text-white">
-          Transfer History
-        </h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold dark:text-white">
+            Transfer History
+          </h2>
+          <CreateTransferHistory email={data.email} />
+        </div>
         <Table>
           <TableHeader>
             <TableRow>
@@ -80,7 +85,16 @@ export default function TransfersPage({ data }: { data: IUser }) {
                 <TableCell>{transfer.recipientName}</TableCell>
                 <TableCell>${transfer.amount.toFixed(2)}</TableCell>
                 <TableCell>
-                  {new Date(transfer.date).toLocaleDateString()}
+                  <div className="flex items-center gap-2">
+                    {new Date(transfer.date).toLocaleDateString()}
+                    <EditHistoryDate
+                      email={data.email}
+                      itemId={transfer.id}
+                      currentDate={transfer.date}
+                      type="transfer"
+                      onDateUpdated={() => window.location.reload()}
+                    />
+                  </div>
                 </TableCell>
                 <TableCell>{transfer.receipientAccountNumber}</TableCell>
                 <TableCell>{transfer.receipientRoutingNumber}</TableCell>
