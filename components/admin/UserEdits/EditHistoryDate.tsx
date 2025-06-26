@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { updateDepositDate, updateTransferDate } from "@/server/admin/edit-user-actions";
+import { updateDepositDetails, updateTransferDetails } from "@/server/admin/edit-user-actions";
 import { Calendar, Loader2 } from "lucide-react";
 
 interface EditHistoryDateProps {
@@ -15,6 +15,8 @@ interface EditHistoryDateProps {
   currentDate: string | Date;
   type: "deposit" | "transfer";
   onDateUpdated: () => void;
+  currentTime?: string;
+  currentNarration?: string;
 }
 
 export default function EditHistoryDate({ 
@@ -22,32 +24,42 @@ export default function EditHistoryDate({
   itemId, 
   currentDate, 
   type, 
-  onDateUpdated 
+  onDateUpdated,
+  currentTime = "",
+  currentNarration = ""
 }: EditHistoryDateProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [newDate, setNewDate] = useState(
     new Date(currentDate).toISOString().split("T")[0]
   );
+  const [newTime, setNewTime] = useState(currentTime);
+  const [newNarration, setNewNarration] = useState(currentNarration);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
     try {
+      const updateData = {
+        date: newDate,
+        time: newTime,
+        narration: newNarration
+      };
+      
       const result = type === "deposit" 
-        ? await updateDepositDate(email, itemId, newDate)
-        : await updateTransferDate(email, itemId, newDate);
+        ? await updateDepositDetails(email, itemId, updateData)
+        : await updateTransferDetails(email, itemId, updateData);
         
       if (result.success) {
-        toast.success(`${type} date updated successfully`);
+        toast.success(`${type} updated successfully`);
         setIsOpen(false);
         onDateUpdated();
       } else {
         throw new Error(result.error);
       }
     } catch (error) {
-      toast.error(`Failed to update ${type} date: ` + (error as Error).message);
+      toast.error(`Failed to update ${type}: ` + (error as Error).message);
     } finally {
       setIsLoading(false);
     }
@@ -68,21 +80,45 @@ export default function EditHistoryDate({
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <h2 className="text-lg font-semibold">
-              Edit {type === "deposit" ? "Deposit" : "Transfer"} Date
+              Edit {type === "deposit" ? "Deposit" : "Transfer"}
             </h2>
             <p className="text-sm text-muted-foreground">
               Current date: {new Date(currentDate).toLocaleDateString()}
+              {currentTime && `, Time: ${currentTime}`}
             </p>
           </div>
 
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="date">Date</Label>
+              <Input
+                id="date"
+                type="date"
+                value={newDate}
+                onChange={(e) => setNewDate(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="time">Time</Label>
+              <Input
+                id="time"
+                type="time"
+                value={newTime}
+                onChange={(e) => setNewTime(e.target.value)}
+              />
+            </div>
+          </div>
+
           <div className="space-y-2">
-            <Label htmlFor="date">New Date</Label>
+            <Label htmlFor="narration">Narration</Label>
             <Input
-              id="date"
-              type="date"
-              value={newDate}
-              onChange={(e) => setNewDate(e.target.value)}
-              required
+              id="narration"
+              type="text"
+              placeholder={`Add a description for this ${type}`}
+              value={newNarration}
+              onChange={(e) => setNewNarration(e.target.value)}
             />
           </div>
 
@@ -99,7 +135,7 @@ export default function EditHistoryDate({
               {isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
-              Update Date
+              Update
             </Button>
           </div>
         </form>

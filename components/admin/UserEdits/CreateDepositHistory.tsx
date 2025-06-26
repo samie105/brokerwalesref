@@ -20,6 +20,8 @@ type DepositFormData = {
   paymentMeans: "mobile deposit" | "check" | "wire deposit" | "ACH";
   status: "failed" | "success";
   date: string;
+  time: string;
+  narration: string;
 };
 
 export default function CreateDepositHistory({ email }: { email: string }) {
@@ -29,6 +31,8 @@ export default function CreateDepositHistory({ email }: { email: string }) {
     paymentMeans: "mobile deposit",
     status: "failed",
     date: new Date().toISOString().split("T")[0],
+    time: new Date().toTimeString().slice(0, 5),
+    narration: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,6 +47,8 @@ export default function CreateDepositHistory({ email }: { email: string }) {
           paymentMeans: "mobile deposit",
           status: "failed",
           date: new Date().toISOString().split("T")[0],
+          time: new Date().toTimeString().slice(0, 5),
+          narration: "",
         });
       } else {
         throw new Error(result.error);
@@ -114,16 +120,44 @@ export default function CreateDepositHistory({ email }: { email: string }) {
             </Select>
           </div>
 
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="date">Date</Label>
+              <Input
+                id="date"
+                type="date"
+                value={formData.date}
+                onChange={(e) =>
+                  setFormData({ ...formData, date: e.target.value })
+                }
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="time">Time</Label>
+              <Input
+                id="time"
+                type="time"
+                value={formData.time}
+                onChange={(e) =>
+                  setFormData({ ...formData, time: e.target.value })
+                }
+                required
+              />
+            </div>
+          </div>
+
           <div className="space-y-2">
-            <Label htmlFor="date">Date</Label>
+            <Label htmlFor="narration">Narration</Label>
             <Input
-              id="date"
-              type="date"
-              value={formData.date}
+              id="narration"
+              type="text"
+              placeholder="Add a description or note for this deposit"
+              value={formData.narration}
               onChange={(e) =>
-                setFormData({ ...formData, date: e.target.value })
+                setFormData({ ...formData, narration: e.target.value })
               }
-              required
             />
           </div>
 

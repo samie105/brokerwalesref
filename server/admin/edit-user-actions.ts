@@ -454,3 +454,85 @@ export async function addTransferHistory(email: string, transferData: any) {
     return { success: false, error: String(error) };
   }
 }
+
+export async function updateDepositDetails(
+  email: string,
+  depositId: string,
+  updateData: { date?: string; time?: string; narration?: string }
+) {
+  try {
+    await dbConnect();
+
+    const user = await User.findOne({ email, "depositHistory.id": depositId });
+    if (!user) {
+      return { success: false, error: "User or deposit not found" };
+    }
+
+    const updateFields: any = {};
+
+    if (updateData.date) {
+      updateFields["depositHistory.$.date"] = new Date(updateData.date);
+    }
+    if (updateData.time !== undefined) {
+      updateFields["depositHistory.$.time"] = updateData.time;
+    }
+    if (updateData.narration !== undefined) {
+      updateFields["depositHistory.$.narration"] = updateData.narration;
+    }
+
+    const update = { $set: updateFields };
+
+    await User.findOneAndUpdate(
+      { email, "depositHistory.id": depositId },
+      update,
+      { new: true, runValidators: true }
+    );
+
+    revalidatePath("/admin");
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating deposit details:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+export async function updateTransferDetails(
+  email: string,
+  transferId: string,
+  updateData: { date?: string; time?: string; narration?: string }
+) {
+  try {
+    await dbConnect();
+
+    const user = await User.findOne({ email, "transferHistory.id": transferId });
+    if (!user) {
+      return { success: false, error: "User or transfer not found" };
+    }
+
+    const updateFields: any = {};
+
+    if (updateData.date) {
+      updateFields["transferHistory.$.date"] = new Date(updateData.date);
+    }
+    if (updateData.time !== undefined) {
+      updateFields["transferHistory.$.time"] = updateData.time;
+    }
+    if (updateData.narration !== undefined) {
+      updateFields["transferHistory.$.narration"] = updateData.narration;
+    }
+
+    const update = { $set: updateFields };
+
+    await User.findOneAndUpdate(
+      { email, "transferHistory.id": transferId },
+      update,
+      { new: true, runValidators: true }
+    );
+
+    revalidatePath("/admin");
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating transfer details:", error);
+    return { success: false, error: String(error) };
+  }
+}

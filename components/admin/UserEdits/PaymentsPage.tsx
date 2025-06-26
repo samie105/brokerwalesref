@@ -146,6 +146,8 @@ export default function PaymentsPage({ data }: { data: IUser }) {
               <TableHead>Payment Means</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Date</TableHead>
+              <TableHead>Time</TableHead>
+              <TableHead>Narration</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -177,9 +179,19 @@ export default function PaymentsPage({ data }: { data: IUser }) {
                         email={data.email}
                         itemId={deposit.id}
                         currentDate={deposit.date}
+                        currentTime={deposit.time}
+                        currentNarration={deposit.narration}
                         type="deposit"
                         onDateUpdated={() => window.location.reload()}
                       />
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    {deposit.time || "N/A"}
+                  </TableCell>
+                  <TableCell>
+                    <div className="max-w-xs truncate" title={deposit.narration}>
+                      {deposit.narration || "N/A"}
                     </div>
                   </TableCell>
                   <TableCell>

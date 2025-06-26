@@ -28,6 +28,8 @@ export interface Deposits {
   paymentMeans: "mobile deposit" | "check";
   status: "failed" | "success" | "pending";
   date: Date;
+  time?: string;
+  narration?: string;
   screenshotLink: string;
 }
 
@@ -36,6 +38,8 @@ export interface Transfers {
   recipientName: string;
   amount: number;
   date: Date;
+  time?: string;
+  narration?: string;
   receipientAccountNumber: number;
   receipientRoutingNumber: number;
   status: "success" | "failed" | "pending";
@@ -144,6 +148,8 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
       paymentMeans: { type: String, enum: ["mobile deposit", "check"] },
       status: { type: String, enum: ["failed", "success", "pending"] },
       date: { type: Date },
+      time: { type: String },
+      narration: { type: String },
       screenshotLink: { type: String },
     },
   ],
@@ -153,6 +159,8 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
       recipientName: { type: String },
       amount: { type: Number },
       date: { type: Date },
+      time: { type: String },
+      narration: { type: String },
       receipientAccountNumber: { type: Number },
       receipientRoutingNumber: { type: Number },
       status: { type: String, enum: ["success", "failed", "pending"] },

@@ -23,6 +23,8 @@ type Transfers = {
   recipientName: string;
   amount: number;
   date: Date;
+  time?: string;
+  narration?: string;
   receipientAccountNumber: number;
   receipientRoutingNumber: number;
   status: "success" | "failed" | "pending";
@@ -34,6 +36,8 @@ type Deposits = {
   paymentMeans: "mobile deposit" | "check";
   status: "failed" | "success" | "pending";
   date: Date;
+  time?: string;
+  narration?: string;
   screenshotLink: string;
 };
 

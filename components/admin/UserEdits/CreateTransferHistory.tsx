@@ -23,6 +23,8 @@ type TransferFormData = {
   receipientBankName: string;
   status: "failed" | "success" | "pending";
   date: string;
+  time: string;
+  narration: string;
 };
 
 export default function CreateTransferHistory({ email }: { email: string }) {
@@ -35,6 +37,8 @@ export default function CreateTransferHistory({ email }: { email: string }) {
     receipientBankName: "",
     status: "pending",
     date: new Date().toISOString().split("T")[0],
+    time: new Date().toTimeString().slice(0, 5),
+    narration: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -52,6 +56,8 @@ export default function CreateTransferHistory({ email }: { email: string }) {
           receipientBankName: "",
           status: "pending",
           date: new Date().toISOString().split("T")[0],
+          time: new Date().toTimeString().slice(0, 5),
+          narration: "",
         });
       } else {
         throw new Error(result.error);
@@ -148,7 +154,7 @@ export default function CreateTransferHistory({ email }: { email: string }) {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             <div className="space-y-2">
               <Label htmlFor="status">Status</Label>
               <Select
@@ -180,6 +186,32 @@ export default function CreateTransferHistory({ email }: { email: string }) {
                 required
               />
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="time">Time</Label>
+              <Input
+                id="time"
+                type="time"
+                value={formData.time}
+                onChange={(e) =>
+                  setFormData({ ...formData, time: e.target.value })
+                }
+                required
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="narration">Narration</Label>
+            <Input
+              id="narration"
+              type="text"
+              placeholder="Add a description or note for this transfer"
+              value={formData.narration}
+              onChange={(e) =>
+                setFormData({ ...formData, narration: e.target.value })
+              }
+            />
           </div>
 
           <Button

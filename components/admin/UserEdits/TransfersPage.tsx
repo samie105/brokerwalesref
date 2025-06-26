@@ -72,6 +72,8 @@ export default function TransfersPage({ data }: { data: IUser }) {
               <TableHead>Recipient</TableHead>
               <TableHead>Amount</TableHead>
               <TableHead>Date</TableHead>
+              <TableHead>Time</TableHead>
+              <TableHead>Narration</TableHead>
               <TableHead>Account Number</TableHead>
               <TableHead>Routing Number</TableHead>
               <TableHead>Bank Name</TableHead>
@@ -91,9 +93,19 @@ export default function TransfersPage({ data }: { data: IUser }) {
                       email={data.email}
                       itemId={transfer.id}
                       currentDate={transfer.date}
+                      currentTime={transfer.time}
+                      currentNarration={transfer.narration}
                       type="transfer"
                       onDateUpdated={() => window.location.reload()}
                     />
+                  </div>
+                </TableCell>
+                <TableCell>
+                  {transfer.time || "N/A"}
+                </TableCell>
+                <TableCell>
+                  <div className="max-w-xs truncate" title={transfer.narration}>
+                    {transfer.narration || "N/A"}
                   </div>
                 </TableCell>
                 <TableCell>{transfer.receipientAccountNumber}</TableCell>
